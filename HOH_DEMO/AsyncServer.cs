@@ -68,7 +68,7 @@ namespace HOH_DEMO
                 listener.Bind(localEndPoint);
                 listener.Listen(100);
 
-                    
+                new Thread(new ThreadStart(refreshClients)).Start();
 
                 while (setrun)
                 {
@@ -84,16 +84,6 @@ namespace HOH_DEMO
 
                     // Wait until a connection is made before continuing.  
                     allDone.WaitOne();
-
-                    //checks if clients are disconnected
-                    for (int i = MySocketList.Count - 1; i >= 0; i--)
-                    {
-                            if (!IsConnected(MySocketList[i]))
-                            {
-                                MySocketList[i].Disconnect(false);
-                                MySocketList.RemoveAt(i);
-                            }
-                        }
 
                 }
 
@@ -205,7 +195,7 @@ namespace HOH_DEMO
         }
 
         public static void Send(Socket handler, String data)
-        {
+        { 
             // Convert the string data to byte data using ASCII encoding.  
             byte[] byteData = Encoding.ASCII.GetBytes(data);
 
@@ -259,6 +249,21 @@ namespace HOH_DEMO
             }
             catch (SocketException) { return false; }
         }
+
+        public static void refreshClients()
+        {
+            while(true)
+            //checks if clients are disconnected
+            for (int i = MySocketList.Count - 1; i >= 0; i--)
+            {
+                if (!IsConnected(MySocketList[i]))
+                {
+                    MySocketList[i].Disconnect(false);
+                    MySocketList.RemoveAt(i);
+                }
+            }
+        }
+
 
             //public static int Main(String[] args)
             //{

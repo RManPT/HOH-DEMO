@@ -64,7 +64,9 @@
             this.btnCTMLogClear = new System.Windows.Forms.Button();
             this.txtCTMLog = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericUpDownExerciceTime = new System.Windows.Forms.NumericUpDown();
+            this.comboTreatment = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.trackCTMBaseline = new System.Windows.Forms.TrackBar();
             this.label19 = new System.Windows.Forms.Label();
@@ -124,8 +126,8 @@
             this.btnServerStart = new System.Windows.Forms.Button();
             this.txtServerPort = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer_sync = new System.Windows.Forms.Timer(this.components);
+            this.TreatmentTimer = new System.Windows.Forms.Timer(this.components);
+            this.ExerciceResetTimer = new System.Windows.Forms.Timer(this.components);
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -142,6 +144,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericCTMUpDownCounter)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExerciceTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackCTMBaseline)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackCTMThreshold)).BeginInit();
             this.gbCTMTimer.SuspendLayout();
@@ -557,7 +560,9 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.comboBox1);
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.numericUpDownExerciceTime);
+            this.groupBox5.Controls.Add(this.comboTreatment);
             this.groupBox5.Controls.Add(this.label20);
             this.groupBox5.Controls.Add(this.trackCTMBaseline);
             this.groupBox5.Controls.Add(this.label19);
@@ -570,17 +575,49 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Exercice";
             // 
-            // comboBox1
+            // label9
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(184, 18);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(44, 13);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Time (s)";
+            // 
+            // numericUpDownExerciceTime
+            // 
+            this.numericUpDownExerciceTime.Location = new System.Drawing.Point(297, 14);
+            this.numericUpDownExerciceTime.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownExerciceTime.Name = "numericUpDownExerciceTime";
+            this.numericUpDownExerciceTime.Size = new System.Drawing.Size(54, 20);
+            this.numericUpDownExerciceTime.TabIndex = 8;
+            this.numericUpDownExerciceTime.Tag = "";
+            this.numericUpDownExerciceTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDownExerciceTime.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownExerciceTime.ValueChanged += new System.EventHandler(this.numericUpDownExerciceTime_ValueChanged);
+            // 
+            // comboTreatment
+            // 
+            this.comboTreatment.FormattingEnabled = true;
+            this.comboTreatment.Items.AddRange(new object[] {
             "CTM Close",
             "CTM Open",
             "STM"});
-            this.comboBox1.Location = new System.Drawing.Point(187, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(164, 21);
-            this.comboBox1.TabIndex = 6;
+            this.comboTreatment.Location = new System.Drawing.Point(187, 40);
+            this.comboTreatment.Name = "comboTreatment";
+            this.comboTreatment.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.comboTreatment.Size = new System.Drawing.Size(164, 21);
+            this.comboTreatment.TabIndex = 6;
+            this.comboTreatment.Text = "Select action";
+            this.comboTreatment.SelectedIndexChanged += new System.EventHandler(this.comboTreatment_SelectedIndexChanged);
             // 
             // label20
             // 
@@ -634,7 +671,7 @@
             this.btnCTMStart.TabIndex = 0;
             this.btnCTMStart.Text = "Start";
             this.btnCTMStart.UseVisualStyleBackColor = true;
-            this.btnCTMStart.Click += new System.EventHandler(this.btnCTMCloseHand_Click);
+            this.btnCTMStart.Click += new System.EventHandler(this.btnCTMStart_click);
             // 
             // gbCTMTimer
             // 
@@ -1229,15 +1266,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Port";
             // 
-            // timer1
+            // TreatmentTimer
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.TreatmentTimer.Interval = 1000;
+            this.TreatmentTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // timer_sync
+            // ExerciceResetTimer
             // 
-            this.timer_sync.Interval = 1000;
-            this.timer_sync.Tick += new System.EventHandler(this.timer_sync_Tick);
+            this.ExerciceResetTimer.Interval = 10000;
+            this.ExerciceResetTimer.Tick += new System.EventHandler(this.ExerciceResetTimer_Tick);
             // 
             // actionTimer
             // 
@@ -1281,6 +1318,7 @@
             this.groupBox4.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExerciceTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackCTMBaseline)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackCTMThreshold)).EndInit();
             this.gbCTMTimer.ResumeLayout(false);
@@ -1373,7 +1411,7 @@
         private System.Windows.Forms.Button btnCPMLogClear;
         private System.Windows.Forms.TextBox txtCPMLog;
         private System.Windows.Forms.NumericUpDown numericCPMUpDownMinutes;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer TreatmentTimer;
         private System.Windows.Forms.NumericUpDown numericCPMUpDownSeconds;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
@@ -1407,8 +1445,10 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TrackBar trackCTMBaseline;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Timer timer_sync;
+        private System.Windows.Forms.Timer ExerciceResetTimer;
         private System.Windows.Forms.Timer actionTimer;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboTreatment;
+        private System.Windows.Forms.NumericUpDown numericUpDownExerciceTime;
+        private System.Windows.Forms.Label label9;
     }
 }

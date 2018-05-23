@@ -24,6 +24,7 @@ namespace HOH_DEMO
         private bool runCPMWhole = false;
         private bool runCPMPinch = false;
         private bool runCTMOpen = false;
+        private bool runCTM = false;
         private bool runCTMClose = false;
         private bool connectedHOH = false;
         private bool calibratedHOH = false;
@@ -286,26 +287,52 @@ namespace HOH_DEMO
                     }
 
 
-                    if (runCTMClose)
+   /*                 if (runCTM)
                     {
-                        if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
-                        {
-                            txtCTMLog.AppendText("\r\nHOH -> CLOSING HAND");
-                            //sendAll(((char)12).ToString());
 
+                        if (runCTMClose)
+                        { 
+                            if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
+                            {
+                                txtCTMLog.AppendText("\r\nHOH -> CLOSING HAND");
+                                //sendAll(((char)12).ToString());
+
+                            }
+                            if (msgRcvHOH.Contains("Exit hand closing"))
+                            {
+                                txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
+                                //sendAll(((char)11).ToString());
+                                //FORCAR ABERTURA DE MAO AUTOMATICO
+                                CPMCounter++;
+                                buttonfullyopen_Click(sender, e);
+                                previousCMDReceived = 0;
+                            }
+                            //txtCTMLog.AppendText("->" + msgRcvHOH);
+                            msgRcvHOH = "";
                         }
-                        if (msgRcvHOH.Contains("Exit hand closing"))
+
+                        if (runCTMOpen)
                         {
-                            txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
-                            //sendAll(((char)11).ToString());
-                            //FORCAR ABERTURA DE MAO AUTOMATICO
-                            CPMCounter++;
-                            buttonfullyopen_Click(sender, e);
-                            previousCMDReceived = 0;
+                            if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
+                            {
+                                txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
+                                //sendAll(((char)12).ToString());
+
+                            }
+                            if (msgRcvHOH.Contains("Exit hand closing"))
+                            {
+                                txtCTMLog.AppendText("\r\nHOH -> ClOSING HAND");
+                                //sendAll(((char)11).ToString());
+                                //FORCAR FECHO DE MAO AUTOMATICO
+                                CPMCounter++;
+                                buttonfullyclose_Click(sender, e);
+                                previousCMDReceived = 0;
+                            }
+                            //txtCTMLog.AppendText("->" + msgRcvHOH);
+                            msgRcvHOH = "";
                         }
-                        //txtCTMLog.AppendText("->" + msgRcvHOH);
-                        msgRcvHOH = "";
                     }
+                    */
                 }     
             }));
         }
@@ -465,20 +492,6 @@ namespace HOH_DEMO
             buttonfullyopen_Click(sender, e);
         }
 
-        private void timer_sync_Tick(object sender, EventArgs e)
-        {
-            
-            if (timeSync % 10 == 0 || timeSync == 0)
-            {
-                txtCPMLog.AppendText("\r\nTIMER_SYNC: " + timeSync + "s - " + msgToSendSF);
-                txtCTMLog.AppendText("\r\nTIMER_SYNC: " + timeSync + "s - " + msgToSendSF);
-                //  txtSTMLog.AppendText("\r\nTIMER_SYNC: " + timeSync + "s");
-
-                //Sends Sync Message
-                sendAll(((char)msgToSendSF).ToString());
-            }
-            timeSync++;
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -503,7 +516,7 @@ namespace HOH_DEMO
             lblCPMTimer.Text = timeToStr(CPMTimeCounter);
             lblCPMCounter.Text = CPMCounter.ToString();
 
-            if (runCTMClose)
+            if (runCTM)
             {
                 if (rbCTMTimer.Checked)
                 {
@@ -511,8 +524,9 @@ namespace HOH_DEMO
                     //incrementar contador de movimentos concluidos
                     if (CPMTimeCounter == 0)
                     {
-                        btnCTMCloseHand_Click(sender, e); //enviar para tarefa de fim de exercício
-                        txtCTMLog.AppendText("\r\nCTM - Close Hand treatment concluded! Well done!");
+                        btnCTMStart_click(sender, e); //enviar para tarefa de fim de exercício
+                        if (runCTMClose) txtCTMLog.AppendText("\r\nCTM - Close Hand treatment concluded! Well done!");
+                        if (runCTMOpen) txtCTMLog.AppendText("\r\nCTM - Open Hand treatment concluded! Well done!");
                     }
                 }
                 if (rbCTMCounter.Checked)
@@ -529,7 +543,7 @@ namespace HOH_DEMO
         /// Reset sync timer
         /// </summary>
         private void timerSyncReset() {
-            timer_sync.Stop();
+            ExerciceResetTimer.Stop();
             //timer_sync.Enabled = false;
             //timer_sync.Enabled = true;
             timeSync=0;
@@ -543,16 +557,64 @@ namespace HOH_DEMO
                     buttonfullyclose_Click(sender, e); //envia comando de CTM Close 
                     txtCTMLog.AppendText("\r\nWell done, closing hand!");
                     //commandProcessed = true;    //certifica que não há comandos processados multiplas 
-                    previousCMDReceived = LastCMDReceived;
-                    commandProcessed = true;
                 }
+
+            if (runCTMOpen)
+                if (LastCMDReceived == 21 && LastCMDReceived != previousCMDReceived && commandProcessed == false)
+                { //se sinal detectado indica o movimento desejado actua em conformidade
+                    buttonfullyopen_Click(sender, e); //envia comando de CTM Close 
+                    txtCTMLog.AppendText("\r\nWell done, opening hand!");
+                    //commandProcessed = true;    //certifica que não há comandos processados multiplas 
+                }
+            previousCMDReceived = LastCMDReceived;
+            commandProcessed = true;
+
+            lblClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
         }
-        #endregion
+
+        private void ExerciceResetTimer_Tick(object sender, EventArgs e)
+        {
+            txtCPMLog.AppendText("\r\nExercise Timeout: reseting... " + msgToSendSF);
+            txtCTMLog.AppendText("\r\nExercise Timeout: reseting... " + msgToSendSF);
+            //  txtSTMLog.AppendText("\r\nTIMER_SYNC: " + timeSync + "s");
+
+            ExerciceResetTimer.Stop();
+            //resets HOH
+            if (runCTMClose)
+            { 
+                txtCTMLog.AppendText("\r\nHOH -> RESET OPENING HAND");
+                //sendAll(((char)11).ToString());
+                //FORCAR ABERTURA DE MAO AUTOMATICO
+                CPMCounter++;
+                buttonfullyopen_Click(sender, e);
+                previousCMDReceived = 0;
+            }
+
+            if (runCTMOpen)
+            {
+                txtCTMLog.AppendText("\r\nHOH -> RESET CLOSING HAND");
+                //sendAll(((char)11).ToString());
+                //FORCAR FECHO DE MAO AUTOMATICO
+                CPMCounter++;
+                buttonfullyclose_Click(sender, e);
+                previousCMDReceived = 0;
+            }
+
+            //checks if reset is done and allows restart  timer
+            ExerciceResetTimer.Start();
 
 
-        #region server tab
 
-        private void btnServerSend_Click(object sender, EventArgs e)
+            //Sends Sync Message
+            sendAll(((char)msgToSendSF).ToString());
+        }
+
+            #endregion
+
+
+            #region server tab
+
+            private void btnServerSend_Click(object sender, EventArgs e)
         {
             AsyncServer.Send(AsyncServer.currentClient, txtServerSend.Text);
         }
@@ -653,13 +715,13 @@ namespace HOH_DEMO
                 gbCounter.Enabled = false;
                 if (rbCPMTimer.Checked) CPMCounter = 0;
                 if (rbCPMCounter.Checked) CPMTimeCounter = 0;
-                timer1.Start();
+                TreatmentTimer.Start();
                 txtCPMLog.AppendText("\r\nWhole Hand treatment started");
 
                 //deve reenviar comando sempre que o movimento terminar até que haja interrupção
                 //deve terminar de mao aberta
                 //deve enviar indicação de alteração de movimento para sfunction assim como de cada vez que há interrupcao ou quando o exercicio termina
-                timer_sync.Start();
+                ExerciceResetTimer.Start();
                 buttonCPM_Click(sender, e); //envia comando de CPM 
 
             }
@@ -669,7 +731,7 @@ namespace HOH_DEMO
                 btnPinch.Enabled = true;
                 gbTimer.Enabled = true;
                 gbCounter.Enabled = true;
-                timer1.Stop();
+                TreatmentTimer.Stop();
                 if (CPMTimeCounter != 0) txtCPMLog.AppendText("\r\nWhole Hand treatment paused");
                 timerSyncReset();
                 buttonPause_Click(sender, e);
@@ -786,38 +848,66 @@ namespace HOH_DEMO
             }
         }
 
-        private void btnCTMCloseHand_Click(object sender, EventArgs e)
+
+        private void btnCTMStart_click(object sender, EventArgs e)
         {
-            if (!runCTMClose)
+            if (comboTreatment.SelectedItem == null)
+                comboTreatment.SelectedIndex = 0;
+
+            switch (comboTreatment.SelectedItem.ToString())
             {
+                case "CTM Close":
+                    runCTMClose = true;
+                    break;
+
+                case "CTM Open":
+                    runCTMOpen = true;
+                    break;
+
+                default:
+                    break;
+            }
+
+
+            if (!runCTM)
+            {
+                //makes sure there is an exercise selected
                 btnCTMStart.Text = "Stop";
-  //              btnCTMOpenHand.Enabled = false;
+                //              btnCTMOpenHand.Enabled = false;
                 gbCTMTimer.Enabled = false;
                 gbCTMCounter.Enabled = false;
                 if (rbCTMTimer.Checked) CPMCounter = 0;
                 if (rbCTMCounter.Checked) CPMTimeCounter = 0;
-                timer1.Start();
-                txtCTMLog.AppendText("\r\nContinuous Triggered Mode - Open Hand treatment started");
+                TreatmentTimer.Start();
+                ExerciceResetTimer.Start();
+                ExerciceResetTimer_Tick(sender, e);
+                actionTimer.Start();
+                if (runCTMOpen) txtCTMLog.AppendText("\r\nContinuous Triggered Mode - Open Hand treatment started");
+                if (runCTMClose) txtCTMLog.AppendText("\r\nContinuous Triggered Mode - Close Hand treatment started");
                 //deve reenviar comando sempre que o movimento terminar até que haja interrupção
                 //deve terminar de mao aberta
                 //deve enviar indicação de alteração de movimento para sfunction assim como de cada vez que há interrupcao ou quando o exercicio termina
-                timer_sync.Start();
                 //desactivar outros modos
-                msgToSendSF = 22;
+
+                //update msgToSendSF
+                comboTreatment_SelectedIndexChanged(sender, e);
             }
             else
             {
-                btnCTMStart.Text = "Close hand";
- //               btnCTMOpenHand.Enabled = true;
+                btnCTMStart.Text = "Start";
+                //               btnCTMOpenHand.Enabled = true;
                 gbCTMTimer.Enabled = true;
                 gbCTMCounter.Enabled = true;
-                timer1.Stop();
-                if (CPMTimeCounter != 0) txtCPMLog.AppendText("\r\nCTM Close Hand treatment paused");
+                TreatmentTimer.Stop();
+                if (CPMTimeCounter != 0) txtCPMLog.AppendText("\r\nCTM Treatment paused");
                 timerSyncReset();
+                actionTimer.Stop();
                 buttonPause_Click(sender, e);
                 buttonExit_Click(sender, e);
+                if (runCTMOpen) runCTMOpen = false;
+                if (runCTMClose) runCTMClose = false;
             }
-            runCTMClose = !runCTMClose;
+            runCTM = !runCTM;
         }
 
 
@@ -825,5 +915,31 @@ namespace HOH_DEMO
         #endregion
 
         #endregion
+
+
+
+        private void comboTreatment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboTreatment.SelectedItem.ToString())
+            {
+                case "CTM Close":
+                    msgToSendSF = 22;
+                    break;
+
+                case "CTM Open":
+                    msgToSendSF = 21;
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        private void numericUpDownExerciceTime_ValueChanged(object sender, EventArgs e)
+        {
+            ExerciceResetTimer.Interval = (int)numericUpDownExerciceTime.Value * 1000;
+        }
+
     }
 }
