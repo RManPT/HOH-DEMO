@@ -111,7 +111,7 @@
             this.buttontest = new System.Windows.Forms.Button();
             this.tabServer = new System.Windows.Forms.TabPage();
             this.gboxServerLog = new System.Windows.Forms.GroupBox();
-            this.lblClientsConnected = new System.Windows.Forms.Label();
+            this.lblServerClientsConnected = new System.Windows.Forms.Label();
             this.btnServerLogClear = new System.Windows.Forms.Button();
             this.txtServerLog = new System.Windows.Forms.TextBox();
             this.gboxServerControls = new System.Windows.Forms.GroupBox();
@@ -129,6 +129,9 @@
             this.TreatmentTimer = new System.Windows.Forms.Timer(this.components);
             this.ExerciceResetTimer = new System.Windows.Forms.Timer(this.components);
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblCPMClientsConnected = new System.Windows.Forms.Label();
+            this.cbxCTMAutoMove = new System.Windows.Forms.CheckBox();
+            this.cbxCTMAutoReset = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabCPM.SuspendLayout();
@@ -471,7 +474,7 @@
             this.gbCTMCounter.Controls.Add(this.numericCTMUpDownCounter);
             this.gbCTMCounter.Location = new System.Drawing.Point(194, 5);
             this.gbCTMCounter.Name = "gbCTMCounter";
-            this.gbCTMCounter.Size = new System.Drawing.Size(171, 207);
+            this.gbCTMCounter.Size = new System.Drawing.Size(171, 153);
             this.gbCTMCounter.TabIndex = 8;
             this.gbCTMCounter.TabStop = false;
             this.gbCTMCounter.Text = "Counter";
@@ -479,7 +482,7 @@
             // rbCTMCounter
             // 
             this.rbCTMCounter.AutoSize = true;
-            this.rbCTMCounter.Location = new System.Drawing.Point(18, 172);
+            this.rbCTMCounter.Location = new System.Drawing.Point(18, 122);
             this.rbCTMCounter.Name = "rbCTMCounter";
             this.rbCTMCounter.Size = new System.Drawing.Size(104, 17);
             this.rbCTMCounter.TabIndex = 7;
@@ -491,7 +494,7 @@
             // lblCTMCounter
             // 
             this.lblCTMCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCTMCounter.Location = new System.Drawing.Point(13, 102);
+            this.lblCTMCounter.Location = new System.Drawing.Point(13, 82);
             this.lblCTMCounter.Name = "lblCTMCounter";
             this.lblCTMCounter.Size = new System.Drawing.Size(143, 25);
             this.lblCTMCounter.TabIndex = 6;
@@ -530,6 +533,7 @@
             // groupBox4
             // 
             this.groupBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox4.Controls.Add(this.lblCPMClientsConnected);
             this.groupBox4.Controls.Add(this.btnCTMLogClear);
             this.groupBox4.Controls.Add(this.txtCTMLog);
             this.groupBox4.Location = new System.Drawing.Point(7, 385);
@@ -560,6 +564,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.cbxCTMAutoReset);
+            this.groupBox5.Controls.Add(this.cbxCTMAutoMove);
             this.groupBox5.Controls.Add(this.label9);
             this.groupBox5.Controls.Add(this.numericUpDownExerciceTime);
             this.groupBox5.Controls.Add(this.comboTreatment);
@@ -568,9 +574,9 @@
             this.groupBox5.Controls.Add(this.label19);
             this.groupBox5.Controls.Add(this.trackCTMThreshold);
             this.groupBox5.Controls.Add(this.btnCTMStart);
-            this.groupBox5.Location = new System.Drawing.Point(7, 218);
+            this.groupBox5.Location = new System.Drawing.Point(7, 164);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(360, 162);
+            this.groupBox5.Size = new System.Drawing.Size(360, 216);
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Exercice";
@@ -622,7 +628,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(9, 75);
+            this.label20.Location = new System.Drawing.Point(9, 123);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(47, 13);
             this.label20.TabIndex = 5;
@@ -632,7 +638,7 @@
             // 
             this.trackCTMBaseline.AutoSize = false;
             this.trackCTMBaseline.Enabled = false;
-            this.trackCTMBaseline.Location = new System.Drawing.Point(6, 88);
+            this.trackCTMBaseline.Location = new System.Drawing.Point(6, 139);
             this.trackCTMBaseline.Maximum = 100;
             this.trackCTMBaseline.Name = "trackCTMBaseline";
             this.trackCTMBaseline.Size = new System.Drawing.Size(348, 19);
@@ -644,7 +650,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(9, 110);
+            this.label19.Location = new System.Drawing.Point(9, 158);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(65, 13);
             this.label19.TabIndex = 3;
@@ -653,7 +659,7 @@
             // trackCTMThreshold
             // 
             this.trackCTMThreshold.AutoSize = false;
-            this.trackCTMThreshold.Location = new System.Drawing.Point(6, 126);
+            this.trackCTMThreshold.Location = new System.Drawing.Point(6, 177);
             this.trackCTMThreshold.Maximum = 100;
             this.trackCTMThreshold.Name = "trackCTMThreshold";
             this.trackCTMThreshold.Size = new System.Drawing.Size(348, 30);
@@ -683,7 +689,7 @@
             this.gbCTMTimer.Controls.Add(this.numericCTMUpDownMinutes);
             this.gbCTMTimer.Location = new System.Drawing.Point(7, 5);
             this.gbCTMTimer.Name = "gbCTMTimer";
-            this.gbCTMTimer.Size = new System.Drawing.Size(171, 207);
+            this.gbCTMTimer.Size = new System.Drawing.Size(171, 153);
             this.gbCTMTimer.TabIndex = 5;
             this.gbCTMTimer.TabStop = false;
             this.gbCTMTimer.Text = "Timer";
@@ -691,7 +697,7 @@
             // rbCTMTimer
             // 
             this.rbCTMTimer.AutoSize = true;
-            this.rbCTMTimer.Location = new System.Drawing.Point(13, 172);
+            this.rbCTMTimer.Location = new System.Drawing.Point(13, 122);
             this.rbCTMTimer.Name = "rbCTMTimer";
             this.rbCTMTimer.Size = new System.Drawing.Size(93, 17);
             this.rbCTMTimer.TabIndex = 6;
@@ -702,7 +708,7 @@
             // lblCTMTimer
             // 
             this.lblCTMTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCTMTimer.Location = new System.Drawing.Point(13, 102);
+            this.lblCTMTimer.Location = new System.Drawing.Point(13, 80);
             this.lblCTMTimer.Name = "lblCTMTimer";
             this.lblCTMTimer.Size = new System.Drawing.Size(138, 25);
             this.lblCTMTimer.TabIndex = 5;
@@ -1105,7 +1111,7 @@
             // gboxServerLog
             // 
             this.gboxServerLog.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.gboxServerLog.Controls.Add(this.lblClientsConnected);
+            this.gboxServerLog.Controls.Add(this.lblServerClientsConnected);
             this.gboxServerLog.Controls.Add(this.btnServerLogClear);
             this.gboxServerLog.Controls.Add(this.txtServerLog);
             this.gboxServerLog.Location = new System.Drawing.Point(9, 172);
@@ -1115,14 +1121,14 @@
             this.gboxServerLog.TabStop = false;
             this.gboxServerLog.Text = "Log";
             // 
-            // lblClientsConnected
+            // lblServerClientsConnected
             // 
-            this.lblClientsConnected.AutoSize = true;
-            this.lblClientsConnected.Location = new System.Drawing.Point(7, 329);
-            this.lblClientsConnected.Name = "lblClientsConnected";
-            this.lblClientsConnected.Size = new System.Drawing.Size(95, 13);
-            this.lblClientsConnected.TabIndex = 2;
-            this.lblClientsConnected.Text = "Clients connected:";
+            this.lblServerClientsConnected.AutoSize = true;
+            this.lblServerClientsConnected.Location = new System.Drawing.Point(7, 329);
+            this.lblServerClientsConnected.Name = "lblServerClientsConnected";
+            this.lblServerClientsConnected.Size = new System.Drawing.Size(95, 13);
+            this.lblServerClientsConnected.TabIndex = 2;
+            this.lblServerClientsConnected.Text = "Clients connected:";
             // 
             // btnServerLogClear
             // 
@@ -1281,6 +1287,37 @@
             this.actionTimer.Interval = 250;
             this.actionTimer.Tick += new System.EventHandler(this.actionTimer_Tick);
             // 
+            // lblCPMClientsConnected
+            // 
+            this.lblCPMClientsConnected.AutoSize = true;
+            this.lblCPMClientsConnected.Location = new System.Drawing.Point(7, 154);
+            this.lblCPMClientsConnected.Name = "lblCPMClientsConnected";
+            this.lblCPMClientsConnected.Size = new System.Drawing.Size(95, 13);
+            this.lblCPMClientsConnected.TabIndex = 2;
+            this.lblCPMClientsConnected.Text = "Clients connected:";
+            // 
+            // cbxCTMAutoMove
+            // 
+            this.cbxCTMAutoMove.AutoSize = true;
+            this.cbxCTMAutoMove.Location = new System.Drawing.Point(6, 72);
+            this.cbxCTMAutoMove.Name = "cbxCTMAutoMove";
+            this.cbxCTMAutoMove.Size = new System.Drawing.Size(146, 17);
+            this.cbxCTMAutoMove.TabIndex = 10;
+            this.cbxCTMAutoMove.Text = "Auto complete movement";
+            this.cbxCTMAutoMove.UseVisualStyleBackColor = true;
+            // 
+            // cbxCTMAutoReset
+            // 
+            this.cbxCTMAutoReset.AutoSize = true;
+            this.cbxCTMAutoReset.Checked = true;
+            this.cbxCTMAutoReset.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxCTMAutoReset.Location = new System.Drawing.Point(187, 72);
+            this.cbxCTMAutoReset.Name = "cbxCTMAutoReset";
+            this.cbxCTMAutoReset.Size = new System.Drawing.Size(120, 17);
+            this.cbxCTMAutoReset.TabIndex = 11;
+            this.cbxCTMAutoReset.Text = "Auto reset after time";
+            this.cbxCTMAutoReset.UseVisualStyleBackColor = true;
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1402,7 +1439,7 @@
         private System.Windows.Forms.TabPage tabCPM;
         private System.Windows.Forms.Button btnServerSetPassive;
         private System.Windows.Forms.Button btnServerSetContinuous;
-        private System.Windows.Forms.Label lblClientsConnected;
+        private System.Windows.Forms.Label lblServerClientsConnected;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnWhole;
         private System.Windows.Forms.GroupBox gbTimer;
@@ -1450,5 +1487,8 @@
         private System.Windows.Forms.ComboBox comboTreatment;
         private System.Windows.Forms.NumericUpDown numericUpDownExerciceTime;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblCPMClientsConnected;
+        private System.Windows.Forms.CheckBox cbxCTMAutoReset;
+        private System.Windows.Forms.CheckBox cbxCTMAutoMove;
     }
 }

@@ -39,7 +39,7 @@ namespace HOH_DEMO
             NW = new MRNetwork("169.254.1.1", 2000);
             tabControl.SelectTab(1);
             actionTimer.Start();
-
+            comboTreatment.SelectedIndex = 0;
             //  ServerSL = new Thread(() => AsyncServer.StartListening(10101));
             //  ServerSL.Start();
 
@@ -287,7 +287,7 @@ namespace HOH_DEMO
                     }
 
 
-   /*                 if (runCTM)
+   /*               if (runCTM)
                     {
 
                         if (runCTMClose)
@@ -369,8 +369,8 @@ namespace HOH_DEMO
         }
         #endregion
 
-
         /***********************************************************************************************************/
+
         /***********************************************************************************************************/
         /***********************************************************************************************************/
 
@@ -568,8 +568,9 @@ namespace HOH_DEMO
                 }
             previousCMDReceived = LastCMDReceived;
             commandProcessed = true;
-
-            lblClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
+            
+            lblServerClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
+            lblCPMClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
         }
 
         private void ExerciceResetTimer_Tick(object sender, EventArgs e)
@@ -582,21 +583,38 @@ namespace HOH_DEMO
             //resets HOH
             if (runCTMClose)
             { 
-                txtCTMLog.AppendText("\r\nHOH -> RESET OPENING HAND");
+                
                 //sendAll(((char)11).ToString());
                 //FORCAR ABERTURA DE MAO AUTOMATICO
-                CPMCounter++;
-                buttonfullyopen_Click(sender, e);
+                if (cbxCTMAutoMove.Checked)
+                {
+                    txtCTMLog.AppendText("\r\nHOH COMPLETE -> CLOSE HAND");
+                    buttonfullyclose_Click(sender, e);
+                    CPMCounter++;
+                }
+                if (cbxCTMAutoReset.Checked)
+                {
+                    txtCTMLog.AppendText("\r\nHOH RESET -> OPEN HAND");
+                    buttonfullyopen_Click(sender, e);
+                }
                 previousCMDReceived = 0;
             }
 
             if (runCTMOpen)
             {
-                txtCTMLog.AppendText("\r\nHOH -> RESET CLOSING HAND");
                 //sendAll(((char)11).ToString());
                 //FORCAR FECHO DE MAO AUTOMATICO
-                CPMCounter++;
-                buttonfullyclose_Click(sender, e);
+                if (cbxCTMAutoMove.Checked)
+                {
+                    txtCTMLog.AppendText("\r\nHOH COMPLETE -> OPEN HAND");
+                    buttonfullyopen_Click(sender, e);
+                    CPMCounter++;
+                }
+                if (cbxCTMAutoReset.Checked)
+                {
+                    txtCTMLog.AppendText("\r\nHOH RESET -> CLOSE HAND");
+                    buttonfullyclose_Click(sender, e);
+                }
                 previousCMDReceived = 0;
             }
 
@@ -693,7 +711,7 @@ namespace HOH_DEMO
             txtServerLog.SelectionStart = txtServerLog.TextLength;
             txtServerLog.ScrollToCaret();
             //updates clients connected
-            lblClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
+            lblServerClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
 
             //MAYBE NOT NEEDED!!
             //checks if latest info is a command sent from sfunction and processes it
@@ -940,6 +958,5 @@ namespace HOH_DEMO
         {
             ExerciceResetTimer.Interval = (int)numericUpDownExerciceTime.Value * 1000;
         }
-
     }
 }
