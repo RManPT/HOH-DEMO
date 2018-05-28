@@ -49,191 +49,7 @@ namespace HOH_DEMO
 
         //Classe que lida com a 
         #region HOH classes
-        public class MRNetwork
-        {
-            public string ip;
-            public int port;
-            public Socket server, client;
-            public int trial;
-            private Queue response = new Queue();
-
-            private SocketAsyncEventArgs e;
-            public delegate void InputEventHandler(object sender, LANCBEvenArgs e);
-            public event InputEventHandler InputChanged;
-
-            //Conection class
-            public MRNetwork(string ip, int port)
-            {
-                this.ip = ip;
-                this.port = port;
-                this.trial = 0;
-                Debug.WriteLine(ip + ":" + port.ToString());
-            }
-
-            public MRNetwork(int port)
-            {
-                this.port = port;
-            }
-
-            public void Listen(int port)
-            {
-                //configures server socket
-                server.Bind(new IPEndPoint(IPAddress.Any, port));
-                //sets state to 'listening'
-                server.Listen(port);
-            }
-
-            //Tries connecting client->server for 5s
-            public bool Accept()
-            {
-                try
-                {
-                    //sets up client socket
-                    client = server.Accept();
-                    client.ReceiveTimeout = 5000;
-                    client.SendTimeout = 5000;
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Network Connection Exception, " + e.Message);
-                    return false;
-                }
-            }
-
-
-            public bool Connect()
-            {
-                try
-                {
-                    StateObject state = new StateObject();
-                    this.response = new Queue();
-                    if (client == null) client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    if (client.Connected == true) return true;
-                    client.Connect(ip, port);
-                    state.workSocket = client;
-                    Receive(client);
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Disconnect();
-                    Debug.WriteLine("HOH Network Connection Exception, " + e.Message);
-                    return false;
-                }
-            }
-
-
-            public bool Disconnect()
-            {
-                try
-                {
-                    client.Shutdown(SocketShutdown.Both);
-                    client.Disconnect(false);
-                    client.Close();
-                    client = null;
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    return false;
-                }
-            }
-
-            private void Receive(Socket client)
-            {
-                try
-                {
-                    // Create the state object.
-                    StateObject state = new StateObject();
-                    state.workSocket = client;
-
-                    // Begin receiving the data from the remote device.
-                    client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                        new AsyncCallback(ReceiveCallback), state);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.ToString());
-                }
-            }
-
-            private void ReceiveCallback(IAsyncResult ar)
-            {
-                try
-                {
-                    // Retrieve the state object and the client socket 
-                    // from the asynchronous state object.
-                    StateObject state = (StateObject)ar.AsyncState;
-                    Socket client = state.workSocket;
-                    // Read data from the remote device.
-                    int bytesRead = client.EndReceive(ar);
-                    if (bytesRead > 0)
-                    {
-                        // There might be more data, so store the data received so far.
-                        string temp = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
-                        //state.sb.Append(temp);
-                        //Debug.WriteLine(temp);
-                        if (this.InputChanged != null)
-                            this.InputChanged(this, new LANCBEvenArgs(temp));
-                        //  Get the rest of the data.
-                        client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                            new AsyncCallback(ReceiveCallback), state);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
-            }
-
-            public bool Send(string msg)
-            {
-                lock (this)
-                {
-                    try
-                    {
-                        byte[] tempmsg = Encoding.Default.GetBytes(msg);
-                        client.Send(tempmsg);
-                        return true;
-                    }
-                    catch (Exception e)
-                    {
-                        Thread.Sleep(50);
-                    }
-                    return false;
-                }
-            }
-        }
-
-        //sets up comm settings
-        public class StateObject
-        {
-            // Client socket.
-            public Socket workSocket = null;
-            // Size of receive buffer.
-            public const int BufferSize = 256;
-            // Receive buffer.
-            public byte[] buffer = new byte[BufferSize];
-            // Received data string.
-            public StringBuilder sb = new StringBuilder();
-        }
-
-        //manages console
-        public class LANCBEvenArgs : EventArgs
-        {
-
-            private string msg;
-            public string MsgString
-            {
-                get { return this.msg; }
-            }
-
-            public LANCBEvenArgs(string msg)
-            {
-                this.msg = msg;
-            }
-        }
+        
 
         #endregion
 
@@ -251,10 +67,10 @@ namespace HOH_DEMO
         }
 
         //Lança para a consola devolvidas pelos eventos
-        private void InputDetectedEvent(object sender, LANCBEvenArgs e)
+   /*     private void InputDetectedEvent(object sender, LANCBEvenArgs e)
         {
-            Invoke(new EventHandler(delegate
-            {
+            Invoke(new EventHandler(delegate { txtServerLog.AppendText(NW.msgs.ToString());  } ));
+   /*         {
                 //informação chega de forma assincrona
                 this.textBoxLog.AppendText(e.MsgString);
 
@@ -262,7 +78,15 @@ namespace HOH_DEMO
                 else
                 {
                     msgRcvHOH += e.MsgString;
-                    //detecta qual o movimento CPM a partir da msg
+                    //verifica se a mão foi testada e inicia o hand brace testing
+                    if (msgRcvHOH.Contains("untested")) {
+                        txtServerLog.AppendText("\r\nForcing Hand testing");
+                        buttontest_Click(sender, e);
+                        msgRcvHOH = "";
+                    }
+*/
+
+/*//detecta qual o movimento CPM a partir da msg
                     if (runCPMWhole)
                     {
                         if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
@@ -285,8 +109,8 @@ namespace HOH_DEMO
                         //txtCPMLog.AppendText("->" + msgRcvHOH);
                         msgRcvHOH = "";
                     }
-
-
+                    */
+                    //processar mensagens retornadas pela HOH em caso de modo CTM
    /*               if (runCTM)
                     {
 
@@ -332,11 +156,11 @@ namespace HOH_DEMO
                             msgRcvHOH = "";
                         }
                     }
-                    */
+                    
                 }     
             }));
-        }
-
+        }*/
+ 
         private string timeToStr(int counter)
         {
             int min, seg;
@@ -384,14 +208,15 @@ namespace HOH_DEMO
             {
                 if (NW.Connect())
                 {
-                    NW.InputChanged += InputDetectedEvent;
+                    //NW.InputChanged += InputDetectedEvent;
                     buttonConnect.Text = "Disconnect";
                     Debug.WriteLine("HOH Connected");
                     connectedHOH = true;
+                    NW.Send("00");
                 }
                 else
                 {
-                    NW.InputChanged -= InputDetectedEvent;
+                    //NW.InputChanged -= InputDetectedEvent;
                     MessageBox.Show("Connect fail");
                 }
             }
@@ -400,6 +225,8 @@ namespace HOH_DEMO
                 if (NW.Disconnect())
                 {
                     buttonConnect.Text = "Connect";
+                    //necessário para impedir duplicação de recebimentos na callback
+                    //NW.InputChanged -= InputDetectedEvent;
                     connectedHOH = false;
                 }
             }
@@ -957,6 +784,11 @@ namespace HOH_DEMO
         private void numericUpDownExerciceTime_ValueChanged(object sender, EventArgs e)
         {
             ExerciceResetTimer.Interval = (int)numericUpDownExerciceTime.Value * 1000;
+        }
+
+        private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
