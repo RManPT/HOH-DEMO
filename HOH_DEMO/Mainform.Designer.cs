@@ -61,9 +61,12 @@
             this.label14 = new System.Windows.Forms.Label();
             this.numericCTMUpDownCounter = new System.Windows.Forms.NumericUpDown();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblCPMClientsConnected = new System.Windows.Forms.Label();
             this.btnCTMLogClear = new System.Windows.Forms.Button();
             this.txtCTMLog = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cbxCTMAutoReset = new System.Windows.Forms.CheckBox();
+            this.cbxCTMAutoMove = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownExerciceTime = new System.Windows.Forms.NumericUpDown();
             this.comboTreatment = new System.Windows.Forms.ComboBox();
@@ -80,6 +83,19 @@
             this.numericCTMUpDownSeconds = new System.Windows.Forms.NumericUpDown();
             this.numericCTMUpDownMinutes = new System.Windows.Forms.NumericUpDown();
             this.tabSTM = new System.Windows.Forms.TabPage();
+            this.tabEMGCal = new System.Windows.Forms.TabPage();
+            this.gpCALThreshold = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.lblCALThresholdFlexor = new System.Windows.Forms.Label();
+            this.lblCALThresholdExtensor = new System.Windows.Forms.Label();
+            this.trackBarThresholdExtensor = new System.Windows.Forms.TrackBar();
+            this.trackBarThresholdFlexor = new System.Windows.Forms.TrackBar();
+            this.gbCALBaseline = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabDEMO = new System.Windows.Forms.TabPage();
             this.groupBoxExtra = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -129,22 +145,6 @@
             this.TreatmentTimer = new System.Windows.Forms.Timer(this.components);
             this.ExerciceResetTimer = new System.Windows.Forms.Timer(this.components);
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblCPMClientsConnected = new System.Windows.Forms.Label();
-            this.cbxCTMAutoMove = new System.Windows.Forms.CheckBox();
-            this.cbxCTMAutoReset = new System.Windows.Forms.CheckBox();
-            this.tabEMGCal = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.gbCALBaseline = new System.Windows.Forms.GroupBox();
-            this.gpCALThreshold = new System.Windows.Forms.GroupBox();
-            this.trackBarThresholdFlexor = new System.Windows.Forms.TrackBar();
-            this.trackBarThresholdExtensor = new System.Windows.Forms.TrackBar();
-            this.lblCALThresholdExtensor = new System.Windows.Forms.Label();
-            this.lblCALThresholdFlexor = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabCPM.SuspendLayout();
@@ -166,6 +166,11 @@
             this.gbCTMTimer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericCTMUpDownSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCTMUpDownMinutes)).BeginInit();
+            this.tabEMGCal.SuspendLayout();
+            this.gpCALThreshold.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdExtensor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.tabDEMO.SuspendLayout();
             this.groupBoxExtra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPositionAuto)).BeginInit();
@@ -178,11 +183,6 @@
             this.gboxServerLog.SuspendLayout();
             this.gboxServerControls.SuspendLayout();
             this.gboxServerInitialization.SuspendLayout();
-            this.tabEMGCal.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.gpCALThreshold.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdExtensor)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -562,6 +562,15 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Log";
             // 
+            // lblCPMClientsConnected
+            // 
+            this.lblCPMClientsConnected.AutoSize = true;
+            this.lblCPMClientsConnected.Location = new System.Drawing.Point(7, 154);
+            this.lblCPMClientsConnected.Name = "lblCPMClientsConnected";
+            this.lblCPMClientsConnected.Size = new System.Drawing.Size(95, 13);
+            this.lblCPMClientsConnected.TabIndex = 2;
+            this.lblCPMClientsConnected.Text = "Clients connected:";
+            // 
             // btnCTMLogClear
             // 
             this.btnCTMLogClear.Location = new System.Drawing.Point(276, 157);
@@ -599,6 +608,28 @@
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Exercice";
+            // 
+            // cbxCTMAutoReset
+            // 
+            this.cbxCTMAutoReset.AutoSize = true;
+            this.cbxCTMAutoReset.Checked = true;
+            this.cbxCTMAutoReset.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxCTMAutoReset.Location = new System.Drawing.Point(187, 72);
+            this.cbxCTMAutoReset.Name = "cbxCTMAutoReset";
+            this.cbxCTMAutoReset.Size = new System.Drawing.Size(120, 17);
+            this.cbxCTMAutoReset.TabIndex = 11;
+            this.cbxCTMAutoReset.Text = "Auto reset after time";
+            this.cbxCTMAutoReset.UseVisualStyleBackColor = true;
+            // 
+            // cbxCTMAutoMove
+            // 
+            this.cbxCTMAutoMove.AutoSize = true;
+            this.cbxCTMAutoMove.Location = new System.Drawing.Point(6, 72);
+            this.cbxCTMAutoMove.Name = "cbxCTMAutoMove";
+            this.cbxCTMAutoMove.Size = new System.Drawing.Size(146, 17);
+            this.cbxCTMAutoMove.TabIndex = 10;
+            this.cbxCTMAutoMove.Text = "Auto complete movement";
+            this.cbxCTMAutoMove.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -800,6 +831,135 @@
             this.tabSTM.TabIndex = 4;
             this.tabSTM.Text = "STM";
             this.tabSTM.UseVisualStyleBackColor = true;
+            // 
+            // tabEMGCal
+            // 
+            this.tabEMGCal.Controls.Add(this.gpCALThreshold);
+            this.tabEMGCal.Controls.Add(this.gbCALBaseline);
+            this.tabEMGCal.Controls.Add(this.groupBox1);
+            this.tabEMGCal.Location = new System.Drawing.Point(4, 22);
+            this.tabEMGCal.Name = "tabEMGCal";
+            this.tabEMGCal.Size = new System.Drawing.Size(372, 579);
+            this.tabEMGCal.TabIndex = 5;
+            this.tabEMGCal.Text = "EMG Calibration";
+            this.tabEMGCal.UseVisualStyleBackColor = true;
+            // 
+            // gpCALThreshold
+            // 
+            this.gpCALThreshold.Controls.Add(this.button3);
+            this.gpCALThreshold.Controls.Add(this.button2);
+            this.gpCALThreshold.Controls.Add(this.lblCALThresholdFlexor);
+            this.gpCALThreshold.Controls.Add(this.lblCALThresholdExtensor);
+            this.gpCALThreshold.Controls.Add(this.trackBarThresholdExtensor);
+            this.gpCALThreshold.Controls.Add(this.trackBarThresholdFlexor);
+            this.gpCALThreshold.Location = new System.Drawing.Point(8, 212);
+            this.gpCALThreshold.Name = "gpCALThreshold";
+            this.gpCALThreshold.Size = new System.Drawing.Size(357, 163);
+            this.gpCALThreshold.TabIndex = 10;
+            this.gpCALThreshold.TabStop = false;
+            this.gpCALThreshold.Text = "Threshold";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(248, 16);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(102, 23);
+            this.button3.TabIndex = 5;
+            this.button3.Text = "Start Measure";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(248, 90);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(102, 23);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Start Measure";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // lblCALThresholdFlexor
+            // 
+            this.lblCALThresholdFlexor.AutoSize = true;
+            this.lblCALThresholdFlexor.Location = new System.Drawing.Point(9, 44);
+            this.lblCALThresholdFlexor.Name = "lblCALThresholdFlexor";
+            this.lblCALThresholdFlexor.Size = new System.Drawing.Size(35, 13);
+            this.lblCALThresholdFlexor.TabIndex = 3;
+            this.lblCALThresholdFlexor.Text = "Flexor";
+            this.lblCALThresholdFlexor.Click += new System.EventHandler(this.lblCALThresholdFlexor_Click);
+            // 
+            // lblCALThresholdExtensor
+            // 
+            this.lblCALThresholdExtensor.AutoSize = true;
+            this.lblCALThresholdExtensor.Location = new System.Drawing.Point(9, 118);
+            this.lblCALThresholdExtensor.Name = "lblCALThresholdExtensor";
+            this.lblCALThresholdExtensor.Size = new System.Drawing.Size(48, 13);
+            this.lblCALThresholdExtensor.TabIndex = 2;
+            this.lblCALThresholdExtensor.Text = "Extensor";
+            // 
+            // trackBarThresholdExtensor
+            // 
+            this.trackBarThresholdExtensor.AutoSize = false;
+            this.trackBarThresholdExtensor.Location = new System.Drawing.Point(9, 119);
+            this.trackBarThresholdExtensor.Name = "trackBarThresholdExtensor";
+            this.trackBarThresholdExtensor.Size = new System.Drawing.Size(341, 33);
+            this.trackBarThresholdExtensor.TabIndex = 1;
+            // 
+            // trackBarThresholdFlexor
+            // 
+            this.trackBarThresholdFlexor.AutoSize = false;
+            this.trackBarThresholdFlexor.Location = new System.Drawing.Point(6, 45);
+            this.trackBarThresholdFlexor.Name = "trackBarThresholdFlexor";
+            this.trackBarThresholdFlexor.Size = new System.Drawing.Size(341, 33);
+            this.trackBarThresholdFlexor.TabIndex = 0;
+            // 
+            // gbCALBaseline
+            // 
+            this.gbCALBaseline.Location = new System.Drawing.Point(8, 3);
+            this.gbCALBaseline.Name = "gbCALBaseline";
+            this.gbCALBaseline.Size = new System.Drawing.Size(357, 176);
+            this.gbCALBaseline.TabIndex = 9;
+            this.gbCALBaseline.TabStop = false;
+            this.gbCALBaseline.Text = "Baseline";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Location = new System.Drawing.Point(7, 385);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(357, 191);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Log";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 154);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(95, 13);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Clients connected:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(276, 157);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Clear Log";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(7, 19);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(344, 128);
+            this.textBox1.TabIndex = 0;
             // 
             // tabDEMO
             // 
@@ -1023,6 +1183,7 @@
             this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxLog.Size = new System.Drawing.Size(257, 113);
             this.textBoxLog.TabIndex = 1;
+            this.textBoxLog.TextChanged += new System.EventHandler(this.textBoxLog_TextChanged);
             // 
             // groupBoxFunctions
             // 
@@ -1306,166 +1467,6 @@
             this.actionTimer.Interval = 250;
             this.actionTimer.Tick += new System.EventHandler(this.actionTimer_Tick);
             // 
-            // lblCPMClientsConnected
-            // 
-            this.lblCPMClientsConnected.AutoSize = true;
-            this.lblCPMClientsConnected.Location = new System.Drawing.Point(7, 154);
-            this.lblCPMClientsConnected.Name = "lblCPMClientsConnected";
-            this.lblCPMClientsConnected.Size = new System.Drawing.Size(95, 13);
-            this.lblCPMClientsConnected.TabIndex = 2;
-            this.lblCPMClientsConnected.Text = "Clients connected:";
-            // 
-            // cbxCTMAutoMove
-            // 
-            this.cbxCTMAutoMove.AutoSize = true;
-            this.cbxCTMAutoMove.Location = new System.Drawing.Point(6, 72);
-            this.cbxCTMAutoMove.Name = "cbxCTMAutoMove";
-            this.cbxCTMAutoMove.Size = new System.Drawing.Size(146, 17);
-            this.cbxCTMAutoMove.TabIndex = 10;
-            this.cbxCTMAutoMove.Text = "Auto complete movement";
-            this.cbxCTMAutoMove.UseVisualStyleBackColor = true;
-            // 
-            // cbxCTMAutoReset
-            // 
-            this.cbxCTMAutoReset.AutoSize = true;
-            this.cbxCTMAutoReset.Checked = true;
-            this.cbxCTMAutoReset.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxCTMAutoReset.Location = new System.Drawing.Point(187, 72);
-            this.cbxCTMAutoReset.Name = "cbxCTMAutoReset";
-            this.cbxCTMAutoReset.Size = new System.Drawing.Size(120, 17);
-            this.cbxCTMAutoReset.TabIndex = 11;
-            this.cbxCTMAutoReset.Text = "Auto reset after time";
-            this.cbxCTMAutoReset.UseVisualStyleBackColor = true;
-            // 
-            // tabEMGCal
-            // 
-            this.tabEMGCal.Controls.Add(this.gpCALThreshold);
-            this.tabEMGCal.Controls.Add(this.gbCALBaseline);
-            this.tabEMGCal.Controls.Add(this.groupBox1);
-            this.tabEMGCal.Location = new System.Drawing.Point(4, 22);
-            this.tabEMGCal.Name = "tabEMGCal";
-            this.tabEMGCal.Size = new System.Drawing.Size(372, 579);
-            this.tabEMGCal.TabIndex = 5;
-            this.tabEMGCal.Text = "EMG Calibration";
-            this.tabEMGCal.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(7, 385);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(357, 191);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Log";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(7, 154);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(95, 13);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "Clients connected:";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(276, 157);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Clear Log";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(7, 19);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(344, 128);
-            this.textBox1.TabIndex = 0;
-            // 
-            // gbCALBaseline
-            // 
-            this.gbCALBaseline.Location = new System.Drawing.Point(8, 3);
-            this.gbCALBaseline.Name = "gbCALBaseline";
-            this.gbCALBaseline.Size = new System.Drawing.Size(357, 176);
-            this.gbCALBaseline.TabIndex = 9;
-            this.gbCALBaseline.TabStop = false;
-            this.gbCALBaseline.Text = "Baseline";
-            // 
-            // gpCALThreshold
-            // 
-            this.gpCALThreshold.Controls.Add(this.button3);
-            this.gpCALThreshold.Controls.Add(this.button2);
-            this.gpCALThreshold.Controls.Add(this.lblCALThresholdFlexor);
-            this.gpCALThreshold.Controls.Add(this.lblCALThresholdExtensor);
-            this.gpCALThreshold.Controls.Add(this.trackBarThresholdExtensor);
-            this.gpCALThreshold.Controls.Add(this.trackBarThresholdFlexor);
-            this.gpCALThreshold.Location = new System.Drawing.Point(8, 212);
-            this.gpCALThreshold.Name = "gpCALThreshold";
-            this.gpCALThreshold.Size = new System.Drawing.Size(357, 163);
-            this.gpCALThreshold.TabIndex = 10;
-            this.gpCALThreshold.TabStop = false;
-            this.gpCALThreshold.Text = "Threshold";
-            // 
-            // trackBarThresholdFlexor
-            // 
-            this.trackBarThresholdFlexor.AutoSize = false;
-            this.trackBarThresholdFlexor.Location = new System.Drawing.Point(6, 45);
-            this.trackBarThresholdFlexor.Name = "trackBarThresholdFlexor";
-            this.trackBarThresholdFlexor.Size = new System.Drawing.Size(341, 33);
-            this.trackBarThresholdFlexor.TabIndex = 0;
-            // 
-            // trackBarThresholdExtensor
-            // 
-            this.trackBarThresholdExtensor.AutoSize = false;
-            this.trackBarThresholdExtensor.Location = new System.Drawing.Point(9, 119);
-            this.trackBarThresholdExtensor.Name = "trackBarThresholdExtensor";
-            this.trackBarThresholdExtensor.Size = new System.Drawing.Size(341, 33);
-            this.trackBarThresholdExtensor.TabIndex = 1;
-            // 
-            // lblCALThresholdExtensor
-            // 
-            this.lblCALThresholdExtensor.AutoSize = true;
-            this.lblCALThresholdExtensor.Location = new System.Drawing.Point(9, 118);
-            this.lblCALThresholdExtensor.Name = "lblCALThresholdExtensor";
-            this.lblCALThresholdExtensor.Size = new System.Drawing.Size(48, 13);
-            this.lblCALThresholdExtensor.TabIndex = 2;
-            this.lblCALThresholdExtensor.Text = "Extensor";
-            // 
-            // lblCALThresholdFlexor
-            // 
-            this.lblCALThresholdFlexor.AutoSize = true;
-            this.lblCALThresholdFlexor.Location = new System.Drawing.Point(9, 44);
-            this.lblCALThresholdFlexor.Name = "lblCALThresholdFlexor";
-            this.lblCALThresholdFlexor.Size = new System.Drawing.Size(35, 13);
-            this.lblCALThresholdFlexor.TabIndex = 3;
-            this.lblCALThresholdFlexor.Text = "Flexor";
-            this.lblCALThresholdFlexor.Click += new System.EventHandler(this.lblCALThresholdFlexor_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(248, 90);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Start Measure";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(248, 16);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(102, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Start Measure";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1510,6 +1511,13 @@
             this.gbCTMTimer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericCTMUpDownSeconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericCTMUpDownMinutes)).EndInit();
+            this.tabEMGCal.ResumeLayout(false);
+            this.gpCALThreshold.ResumeLayout(false);
+            this.gpCALThreshold.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdExtensor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tabDEMO.ResumeLayout(false);
             this.groupBoxExtra.ResumeLayout(false);
             this.groupBoxExtra.PerformLayout();
@@ -1528,13 +1536,6 @@
             this.gboxServerControls.PerformLayout();
             this.gboxServerInitialization.ResumeLayout(false);
             this.gboxServerInitialization.PerformLayout();
-            this.tabEMGCal.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.gpCALThreshold.ResumeLayout(false);
-            this.gpCALThreshold.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdExtensor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
