@@ -1,2 +1,0 @@
-C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO_Library\obj\Debug\HOH_DEMO_Library.csprojResolveAssemblyReference.cache
-C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO_Library\obj\Debug\HOH_DEMO_Library.csproj.CoreCompileInputs.cache

@@ -10,6 +10,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections;
 using System.Diagnostics;
+using HOH_DEMO_Library;
+using HOH_Library;
 
 namespace HOH_DEMO
 {
@@ -17,7 +19,7 @@ namespace HOH_DEMO
     {
         private MRNetwork NW;
         public delegate void InputEventHandler(object sender, MRNetwork.InputEventHandler e);
-        private Thread ServerSL;
+        private Thread ServerSL, LogUpdater;
         private int CPMTimeCounter = 0;
         private int CPMCounter = 0;
         private int timeSync = 0;
@@ -33,25 +35,26 @@ namespace HOH_DEMO
         public static int LastCMDReceived;
         private int previousCMDReceived;
         public static bool commandProcessed = true;
+        public MRNetworkTxtBoxUpdater TxtBoxUpdater;
         public Mainform()
         {
             InitializeComponent();
-            NW = new MRNetwork("169.254.1.1", 2000);
+            NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000);
             tabControl.SelectTab(1);
             actionTimer.Start();
             comboTreatment.SelectedIndex = 0;
-            //  ServerSL = new Thread(() => AsyncServer.StartListening(10101));
+            // ServerSL = new Thread(() => AsyncServer.StartListening(10101));
             //  ServerSL.Start();
 
+            
             //NW = new MRNetwork("0.0.0.0", 30000);
             //test connection with matlab
         }
 
-        //Classe que lida com a 
-        #region HOH classes
         
 
-        #endregion
+
+
 
 
         /***********************************************************************************************************/
@@ -212,6 +215,12 @@ namespace HOH_DEMO
                     buttonConnect.Text = "Disconnect";
                     Debug.WriteLine("HOH Connected");
                     connectedHOH = true;
+                    textBoxLog.Text = "";
+
+                    TxtBoxUpdater = new MRNetworkTxtBoxUpdater(NW, textBoxLog);
+                    LogUpdater = new Thread(() => TxtBoxUpdater.Run());
+                    LogUpdater.Start();
+                    //NW.ExecuteAndWait("00", "done");
                     NW.Send("00");
                 }
                 else
@@ -228,6 +237,7 @@ namespace HOH_DEMO
                     //necessário para impedir duplicação de recebimentos na callback
                     //NW.InputChanged -= InputDetectedEvent;
                     connectedHOH = false;
+                    TxtBoxUpdater.Stop();
                 }
             }
         }
@@ -378,6 +388,8 @@ namespace HOH_DEMO
 
         private void actionTimer_Tick(object sender, EventArgs e)
         {
+            LastCMDReceived = AsyncServer.LastCMDReceived;
+            commandProcessed = AsyncServer.commandProcessed;
             if (runCTMClose)
                 if (LastCMDReceived == 22 && LastCMDReceived != previousCMDReceived && commandProcessed == false)
                 { //se sinal detectado indica o movimento desejado actua em conformidade
@@ -454,6 +466,11 @@ namespace HOH_DEMO
             sendAll(((char)msgToSendSF).ToString());
         }
 
+
+
+
+
+       
             #endregion
 
 
@@ -479,7 +496,7 @@ namespace HOH_DEMO
             btnServerStop.Enabled = false;
             btnServerStart.Enabled = true;
             AsyncServer.listener.Shutdown(SocketShutdown.Both);
-            // AsyncServer.listener.Close();
+            AsyncServer.listener.Close();
 
         }
 
@@ -784,6 +801,12 @@ namespace HOH_DEMO
         private void numericUpDownExerciceTime_ValueChanged(object sender, EventArgs e)
         {
             ExerciceResetTimer.Interval = (int)numericUpDownExerciceTime.Value * 1000;
+        }
+
+        private void textBoxLog_TextChanged(object sender, EventArgs e)
+        {
+            textBoxLog.SelectionStart = textBoxLog.TextLength;
+            textBoxLog.ScrollToCaret();
         }
 
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
