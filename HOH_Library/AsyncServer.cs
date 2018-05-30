@@ -33,9 +33,8 @@ namespace HOH_DEMO_Library
             
         }
 
-        public static void StartListening(int port, TextBox log)
+        public static void StartListening(int port)
         {
-            txtLog = log;
             setrun = true;
             // Data buffer for incoming data.  
             byte[] bytes = new Byte[1024];
@@ -76,7 +75,7 @@ namespace HOH_DEMO_Library
                     allDone.WaitOne();
 
                 }
-
+               
             }
             catch (Exception e)
             {
@@ -106,7 +105,8 @@ namespace HOH_DEMO_Library
         {
             // Signal the main thread to continue.  
             allDone.Set();
-
+            if (setrun)
+            { 
             // Get the socket that handles the client request.  
             listener = (Socket)ar.AsyncState;
             Socket handler = listener.EndAccept(ar);
@@ -123,6 +123,7 @@ namespace HOH_DEMO_Library
                 
             }
             currentClient = handler;
+            }
         }
 
         public static void ReadCallback(IAsyncResult ar)
@@ -137,50 +138,59 @@ namespace HOH_DEMO_Library
             if (!MySocketList.Contains(handler))
                 MySocketList.Add(handler);
             // Read data from the client socket.   
-            int bytesRead = handler.EndReceive(ar);
-
-            if (bytesRead > 0)
+            
+            try
             {
-                // There  might be more data, so store the data received so far. 
-                var lastMessage = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
-                state.sb.Append(lastMessage);
+                int bytesRead = handler.EndReceive(ar);
+           
+
+                if (bytesRead > 0)
+                {
+                    // There  might be more data, so store the data received so far. 
+                    var lastMessage = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
+                    state.sb.Append(lastMessage);
                 
 
-                //prints last received byte
-                Debug.Write(lastMessage.ToString());
-                //gets the processed mode in ascii
-                int command = (int)lastMessage.ToCharArray()[0];
-                SetText("Received from client : " + command.ToString());
+                    //prints last received byte
+                    Debug.Write(lastMessage.ToString());
+                    //gets the processed mode in ascii
+                    int command = (int)lastMessage.ToCharArray()[0];
+                    SetText("Received from client : " + command.ToString());
 
-                //!!!!!!ATENCAO!!!!!!
-                //deve de chamar funcao no mainform que trate do comando para nao misturar o que o server faz com o que a APP faz
-                LastCMDReceived = command;
-                commandProcessed = false;
+                    //!!!!!!ATENCAO!!!!!!
+                    //deve de chamar funcao no mainform que trate do comando para nao misturar o que o server faz com o que a APP faz
+                    LastCMDReceived = command;
+                    commandProcessed = false;
 
 
-                // Check for end-of-file tag. If it is not there, read   
-                // more data.  
-                content = state.sb.ToString();
-                //use # as a delimiter for end of transmission
-                if (content.IndexOf("#") > -1)
-                {
-                    // All the data has been read from the   
-                    // client. Display it on the console.  
-                    Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
-                        content.Length, content);
-                    SetText(String.Format("Read {0} bytes from socket. \n Data : {1}",
-                        content.Length, content));
-                    // Echo the data back to the client.  
-                    Send(handler, content);
+                    // Check for end-of-file tag. If it is not there, read   
+                    // more data.  
+                    content = state.sb.ToString();
+                    //use # as a delimiter for end of transmission
+                    if (content.IndexOf("#") > -1)
+                    {
+                        // All the data has been read from the   
+                        // client. Display it on the console.  
+                        Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
+                            content.Length, content);
+                        SetText(String.Format("Read {0} bytes from socket. \n Data : {1}",
+                            content.Length, content));
+                        // Echo the data back to the client.  
+                        Send(handler, content);
 
-                }
-                else
-                {
-                    // Not all data received. Get more.  
-                    handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
-                    new AsyncCallback(ReadCallback), state);
+                    }
+                    else
+                    {
+                        // Not all data received. Get more.  
+                        handler.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
+                        new AsyncCallback(ReadCallback), state);
                     
+                    }
                 }
+            }
+            catch (ObjectDisposedException e)
+            {
+                Debug.WriteLine(e);
             }
         }
 
@@ -235,30 +245,76 @@ namespace HOH_DEMO_Library
         {
             try
             {
+                
                 return !(socket.Poll(1, SelectMode.SelectRead) && socket.Available == 0);
             }
             catch (SocketException) { return false; }
+            catch (ObjectDisposedException) { return false; }
         }
 
         public static void refreshClients()
         {
-            while(true)
+            while(setrun)
             //checks if clients are disconnected
             for (int i = MySocketList.Count - 1; i >= 0; i--)
             {
-                if (!IsConnected(MySocketList[i]))
+                    try
+                    {
+                        if (!IsConnected(MySocketList[i]))
+                        {
+                            if (MySocketList[i].Connected) MySocketList[i].Disconnect(false);
+                            MySocketList[i].Shutdown(SocketShutdown.Both);
+                            MySocketList[i].Close();
+                            MySocketList[i].Dispose();
+                            //MySocketList[i] = null;
+                            MySocketList.RemoveAt(i);
+                        }
+                    }
+                    catch (ObjectDisposedException) { }
+            }
+
+            //server 
+            
+            for (int i = MySocketList.Count - 1; i >= 0; i--)
+            {
+                try
                 {
-                    MySocketList[i].Disconnect(false);
-                    MySocketList.RemoveAt(i);
+                    MySocketList[i].Shutdown(SocketShutdown.Both);
+                    MySocketList[i].Close();
+                    MySocketList[i].Dispose();
+                    // MySocketList[i].Disconnect(false);
+                   // MySocketList[i] = null;
                 }
+                catch (ObjectDisposedException) { }
+            }
+            MySocketList.Clear();
+            SetText("Server stopped. All clients disconnected.");
+        }
+
+        public static void SetLogBox(TextBox txtBox)
+        {
+            txtLog = txtBox;
+        }
+
+        public static void StopServer()
+        {
+            setrun = false;
+            try
+            {
+               listener.Close();
+                listener.Dispose();
+                //listener = null;
+                //listener.Shutdown(SocketShutdown.Both);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
             }
         }
-
-
-            //public static int Main(String[] args)
-            //{
-            //    StartListening();
-            //    return 0;
-            //}
-        }
+        //public static int Main(String[] args)
+        //{
+        //    StartListening();
+        //    return 0;
+        //}
+    }
 }

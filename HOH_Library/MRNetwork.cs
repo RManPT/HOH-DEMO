@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace HOH_DEMO_Library
 {
@@ -16,10 +17,12 @@ namespace HOH_DEMO_Library
         public Socket server, client;
         private string msgRcvHOH;
         private string statusMsg;
+        private bool statusMsgChanged = true;
         // private SocketAsyncEventArgs e;
         public delegate void InputEventHandler(object sender, LANCBEvenArgs e);
         public event InputEventHandler InputChanged;
         public ConcurrentQueue<string> msgs = new ConcurrentQueue<string>();
+        private TextBox txtLog;
 
 
         //Conection class
@@ -45,15 +48,15 @@ namespace HOH_DEMO_Library
             statusMsg = "Socket listening";
         }
 
-        //Tries connecting client->server for 5s
+        //Tries connecting client->server for 1s
         public bool Accept()
         {
             try
             {
                 //sets up client socket
                 client = server.Accept();
-                client.ReceiveTimeout = 5000;
-                client.SendTimeout = 5000;
+                client.ReceiveTimeout = 1000;
+                client.SendTimeout = 1000;
                 return true;
             }
             catch (Exception e)
@@ -61,6 +64,11 @@ namespace HOH_DEMO_Library
                 Debug.WriteLine("Network Connection Exception, " + e.Message);
                 return false;
             }
+        }
+
+        public void SetLogBox(TextBox txtBox)
+        {
+            this.txtLog = txtBox;
         }
 
 
@@ -75,7 +83,8 @@ namespace HOH_DEMO_Library
                 state.workSocket = client;
                 Receive(client);
                 InputChanged += InputDetectedEvent;
-                statusMsg = "Connection Successful";
+                new Thread(new ThreadStart(PrintsStatusMsg)).Start();
+                SetStatusMsg("Connection Successful");
                 return true;
             }
             catch (Exception e)
@@ -96,7 +105,8 @@ namespace HOH_DEMO_Library
                 client.Close();
                 client = null;
                 InputChanged -= InputDetectedEvent;
-                statusMsg = "Disconnection successfull";
+                SetStatusMsg("Disconnection successfull");
+                
                 return true;
             }
             catch (Exception e)
@@ -174,14 +184,14 @@ namespace HOH_DEMO_Library
         {
             Debug.Write(e.MsgString);
             
-
             if (!e.MsgString.Contains("\n"))
                 msgRcvHOH += e.MsgString;
             else
             {
                 msgs.Enqueue(msgRcvHOH);
+                SetText(msgRcvHOH);
                 msgRcvHOH = "";
-            }
+            }           
         }
 
 
@@ -200,16 +210,16 @@ namespace HOH_DEMO_Library
                 if (!msgs.TryPeek(out result))
                 {
                     Console.WriteLine("TryPeek failed when it should have succeeded");
-                    statusMsg = "TryPeek failed when it should have succeeded";
+                    SetStatusMsg("TryPeek failed when it should have succeeded");
                 }
-                else if (msgs.TryDequeue(out result).ToString() == exitCondition)
+                else if (msgs.TryDequeue(out result).ToString().Contains(exitCondition))
                 {
                     status = false;
                     Debug.WriteLine("Operation concluded");
-                    statusMsg = result;
+                    SetStatusMsg(result);
                 }
 
-                Thread.Sleep(50);
+                //Thread.Sleep(50);
             }
         }
 
@@ -217,5 +227,41 @@ namespace HOH_DEMO_Library
         {
             return statusMsg;
         }
-    }
+
+        delegate void SetTextCallback(string text);
+        private void SetText(string text)
+        {
+            if (txtLog.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                txtLog.Invoke(d, new object[] { text + System.Environment.NewLine });
+            }
+            else
+            {
+                txtLog.Text += text ;
+            }
+        }
+
+        public void PrintsStatusMsg()
+        {
+            while(true)
+            {
+                if (statusMsgChanged)
+                {
+                    SetText(statusMsg);
+                    statusMsgChanged = false;
+                }
+                Thread.Sleep(50);
+            }
+        }
+
+        public void SetStatusMsg(string text)
+        {
+            if (statusMsg!=text)
+            {
+                statusMsgChanged = true;
+                statusMsg = text;
+            } 
+        }
+    }   
 }

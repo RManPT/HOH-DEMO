@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Threading;
-using System.Net;
 using System.Net.Sockets;
-using System.Collections;
 using System.Diagnostics;
 using HOH_DEMO_Library;
-using HOH_Library;
 
 namespace HOH_DEMO
 {
@@ -35,16 +28,17 @@ namespace HOH_DEMO
         public static int LastCMDReceived;
         private int previousCMDReceived;
         public static bool commandProcessed = true;
-        public MRNetworkTxtBoxUpdater TxtBoxUpdater;
+        
         public Mainform()
         {
             InitializeComponent();
-            NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000);
+            NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000
+            NW.SetLogBox(textBoxLog);
             tabControl.SelectTab(1);
             actionTimer.Start();
             comboTreatment.SelectedIndex = 0;
-            // ServerSL = new Thread(() => AsyncServer.StartListening(10101));
-            //  ServerSL.Start();
+             //ServerSL = new Thread(() => AsyncServer.StartListening(10101));
+              //ServerSL.Start();
 
             
             //NW = new MRNetwork("0.0.0.0", 30000);
@@ -217,11 +211,13 @@ namespace HOH_DEMO
                     connectedHOH = true;
                     textBoxLog.Text = "";
 
-                    TxtBoxUpdater = new MRNetworkTxtBoxUpdater(NW, textBoxLog);
+                    /*TxtBoxUpdater = new MRNetworkTxtBoxUpdater(NW, textBoxLog);
                     LogUpdater = new Thread(() => TxtBoxUpdater.Run());
-                    LogUpdater.Start();
+                    LogUpdater.Start();*/
                     //NW.ExecuteAndWait("00", "done");
                     NW.Send("00");
+                    NW.ExecuteAndWait("00", "untested");
+                    Debug.WriteLine("teste" + NW.GetStatusMsg());
                 }
                 else
                 {
@@ -237,7 +233,7 @@ namespace HOH_DEMO
                     //necessário para impedir duplicação de recebimentos na callback
                     //NW.InputChanged -= InputDetectedEvent;
                     connectedHOH = false;
-                    TxtBoxUpdater.Stop();
+                    //TxtBoxUpdater.Stop();
                 }
             }
         }
@@ -483,7 +479,8 @@ namespace HOH_DEMO
 
         private void btnServerStart_Click(object sender, EventArgs e)
         {
-            ServerSL = new Thread(() => AsyncServer.StartListening(Int32.Parse(txtServerPort.Text), txtServerLog));
+            ServerSL = new Thread(() => AsyncServer.StartListening(Int32.Parse(txtServerPort.Text)));
+            AsyncServer.SetLogBox(txtServerLog);
             ServerSL.Start();
             btnServerStop.Enabled = true;
             btnServerStart.Enabled = false;
@@ -491,13 +488,10 @@ namespace HOH_DEMO
 
         private void btnServerStop_Click(object sender, EventArgs e)
         {
-            AsyncServer.setrun = false;
+            AsyncServer.StopServer();
             ServerSL = null;
             btnServerStop.Enabled = false;
             btnServerStart.Enabled = true;
-            AsyncServer.listener.Shutdown(SocketShutdown.Both);
-            AsyncServer.listener.Close();
-
         }
 
         private void btnServerCtrlClear_Click(object sender, EventArgs e)
