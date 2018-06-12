@@ -1,0 +1,47 @@
+c:\users\marcus\documents\visual studio 2012\Projects\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.exe
+c:\users\marcus\documents\visual studio 2012\Projects\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.pdb
+c:\users\marcus\documents\visual studio 2012\Projects\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Form1.resources
+c:\users\marcus\documents\visual studio 2012\Projects\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Properties.Resources.resources
+c:\users\marcus\documents\visual studio 2012\Projects\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csproj.GenerateResource.Cache
+c:\users\marcus\documents\visual studio 2012\Projects\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.exe
+c:\users\marcus\documents\visual studio 2012\Projects\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.pdb
+c:\users\marcus\documents\visual studio 2012\Projects\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csprojResolveAssemblyReference.cache
+C:\gpires\Dropbox\_gpires\TEMP\_IPT\Hand_of_Hope\HOH_Research model\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.exe
+C:\gpires\Dropbox\_gpires\TEMP\_IPT\Hand_of_Hope\HOH_Research model\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\DROPBOX\software_demo\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.exe
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\DROPBOX\software_demo\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\DROPBOX\software_demo\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.exe
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\DROPBOX\software_demo\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\DROPBOX\software_demo\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csprojResolveAssemblyReference.cache
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\DROPBOX\software_demo\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Form1.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\DROPBOX\software_demo\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Properties.Resources.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\DROPBOX\software_demo\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csproj.GenerateResource.Cache
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.exe
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csprojResolveAssemblyReference.cache
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Form1.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Properties.Resources.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csproj.GenerateResource.Cache
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.exe
+C:\Users\Rui Rodrigues\Documents\_IPT\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.exe
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.exe
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csprojResolveAssemblyReference.cache
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Form1.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Properties.Resources.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\HOPAPI\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csproj.GenerateResource.Cache
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\Syncfusion.Shared.Base.dll
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.exe
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\Syncfusion.Shared.Base.xml
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Form1.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Mainform.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.Properties.Resources.resources
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csproj.GenerateResource.cache
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csproj.CoreCompileInputs.cache
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csproj.CopyComplete
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.exe
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\obj\Debug\HOH_DEMO.csprojResolveAssemblyReference.cache
