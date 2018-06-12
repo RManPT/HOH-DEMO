@@ -73,9 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProtocolEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ProtocolEditor.cs" />
     <Compile Include="ProtocolEditor.Designer.cs">
       <DependentUpon>ProtocolEditor.cs</DependentUpon>
     </Compile>

@@ -4,7 +4,7 @@
   <description asmv2:iconFile="hoh_logo_mwo_4.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="HOH_DEMO" version="0.0.6736.36293" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="HOH_DEMO" version="0.0.6737.29833" language="neutral" processorArchitecture="msil" />
     <commandLine file="HOH_DEMO.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,13 +44,13 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_DEMO.exe" size="354264">
-      <assemblyIdentity name="HOH_DEMO" version="0.0.6736.36293" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="HOH_DEMO" version="0.0.6737.29833" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>9/NJ8CG0JAMJb0aH0V3HtcW0WAd+YlY/uoirtMiKORA=</dsig:DigestValue>
+        <dsig:DigestValue>mESeSgLguKG4FizPFMDzlrMIzSk+HNp5XmKu4jtIcJw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,7 +62,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>kfJA6Rzn6/WNv7jmUgz8LSCpRMgPi9nnKSrsLfPwAf0=</dsig:DigestValue>
+        <dsig:DigestValue>px7UfF0z7eySBdLD87HZ0k9gABXGeNugD2yaWGD71P4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,7 +74,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>CD7Ma+/sz6Kdd2gCV/cvvutKvQuygYE7bhcoKjwn6kU=</dsig:DigestValue>
+        <dsig:DigestValue>hCu10SaC39WNChG0S/f9HaCptZ3p+gPxwszjW6q3BRU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
