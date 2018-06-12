@@ -123,8 +123,18 @@ namespace HOH_Library
                 }
             };
 
+            Protocol protoc2 = new Protocol()
+            {
+                Name = "Protocol 2",
+                Exercises = new List<ProtocolExercise>
+                {
+                    new ProtocolExercise(exerFullyClose, 10)
+                }
+            };
+
             clinic.Protocols.Add(protoc1);
-           
+            clinic.Protocols.Add(protoc2);
+
         }
     }
 

@@ -104,8 +104,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="HOH_UI_TemporaryKey.pfx" />
+    <None Include="Properties\DataSources\HOH_Library.Exercise.datasource" />
+    <None Include="Properties\DataSources\HOH_Library.Protocol.datasource" />
+    <None Include="Properties\DataSources\HOH_Library.ProtocolExercise.datasource" />
+    <None Include="Properties\DataSources\HOH_Library.State.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

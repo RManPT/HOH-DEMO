@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_Library.dll" size="19456">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_Library.dll" size="19968">
       <assemblyIdentity name="HOH_Library" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>px7UfF0z7eySBdLD87HZ0k9gABXGeNugD2yaWGD71P4=</dsig:DigestValue>
+        <dsig:DigestValue>skcOtyNZy9Cmg24uuVJGQZWPzBfwd/BYZobybrvrBAg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -61,7 +61,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jbldHWe1crp2TBGQKzDAPfgZyL8jvh+gIt8Wr2XY1xI=</dsig:DigestValue>
+        <dsig:DigestValue>y64V5Xhd5Q04G8sPfnovkVzbreEofr65bTNWcRgCEUI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

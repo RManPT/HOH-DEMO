@@ -22,6 +22,13 @@ namespace HOH_Library
             
         }
 
+        public ProtocolExercise(Exercise exercise, int repetitions)
+        {
+            Exercise = exercise;
+            Repetitions = repetitions;
+        }
+
+
         public void Execute()
         {
 

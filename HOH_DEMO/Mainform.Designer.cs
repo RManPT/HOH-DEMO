@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +38,12 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabProtocol = new System.Windows.Forms.TabPage();
+            this.lblProtocolExercise = new System.Windows.Forms.Label();
+            this.lblRepetitions = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lstProtocols = new System.Windows.Forms.ListBox();
+            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabCPM = new System.Windows.Forms.TabPage();
             this.gbCounter = new System.Windows.Forms.GroupBox();
             this.rbCPMCounter = new System.Windows.Forms.RadioButton();
@@ -143,11 +150,13 @@
             this.btnServerStart = new System.Windows.Forms.Button();
             this.txtServerPort = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.TreatmentTimer = new System.Windows.Forms.Timer();
-            this.ExerciceResetTimer = new System.Windows.Forms.Timer();
-            this.actionTimer = new System.Windows.Forms.Timer();
+            this.TreatmentTimer = new System.Windows.Forms.Timer(this.components);
+            this.ExerciceResetTimer = new System.Windows.Forms.Timer(this.components);
+            this.actionTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.tabProtocol.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).BeginInit();
             this.tabCPM.SuspendLayout();
             this.gbCounter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericCPMUpDownCounter)).BeginInit();
@@ -188,79 +197,117 @@
             // 
             // menuStrip1
             // 
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.protocolsToolStripMenuItem,
             this.helpToolStripMenuItem});
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // exitToolStripMenuItem
             // 
-            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             // 
             // protocolsToolStripMenuItem
             // 
-            resources.ApplyResources(this.protocolsToolStripMenuItem, "protocolsToolStripMenuItem");
             this.protocolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cToolStripMenuItem});
             this.protocolsToolStripMenuItem.Name = "protocolsToolStripMenuItem";
+            resources.ApplyResources(this.protocolsToolStripMenuItem, "protocolsToolStripMenuItem");
             this.protocolsToolStripMenuItem.Click += new System.EventHandler(this.protocolsToolStripMenuItem_Click);
             // 
             // cToolStripMenuItem
             // 
-            resources.ApplyResources(this.cToolStripMenuItem, "cToolStripMenuItem");
             this.cToolStripMenuItem.Name = "cToolStripMenuItem";
+            resources.ApplyResources(this.cToolStripMenuItem, "cToolStripMenuItem");
             this.cToolStripMenuItem.Click += new System.EventHandler(this.cToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
-            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
             // 
             // aboutToolStripMenuItem
             // 
-            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             // 
             // tabControl
             // 
-            resources.ApplyResources(this.tabControl, "tabControl");
+            this.tabControl.Controls.Add(this.tabProtocol);
             this.tabControl.Controls.Add(this.tabCPM);
             this.tabControl.Controls.Add(this.tabCTM);
             this.tabControl.Controls.Add(this.tabEMGCal);
             this.tabControl.Controls.Add(this.tabDEMO);
             this.tabControl.Controls.Add(this.tabServer);
+            resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             // 
+            // tabProtocol
+            // 
+            this.tabProtocol.Controls.Add(this.lblProtocolExercise);
+            this.tabProtocol.Controls.Add(this.lblRepetitions);
+            this.tabProtocol.Controls.Add(this.label15);
+            this.tabProtocol.Controls.Add(this.lstProtocols);
+            resources.ApplyResources(this.tabProtocol, "tabProtocol");
+            this.tabProtocol.Name = "tabProtocol";
+            this.tabProtocol.UseVisualStyleBackColor = true;
+            // 
+            // lblProtocolExercise
+            // 
+            resources.ApplyResources(this.lblProtocolExercise, "lblProtocolExercise");
+            this.lblProtocolExercise.Name = "lblProtocolExercise";
+            // 
+            // lblRepetitions
+            // 
+            resources.ApplyResources(this.lblRepetitions, "lblRepetitions");
+            this.lblRepetitions.Name = "lblRepetitions";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // lstProtocols
+            // 
+            this.lstProtocols.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.protocolBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            this.lstProtocols.FormattingEnabled = true;
+            resources.ApplyResources(this.lstProtocols, "lstProtocols");
+            this.lstProtocols.Name = "lstProtocols";
+            this.lstProtocols.SelectedIndexChanged += new System.EventHandler(this.lstProtocols_SelectedIndexChanged);
+            // 
+            // protocolBindingSource
+            // 
+            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
+            // 
             // tabCPM
             // 
-            resources.ApplyResources(this.tabCPM, "tabCPM");
             this.tabCPM.Controls.Add(this.gbCounter);
             this.tabCPM.Controls.Add(this.groupBox3);
             this.tabCPM.Controls.Add(this.groupBox2);
             this.tabCPM.Controls.Add(this.gbTimer);
+            resources.ApplyResources(this.tabCPM, "tabCPM");
             this.tabCPM.Name = "tabCPM";
             this.tabCPM.UseVisualStyleBackColor = true;
             // 
             // gbCounter
             // 
-            resources.ApplyResources(this.gbCounter, "gbCounter");
             this.gbCounter.Controls.Add(this.rbCPMCounter);
             this.gbCounter.Controls.Add(this.lblCPMCounter);
             this.gbCounter.Controls.Add(this.label12);
             this.gbCounter.Controls.Add(this.numericCPMUpDownCounter);
+            resources.ApplyResources(this.gbCounter, "gbCounter");
             this.gbCounter.Name = "gbCounter";
             this.gbCounter.TabStop = false;
             // 
@@ -321,9 +368,9 @@
             // 
             // groupBox2
             // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.btnPinch);
             this.groupBox2.Controls.Add(this.btnWhole);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
@@ -342,13 +389,13 @@
             // 
             // gbTimer
             // 
-            resources.ApplyResources(this.gbTimer, "gbTimer");
             this.gbTimer.Controls.Add(this.rbCPMTimer);
             this.gbTimer.Controls.Add(this.lblCPMTimer);
             this.gbTimer.Controls.Add(this.label11);
             this.gbTimer.Controls.Add(this.label10);
             this.gbTimer.Controls.Add(this.numericCPMUpDownSeconds);
             this.gbTimer.Controls.Add(this.numericCPMUpDownMinutes);
+            resources.ApplyResources(this.gbTimer, "gbTimer");
             this.gbTimer.Name = "gbTimer";
             this.gbTimer.TabStop = false;
             // 
@@ -376,12 +423,12 @@
             // 
             // numericCPMUpDownSeconds
             // 
-            resources.ApplyResources(this.numericCPMUpDownSeconds, "numericCPMUpDownSeconds");
             this.numericCPMUpDownSeconds.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
+            resources.ApplyResources(this.numericCPMUpDownSeconds, "numericCPMUpDownSeconds");
             this.numericCPMUpDownSeconds.Maximum = new decimal(new int[] {
             59,
             0,
@@ -410,21 +457,21 @@
             // 
             // tabCTM
             // 
-            resources.ApplyResources(this.tabCTM, "tabCTM");
             this.tabCTM.Controls.Add(this.gbCTMCounter);
             this.tabCTM.Controls.Add(this.groupBox4);
             this.tabCTM.Controls.Add(this.groupBox5);
             this.tabCTM.Controls.Add(this.gbCTMTimer);
+            resources.ApplyResources(this.tabCTM, "tabCTM");
             this.tabCTM.Name = "tabCTM";
             this.tabCTM.UseVisualStyleBackColor = true;
             // 
             // gbCTMCounter
             // 
-            resources.ApplyResources(this.gbCTMCounter, "gbCTMCounter");
             this.gbCTMCounter.Controls.Add(this.rbCTMCounter);
             this.gbCTMCounter.Controls.Add(this.lblCTMCounter);
             this.gbCTMCounter.Controls.Add(this.label14);
             this.gbCTMCounter.Controls.Add(this.numericCTMUpDownCounter);
+            resources.ApplyResources(this.gbCTMCounter, "gbCTMCounter");
             this.gbCTMCounter.Name = "gbCTMCounter";
             this.gbCTMCounter.TabStop = false;
             // 
@@ -491,7 +538,6 @@
             // 
             // groupBox5
             // 
-            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Controls.Add(this.cbxCTMAutoReset);
             this.groupBox5.Controls.Add(this.cbxCTMAutoMove);
             this.groupBox5.Controls.Add(this.label9);
@@ -502,6 +548,7 @@
             this.groupBox5.Controls.Add(this.label19);
             this.groupBox5.Controls.Add(this.trackCTMThreshold);
             this.groupBox5.Controls.Add(this.btnCTMStart);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.TabStop = false;
             // 
@@ -543,12 +590,12 @@
             // 
             // comboTreatment
             // 
-            resources.ApplyResources(this.comboTreatment, "comboTreatment");
             this.comboTreatment.FormattingEnabled = true;
             this.comboTreatment.Items.AddRange(new object[] {
             resources.GetString("comboTreatment.Items"),
             resources.GetString("comboTreatment.Items1"),
             resources.GetString("comboTreatment.Items2")});
+            resources.ApplyResources(this.comboTreatment, "comboTreatment");
             this.comboTreatment.Name = "comboTreatment";
             this.comboTreatment.SelectedIndexChanged += new System.EventHandler(this.comboTreatment_SelectedIndexChanged);
             // 
@@ -589,13 +636,13 @@
             // 
             // gbCTMTimer
             // 
-            resources.ApplyResources(this.gbCTMTimer, "gbCTMTimer");
             this.gbCTMTimer.Controls.Add(this.rbCTMTimer);
             this.gbCTMTimer.Controls.Add(this.lblCTMTimer);
             this.gbCTMTimer.Controls.Add(this.label17);
             this.gbCTMTimer.Controls.Add(this.label18);
             this.gbCTMTimer.Controls.Add(this.numericCTMUpDownSeconds);
             this.gbCTMTimer.Controls.Add(this.numericCTMUpDownMinutes);
+            resources.ApplyResources(this.gbCTMTimer, "gbCTMTimer");
             this.gbCTMTimer.Name = "gbCTMTimer";
             this.gbCTMTimer.TabStop = false;
             // 
@@ -623,12 +670,12 @@
             // 
             // numericCTMUpDownSeconds
             // 
-            resources.ApplyResources(this.numericCTMUpDownSeconds, "numericCTMUpDownSeconds");
             this.numericCTMUpDownSeconds.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
+            resources.ApplyResources(this.numericCTMUpDownSeconds, "numericCTMUpDownSeconds");
             this.numericCTMUpDownSeconds.Maximum = new decimal(new int[] {
             59,
             0,
@@ -657,22 +704,22 @@
             // 
             // tabEMGCal
             // 
-            resources.ApplyResources(this.tabEMGCal, "tabEMGCal");
             this.tabEMGCal.Controls.Add(this.gpCALThreshold);
             this.tabEMGCal.Controls.Add(this.gbCALBaseline);
             this.tabEMGCal.Controls.Add(this.groupBox1);
+            resources.ApplyResources(this.tabEMGCal, "tabEMGCal");
             this.tabEMGCal.Name = "tabEMGCal";
             this.tabEMGCal.UseVisualStyleBackColor = true;
             // 
             // gpCALThreshold
             // 
-            resources.ApplyResources(this.gpCALThreshold, "gpCALThreshold");
             this.gpCALThreshold.Controls.Add(this.button3);
             this.gpCALThreshold.Controls.Add(this.button2);
             this.gpCALThreshold.Controls.Add(this.lblCALThresholdFlexor);
             this.gpCALThreshold.Controls.Add(this.lblCALThresholdExtensor);
             this.gpCALThreshold.Controls.Add(this.trackBarThresholdExtensor);
             this.gpCALThreshold.Controls.Add(this.trackBarThresholdFlexor);
+            resources.ApplyResources(this.gpCALThreshold, "gpCALThreshold");
             this.gpCALThreshold.Name = "gpCALThreshold";
             this.gpCALThreshold.TabStop = false;
             // 
@@ -743,18 +790,17 @@
             // 
             // tabDEMO
             // 
-            resources.ApplyResources(this.tabDEMO, "tabDEMO");
             this.tabDEMO.Controls.Add(this.groupBoxExtra);
             this.tabDEMO.Controls.Add(this.groupBoxCmd);
             this.tabDEMO.Controls.Add(this.groupBoxLog);
             this.tabDEMO.Controls.Add(this.groupBoxFunctions);
             this.tabDEMO.Controls.Add(this.groupBoxInitialization);
+            resources.ApplyResources(this.tabDEMO, "tabDEMO");
             this.tabDEMO.Name = "tabDEMO";
             this.tabDEMO.UseVisualStyleBackColor = true;
             // 
             // groupBoxExtra
             // 
-            resources.ApplyResources(this.groupBoxExtra, "groupBoxExtra");
             this.groupBoxExtra.Controls.Add(this.label8);
             this.groupBoxExtra.Controls.Add(this.label5);
             this.groupBoxExtra.Controls.Add(this.label7);
@@ -765,6 +811,7 @@
             this.groupBoxExtra.Controls.Add(this.label6);
             this.groupBoxExtra.Controls.Add(this.trackBarPosition);
             this.groupBoxExtra.Controls.Add(this.label4);
+            resources.ApplyResources(this.groupBoxExtra, "groupBoxExtra");
             this.groupBoxExtra.Name = "groupBoxExtra";
             this.groupBoxExtra.TabStop = false;
             // 
@@ -790,16 +837,16 @@
             // 
             // buttonSetAuto
             // 
-            resources.ApplyResources(this.buttonSetAuto, "buttonSetAuto");
             this.buttonSetAuto.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonSetAuto, "buttonSetAuto");
             this.buttonSetAuto.Name = "buttonSetAuto";
             this.buttonSetAuto.UseVisualStyleBackColor = false;
             this.buttonSetAuto.Click += new System.EventHandler(this.buttonSetAuto_Click);
             // 
             // buttonSet
             // 
-            resources.ApplyResources(this.buttonSet, "buttonSet");
             this.buttonSet.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonSet, "buttonSet");
             this.buttonSet.Name = "buttonSet";
             this.buttonSet.UseVisualStyleBackColor = false;
             this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
@@ -828,12 +875,12 @@
             // 
             // groupBoxCmd
             // 
-            resources.ApplyResources(this.groupBoxCmd, "groupBoxCmd");
             this.groupBoxCmd.Controls.Add(this.textBoxcmd);
             this.groupBoxCmd.Controls.Add(this.buttonExit);
             this.groupBoxCmd.Controls.Add(this.buttonResume);
             this.groupBoxCmd.Controls.Add(this.buttonPause);
             this.groupBoxCmd.Controls.Add(this.buttonSend);
+            resources.ApplyResources(this.groupBoxCmd, "groupBoxCmd");
             this.groupBoxCmd.Name = "groupBoxCmd";
             this.groupBoxCmd.TabStop = false;
             // 
@@ -844,48 +891,48 @@
             // 
             // buttonExit
             // 
-            resources.ApplyResources(this.buttonExit, "buttonExit");
             this.buttonExit.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonExit, "buttonExit");
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.UseVisualStyleBackColor = false;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // buttonResume
             // 
-            resources.ApplyResources(this.buttonResume, "buttonResume");
             this.buttonResume.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonResume, "buttonResume");
             this.buttonResume.Name = "buttonResume";
             this.buttonResume.UseVisualStyleBackColor = false;
             this.buttonResume.Click += new System.EventHandler(this.buttonResume_Click);
             // 
             // buttonPause
             // 
-            resources.ApplyResources(this.buttonPause, "buttonPause");
             this.buttonPause.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonPause, "buttonPause");
             this.buttonPause.Name = "buttonPause";
             this.buttonPause.UseVisualStyleBackColor = false;
             this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
             // 
             // buttonSend
             // 
-            resources.ApplyResources(this.buttonSend, "buttonSend");
             this.buttonSend.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonSend, "buttonSend");
             this.buttonSend.Name = "buttonSend";
             this.buttonSend.UseVisualStyleBackColor = false;
             this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
             // 
             // groupBoxLog
             // 
-            resources.ApplyResources(this.groupBoxLog, "groupBoxLog");
             this.groupBoxLog.Controls.Add(this.buttonClear);
             this.groupBoxLog.Controls.Add(this.textBoxLog);
+            resources.ApplyResources(this.groupBoxLog, "groupBoxLog");
             this.groupBoxLog.Name = "groupBoxLog";
             this.groupBoxLog.TabStop = false;
             // 
             // buttonClear
             // 
-            resources.ApplyResources(this.buttonClear, "buttonClear");
             this.buttonClear.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonClear, "buttonClear");
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.UseVisualStyleBackColor = false;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
@@ -898,77 +945,77 @@
             // 
             // groupBoxFunctions
             // 
-            resources.ApplyResources(this.groupBoxFunctions, "groupBoxFunctions");
             this.groupBoxFunctions.Controls.Add(this.buttonCPM);
             this.groupBoxFunctions.Controls.Add(this.buttonfitting);
             this.groupBoxFunctions.Controls.Add(this.buttonfullyopen);
             this.groupBoxFunctions.Controls.Add(this.buttonfullyclose);
+            resources.ApplyResources(this.groupBoxFunctions, "groupBoxFunctions");
             this.groupBoxFunctions.Name = "groupBoxFunctions";
             this.groupBoxFunctions.TabStop = false;
             // 
             // buttonCPM
             // 
-            resources.ApplyResources(this.buttonCPM, "buttonCPM");
             this.buttonCPM.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonCPM, "buttonCPM");
             this.buttonCPM.Name = "buttonCPM";
             this.buttonCPM.UseVisualStyleBackColor = false;
             this.buttonCPM.Click += new System.EventHandler(this.buttonCPM_Click);
             // 
             // buttonfitting
             // 
-            resources.ApplyResources(this.buttonfitting, "buttonfitting");
             this.buttonfitting.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonfitting, "buttonfitting");
             this.buttonfitting.Name = "buttonfitting";
             this.buttonfitting.UseVisualStyleBackColor = false;
             this.buttonfitting.Click += new System.EventHandler(this.buttonfitting_Click);
             // 
             // buttonfullyopen
             // 
-            resources.ApplyResources(this.buttonfullyopen, "buttonfullyopen");
             this.buttonfullyopen.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonfullyopen, "buttonfullyopen");
             this.buttonfullyopen.Name = "buttonfullyopen";
             this.buttonfullyopen.UseVisualStyleBackColor = false;
             this.buttonfullyopen.Click += new System.EventHandler(this.buttonfullyopen_Click);
             // 
             // buttonfullyclose
             // 
-            resources.ApplyResources(this.buttonfullyclose, "buttonfullyclose");
             this.buttonfullyclose.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonfullyclose, "buttonfullyclose");
             this.buttonfullyclose.Name = "buttonfullyclose";
             this.buttonfullyclose.UseVisualStyleBackColor = false;
             this.buttonfullyclose.Click += new System.EventHandler(this.buttonfullyclose_Click);
             // 
             // groupBoxInitialization
             // 
-            resources.ApplyResources(this.groupBoxInitialization, "groupBoxInitialization");
             this.groupBoxInitialization.Controls.Add(this.buttonConnect);
             this.groupBoxInitialization.Controls.Add(this.buttontest);
+            resources.ApplyResources(this.groupBoxInitialization, "groupBoxInitialization");
             this.groupBoxInitialization.Name = "groupBoxInitialization";
             this.groupBoxInitialization.TabStop = false;
             // 
             // buttonConnect
             // 
-            resources.ApplyResources(this.buttonConnect, "buttonConnect");
             this.buttonConnect.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonConnect, "buttonConnect");
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.UseVisualStyleBackColor = false;
             this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
             // buttontest
             // 
-            resources.ApplyResources(this.buttontest, "buttontest");
             this.buttontest.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttontest, "buttontest");
             this.buttontest.Name = "buttontest";
             this.buttontest.UseVisualStyleBackColor = false;
             this.buttontest.Click += new System.EventHandler(this.buttontest_Click);
             // 
             // tabServer
             // 
-            resources.ApplyResources(this.tabServer, "tabServer");
             this.tabServer.BackColor = System.Drawing.SystemColors.Window;
             this.tabServer.Controls.Add(this.gboxServerLog);
             this.tabServer.Controls.Add(this.gboxServerControls);
             this.tabServer.Controls.Add(this.gboxServerInitialization);
+            resources.ApplyResources(this.tabServer, "tabServer");
             this.tabServer.Name = "tabServer";
             // 
             // gboxServerLog
@@ -1000,13 +1047,13 @@
             // 
             // gboxServerControls
             // 
-            resources.ApplyResources(this.gboxServerControls, "gboxServerControls");
             this.gboxServerControls.Controls.Add(this.btnServerSetContinuous);
             this.gboxServerControls.Controls.Add(this.btnServerSetPassive);
             this.gboxServerControls.Controls.Add(this.btnServerCtrlClear);
             this.gboxServerControls.Controls.Add(this.btnServerSend);
             this.gboxServerControls.Controls.Add(this.txtServerSend);
             this.gboxServerControls.Controls.Add(this.label2);
+            resources.ApplyResources(this.gboxServerControls, "gboxServerControls");
             this.gboxServerControls.Name = "gboxServerControls";
             this.gboxServerControls.TabStop = false;
             // 
@@ -1050,11 +1097,11 @@
             // 
             // gboxServerInitialization
             // 
-            resources.ApplyResources(this.gboxServerInitialization, "gboxServerInitialization");
             this.gboxServerInitialization.Controls.Add(this.btnServerStop);
             this.gboxServerInitialization.Controls.Add(this.btnServerStart);
             this.gboxServerInitialization.Controls.Add(this.txtServerPort);
             this.gboxServerInitialization.Controls.Add(this.label1);
+            resources.ApplyResources(this.gboxServerInitialization, "gboxServerInitialization");
             this.gboxServerInitialization.Name = "gboxServerInitialization";
             this.gboxServerInitialization.TabStop = false;
             // 
@@ -1113,6 +1160,9 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl.ResumeLayout(false);
+            this.tabProtocol.ResumeLayout(false);
+            this.tabProtocol.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).EndInit();
             this.tabCPM.ResumeLayout(false);
             this.gbCounter.ResumeLayout(false);
             this.gbCounter.PerformLayout();
@@ -1288,5 +1338,11 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ToolStripMenuItem protocolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabProtocol;
+        private System.Windows.Forms.ListBox lstProtocols;
+        private System.Windows.Forms.Label lblProtocolExercise;
+        private System.Windows.Forms.Label lblRepetitions;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.BindingSource protocolBindingSource;
     }
 }

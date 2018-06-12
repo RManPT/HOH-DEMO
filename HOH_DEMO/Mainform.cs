@@ -31,7 +31,14 @@ namespace HOH_DEMO
         private int previousCMDReceived;
         public static bool commandProcessed = true;
         private static Clinic clinic = new Clinic();
-        
+
+        //BindingSource conditionsBinding = new BindingSource();
+        //BindingSource conditionsDetailsBinding = new BindingSource();
+        //BindingSource exercisesBinding = new BindingSource();
+        //BindingSource exercisesDetailsBinding = new BindingSource();
+        //BindingSource protocolsBinding = new BindingSource();
+        //BindingSource protocolDetailsBinding = new BindingSource();
+
 
         public Mainform()
         {
@@ -42,12 +49,54 @@ namespace HOH_DEMO
             tabControl.SelectTab(1);
             actionTimer.Start();
             comboTreatment.SelectedIndex = 0;
-             //ServerSL = new Thread(() => AsyncServer.StartListening(10101));
-              //ServerSL.Start();
+            //ServerSL = new Thread(() => AsyncServer.StartListening(10101));
+            //ServerSL.Start();
 
-            
+            protocolBindingSource.DataSource = clinic.Protocols;
+
             //NW = new MRNetwork("0.0.0.0", 30000);
             //test connection with matlab
+
+           // conditionsBinding.DataSource = clinic.Conditions;
+           // conditionsDetailsBinding.DataSource = conditionsBinding;
+
+           // exercisesBinding.DataSource = clinic.Exercises;
+           // exercisesDetailsBinding.DataSource = exercisesBinding;
+
+           // protocolsBinding.DataSource = clinic.Protocols;
+           // protocolDetailsBinding.DataSource = protocolsBinding;
+
+           // lstProtocols.DataSource = protocolDetailsBinding;
+           // lstProtocols.DisplayMember = "Name";
+
+           //// lblProtocolExercise.DataBindings.Add("Text", protocolDetailBindings, "Exercise");
+           // lblRepetitions.DataBindings.Add("Text", protocolDetailsBinding, "Repetitions");
+
+            /*
+            lstConditions.DataSource = conditionsDetailsBinding;
+            lstConditions.DisplayMember = "Name";
+
+            txtConditionDetails1.DataBindings.Add("Text", conditionsDetailsBinding, "Name");
+            txtConditionDetails2.DataBindings.Add("Text", conditionsDetailsBinding, "HOHCode");
+            txtConditionDetails3.DataBindings.Add("Text", conditionsDetailsBinding, "UserMsg");
+            txtConditionDetails4.DataBindings.Add("Text", conditionsDetailsBinding, "CallbackMsg");
+
+            lstExercises.DataSource = exercisesDetailsBinding;
+            lstExercises.DisplayMember = "Name";
+
+
+            txtExerciceDetails1.DataBindings.Add("Text", exercisesDetailsBinding, "Name");
+            txtExerciceDetails2.DataBindings.Add("Text", exercisesDetailsBinding, "SFCode");
+            txtExerciceDetails3.DataBindings.Add("Text", exercisesDetailsBinding, "UserMsg");
+            txtExerciceDetails4.DataBindings.Add("Text", exercisesDetailsBinding, "ExerciseTime");
+
+            comboExercise1.DataSource = conditionsBinding;
+            //comboExercise1.DataBindings.Add("Name", exercisesDetailsBinding, "PreCondition");
+            comboExercise1.DisplayMember = "Name";
+            */
+
+
+
         }
 
         
@@ -922,6 +971,11 @@ namespace HOH_DEMO
         {
             textBox1.Text = "";
             textBox1.AppendText(clinic.Conditions[0].Name);
+        }
+
+        private void lstProtocols_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
