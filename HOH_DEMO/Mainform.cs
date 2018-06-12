@@ -4,7 +4,9 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Net.Sockets;
 using System.Diagnostics;
-using HOH_DEMO_Library;
+using HOH_Library;
+using HOH_ProtocolEditor;
+//using HOH_ProtocolEditor;
 
 namespace HOH_DEMO
 {
@@ -28,9 +30,12 @@ namespace HOH_DEMO
         public static int LastCMDReceived;
         private int previousCMDReceived;
         public static bool commandProcessed = true;
+        private static Clinic clinic = new Clinic();
         
+
         public Mainform()
         {
+            Seed.SetupData(clinic);
             InitializeComponent();
             NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000
             NW.SetLogBox(textBoxLog);
@@ -188,6 +193,84 @@ namespace HOH_DEMO
             //takecare of lastReceivedCommand;
             commandProcessed = true;
         }
+
+        private void SetupData()
+        {
+            State condFullyOpen = new State
+            {
+                Name = "FullyOpen",
+                HOHCode = "06",
+                UserMsg = "Opening Hand",
+                CallbackMsg = "Exit restoring"
+            };
+
+            State condFullyClose = new State
+            {
+                Name = "FullyClose",
+                HOHCode = "36",
+                UserMsg = "Closing Hand",
+                CallbackMsg = "Exit Restoring"
+            };
+
+            clinic.Conditions.Add(condFullyOpen);
+            clinic.Conditions.Add(condFullyClose);
+
+            Exercise exerFullyClose = new Exercise
+            {
+                PreCondition = condFullyOpen,
+                ExerciseTime = 20,
+                SFCode = "22",
+                UserMsg = "Close your hand!",
+                Movement = condFullyClose,
+                PostCondition = null
+            };
+
+            Exercise exerFullyOpen = new Exercise()
+            {
+                PreCondition = condFullyClose,
+                ExerciseTime = 20,
+                SFCode = "21",
+                UserMsg = "Open your hand!",
+                Movement = condFullyOpen,
+                PostCondition = null
+            };
+
+            Exercise exerOpenRest = new Exercise
+            {
+                PreCondition = condFullyOpen,
+                ExerciseTime = 20,
+                SFCode = "20",
+                UserMsg = "Relax with your hand closed",
+                Movement = null,
+                PostCondition = null
+            };
+
+            Exercise exerCloseRest = new Exercise
+            {
+                PreCondition = condFullyClose,
+                ExerciseTime = 20,
+                SFCode = "20",
+                UserMsg = "Relax with your hand closed",
+                Movement = null,
+                PostCondition = null
+            };
+
+            Exercise exerJustRest = new Exercise() {
+                PreCondition = null,
+                ExerciseTime = 20,
+                SFCode = "20",
+                UserMsg = "Just relax!",
+                Movement = null,
+                PostCondition = null
+            };
+        }
+
+
+
+        public bool PrintEndOfMove(string msg) {
+            Debug.WriteLine(msg);
+            return true;
+        }
         #endregion
 
         /***********************************************************************************************************/
@@ -216,8 +299,8 @@ namespace HOH_DEMO
                     LogUpdater.Start();*/
                     //NW.ExecuteAndWait("00", "done");
                     NW.Send("00");
-                    NW.ExecuteAndWait("00", "untested");
-                    Debug.WriteLine("teste" + NW.GetStatusMsg());
+                    //NW.ExecuteAndWait("00", "untested");
+                    Debug.WriteLine("status" + NW.GetStatusMsg());
                 }
                 else
                 {
@@ -227,6 +310,8 @@ namespace HOH_DEMO
             }
             else
             {
+                //resets hand
+                buttonfullyopen_Click(sender, e);
                 if (NW.Disconnect())
                 {
                     buttonConnect.Text = "Connect";
@@ -292,7 +377,10 @@ namespace HOH_DEMO
 
         private void buttonfullyopen_Click(object sender, EventArgs e)
         {
-            NW.Send("06");
+            // NW.Send("06");
+            //criar thread para este método
+            Thread exec = new Thread(() => NW.ExecuteAndWait("06", "Exit restoring", PrintEndOfMove));
+            exec.Start();
         }
 
         private void buttonfullyclose_Click(object sender, EventArgs e)
@@ -322,7 +410,7 @@ namespace HOH_DEMO
 
         private void Mainform_FormClosed(object sender, FormClosedEventArgs e)
         {
-            buttonfullyopen_Click(sender, e);
+          
         }
 
 
@@ -803,8 +891,43 @@ namespace HOH_DEMO
             textBoxLog.ScrollToCaret();
         }
 
+        private void Mainform_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
+            if (connectedHOH)
+            {  
+                //resets hand
+                buttonfullyopen_Click(sender, e);
+                //disconnects hand socket
+                buttonConnect_Click(sender, e);
+            }
+            //stops sfunction server
+            btnServerStop_Click(sender, e);
+        }
+
+        private void protocolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        ProtocolEditor f1 = new ProtocolEditor(clinic);
+            f1.ShowDialog();
+            Debug.WriteLine("form");
+            //f1.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox1.AppendText(clinic.Conditions[0].Name);
+        }
+
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
         {
+           
+            
 
         }
     }

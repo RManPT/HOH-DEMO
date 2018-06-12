@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 
 
-namespace HOH_DEMO_Library
+namespace HOH_Library
 {
 
 
@@ -231,7 +231,13 @@ namespace HOH_DEMO_Library
             if (txtLog.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetText);
-                txtLog.Invoke(d, new object[] { text+ System.Environment.NewLine });
+                try
+                {
+                    txtLog.Invoke(d, new object[] { text + System.Environment.NewLine });
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
@@ -301,10 +307,11 @@ namespace HOH_DEMO_Library
             setrun = false;
             try
             {
-               listener.Close();
+                //listener.Shutdown(SocketShutdown.Both);
+                listener.Close();
                 listener.Dispose();
                 //listener = null;
-                //listener.Shutdown(SocketShutdown.Both);
+                
             }
             catch (Exception e)
             {

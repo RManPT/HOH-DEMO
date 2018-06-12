@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace HOH_DEMO_Library
+namespace HOH_Library
 {
     public class Protocol
     {   
@@ -20,7 +20,13 @@ namespace HOH_DEMO_Library
 
         public Protocol()
         {
-           
+            this.Name = "New protocol";
         }
+
+        public void Execute()
+        {
+
+        }
+
     }
 }

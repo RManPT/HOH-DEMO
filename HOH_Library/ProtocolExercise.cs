@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace HOH_DEMO_Library
+namespace HOH_Library
 {
     public class ProtocolExercise
     {
@@ -15,11 +15,16 @@ namespace HOH_DEMO_Library
         /// <summary>
         /// Number of repetitions
         /// </summary>
-        public int Reptitions { get; set; }
+        public int Repetitions { get; set; }
 
         public ProtocolExercise()
         {
             
+        }
+
+        public void Execute()
+        {
+
         }
 
     }

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="TestProtocolCreation.exe" version="1.0.0.0" publicKeyToken="350b6dc2a384d0b1" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="TestProtocolCreation" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="TestProtocolCreation.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_Library.dll" size="19456">
+      <assemblyIdentity name="HOH_Library" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>UDdb5lvrzkEPEUxUbj8YGuP/HjSPrucrqa9utAhanfs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TestProtocolCreation.exe" size="158168">
+      <assemblyIdentity name="TestProtocolCreation" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>xQy2uTMtX8g37E0U8LyVI2bJtsvavUXXk6ql17T8Mbg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="TestProtocolCreation.exe.config" size="187">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ibSJhBWt6kT1jcg30WbAXCZJOzy699/zUdgGnXs5g9w=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=ERRTWO\Rui Rodrigues" issuerKeyHash="38070ebae0a9aa253612b1b4056c7d13ea7e687f" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>/f1AyRJn/3O0KoNZA+5LrrzCVTcHG2DrpvR+F5Sordw=</DigestValue></Reference></SignedInfo><SignatureValue>odN2RkQVTBIbwM9nm9t9Sj6rwDYavMYrpaASJI2MH8l8lRyJjCpfDVgAeyZimCGzGbueakU+MlLfRdoAUv9Dmw04apLmnR9z34/2D0/PyH0OZ6rdIHX5oAndiKallfeEv255Heu4d6ftazAQTlCTuSAs/BHzlTbo80euFBi+rPQ=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>uS83f/iA12rTkaxbrAG0TyrPnH9uyvp9CZIOF+j3BYSPbz/eLxrG2pt6H2iZk2LyB53/4JzIzDCa0XH0tkqQ6rTz2HQUu9e/8++xwkFCVVx8APwJiGRyiEnkSfj5+Czv3TcrZgMnK7Nn65tX3/gnE0uVRggZkdOIG3vVNhk+mPM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="dcada894177ef4a6eb601b073755c2bcae4bee0359832ab473ff6712c940fdfd" Description="" Url=""><as:assemblyIdentity name="TestProtocolCreation.exe" version="1.0.0.0" publicKeyToken="350b6dc2a384d0b1" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=ERRTWO\Rui Rodrigues</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>3cp7HglqlEg04Isnb9Zy6BOGWCwnbB4o3srWmtDXubU=</DigestValue></Reference></SignedInfo><SignatureValue>XyATT+ALFgz6a/HRuGRP2SW7XfkqxKai9ZlS5mK6F16a8ttYCxXx7uqRUhyeIi8A1koUg6eiEMLtuNLNUY4u/jC1mRstVolFTNmfei0ZGQicopYujcnhLtNOAP6aQEif999Oy2ITbX/mS2zvdC3TTHoJjhXkHM6yo2yDEeUYCC0=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>uS83f/iA12rTkaxbrAG0TyrPnH9uyvp9CZIOF+j3BYSPbz/eLxrG2pt6H2iZk2LyB53/4JzIzDCa0XH0tkqQ6rTz2HQUu9e/8++xwkFCVVx8APwJiGRyiEnkSfj5+Czv3TcrZgMnK7Nn65tX3/gnE0uVRggZkdOIG3vVNhk+mPM=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB6TCCAVKgAwIBAgIQFFC4oBp0rrxMKQqD1CijhzANBgkqhkiG9w0BAQsFADAzMTEwLwYDVQQDHigARQBSAFIAVABXAE8AXABSAHUAaQAgAFIAbwBkAHIAaQBnAHUAZQBzMB4XDTE4MDYxMTE3NDAyMVoXDTE5MDYxMTIzNDAyMVowMzExMC8GA1UEAx4oAEUAUgBSAFQAVwBPAFwAUgB1AGkAIABSAG8AZAByAGkAZwB1AGUAczCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAuS83f/iA12rTkaxbrAG0TyrPnH9uyvp9CZIOF+j3BYSPbz/eLxrG2pt6H2iZk2LyB53/4JzIzDCa0XH0tkqQ6rTz2HQUu9e/8++xwkFCVVx8APwJiGRyiEnkSfj5+Czv3TcrZgMnK7Nn65tX3/gnE0uVRggZkdOIG3vVNhk+mPMCAwEAATANBgkqhkiG9w0BAQsFAAOBgQAxNNY9cO0FSsxfPmO/2WZMMaxVFd1ixH2ehVYVxdHFjcr5M37ir828seMudb3nCB189P6jeb88JPAIOppC6dZGDenQIoxWvSwOkfzQ2tq4Tm9BW992WHULufCcBtIrzGDHthE/iVBXzu5PkHbmOPQD7SqyPzyzIqWB5TaUzX/exg==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

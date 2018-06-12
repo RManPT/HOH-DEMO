@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace HOH_DEMO_Library
+namespace HOH_Library
 {
     public class MRNetwork
     {
@@ -22,7 +22,11 @@ namespace HOH_DEMO_Library
         public delegate void InputEventHandler(object sender, LANCBEvenArgs e);
         public event InputEventHandler InputChanged;
         public ConcurrentQueue<string> msgs = new ConcurrentQueue<string>();
+        public ConcurrentQueue<string> logMsgs = new ConcurrentQueue<string>();
         private TextBox txtLog;
+        public delegate bool NextMovement(string msg);
+
+
 
 
         //Conection class
@@ -82,7 +86,12 @@ namespace HOH_DEMO_Library
                 client.Connect(ip, port);
                 state.workSocket = client;
                 Receive(client);
+                while (!msgs.IsEmpty)
+                    msgs.TryDequeue(out string result);
+                while (!logMsgs.IsEmpty)
+                    logMsgs.TryDequeue(out string result);
                 InputChanged += InputDetectedEvent;
+                new Thread(new ThreadStart(IsTested)).Start();
                 new Thread(new ThreadStart(PrintsStatusMsg)).Start();
                 SetStatusMsg("Connection Successful");
                 return true;
@@ -106,7 +115,7 @@ namespace HOH_DEMO_Library
                 client = null;
                 InputChanged -= InputDetectedEvent;
                 SetStatusMsg("Disconnection successfull");
-                
+               
                 return true;
             }
             catch (Exception e)
@@ -188,8 +197,11 @@ namespace HOH_DEMO_Library
                 msgRcvHOH += e.MsgString;
             else
             {
+                msgRcvHOH.Replace(Environment.NewLine, "x");
+                SetStatusMsg(msgRcvHOH);
                 msgs.Enqueue(msgRcvHOH);
-                SetText(msgRcvHOH);
+                //msgs.TryPeek(out string result);
+                //Debug.WriteLine("QUEUE - " + msgs.Count + " -> " + result );
                 msgRcvHOH = "";
             }           
         }
@@ -200,27 +212,30 @@ namespace HOH_DEMO_Library
         /// </summary>
         /// <param name="command">Integer code to send to HOH</param>
         /// <param name="exitCondition">Message that represents end of movement</param>
-        public void ExecuteAndWait(string command, string exitCondition)
+        public void ExecuteAndWait(string command, string exitCondition, NextMovement next)
         {
             bool status = true;
             Send(command);
-            while (true)
+            
+            while (status)
             {
-                string result;
-                if (!msgs.TryPeek(out result))
+                if (!msgs.IsEmpty)
                 {
-                    Console.WriteLine("TryPeek failed when it should have succeeded");
-                    SetStatusMsg("TryPeek failed when it should have succeeded");
+                    msgs.TryDequeue(out string result);
+                    if (result.Contains(exitCondition))
+                    {
+                        status = false;
+                        SetStatusMsg("Operation concluded");
+                        break;
+                    }
                 }
-                else if (msgs.TryDequeue(out result).ToString().Contains(exitCondition))
-                {
-                    status = false;
-                    Debug.WriteLine("Operation concluded");
-                    SetStatusMsg(result);
-                }
-
-                //Thread.Sleep(50);
+                Thread.Sleep(50);
             }
+            if (next != null)
+            {
+                bool b = next("acabei");
+            }
+           // Debug.WriteLine("Ended " + b);
         }
 
         public string GetStatusMsg()
@@ -234,11 +249,17 @@ namespace HOH_DEMO_Library
             if (txtLog.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetText);
-                txtLog.Invoke(d, new object[] { text + System.Environment.NewLine });
+                try
+                {
+                    txtLog.Invoke(d, new object[] { text + System.Environment.NewLine });
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
-                txtLog.Text += text ;
+                txtLog.Text += text + System.Environment.NewLine;
             }
         }
 
@@ -246,10 +267,10 @@ namespace HOH_DEMO_Library
         {
             while(true)
             {
-                if (statusMsgChanged)
-                {
-                    SetText(statusMsg);
-                    statusMsgChanged = false;
+                if (!logMsgs.IsEmpty)
+                { 
+                logMsgs.TryDequeue(out string result);
+                SetText(result);
                 }
                 Thread.Sleep(50);
             }
@@ -259,9 +280,35 @@ namespace HOH_DEMO_Library
         {
             if (statusMsg!=text)
             {
-                statusMsgChanged = true;
+                logMsgs.Enqueue(text);
                 statusMsg = text;
             } 
         }
+
+        public void IsTested()
+        {
+            while(true)
+            {
+                if (!msgs.IsEmpty)
+                { 
+                    msgs.TryDequeue(out string result);
+                    if (result.Contains("untested"))
+                    {
+                        Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
+                        exec.Start();
+                        Debug.WriteLine("ISTESTED: not tested");
+                        break;
+                    }
+                    if (result.Contains("tested"))
+                    {
+                        Debug.WriteLine("ISTESTED: already tested");
+                        break;
+                    }
+                }
+                Thread.Sleep(50);
+            }
+        }
+
+
     }   
 }

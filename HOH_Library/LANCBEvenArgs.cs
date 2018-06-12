@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HOH_DEMO_Library
+namespace HOH_Library
 {
     public class LANCBEvenArgs : EventArgs
     {

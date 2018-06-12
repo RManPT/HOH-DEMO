@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 
-namespace HOH_DEMO_Library
+namespace HOH_Library
 {
     //sets up comm settings
     public class StateObject

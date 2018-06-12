@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace HOH_DEMO_Library
+namespace HOH_Library
 {
-    public class Condition
+    public class State
     {
+        public string Name { get; set; }
         /// <summary>
         /// Code to send to HOH, represents one wanted action
         /// </summary>
-        public int HOHCode { get; set; }
+        public string HOHCode { get; set; }
         /// <summary>
         /// Message that is sent to UI. 
         /// </summary>
@@ -22,14 +23,16 @@ namespace HOH_DEMO_Library
         /// </summary>
         public string CallbackMsg { get; set; }
 
-        public Condition()
+        public State()
         {
-
+            this.Name = "New state";
+            this.HOHCode = "";
+            this.UserMsg = "";
+            this.CallbackMsg = "";
         }
 
         public void execute(MRNetwork NW) {
-            NW.Send(HOHCode.ToString());
-           
+            //NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg);  
         }
     }
 }
