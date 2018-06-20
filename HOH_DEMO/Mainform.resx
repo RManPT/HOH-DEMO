@@ -182,69 +182,84 @@
   <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="lblProtocolExercise.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="btnProtocolStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>284, 543</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lblProtocolExercise.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="btnProtocolStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
-  <data name="lblProtocolExercise.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 27</value>
+  <data name="btnProtocolStart.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
-  <data name="lblProtocolExercise.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 13</value>
+  <data name="btnProtocolStart.Text" xml:space="preserve">
+    <value>Start protocol</value>
   </data>
-  <data name="lblProtocolExercise.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;btnProtocolStart.Name" xml:space="preserve">
+    <value>btnProtocolStart</value>
   </data>
-  <data name="lblProtocolExercise.Text" xml:space="preserve">
-    <value>Available protocols</value>
+  <data name="&gt;&gt;btnProtocolStart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblProtocolExercise.Name" xml:space="preserve">
-    <value>lblProtocolExercise</value>
-  </data>
-  <data name="&gt;&gt;lblProtocolExercise.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblProtocolExercise.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btnProtocolStart.Parent" xml:space="preserve">
     <value>tabProtocol</value>
   </data>
-  <data name="&gt;&gt;lblProtocolExercise.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;btnProtocolStart.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="lblRepetitions.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <metadata name="protocolBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>554, 19</value>
+  </metadata>
+  <data name="listRepetitions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>323, 27</value>
   </data>
-  <data name="lblRepetitions.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="listRepetitions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>36, 95</value>
   </data>
-  <data name="lblRepetitions.Location" type="System.Drawing.Point, System.Drawing">
-    <value>170, 56</value>
+  <data name="listRepetitions.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
-  <data name="lblRepetitions.Size" type="System.Drawing.Size, System.Drawing">
-    <value>96, 13</value>
+  <data name="&gt;&gt;listRepetitions.Name" xml:space="preserve">
+    <value>listRepetitions</value>
   </data>
-  <data name="lblRepetitions.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;listRepetitions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="lblRepetitions.Text" xml:space="preserve">
-    <value>Available protocols</value>
-  </data>
-  <data name="&gt;&gt;lblRepetitions.Name" xml:space="preserve">
-    <value>lblRepetitions</value>
-  </data>
-  <data name="&gt;&gt;lblRepetitions.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblRepetitions.Parent" xml:space="preserve">
+  <data name="&gt;&gt;listRepetitions.Parent" xml:space="preserve">
     <value>tabProtocol</value>
   </data>
-  <data name="&gt;&gt;lblRepetitions.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;listRepetitions.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <metadata name="protocolBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>554, 19</value>
+  </metadata>
+  <data name="lstProtocolsExercises.Location" type="System.Drawing.Point, System.Drawing">
+    <value>134, 27</value>
+  </data>
+  <data name="lstProtocolsExercises.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 95</value>
+  </data>
+  <data name="lstProtocolsExercises.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lstProtocolsExercises.Name" xml:space="preserve">
+    <value>lstProtocolsExercises</value>
+  </data>
+  <data name="&gt;&gt;lstProtocolsExercises.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lstProtocolsExercises.Parent" xml:space="preserve">
+    <value>tabProtocol</value>
+  </data>
+  <data name="&gt;&gt;lstProtocolsExercises.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="label15.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 11</value>
@@ -268,11 +283,8 @@
     <value>tabProtocol</value>
   </data>
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
-  <metadata name="protocolBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>554, 19</value>
-  </metadata>
   <data name="lstProtocols.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 27</value>
   </data>
@@ -292,7 +304,7 @@
     <value>tabProtocol</value>
   </data>
   <data name="&gt;&gt;lstProtocols.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="tabProtocol.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -768,6 +780,9 @@
   <data name="rbCPMCounter.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="rbCPMCounter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="rbCPMCounter.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 172</value>
   </data>
@@ -794,6 +809,9 @@
   </data>
   <data name="lblCPMCounter.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 15.75pt, style=Bold</value>
+  </data>
+  <data name="lblCPMCounter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lblCPMCounter.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 102</value>
@@ -824,6 +842,9 @@
   </data>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 25</value>
@@ -923,6 +944,9 @@
   </data>
   <data name="&gt;&gt;groupBox3.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="btnCPMLogClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnCPMLogClear.Location" type="System.Drawing.Point, System.Drawing">
     <value>276, 157</value>
@@ -1026,6 +1050,9 @@
   <data name="btnPinch.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="btnPinch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="btnPinch.Location" type="System.Drawing.Point, System.Drawing">
     <value>186, 18</value>
   </data>
@@ -1052,6 +1079,9 @@
   </data>
   <data name="btnWhole.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="btnWhole.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnWhole.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 18</value>
@@ -1176,6 +1206,9 @@
   <data name="rbCPMTimer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="rbCPMTimer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="rbCPMTimer.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 172</value>
   </data>
@@ -1202,6 +1235,9 @@
   </data>
   <data name="lblCPMTimer.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 15.75pt, style=Bold</value>
+  </data>
+  <data name="lblCPMTimer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lblCPMTimer.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 102</value>
@@ -1233,6 +1269,9 @@
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label11.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 51</value>
   </data>
@@ -1259,6 +1298,9 @@
   </data>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 25</value>
@@ -1407,6 +1449,9 @@
   <data name="rbCTMCounter.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="rbCTMCounter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="rbCTMCounter.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 122</value>
   </data>
@@ -1433,6 +1478,9 @@
   </data>
   <data name="lblCTMCounter.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 15.75pt, style=Bold</value>
+  </data>
+  <data name="lblCTMCounter.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lblCTMCounter.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 82</value>
@@ -1463,6 +1511,9 @@
   </data>
   <data name="label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label14.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label14.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 25</value>
@@ -1578,6 +1629,9 @@
   <data name="lblCPMClientsConnected.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lblCPMClientsConnected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lblCPMClientsConnected.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 154</value>
   </data>
@@ -1601,6 +1655,9 @@
   </data>
   <data name="&gt;&gt;lblCPMClientsConnected.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="btnCTMLogClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnCTMLogClear.Location" type="System.Drawing.Point, System.Drawing">
     <value>276, 157</value>
@@ -1800,6 +1857,9 @@
   <data name="cbxCTMAutoReset.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="cbxCTMAutoReset.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="cbxCTMAutoReset.Location" type="System.Drawing.Point, System.Drawing">
     <value>187, 72</value>
   </data>
@@ -1827,6 +1887,9 @@
   <data name="cbxCTMAutoMove.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="cbxCTMAutoMove.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="cbxCTMAutoMove.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 72</value>
   </data>
@@ -1853,6 +1916,9 @@
   </data>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
     <value>184, 18</value>
@@ -1941,6 +2007,9 @@
   <data name="label20.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label20.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label20.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 123</value>
   </data>
@@ -1971,6 +2040,9 @@
   <data name="trackCTMBaseline.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="trackCTMBaseline.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackCTMBaseline.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 139</value>
   </data>
@@ -1994,6 +2066,9 @@
   </data>
   <data name="label19.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label19.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label19.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 158</value>
@@ -2022,6 +2097,9 @@
   <data name="trackCTMThreshold.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="trackCTMThreshold.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackCTMThreshold.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 177</value>
   </data>
@@ -2045,6 +2123,9 @@
   </data>
   <data name="btnCTMStart.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="btnCTMStart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnCTMStart.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 18</value>
@@ -2169,6 +2250,9 @@
   <data name="rbCTMTimer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="rbCTMTimer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="rbCTMTimer.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 122</value>
   </data>
@@ -2195,6 +2279,9 @@
   </data>
   <data name="lblCTMTimer.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 15.75pt, style=Bold</value>
+  </data>
+  <data name="lblCTMTimer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lblCTMTimer.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 80</value>
@@ -2226,6 +2313,9 @@
   <data name="label17.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label17.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 51</value>
   </data>
@@ -2252,6 +2342,9 @@
   </data>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label18.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label18.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 25</value>
@@ -2421,6 +2514,9 @@
   <data name="&gt;&gt;gpCALThreshold.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="button3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="button3.Location" type="System.Drawing.Point, System.Drawing">
     <value>248, 16</value>
   </data>
@@ -2444,6 +2540,9 @@
   </data>
   <data name="&gt;&gt;button3.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
     <value>248, 90</value>
@@ -2472,6 +2571,9 @@
   <data name="lblCALThresholdFlexor.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lblCALThresholdFlexor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lblCALThresholdFlexor.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 44</value>
   </data>
@@ -2498,6 +2600,9 @@
   </data>
   <data name="lblCALThresholdExtensor.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="lblCALThresholdExtensor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lblCALThresholdExtensor.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 118</value>
@@ -2526,6 +2631,9 @@
   <data name="trackBarThresholdExtensor.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="trackBarThresholdExtensor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackBarThresholdExtensor.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 119</value>
   </data>
@@ -2549,6 +2657,9 @@
   </data>
   <data name="trackBarThresholdFlexor.AutoSize" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="trackBarThresholdFlexor.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="trackBarThresholdFlexor.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 45</value>
@@ -2661,6 +2772,9 @@
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 154</value>
   </data>
@@ -2684,6 +2798,9 @@
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>276, 157</value>
@@ -2883,6 +3000,9 @@
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
     <value>183, 190</value>
   </data>
@@ -2909,6 +3029,9 @@
   </data>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
     <value>183, 92</value>
@@ -2937,6 +3060,9 @@
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 190</value>
   </data>
@@ -2964,6 +3090,9 @@
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 92</value>
   </data>
@@ -2987,6 +3116,9 @@
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="buttonSetAuto.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonSetAuto.Location" type="System.Drawing.Point, System.Drawing">
     <value>244, 134</value>
@@ -3012,6 +3144,9 @@
   <data name="&gt;&gt;buttonSetAuto.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="buttonSet.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonSet.Location" type="System.Drawing.Point, System.Drawing">
     <value>244, 37</value>
   </data>
@@ -3035,6 +3170,9 @@
   </data>
   <data name="&gt;&gt;buttonSet.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="trackBarPositionAuto.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="trackBarPositionAuto.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 154</value>
@@ -3060,6 +3198,9 @@
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 134</value>
   </data>
@@ -3084,6 +3225,9 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <data name="trackBarPosition.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="trackBarPosition.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 56</value>
   </data>
@@ -3107,6 +3251,9 @@
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 37</value>
@@ -3240,6 +3387,9 @@
   <data name="&gt;&gt;textBoxcmd.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="buttonExit.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonExit.Location" type="System.Drawing.Point, System.Drawing">
     <value>290, 16</value>
   </data>
@@ -3263,6 +3413,9 @@
   </data>
   <data name="&gt;&gt;buttonExit.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="buttonResume.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonResume.Location" type="System.Drawing.Point, System.Drawing">
     <value>231, 16</value>
@@ -3288,6 +3441,9 @@
   <data name="&gt;&gt;buttonResume.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="buttonPause.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonPause.Location" type="System.Drawing.Point, System.Drawing">
     <value>173, 16</value>
   </data>
@@ -3311,6 +3467,9 @@
   </data>
   <data name="&gt;&gt;buttonPause.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="buttonSend.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonSend.Location" type="System.Drawing.Point, System.Drawing">
     <value>113, 16</value>
@@ -3383,6 +3542,9 @@
   </data>
   <data name="&gt;&gt;groupBoxLog.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="buttonClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonClear.Location" type="System.Drawing.Point, System.Drawing">
     <value>269, 112</value>
@@ -3507,6 +3669,9 @@
   <data name="&gt;&gt;groupBoxFunctions.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="buttonCPM.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonCPM.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 23</value>
   </data>
@@ -3530,6 +3695,9 @@
   </data>
   <data name="&gt;&gt;buttonCPM.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="buttonfitting.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonfitting.Location" type="System.Drawing.Point, System.Drawing">
     <value>113, 23</value>
@@ -3555,6 +3723,9 @@
   <data name="&gt;&gt;buttonfitting.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="buttonfullyopen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonfullyopen.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 83</value>
   </data>
@@ -3578,6 +3749,9 @@
   </data>
   <data name="&gt;&gt;buttonfullyopen.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="buttonfullyclose.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttonfullyclose.Location" type="System.Drawing.Point, System.Drawing">
     <value>113, 83</value>
@@ -3651,6 +3825,9 @@
   <data name="&gt;&gt;groupBoxInitialization.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="buttonConnect.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="buttonConnect.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 23</value>
   </data>
@@ -3674,6 +3851,9 @@
   </data>
   <data name="&gt;&gt;buttonConnect.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="buttontest.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="buttontest.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 83</value>
@@ -3765,6 +3945,9 @@
   <data name="lblServerClientsConnected.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="lblServerClientsConnected.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="lblServerClientsConnected.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 329</value>
   </data>
@@ -3788,6 +3971,9 @@
   </data>
   <data name="&gt;&gt;lblServerClientsConnected.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="btnServerLogClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnServerLogClear.Location" type="System.Drawing.Point, System.Drawing">
     <value>275, 372</value>
@@ -3936,6 +4122,9 @@
   <data name="&gt;&gt;gboxServerControls.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btnServerSetContinuous.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="btnServerSetContinuous.Location" type="System.Drawing.Point, System.Drawing">
     <value>195, 62</value>
   </data>
@@ -3959,6 +4148,9 @@
   </data>
   <data name="&gt;&gt;btnServerSetContinuous.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="btnServerSetPassive.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnServerSetPassive.Location" type="System.Drawing.Point, System.Drawing">
     <value>33, 62</value>
@@ -3984,6 +4176,9 @@
   <data name="&gt;&gt;btnServerSetPassive.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btnServerCtrlClear.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="btnServerCtrlClear.Location" type="System.Drawing.Point, System.Drawing">
     <value>276, 15</value>
   </data>
@@ -4007,6 +4202,9 @@
   </data>
   <data name="&gt;&gt;btnServerCtrlClear.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="btnServerSend.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnServerSend.Location" type="System.Drawing.Point, System.Drawing">
     <value>195, 15</value>
@@ -4055,6 +4253,9 @@
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 20</value>
@@ -4155,6 +4356,9 @@
   <data name="btnServerStop.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="btnServerStop.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="btnServerStop.Location" type="System.Drawing.Point, System.Drawing">
     <value>278, 15</value>
   </data>
@@ -4178,6 +4382,9 @@
   </data>
   <data name="&gt;&gt;btnServerStop.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="btnServerStart.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="btnServerStart.Location" type="System.Drawing.Point, System.Drawing">
     <value>197, 15</value>
@@ -4229,6 +4436,9 @@
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 20</value>
@@ -5948,6 +6158,9 @@
         AAD///////////////////////gAAP//////////////////////+AAA
 </value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>VITA HoH</value>
   </data>
@@ -5987,12 +6200,6 @@
   <data name="&gt;&gt;aboutToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;protocolBindingSource.Name" xml:space="preserve">
-    <value>protocolBindingSource</value>
-  </data>
-  <data name="&gt;&gt;protocolBindingSource.Type" xml:space="preserve">
-    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;TreatmentTimer.Name" xml:space="preserve">
     <value>TreatmentTimer</value>
   </data>
@@ -6010,6 +6217,12 @@
   </data>
   <data name="&gt;&gt;actionTimer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;protocolBindingSource.Name" xml:space="preserve">
+    <value>protocolBindingSource</value>
+  </data>
+  <data name="&gt;&gt;protocolBindingSource.Type" xml:space="preserve">
+    <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Mainform</value>

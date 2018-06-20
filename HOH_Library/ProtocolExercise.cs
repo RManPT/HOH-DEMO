@@ -16,6 +16,10 @@ namespace HOH_Library
         /// Number of repetitions
         /// </summary>
         public int Repetitions { get; set; }
+        public string GetExerciseName
+        {
+            get { return Exercise.Name; }
+        }
 
         public ProtocolExercise()
         {
@@ -28,6 +32,7 @@ namespace HOH_Library
             Repetitions = repetitions;
         }
 
+      
 
         public void Execute()
         {

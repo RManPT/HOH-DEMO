@@ -33,8 +33,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button7 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnStateRemove = new System.Windows.Forms.Button();
+            this.btnStateAdd = new System.Windows.Forms.Button();
             this.details4 = new System.Windows.Forms.Label();
             this.txtConditionDetails4 = new System.Windows.Forms.TextBox();
             this.details3 = new System.Windows.Forms.Label();
@@ -45,14 +45,18 @@
             this.txtConditionDetails1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lstConditions = new System.Windows.Forms.ListBox();
+            this.lstStates = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.comboExercise1 = new System.Windows.Forms.ComboBox();
+            this.btnReset = new System.Windows.Forms.Button();
+            this.lblDump3 = new System.Windows.Forms.Label();
+            this.lblDump2 = new System.Windows.Forms.Label();
+            this.lblDump1 = new System.Windows.Forms.Label();
+            this.comboExerciseState1 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.comboExercise3 = new System.Windows.Forms.ComboBox();
-            this.comboExercise2 = new System.Windows.Forms.ComboBox();
+            this.btnExerciseRemove = new System.Windows.Forms.Button();
+            this.btnExerciseAdd = new System.Windows.Forms.Button();
+            this.comboExerciseState3 = new System.Windows.Forms.ComboBox();
+            this.comboExerciseState2 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -72,7 +76,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.lstProtocols = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -81,20 +85,19 @@
             // 
             // tabControl1
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.button7);
             this.tabPage1.Controls.Add(this.label13);
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.btnStateRemove);
+            this.tabPage1.Controls.Add(this.btnStateAdd);
             this.tabPage1.Controls.Add(this.details4);
             this.tabPage1.Controls.Add(this.txtConditionDetails4);
             this.tabPage1.Controls.Add(this.details3);
@@ -105,7 +108,8 @@
             this.tabPage1.Controls.Add(this.txtConditionDetails1);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.lstConditions);
+            this.tabPage1.Controls.Add(this.lstStates);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
@@ -122,19 +126,19 @@
             this.label13.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label13.Name = "label13";
             // 
-            // button2
+            // btnStateRemove
             // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            resources.ApplyResources(this.btnStateRemove, "btnStateRemove");
+            this.btnStateRemove.Name = "btnStateRemove";
+            this.btnStateRemove.UseVisualStyleBackColor = true;
+            this.btnStateRemove.Click += new System.EventHandler(this.btnStateRemove_Click);
             // 
-            // button1
+            // btnStateAdd
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            resources.ApplyResources(this.btnStateAdd, "btnStateAdd");
+            this.btnStateAdd.Name = "btnStateAdd";
+            this.btnStateAdd.UseVisualStyleBackColor = true;
+            this.btnStateAdd.Click += new System.EventHandler(this.btnStateAdd_Click);
             // 
             // details4
             // 
@@ -175,7 +179,6 @@
             // 
             resources.ApplyResources(this.txtConditionDetails1, "txtConditionDetails1");
             this.txtConditionDetails1.Name = "txtConditionDetails1";
-            this.txtConditionDetails1.Leave += new System.EventHandler(this.txtConditionDetails1_Leave);
             // 
             // label2
             // 
@@ -187,21 +190,24 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
-            // lstConditions
+            // lstStates
             // 
-            resources.ApplyResources(this.lstConditions, "lstConditions");
-            this.lstConditions.FormattingEnabled = true;
-            this.lstConditions.Name = "lstConditions";
+            this.lstStates.FormattingEnabled = true;
+            resources.ApplyResources(this.lstStates, "lstStates");
+            this.lstStates.Name = "lstStates";
             // 
             // tabPage2
             // 
-            resources.ApplyResources(this.tabPage2, "tabPage2");
-            this.tabPage2.Controls.Add(this.comboExercise1);
+            this.tabPage2.Controls.Add(this.btnReset);
+            this.tabPage2.Controls.Add(this.lblDump3);
+            this.tabPage2.Controls.Add(this.lblDump2);
+            this.tabPage2.Controls.Add(this.lblDump1);
+            this.tabPage2.Controls.Add(this.comboExerciseState1);
             this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.comboExercise3);
-            this.tabPage2.Controls.Add(this.comboExercise2);
+            this.tabPage2.Controls.Add(this.btnExerciseRemove);
+            this.tabPage2.Controls.Add(this.btnExerciseAdd);
+            this.tabPage2.Controls.Add(this.comboExerciseState3);
+            this.tabPage2.Controls.Add(this.comboExerciseState2);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label10);
@@ -216,14 +222,38 @@
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.lstExercises);
+            resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // comboExercise1
+            // btnReset
             // 
-            resources.ApplyResources(this.comboExercise1, "comboExercise1");
-            this.comboExercise1.FormattingEnabled = true;
-            this.comboExercise1.Name = "comboExercise1";
+            resources.ApplyResources(this.btnReset, "btnReset");
+            this.btnReset.Name = "btnReset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // lblDump3
+            // 
+            resources.ApplyResources(this.lblDump3, "lblDump3");
+            this.lblDump3.Name = "lblDump3";
+            // 
+            // lblDump2
+            // 
+            resources.ApplyResources(this.lblDump2, "lblDump2");
+            this.lblDump2.Name = "lblDump2";
+            // 
+            // lblDump1
+            // 
+            resources.ApplyResources(this.lblDump1, "lblDump1");
+            this.lblDump1.Name = "lblDump1";
+            // 
+            // comboExerciseState1
+            // 
+            this.comboExerciseState1.FormattingEnabled = true;
+            resources.ApplyResources(this.comboExerciseState1, "comboExerciseState1");
+            this.comboExerciseState1.Name = "comboExerciseState1";
+            this.comboExerciseState1.Leave += new System.EventHandler(this.comboExerciseState1_Leave);
             // 
             // label14
             // 
@@ -231,29 +261,31 @@
             this.label14.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label14.Name = "label14";
             // 
-            // button3
+            // btnExerciseRemove
             // 
-            resources.ApplyResources(this.button3, "button3");
-            this.button3.Name = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.btnExerciseRemove, "btnExerciseRemove");
+            this.btnExerciseRemove.Name = "btnExerciseRemove";
+            this.btnExerciseRemove.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnExerciseAdd
             // 
-            resources.ApplyResources(this.button4, "button4");
-            this.button4.Name = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.btnExerciseAdd, "btnExerciseAdd");
+            this.btnExerciseAdd.Name = "btnExerciseAdd";
+            this.btnExerciseAdd.UseVisualStyleBackColor = true;
             // 
-            // comboExercise3
+            // comboExerciseState3
             // 
-            resources.ApplyResources(this.comboExercise3, "comboExercise3");
-            this.comboExercise3.FormattingEnabled = true;
-            this.comboExercise3.Name = "comboExercise3";
+            this.comboExerciseState3.FormattingEnabled = true;
+            resources.ApplyResources(this.comboExerciseState3, "comboExerciseState3");
+            this.comboExerciseState3.Name = "comboExerciseState3";
+            this.comboExerciseState3.Leave += new System.EventHandler(this.comboExerciseState3_Leave);
             // 
-            // comboExercise2
+            // comboExerciseState2
             // 
-            resources.ApplyResources(this.comboExercise2, "comboExercise2");
-            this.comboExercise2.FormattingEnabled = true;
-            this.comboExercise2.Name = "comboExercise2";
+            this.comboExerciseState2.FormattingEnabled = true;
+            resources.ApplyResources(this.comboExerciseState2, "comboExerciseState2");
+            this.comboExerciseState2.Name = "comboExerciseState2";
+            this.comboExerciseState2.Leave += new System.EventHandler(this.comboExerciseState2_Leave);
             // 
             // label11
             // 
@@ -322,18 +354,20 @@
             // 
             // lstExercises
             // 
-            resources.ApplyResources(this.lstExercises, "lstExercises");
             this.lstExercises.FormattingEnabled = true;
+            resources.ApplyResources(this.lstExercises, "lstExercises");
             this.lstExercises.Name = "lstExercises";
+            this.lstExercises.SelectedIndexChanged += new System.EventHandler(this.lstExercises_SelectedIndexChanged);
+            this.lstExercises.BindingContextChanged += new System.EventHandler(this.lstExercises_BindingContextChanged);
             // 
             // tabPage3
             // 
-            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Controls.Add(this.label15);
             this.tabPage3.Controls.Add(this.button5);
             this.tabPage3.Controls.Add(this.button6);
             this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.listBox2);
+            this.tabPage3.Controls.Add(this.lstProtocols);
+            resources.ApplyResources(this.tabPage3, "tabPage3");
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
@@ -360,19 +394,18 @@
             resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
             // 
-            // listBox2
+            // lstProtocols
             // 
-            resources.ApplyResources(this.listBox2, "listBox2");
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Name = "listBox2";
+            this.lstProtocols.FormattingEnabled = true;
+            resources.ApplyResources(this.lstProtocols, "lstProtocols");
+            this.lstProtocols.Name = "lstProtocols";
             // 
-            // Testcreation
+            // ProtocolEditor
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
-            this.Name = "Testcreation";
-            this.Load += new System.EventHandler(this.Testcreation_Load);
+            this.Name = "ProtocolEditor";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -398,7 +431,7 @@
         private System.Windows.Forms.TextBox txtConditionDetails1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox lstConditions;
+        private System.Windows.Forms.ListBox lstStates;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtExerciceDetails4;
@@ -414,22 +447,26 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboExercise3;
-        private System.Windows.Forms.ComboBox comboExercise2;
+        private System.Windows.Forms.Button btnStateAdd;
+        private System.Windows.Forms.ComboBox comboExerciseState3;
+        private System.Windows.Forms.ComboBox comboExerciseState2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox lstProtocols;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnStateRemove;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnExerciseRemove;
+        private System.Windows.Forms.Button btnExerciseAdd;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.ComboBox comboExercise1;
+        private System.Windows.Forms.ComboBox comboExerciseState1;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label lblDump1;
+        private System.Windows.Forms.Label lblDump3;
+        private System.Windows.Forms.Label lblDump2;
+        private System.Windows.Forms.Button btnReset;
     }
 }
 

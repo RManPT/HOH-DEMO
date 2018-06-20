@@ -24,7 +24,7 @@ namespace HOH_Library
         public ConcurrentQueue<string> msgs = new ConcurrentQueue<string>();
         public ConcurrentQueue<string> logMsgs = new ConcurrentQueue<string>();
         private TextBox txtLog;
-        public delegate bool NextMovement(string msg);
+        public delegate bool NextTargetState(string msg);
 
 
 
@@ -211,8 +211,8 @@ namespace HOH_Library
         /// Sends a command to HOH and waits for the feedback that must be equal to exitCondition
         /// </summary>
         /// <param name="command">Integer code to send to HOH</param>
-        /// <param name="exitCondition">Message that represents end of movement</param>
-        public void ExecuteAndWait(string command, string exitCondition, NextMovement next)
+        /// <param name="exitCondition">Message that represents end of TargetState</param>
+        public void ExecuteAndWait(string command, string exitCondition, NextTargetState next)
         {
             bool status = true;
             Send(command);

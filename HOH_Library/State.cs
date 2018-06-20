@@ -31,6 +31,14 @@ namespace HOH_Library
             this.CallbackMsg = "";
         }
 
+        public State(string name)
+        {
+            this.Name = name;
+            this.HOHCode = "";
+            this.UserMsg = "";
+            this.CallbackMsg = "";
+        }
+
         public void execute(MRNetwork NW) {
             //NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg);  
         }
