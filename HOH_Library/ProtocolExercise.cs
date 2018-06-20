@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using System.Text;
 
 
@@ -34,9 +34,13 @@ namespace HOH_Library
 
       
 
-        public void Execute()
+        public void Execute(MRNetwork NW)
         {
-
+            Debug.WriteLine("   PRTOEXERCISE: START!");
+            for (int i = 0; i < this.Repetitions; i++)
+                this.Exercise.Execute(NW);
+            //forçar espera por fim de execução para passar à proxima repetição.
+            Debug.WriteLine("   PRTOEXERCISE: DONE!");
         }
 
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using System.Text;
 
 
@@ -45,9 +45,24 @@ namespace HOH_Library
             this.PostState = null;
         }
 
-        public void Execute()
+        public void Execute(MRNetwork NW)
         {
+            Debug.WriteLine("   EXERCISE: START!");
+            Debug.WriteLine("       Executing exercise: " + this.Name);
+            Debug.WriteLine("           Setting Prestate: " + this.PreState.Name);
+            this.PreState.execute(NW);
+            Debug.WriteLine("              " + this.PreState.UserMsg);
 
+            Debug.WriteLine("        Target State: " + this.TargetState.Name);
+            //start timer and launch server listener for simulink callback, if code received is correct execute TargetState
+            //if timer ends send incentive msg to usr and move on
+            this.TargetState.execute(NW);    
+            Debug.WriteLine("            > " + this.UserMsg);
+            Debug.WriteLine("            TS> " + this.TargetState.UserMsg);
+
+            Debug.WriteLine("         Setting PostState: " + this.PostState.Name);
+            this.TargetState.execute(NW);
+            Debug.WriteLine("   EXERCISE: DONE!");
         }
     }
 }

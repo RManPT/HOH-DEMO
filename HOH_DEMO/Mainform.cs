@@ -916,14 +916,23 @@ namespace HOH_DEMO
 
         private void lstProtocolsExercises_Format(object sender, ListControlConvertEventArgs e)
         {
+            string str1 = ((ProtocolExercise)e.ListItem).Exercise.Name;
+            string str2 = ((ProtocolExercise)e.ListItem).Repetitions.ToString();
+            e.Value = "(x" + str2 + ") " + str1;
+        }
 
+        private void btnProtocolStart_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine(lstProtocols.SelectedIndex);
+            Protocol pt = ((Protocol)lstProtocols.SelectedItem);
+            Thread ProtoRun = new Thread(() => pt.Execute(NW));
+            ProtoRun.Start();
+
+            //new Thread(new ThreadStart(((Protocol)lstProtocols.SelectedItem).Execute)).Start(); 
         }
 
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
         {
-           
-            
-
         }
     }
 }

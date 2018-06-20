@@ -152,8 +152,8 @@
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
             this.lstProtocolsExercises = new System.Windows.Forms.ListBox();
             this.listRepetitions = new System.Windows.Forms.ListBox();
-            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnProtocolStart = new System.Windows.Forms.Button();
+            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabProtocol.SuspendLayout();
@@ -1148,15 +1148,16 @@
             resources.ApplyResources(this.listRepetitions, "listRepetitions");
             this.listRepetitions.Name = "listRepetitions";
             // 
-            // protocolBindingSource
-            // 
-            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
-            // 
             // btnProtocolStart
             // 
             resources.ApplyResources(this.btnProtocolStart, "btnProtocolStart");
             this.btnProtocolStart.Name = "btnProtocolStart";
             this.btnProtocolStart.UseVisualStyleBackColor = true;
+            this.btnProtocolStart.Click += new System.EventHandler(this.btnProtocolStart_Click);
+            // 
+            // protocolBindingSource
+            // 
+            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
             // 
             // Mainform
             // 
