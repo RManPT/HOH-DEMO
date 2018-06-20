@@ -38,7 +38,11 @@ namespace HOH_Library
         {
             Debug.WriteLine("   PRTOEXERCISE: START!");
             for (int i = 0; i < this.Repetitions; i++)
+            {
+                Debug.WriteLine("   PRTOEXERCISE: " + i);
                 this.Exercise.Execute(NW);
+            }
+                
             //forçar espera por fim de execução para passar à proxima repetição.
             Debug.WriteLine("   PRTOEXERCISE: DONE!");
         }

@@ -23,7 +23,7 @@ namespace HOH_Library
                 Name = "FullyClose",
                 HOHCode = "36",
                 UserMsg = "Closing Hand",
-                CallbackMsg = "Exit Restoring"
+                CallbackMsg = "Exit hand closing"
             };
 
             State condNone = new State
@@ -138,7 +138,7 @@ namespace HOH_Library
                 Name = "Protocol 2",
                 Exercises = new List<ProtocolExercise>
                 {
-                    new ProtocolExercise(exerFullyClose, 10)
+                    new ProtocolExercise(exerFullyClose, 3)
                 }
             };
 

@@ -25,6 +25,7 @@ namespace HOH_Library
 
         public void Execute(MRNetwork NW)
         {
+            Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
             Debug.WriteLine("PROTOCOL: START!");
             foreach (ProtocolExercise ex in Exercises)
             {

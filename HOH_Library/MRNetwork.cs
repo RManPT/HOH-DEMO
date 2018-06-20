@@ -24,7 +24,7 @@ namespace HOH_Library
         public ConcurrentQueue<string> msgs = new ConcurrentQueue<string>();
         public ConcurrentQueue<string> logMsgs = new ConcurrentQueue<string>();
         private TextBox txtLog;
-        public delegate bool NextTargetState(string msg);
+        public delegate bool StateReached(string msg);
 
 
 
@@ -212,16 +212,17 @@ namespace HOH_Library
         /// </summary>
         /// <param name="command">Integer code to send to HOH</param>
         /// <param name="exitCondition">Message that represents end of TargetState</param>
-        public void ExecuteAndWait(string command, string exitCondition, NextTargetState next)
+        public void ExecuteAndWait(string command, string exitCondition, StateReached next)
         {
             bool status = true;
             Send(command);
             
             while (status)
             {
+                if(msgs!=null)
                 if (!msgs.IsEmpty)
                 {
-                    msgs.TryDequeue(out string result);
+                    if(msgs.TryDequeue(out string result))
                     if (result.Contains(exitCondition))
                     {
                         status = false;
@@ -235,7 +236,7 @@ namespace HOH_Library
             {
                 bool b = next("acabei");
             }
-           // Debug.WriteLine("Ended " + b);
+            // Debug.WriteLine("Ended " + b);
         }
 
         public string GetStatusMsg()
@@ -289,6 +290,7 @@ namespace HOH_Library
         {
             while(true)
             {
+                if (msgs!=null)
                 if (!msgs.IsEmpty)
                 { 
                     msgs.TryDequeue(out string result);

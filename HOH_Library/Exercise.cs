@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-
+using System.Threading;
 
 namespace HOH_Library
 {
@@ -47,22 +47,33 @@ namespace HOH_Library
 
         public void Execute(MRNetwork NW)
         {
-            Debug.WriteLine("   EXERCISE: START!");
-            Debug.WriteLine("       Executing exercise: " + this.Name);
-            Debug.WriteLine("           Setting Prestate: " + this.PreState.Name);
-            this.PreState.execute(NW);
-            Debug.WriteLine("              " + this.PreState.UserMsg);
+            lock (this)
+            {
+                Debug.WriteLine("   EXERCISE: START!");
+                Debug.WriteLine("       Executing exercise: " + this.Name);
+                Debug.WriteLine("           Setting Prestate: " + this.PreState.Name);
+                this.PreState.execute(NW);
+                Debug.WriteLine("              " + this.PreState.UserMsg);
 
-            Debug.WriteLine("        Target State: " + this.TargetState.Name);
-            //start timer and launch server listener for simulink callback, if code received is correct execute TargetState
-            //if timer ends send incentive msg to usr and move on
-            this.TargetState.execute(NW);    
-            Debug.WriteLine("            > " + this.UserMsg);
-            Debug.WriteLine("            TS> " + this.TargetState.UserMsg);
+                Debug.WriteLine("        Target State: " + this.TargetState.Name);
+                //start timer and launch server listener for simulink callback, if code received is correct execute TargetState
+                //if timer ends send incentive msg to usr and move on
 
-            Debug.WriteLine("         Setting PostState: " + this.PostState.Name);
-            this.TargetState.execute(NW);
-            Debug.WriteLine("   EXERCISE: DONE!");
+                SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
+                Thread SFThread = new Thread(() => sf.Execute(NW));
+                SFThread.Start();
+
+                // Monitor.Wait(this); 
+                Thread.Sleep(this.ExerciseTime * 1000);
+
+                this.TargetState.execute(NW);    
+                Debug.WriteLine("            > " + this.UserMsg);
+                Debug.WriteLine("            TS> " + this.TargetState.UserMsg);
+
+                Debug.WriteLine("         Setting PostState: " + this.PostState.Name);
+             //   this.PostState.execute(NW);
+                Debug.WriteLine("   EXERCISE: DONE!");
+            }
         }
     }
 }
