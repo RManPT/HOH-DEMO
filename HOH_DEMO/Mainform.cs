@@ -31,8 +31,9 @@ namespace HOH_DEMO
         private int previousCMDReceived;
         public static bool commandProcessed = true;
         private static Clinic clinic = new Clinic();
+        
 
-       
+
         BindingSource protocolsBinding = new BindingSource();
         BindingSource protocolDetailsBinding = new BindingSource();
         BindingSource protocolExerciseBindingSource;

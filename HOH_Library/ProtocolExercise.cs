@@ -39,7 +39,7 @@ namespace HOH_Library
             Debug.WriteLine("   PRTOEXERCISE: START!");
             for (int i = 0; i < this.Repetitions; i++)
             {
-                Debug.WriteLine("   PRTOEXERCISE: " + i);
+                Debug.WriteLine("   PRTOEXERCISE: " + (i+1));
                 this.Exercise.Execute(NW);
             }
                 

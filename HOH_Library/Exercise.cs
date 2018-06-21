@@ -47,33 +47,37 @@ namespace HOH_Library
 
         public void Execute(MRNetwork NW)
         {
-            lock (this)
-            {
+            //lock ()
+            //{
                 Debug.WriteLine("   EXERCISE: START!");
                 Debug.WriteLine("       Executing exercise: " + this.Name);
                 Debug.WriteLine("           Setting Prestate: " + this.PreState.Name);
-                this.PreState.execute(NW);
+                if (this.PreState!=null) this.PreState.execute(NW);
                 Debug.WriteLine("              " + this.PreState.UserMsg);
 
                 Debug.WriteLine("        Target State: " + this.TargetState.Name);
-                //start timer and launch server listener for simulink callback, if code received is correct execute TargetState
-                //if timer ends send incentive msg to usr and move on
+            //start timer and launch server listener for simulink callback, if code received is correct execute TargetState
+            //if timer ends send incentive msg to usr and move on
 
-                SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
-                Thread SFThread = new Thread(() => sf.Execute(NW));
-                SFThread.Start();
 
-                // Monitor.Wait(this); 
+            SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
+            Thread SFThread = new Thread(() => sf.Execute(NW));
+            SFThread.Start();
+
+            //Parar thread ate SFThread terminar 
+            // Monitor.Wait(this);  //testar com this.TargetState
+            if (this.TargetState != null) this.TargetState.execute(NW);
                 Thread.Sleep(this.ExerciseTime * 1000);
+            sf.InterruptListener(NW);
 
-                this.TargetState.execute(NW);    
+                
                 Debug.WriteLine("            > " + this.UserMsg);
                 Debug.WriteLine("            TS> " + this.TargetState.UserMsg);
 
                 Debug.WriteLine("         Setting PostState: " + this.PostState.Name);
-             //   this.PostState.execute(NW);
+                if (this.PostState != null) this.PostState.execute(NW);
                 Debug.WriteLine("   EXERCISE: DONE!");
-            }
+         //   }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace HOH_Library
         public int SFCode { get; set; }
         private int TimerCounter;
         private object HomeThread;
+        private bool ExecuteStatus { get; set; }
 
 
         public SFListener(State TargetState, int command, int time, object obj)
@@ -30,9 +31,13 @@ namespace HOH_Library
 
         public void Execute(MRNetwork NW)
         {
-            System.Threading.Timer TheTimer = new System.Threading.Timer(this.Tick, null, 0, 1000);
+
+            ExecuteStatus = true;
+            //System.Threading.Timer TheTimer = new System.Threading.Timer(this.Tick, null, 0, 1000);
             Debug.WriteLine("SFLISTENER : START!");
-            while (TimerCounter <= WaitTime)
+
+
+            while (ExecuteStatus)
             {
                 LastCMDReceived = AsyncServer.LastCMDReceived;
                 commandProcessed = AsyncServer.commandProcessed;
@@ -47,8 +52,11 @@ namespace HOH_Library
 
                //teste
                     Debug.WriteLine("SFLISTENER : executing");
-                    this.TargetState.execute(NW);
+                    if (this.TargetState != null) this.TargetState.execute(NW);
                     commandProcessed = true;
+                    ExecuteStatus = false;
+                Thread.Sleep(20);
+                break;
                 
             }
 
@@ -62,6 +70,11 @@ namespace HOH_Library
         public void Tick(object info)
         {
             this.TimerCounter++;
+        }
+
+        public void InterruptListener(MRNetwork NW) {
+            NW.ExecuteStatus = false;
+            this.ExecuteStatus = false;
         }
     }
 }

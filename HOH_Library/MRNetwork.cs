@@ -25,8 +25,8 @@ namespace HOH_Library
         public ConcurrentQueue<string> logMsgs = new ConcurrentQueue<string>();
         private TextBox txtLog;
         public delegate bool StateReached(string msg);
-
-
+        private static object Key = new object();
+        public bool ExecuteStatus { get; set; }
 
 
         //Conection class
@@ -214,10 +214,10 @@ namespace HOH_Library
         /// <param name="exitCondition">Message that represents end of TargetState</param>
         public void ExecuteAndWait(string command, string exitCondition, StateReached next)
         {
-            bool status = true;
+            ExecuteStatus = true;
             Send(command);
             
-            while (status)
+            while (ExecuteStatus)
             {
                 if(msgs!=null)
                 if (!msgs.IsEmpty)
@@ -225,7 +225,7 @@ namespace HOH_Library
                     if(msgs.TryDequeue(out string result))
                     if (result.Contains(exitCondition))
                     {
-                        status = false;
+                        ExecuteStatus = false;
                         SetStatusMsg("Operation concluded");
                         break;
                     }
