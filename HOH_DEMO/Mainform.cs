@@ -33,6 +33,11 @@ namespace HOH_DEMO
         private static Clinic clinic = new Clinic();
         
 
+
+        BindingSource protocolsBinding = new BindingSource();
+        BindingSource protocolDetailsBinding = new BindingSource();
+        BindingSource protocolExerciseBindingSource;
+
         public Mainform()
         {
             Seed.SetupData(clinic);
@@ -42,12 +47,60 @@ namespace HOH_DEMO
             tabControl.SelectTab(1);
             actionTimer.Start();
             comboTreatment.SelectedIndex = 0;
-             //ServerSL = new Thread(() => AsyncServer.StartListening(10101));
-              //ServerSL.Start();
+            //ServerSL = new Thread(() => AsyncServer.StartListening(10101));
+            //ServerSL.Start();
 
-            
+           
+
             //NW = new MRNetwork("0.0.0.0", 30000);
             //test connection with matlab
+
+  
+
+            protocolsBinding.DataSource = clinic.Protocols;
+            protocolDetailsBinding.DataSource = protocolsBinding;
+
+         
+            lstProtocols.DataSource = protocolDetailsBinding;
+            lstProtocols.DisplayMember = "Name";
+
+            protocolExerciseBindingSource = new BindingSource(protocolDetailsBinding, "Exercises");
+
+            lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
+            lstProtocolsExercises.DisplayMember = "GetExerciseName";
+           // Debug.WriteLine(protocolDetailsBinding.ToString());
+
+            listRepetitions.DataSource = protocolExerciseBindingSource;
+            listRepetitions.DisplayMember = "Repetitions";
+
+
+            // lblRepetitions.DataBindings.Add("Text", protocolDetailsBinding, "Repetitions");
+
+            /*
+            lstConditions.DataSource = conditionsDetailsBinding;
+            lstConditions.DisplayMember = "Name";
+
+            txtConditionDetails1.DataBindings.Add("Text", conditionsDetailsBinding, "Name");
+            txtConditionDetails2.DataBindings.Add("Text", conditionsDetailsBinding, "HOHCode");
+            txtConditionDetails3.DataBindings.Add("Text", conditionsDetailsBinding, "UserMsg");
+            txtConditionDetails4.DataBindings.Add("Text", conditionsDetailsBinding, "CallbackMsg");
+
+            lstExercises.DataSource = exercisesDetailsBinding;
+            lstExercises.DisplayMember = "Name";
+
+
+            txtExerciceDetails1.DataBindings.Add("Text", exercisesDetailsBinding, "Name");
+            txtExerciceDetails2.DataBindings.Add("Text", exercisesDetailsBinding, "SFCode");
+            txtExerciceDetails3.DataBindings.Add("Text", exercisesDetailsBinding, "UserMsg");
+            txtExerciceDetails4.DataBindings.Add("Text", exercisesDetailsBinding, "ExerciseTime");
+
+            comboExercise1.DataSource = conditionsBinding;
+            //comboExercise1.DataBindings.Add("Name", exercisesDetailsBinding, "PreState");
+            comboExercise1.DisplayMember = "Name";
+            */
+
+
+
         }
 
         
@@ -193,78 +246,6 @@ namespace HOH_DEMO
             //takecare of lastReceivedCommand;
             commandProcessed = true;
         }
-
-        private void SetupData()
-        {
-            State condFullyOpen = new State
-            {
-                Name = "FullyOpen",
-                HOHCode = "06",
-                UserMsg = "Opening Hand",
-                CallbackMsg = "Exit restoring"
-            };
-
-            State condFullyClose = new State
-            {
-                Name = "FullyClose",
-                HOHCode = "36",
-                UserMsg = "Closing Hand",
-                CallbackMsg = "Exit Restoring"
-            };
-
-            clinic.Conditions.Add(condFullyOpen);
-            clinic.Conditions.Add(condFullyClose);
-
-            Exercise exerFullyClose = new Exercise
-            {
-                PreCondition = condFullyOpen,
-                ExerciseTime = 20,
-                SFCode = "22",
-                UserMsg = "Close your hand!",
-                Movement = condFullyClose,
-                PostCondition = null
-            };
-
-            Exercise exerFullyOpen = new Exercise()
-            {
-                PreCondition = condFullyClose,
-                ExerciseTime = 20,
-                SFCode = "21",
-                UserMsg = "Open your hand!",
-                Movement = condFullyOpen,
-                PostCondition = null
-            };
-
-            Exercise exerOpenRest = new Exercise
-            {
-                PreCondition = condFullyOpen,
-                ExerciseTime = 20,
-                SFCode = "20",
-                UserMsg = "Relax with your hand closed",
-                Movement = null,
-                PostCondition = null
-            };
-
-            Exercise exerCloseRest = new Exercise
-            {
-                PreCondition = condFullyClose,
-                ExerciseTime = 20,
-                SFCode = "20",
-                UserMsg = "Relax with your hand closed",
-                Movement = null,
-                PostCondition = null
-            };
-
-            Exercise exerJustRest = new Exercise() {
-                PreCondition = null,
-                ExerciseTime = 20,
-                SFCode = "20",
-                UserMsg = "Just relax!",
-                Movement = null,
-                PostCondition = null
-            };
-        }
-
 
 
         public bool PrintEndOfMove(string msg) {
@@ -924,11 +905,35 @@ namespace HOH_DEMO
             textBox1.AppendText(clinic.Conditions[0].Name);
         }
 
+        private void lstProtocols_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabProtocol_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstProtocolsExercises_Format(object sender, ListControlConvertEventArgs e)
+        {
+            string str1 = ((ProtocolExercise)e.ListItem).Exercise.Name;
+            string str2 = ((ProtocolExercise)e.ListItem).Repetitions.ToString();
+            e.Value = "(x" + str2 + ") " + str1;
+        }
+
+        private void btnProtocolStart_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine(lstProtocols.SelectedIndex);
+            Protocol pt = ((Protocol)lstProtocols.SelectedItem);
+            Thread ProtoRun = new Thread(() => pt.Execute(NW));
+            ProtoRun.Start();
+
+            //new Thread(new ThreadStart(((Protocol)lstProtocols.SelectedItem).Execute)).Start(); 
+        }
+
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
         {
-           
-            
-
         }
     }
 }

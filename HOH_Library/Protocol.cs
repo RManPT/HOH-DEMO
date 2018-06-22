@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using System.Text;
 
 
@@ -23,10 +23,17 @@ namespace HOH_Library
             this.Name = "New protocol";
         }
 
-        public void Execute()
+        public void Execute(MRNetwork NW)
         {
-
+            Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+            Debug.WriteLine("PROTOCOL: START!");
+            foreach (ProtocolExercise ex in Exercises)
+            {
+               ex.Execute(NW);
+                //forçar espera por fim de execução para passar ao proximo item.
+                
+            }
+            Debug.WriteLine("PROTOCOL: DONE!");
         }
-
     }
 }

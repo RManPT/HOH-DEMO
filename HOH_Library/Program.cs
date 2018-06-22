@@ -14,9 +14,9 @@ namespace HOH_ProtocolEditor
         [STAThread]
        static void Main()
         {
-            Application.EnableVisualStyles();
+ /*           Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-           // Application.Run(new ProtocolEditor());
+            Application.Run(new Testcreation());*/
         }
     }
 }

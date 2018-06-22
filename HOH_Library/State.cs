@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using System.Text;
 
 
@@ -31,8 +31,17 @@ namespace HOH_Library
             this.CallbackMsg = "";
         }
 
+        public State(string name)
+        {
+            this.Name = name;
+            this.HOHCode = "";
+            this.UserMsg = "";
+            this.CallbackMsg = "";
+        }
+
         public void execute(MRNetwork NW) {
-            //NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg);  
+            NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg, null);  
+            Debug.WriteLine("           STATE: DONE!");
         }
     }
 }

@@ -23,65 +23,75 @@ namespace HOH_Library
                 Name = "FullyClose",
                 HOHCode = "36",
                 UserMsg = "Closing Hand",
-                CallbackMsg = "Exit Restoring"
+                CallbackMsg = "Exit hand closing"
             };
 
+            State condNone = new State
+            {
+                Name = "None",
+                HOHCode = "00",
+                UserMsg = "Resting",
+                CallbackMsg = ""
+            };
+
+            clinic.Conditions.Add(condNone);
             clinic.Conditions.Add(condFullyOpen);
             clinic.Conditions.Add(condFullyClose);
+            
 
             Exercise exerFullyClose = new Exercise
             {
                 Name = "Fully Close",
-                PreCondition = condFullyOpen,
-                ExerciseTime = 20,
+                PreState = condFullyOpen,
+                ExerciseTime = 5,
                 SFCode = "22",
                 UserMsg = "Close your hand!",
-                Movement = condFullyClose,
-                PostCondition = null
+                TargetState = condFullyClose,
+                PostState = condNone
             };
 
             Exercise exerFullyOpen = new Exercise()
             {
                 Name = "Fully Open",
-                PreCondition = condFullyClose,
-                ExerciseTime = 20,
+                PreState = condFullyClose,
+                ExerciseTime = 5,
                 SFCode = "21",
                 UserMsg = "Open your hand!",
-                Movement = condFullyOpen,
-                PostCondition = null
+                TargetState = condFullyOpen,
+                PostState = condNone
             };
 
             Exercise exerOpenRest = new Exercise
             {
                 Name = "Open Rest",
-                PreCondition = condFullyOpen,
-                ExerciseTime = 20,
+                PreState = condFullyOpen,
+                ExerciseTime = 5,
                 SFCode = "20",
                 UserMsg = "Relax with your hand closed",
-                Movement = null,
-                PostCondition = null
+                TargetState = condNone,
+                PostState = condNone
             };
 
             Exercise exerCloseRest = new Exercise
             {
                 Name = "Close Rest",
-                PreCondition = condFullyClose,
-                ExerciseTime = 20,
+                PreState = condFullyClose,
+                ExerciseTime = 5,
                 SFCode = "20",
                 UserMsg = "Relax with your hand closed",
-                Movement = null,
-                PostCondition = null
+                TargetState = condNone,
+                PostState = condNone
             };
 
             Exercise exerJustRest = new Exercise()
             {
                 Name = "Rest",
-                PreCondition = null,
-                ExerciseTime = 20,
+                PreState = condNone,
+                ExerciseTime = 5,
                 SFCode = "20",
                 UserMsg = "Just relax!",
-                Movement = null,
-                PostCondition = null
+                TargetState = condNone,
+                PostState = condNone
             };
 
             clinic.Exercises.Add(exerFullyClose);
@@ -123,8 +133,18 @@ namespace HOH_Library
                 }
             };
 
+            Protocol protoc2 = new Protocol()
+            {
+                Name = "Protocol 2",
+                Exercises = new List<ProtocolExercise>
+                {
+                    new ProtocolExercise(exerFullyClose, 3)
+                }
+            };
+
             clinic.Protocols.Add(protoc1);
-           
+            clinic.Protocols.Add(protoc2);
+
         }
     }
 

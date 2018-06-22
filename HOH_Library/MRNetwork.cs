@@ -24,9 +24,9 @@ namespace HOH_Library
         public ConcurrentQueue<string> msgs = new ConcurrentQueue<string>();
         public ConcurrentQueue<string> logMsgs = new ConcurrentQueue<string>();
         private TextBox txtLog;
-        public delegate bool NextMovement(string msg);
-
-
+        public delegate bool StateReached(string msg);
+        private static object Key = new object();
+        public bool ExecuteStatus { get; set; }
 
 
         //Conection class
@@ -211,20 +211,21 @@ namespace HOH_Library
         /// Sends a command to HOH and waits for the feedback that must be equal to exitCondition
         /// </summary>
         /// <param name="command">Integer code to send to HOH</param>
-        /// <param name="exitCondition">Message that represents end of movement</param>
-        public void ExecuteAndWait(string command, string exitCondition, NextMovement next)
+        /// <param name="exitCondition">Message that represents end of TargetState</param>
+        public void ExecuteAndWait(string command, string exitCondition, StateReached next)
         {
-            bool status = true;
+            ExecuteStatus = true;
             Send(command);
             
-            while (status)
+            while (ExecuteStatus)
             {
+                if(msgs!=null)
                 if (!msgs.IsEmpty)
                 {
-                    msgs.TryDequeue(out string result);
+                    if(msgs.TryDequeue(out string result))
                     if (result.Contains(exitCondition))
                     {
-                        status = false;
+                        ExecuteStatus = false;
                         SetStatusMsg("Operation concluded");
                         break;
                     }
@@ -235,7 +236,7 @@ namespace HOH_Library
             {
                 bool b = next("acabei");
             }
-           // Debug.WriteLine("Ended " + b);
+            // Debug.WriteLine("Ended " + b);
         }
 
         public string GetStatusMsg()
@@ -289,6 +290,7 @@ namespace HOH_Library
         {
             while(true)
             {
+                if (msgs!=null)
                 if (!msgs.IsEmpty)
                 { 
                     msgs.TryDequeue(out string result);
