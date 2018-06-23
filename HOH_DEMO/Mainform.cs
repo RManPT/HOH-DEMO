@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Diagnostics;
 using HOH_Library;
 using HOH_ProtocolEditor;
-//using HOH_ProtocolEditor;
+using HOH_ProtocolGUI;
 
 namespace HOH_DEMO
 {
@@ -31,7 +31,7 @@ namespace HOH_DEMO
         private int previousCMDReceived;
         public static bool commandProcessed = true;
         private static Clinic clinic = new Clinic();
-        
+        private delegate void EventSubscribed(HOHEvent e);
 
 
         BindingSource protocolsBinding = new BindingSource();
@@ -50,16 +50,13 @@ namespace HOH_DEMO
             //ServerSL = new Thread(() => AsyncServer.StartListening(10101));
             //ServerSL.Start();
 
-           
+            HOHEvent.LogUpdate += HOHEvent_Update;
+            HOHEvent.UsrMsgUpdate += HOHEvent_Update;
 
             //NW = new MRNetwork("0.0.0.0", 30000);
             //test connection with matlab
-
-  
-
             protocolsBinding.DataSource = clinic.Protocols;
             protocolDetailsBinding.DataSource = protocolsBinding;
-
          
             lstProtocols.DataSource = protocolDetailsBinding;
             lstProtocols.DisplayMember = "Name";
@@ -72,41 +69,20 @@ namespace HOH_DEMO
 
             listRepetitions.DataSource = protocolExerciseBindingSource;
             listRepetitions.DisplayMember = "Repetitions";
-
-
-            // lblRepetitions.DataBindings.Add("Text", protocolDetailsBinding, "Repetitions");
-
-            /*
-            lstConditions.DataSource = conditionsDetailsBinding;
-            lstConditions.DisplayMember = "Name";
-
-            txtConditionDetails1.DataBindings.Add("Text", conditionsDetailsBinding, "Name");
-            txtConditionDetails2.DataBindings.Add("Text", conditionsDetailsBinding, "HOHCode");
-            txtConditionDetails3.DataBindings.Add("Text", conditionsDetailsBinding, "UserMsg");
-            txtConditionDetails4.DataBindings.Add("Text", conditionsDetailsBinding, "CallbackMsg");
-
-            lstExercises.DataSource = exercisesDetailsBinding;
-            lstExercises.DisplayMember = "Name";
-
-
-            txtExerciceDetails1.DataBindings.Add("Text", exercisesDetailsBinding, "Name");
-            txtExerciceDetails2.DataBindings.Add("Text", exercisesDetailsBinding, "SFCode");
-            txtExerciceDetails3.DataBindings.Add("Text", exercisesDetailsBinding, "UserMsg");
-            txtExerciceDetails4.DataBindings.Add("Text", exercisesDetailsBinding, "ExerciseTime");
-
-            comboExercise1.DataSource = conditionsBinding;
-            //comboExercise1.DataBindings.Add("Name", exercisesDetailsBinding, "PreState");
-            comboExercise1.DisplayMember = "Name";
-            */
-
-
-
         }
 
+        private void HOHEvent_Update(object sender, HOHEvent e)
+        {
+            Delegate d = new EventSubscribed(updateGUI);
+            this.Invoke(d,e);
+        }
+
+        private void updateGUI(HOHEvent e)
+        {
+            if (e.LogMsg!=null) txtProtocolsLog.AppendText(e.LogMsg.ToString() + Environment.NewLine);
+            if (e.UserMsg!= null) txtProtocolsLog.AppendText(e.UserMsg.ToString() + Environment.NewLine);
+        }
         
-
-
-
 
 
         /***********************************************************************************************************/
@@ -902,7 +878,7 @@ namespace HOH_DEMO
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            textBox1.AppendText(clinic.Conditions[0].Name);
+            textBox1.AppendText(clinic.State[0].Name);
         }
 
         private void lstProtocols_SelectedIndexChanged(object sender, EventArgs e)
@@ -917,19 +893,36 @@ namespace HOH_DEMO
 
         private void lstProtocolsExercises_Format(object sender, ListControlConvertEventArgs e)
         {
-            string str1 = ((ProtocolExercise)e.ListItem).Exercise.Name;
-            string str2 = ((ProtocolExercise)e.ListItem).Repetitions.ToString();
+            string str1 = ((Exercise)e.ListItem).Name;
+            string str2 = ((Exercise)e.ListItem).Repetitions.ToString();
             e.Value = "(x" + str2 + ") " + str1;
         }
 
         private void btnProtocolStart_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(lstProtocols.SelectedIndex);
             Protocol pt = ((Protocol)lstProtocols.SelectedItem);
             Thread ProtoRun = new Thread(() => pt.Execute(NW));
             ProtoRun.Start();
-
+            ProtocolGUI protocolGUI = new ProtocolGUI();
+            protocolGUI.Show();
             //new Thread(new ThreadStart(((Protocol)lstProtocols.SelectedItem).Execute)).Start(); 
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            txtServerLog.SelectionStart = txtServerLog.TextLength;
+            txtServerLog.ScrollToCaret();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            txtProtocolsLog.Text = "";
+        }
+
+        private void txtProtocolsLog_TextChanged(object sender, EventArgs e)
+        {
+            txtServerLog.SelectionStart = txtServerLog.TextLength;
+            txtServerLog.ScrollToCaret();
         }
 
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)

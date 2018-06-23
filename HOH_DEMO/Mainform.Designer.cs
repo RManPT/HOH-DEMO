@@ -39,6 +39,10 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabProtocol = new System.Windows.Forms.TabPage();
+            this.btnProtocolStart = new System.Windows.Forms.Button();
+            this.listRepetitions = new System.Windows.Forms.ListBox();
+            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lstProtocolsExercises = new System.Windows.Forms.ListBox();
             this.label15 = new System.Windows.Forms.Label();
             this.lstProtocols = new System.Windows.Forms.ListBox();
             this.tabCPM = new System.Windows.Forms.TabPage();
@@ -150,13 +154,13 @@
             this.TreatmentTimer = new System.Windows.Forms.Timer(this.components);
             this.ExerciceResetTimer = new System.Windows.Forms.Timer(this.components);
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
-            this.lstProtocolsExercises = new System.Windows.Forms.ListBox();
-            this.listRepetitions = new System.Windows.Forms.ListBox();
-            this.btnProtocolStart = new System.Windows.Forms.Button();
-            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.txtProtocolsLog = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabProtocol.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).BeginInit();
             this.tabCPM.SuspendLayout();
             this.gbCounter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericCPMUpDownCounter)).BeginInit();
@@ -193,7 +197,7 @@
             this.gboxServerLog.SuspendLayout();
             this.gboxServerControls.SuspendLayout();
             this.gboxServerInitialization.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -257,6 +261,7 @@
             // 
             // tabProtocol
             // 
+            this.tabProtocol.Controls.Add(this.groupBox6);
             this.tabProtocol.Controls.Add(this.btnProtocolStart);
             this.tabProtocol.Controls.Add(this.listRepetitions);
             this.tabProtocol.Controls.Add(this.lstProtocolsExercises);
@@ -266,6 +271,32 @@
             this.tabProtocol.Name = "tabProtocol";
             this.tabProtocol.UseVisualStyleBackColor = true;
             this.tabProtocol.Click += new System.EventHandler(this.tabProtocol_Click);
+            // 
+            // btnProtocolStart
+            // 
+            resources.ApplyResources(this.btnProtocolStart, "btnProtocolStart");
+            this.btnProtocolStart.Name = "btnProtocolStart";
+            this.btnProtocolStart.UseVisualStyleBackColor = true;
+            this.btnProtocolStart.Click += new System.EventHandler(this.btnProtocolStart_Click);
+            // 
+            // listRepetitions
+            // 
+            this.listRepetitions.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.protocolBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            this.listRepetitions.FormattingEnabled = true;
+            resources.ApplyResources(this.listRepetitions, "listRepetitions");
+            this.listRepetitions.Name = "listRepetitions";
+            // 
+            // protocolBindingSource
+            // 
+            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
+            // 
+            // lstProtocolsExercises
+            // 
+            this.lstProtocolsExercises.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.protocolBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.Never));
+            this.lstProtocolsExercises.FormattingEnabled = true;
+            resources.ApplyResources(this.lstProtocolsExercises, "lstProtocolsExercises");
+            this.lstProtocolsExercises.Name = "lstProtocolsExercises";
+            this.lstProtocolsExercises.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.lstProtocolsExercises_Format);
             // 
             // label15
             // 
@@ -1133,31 +1164,26 @@
             this.actionTimer.Interval = 250;
             this.actionTimer.Tick += new System.EventHandler(this.actionTimer_Tick);
             // 
-            // lstProtocolsExercises
+            // groupBox6
             // 
-            this.lstProtocolsExercises.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.protocolBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.lstProtocolsExercises.FormattingEnabled = true;
-            resources.ApplyResources(this.lstProtocolsExercises, "lstProtocolsExercises");
-            this.lstProtocolsExercises.Name = "lstProtocolsExercises";
-            this.lstProtocolsExercises.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.lstProtocolsExercises_Format);
+            resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.Controls.Add(this.button4);
+            this.groupBox6.Controls.Add(this.txtProtocolsLog);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.TabStop = false;
             // 
-            // listRepetitions
+            // button4
             // 
-            this.listRepetitions.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.protocolBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.Never));
-            this.listRepetitions.FormattingEnabled = true;
-            resources.ApplyResources(this.listRepetitions, "listRepetitions");
-            this.listRepetitions.Name = "listRepetitions";
+            resources.ApplyResources(this.button4, "button4");
+            this.button4.Name = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // btnProtocolStart
+            // txtProtocolsLog
             // 
-            resources.ApplyResources(this.btnProtocolStart, "btnProtocolStart");
-            this.btnProtocolStart.Name = "btnProtocolStart";
-            this.btnProtocolStart.UseVisualStyleBackColor = true;
-            this.btnProtocolStart.Click += new System.EventHandler(this.btnProtocolStart_Click);
-            // 
-            // protocolBindingSource
-            // 
-            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
+            resources.ApplyResources(this.txtProtocolsLog, "txtProtocolsLog");
+            this.txtProtocolsLog.Name = "txtProtocolsLog";
+            this.txtProtocolsLog.TextChanged += new System.EventHandler(this.txtProtocolsLog_TextChanged);
             // 
             // Mainform
             // 
@@ -1177,6 +1203,7 @@
             this.tabControl.ResumeLayout(false);
             this.tabProtocol.ResumeLayout(false);
             this.tabProtocol.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).EndInit();
             this.tabCPM.ResumeLayout(false);
             this.gbCounter.ResumeLayout(false);
             this.gbCounter.PerformLayout();
@@ -1228,7 +1255,8 @@
             this.gboxServerControls.PerformLayout();
             this.gboxServerInitialization.ResumeLayout(false);
             this.gboxServerInitialization.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1360,5 +1388,8 @@
         private System.Windows.Forms.ListBox lstProtocolsExercises;
         private System.Windows.Forms.ListBox listRepetitions;
         private System.Windows.Forms.Button btnProtocolStart;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox txtProtocolsLog;
     }
 }

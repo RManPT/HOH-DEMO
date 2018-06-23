@@ -30,8 +30,8 @@ namespace HOH_ProtocolEditor
             InitializeComponent();
             this.clinic = clinic;
 
-            ///conditions
-            SetupConditionsPanel();
+            ///State
+            SetupStatePanel();
 
             ///exercises
             SetupExercisesPanel();
@@ -42,9 +42,9 @@ namespace HOH_ProtocolEditor
 
 
         #region Custom
-        private void SetupConditionsPanel()
+        private void SetupStatePanel()
         {
-            statesBinding.DataSource = clinic.Conditions;
+            statesBinding.DataSource = clinic.State;
             statesDetailsBinding.DataSource = statesBinding;
 
 
@@ -70,6 +70,7 @@ namespace HOH_ProtocolEditor
             txtExerciceDetails2.DataBindings.Add("Text", exercisesDetailsBinding, "SFCode");
             txtExerciceDetails3.DataBindings.Add("Text", exercisesDetailsBinding, "UserMsg");
             txtExerciceDetails4.DataBindings.Add("Text", exercisesDetailsBinding, "ExerciseTime");
+            txtExerciceDetails5.DataBindings.Add("Text", exercisesDetailsBinding, "Repetitions");
 
             comboExerciseState1.BindingContext = new BindingContext();
             comboExerciseState1.DataSource = statesBinding;
@@ -106,7 +107,7 @@ namespace HOH_ProtocolEditor
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(clinic.Conditions.ElementAt(0).Name);
+            Debug.WriteLine(clinic.State.ElementAt(0).Name);
         }
 
         private void lstExercises_BindingContextChanged(object sender, EventArgs e)
@@ -152,7 +153,7 @@ namespace HOH_ProtocolEditor
 
         private void btnStateAdd_Click(object sender, EventArgs e)
         {
-            clinic.Conditions.Add(new State("New state " + (clinic.Conditions.Count + 1)));
+            clinic.State.Add(new State("New state " + (clinic.State.Count + 1)));
             statesBinding.ResetBindings(false);
             lstStates.SelectedIndex = lstStates.Items.Count - 1;
         }
@@ -161,7 +162,7 @@ namespace HOH_ProtocolEditor
         {
             try
             {
-                clinic.Conditions.RemoveAt(lstStates.SelectedIndex);
+                clinic.State.RemoveAt(lstStates.SelectedIndex);
             }
             catch { }
             statesBinding.ResetBindings(false);

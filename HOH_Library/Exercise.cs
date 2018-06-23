@@ -14,7 +14,7 @@ namespace HOH_Library
         /// </summary>
         public State PreState { get; set; }
         /// <summary>
-        /// Time allowed for each exercise. Discounts pre and post conditions times
+        /// Time allowed for each exercise. Discounts pre and post State times
         /// </summary>
         public int ExerciseTime { get; set; }
         /// <summary>
@@ -29,10 +29,16 @@ namespace HOH_Library
         /// Code to send to HOH, represents one wanted action
         /// </summary>
         public State TargetState { get; set; }
+        public int Repetitions { get; set; }
         /// <summary>
         /// Sets HOH to a position (optional)
         /// </summary>
         public State PostState { get; set; }
+        public string GetExerciseName
+        {
+            get { return Name; }
+        }
+        private HOHEvent HOHEventObj = new HOHEvent();
 
         public Exercise()
         {
@@ -42,42 +48,43 @@ namespace HOH_Library
             this.UserMsg = "";
             this.SFCode = "";
             this.TargetState = null;
+            this.Repetitions = 1;
             this.PostState = null;
         }
 
         public void Execute(MRNetwork NW)
         {
-            //lock ()
-            //{
-                Debug.WriteLine("   EXERCISE: START!");
-                Debug.WriteLine("       Executing exercise: " + this.Name);
-                Debug.WriteLine("           Setting Prestate: " + this.PreState.Name);
-                if (this.PreState!=null) this.PreState.execute(NW);
-                Debug.WriteLine("              " + this.PreState.UserMsg);
+            for (int i = 0; i < this.Repetitions; i++)
+            {
+                HOHEventObj.UpdateLogMsg("EXERCISE: START!");
+                HOHEventObj.UpdateLogMsg("Executing exercise: " + this.Name);
 
-                Debug.WriteLine("        Target State: " + this.TargetState.Name);
-            //start timer and launch server listener for simulink callback, if code received is correct execute TargetState
-            //if timer ends send incentive msg to usr and move on
+                if (this.PreState != null)
+                { 
+                    HOHEventObj.UpdateLogMsg("Setting Prestate: " + this.PreState.Name);
+                    this.PreState.execute(NW);
+                }
 
+                if (this.TargetState != null)
+                {
+                    HOHEventObj.UpdateLogMsg("Target State: " + this.TargetState.Name);
 
-            SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
-            Thread SFThread = new Thread(() => sf.Execute(NW));
-            SFThread.Start();
+                    SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
+                    Thread SFThread = new Thread(() => sf.Execute(NW));
+                    SFThread.Start();
 
-            //Parar thread ate SFThread terminar 
-            // Monitor.Wait(this);  //testar com this.TargetState
-            if (this.TargetState != null) this.TargetState.execute(NW);
-                Thread.Sleep(this.ExerciseTime * 1000);
-            sf.InterruptListener(NW);
+                    this.TargetState.execute(NW);
+                    Thread.Sleep(this.ExerciseTime * 1000);
+                    sf.InterruptListener(NW);
+                }
 
-                
-                Debug.WriteLine("            > " + this.UserMsg);
-                Debug.WriteLine("            TS> " + this.TargetState.UserMsg);
-
-                Debug.WriteLine("         Setting PostState: " + this.PostState.Name);
-                if (this.PostState != null) this.PostState.execute(NW);
-                Debug.WriteLine("   EXERCISE: DONE!");
-         //   }
+                if (this.PostState != null)
+                {
+                    HOHEventObj.UpdateLogMsg("Setting PostState: " + this.PostState.Name);
+                    this.PostState.execute(NW);
+                }
+                HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
+            }
         }
     }
 }

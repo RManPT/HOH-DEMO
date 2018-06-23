@@ -124,6 +124,10 @@
       <Project>{47abcd02-9cf1-4b0e-a1ca-f0c056f5fd76}</Project>
       <Name>HOH_Library</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HOH_ProtocolGUI\HOH_ProtocolGUI.csproj">
+      <Project>{3e3c7962-647e-40ed-b9fb-84dc6cd1a650}</Project>
+      <Name>HOH_ProtocolGUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestProtocolCreation\HOH_ProtocolEditor.csproj">
       <Project>{5c8cfadd-b021-4083-9020-a27cc038f1b8}</Project>
       <Name>HOH_ProtocolEditor</Name>

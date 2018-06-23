@@ -77,6 +77,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.lstProtocols = new System.Windows.Forms.ListBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtExerciceDetails5 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -198,6 +200,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.txtExerciceDetails5);
             this.tabPage2.Controls.Add(this.btnReset);
             this.tabPage2.Controls.Add(this.lblDump3);
             this.tabPage2.Controls.Add(this.lblDump2);
@@ -400,6 +404,16 @@
             resources.ApplyResources(this.lstProtocols, "lstProtocols");
             this.lstProtocols.Name = "lstProtocols";
             // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // txtExerciceDetails5
+            // 
+            resources.ApplyResources(this.txtExerciceDetails5, "txtExerciceDetails5");
+            this.txtExerciceDetails5.Name = "txtExerciceDetails5";
+            // 
             // ProtocolEditor
             // 
             resources.ApplyResources(this, "$this");
@@ -467,6 +481,8 @@
         private System.Windows.Forms.Label lblDump3;
         private System.Windows.Forms.Label lblDump2;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtExerciceDetails5;
     }
 }
 

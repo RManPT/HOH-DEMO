@@ -293,7 +293,7 @@ namespace HOH_Library
                 if (msgs!=null)
                 if (!msgs.IsEmpty)
                 { 
-                    msgs.TryDequeue(out string result);
+                    if (msgs.TryDequeue(out string result))
                     if (result.Contains("untested"))
                     {
                         Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));

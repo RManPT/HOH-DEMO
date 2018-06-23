@@ -22,6 +22,7 @@ namespace HOH_Library
         /// What msg to detect end of move
         /// </summary>
         public string CallbackMsg { get; set; }
+        private HOHEvent HOHEventObj = new HOHEvent();
 
         public State()
         {
@@ -40,8 +41,8 @@ namespace HOH_Library
         }
 
         public void execute(MRNetwork NW) {
+            HOHEventObj.UpdateUsrMsg("usermsg: " + this.UserMsg);
             NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg, null);  
-            Debug.WriteLine("           STATE: DONE!");
         }
     }
 }

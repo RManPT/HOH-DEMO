@@ -19,6 +19,7 @@ namespace HOH_Library
         private int TimerCounter;
         private object HomeThread;
         private bool ExecuteStatus { get; set; }
+        private HOHEvent HOHEventObj;
 
 
         public SFListener(State TargetState, int command, int time, object obj)
@@ -27,6 +28,7 @@ namespace HOH_Library
             this.TargetState = TargetState;
             this.SFCode = command;
             this.HomeThread = obj;
+            HOHEventObj = new HOHEvent();
         }
 
         public void Execute(MRNetwork NW)
@@ -39,6 +41,7 @@ namespace HOH_Library
 
             while (ExecuteStatus)
             {
+                HOHEventObj.UpdateLogMsg("SFListener: START");
                 LastCMDReceived = AsyncServer.LastCMDReceived;
                 commandProcessed = AsyncServer.commandProcessed;
 
@@ -53,7 +56,8 @@ namespace HOH_Library
                //teste
                     Debug.WriteLine("SFLISTENER : executing");
                     if (this.TargetState != null) this.TargetState.execute(NW);
-                    commandProcessed = true;
+                HOHEventObj.UpdateLogMsg("SFListener: END");
+                commandProcessed = true;
                     ExecuteStatus = false;
                 Thread.Sleep(20);
                 break;
