@@ -78,30 +78,44 @@ namespace HOH_Library
 
         public bool Connect()
         {
-            try
-            {
+            //try
+            //{
                 StateObject state = new StateObject();
                 if (client == null) client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 if (client.Connected == true) { statusMsg = "Already connected"; return true; }
-                client.Connect(ip, port);
-                state.workSocket = client;
-                Receive(client);
-                while (!msgs.IsEmpty)
-                    msgs.TryDequeue(out string result);
-                while (!logMsgs.IsEmpty)
-                    logMsgs.TryDequeue(out string result);
-                InputChanged += InputDetectedEvent;
-                new Thread(new ThreadStart(IsTested)).Start();
-                new Thread(new ThreadStart(PrintsStatusMsg)).Start();
-                SetStatusMsg("Connection Successful");
-                return true;
-            }
-            catch (Exception e)
-            {
-                Disconnect();
-                Debug.WriteLine("HOH Network Connection Exception, " + e.Message);
-                return false;
-            }
+
+                IAsyncResult resultconn = client.BeginConnect(ip, port, null, null);
+                bool success = resultconn.AsyncWaitHandle.WaitOne(2000, true);
+
+                //client.Connect(ip, port);
+                if (client.Connected)
+                {
+                    state.workSocket = client;
+                    Receive(client);
+                    while (!msgs.IsEmpty)
+                        msgs.TryDequeue(out string result);
+                    while (!logMsgs.IsEmpty)
+                        logMsgs.TryDequeue(out string result);
+                    InputChanged += InputDetectedEvent;
+                    new Thread(new ThreadStart(IsTested)).Start();
+                    new Thread(new ThreadStart(PrintsStatusMsg)).Start();
+                    SetStatusMsg("Connection Successful");
+                    return true;
+                }
+                else
+                {
+                    client.Close();
+                    client = null;
+                    //throw new ApplicationException("Failed to connect server.");
+                    return false;
+                }
+            //}
+            //catch (Exception e)
+            //{
+            //    Disconnect();
+            //    Debug.WriteLine("HOH Network Connection Exception, " + e.Message);
+            //    return false;
+            //}
         }
 
 
@@ -109,8 +123,8 @@ namespace HOH_Library
         {
             try
             {
-                client.Shutdown(SocketShutdown.Both);
-                client.Disconnect(false);
+                //client.Shutdown(SocketShutdown.Both);
+                //client.Disconnect(false);
                 client.Close();
                 client = null;
                 InputChanged -= InputDetectedEvent;
@@ -119,7 +133,8 @@ namespace HOH_Library
                 return true;
             }
             catch (Exception e)
-            {
+            { 
+                Debug.WriteLine("HOH Network Connection Exception, " + e.Message);
                 return false;
             }
         }
@@ -292,22 +307,26 @@ namespace HOH_Library
             {
                 if (msgs!=null)
                 if (!msgs.IsEmpty)
-                { 
+                {
                     if (msgs.TryDequeue(out string result))
-                    if (result.Contains("untested"))
                     {
-                        Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
-                        exec.Start();
-                        Debug.WriteLine("ISTESTED: not tested");
-                        break;
+                        if (result.Contains("untested"))
+                        {
+                            Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
+                            exec.Start();
+                            Debug.WriteLine("ISTESTED: not tested");
+                            break;
+                        }
+
+                        if (result.Contains("tested"))
+                        {
+                            Debug.WriteLine("ISTESTED: already tested");
+                            break;
+                        }
                     }
-                    if (result.Contains("tested"))
-                    {
-                        Debug.WriteLine("ISTESTED: already tested");
-                        break;
-                    }
+
+                    Thread.Sleep(50);
                 }
-                Thread.Sleep(50);
             }
         }
 

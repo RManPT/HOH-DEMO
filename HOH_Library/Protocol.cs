@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 
 namespace HOH_Library
@@ -28,10 +29,21 @@ namespace HOH_Library
         public void Execute(MRNetwork NW)
         {
             HOHEventObj.UpdateLogMsg("PROTOCOL: START!");
+            HOHEventObj.UpdateProtocolState("running");
             foreach (Exercise ex in Exercises)
             {
+ //               if (!ExecuteStatus) break;
+                Random rnd = new Random();
+
+                HOHEventObj.UpdateUsrMsg("Prepare for " + ex.TargetState.UserMsg.ToLower() + "...");
+                HOHEventObj.UpdateExerciseName(ex.TargetState.Name);
+                Thread.Sleep(5000);
                 ex.Execute(NW);
+                HOHEventObj.UpdateUsrMsg(Clinic.Rewards[rnd.Next(Clinic.Rewards.Count)]);
+                Thread.Sleep(5000);
             }
+            HOHEventObj.UpdateProtocolState("stopped");
+            HOHEventObj.UpdateUsrMsg("Well done! Protocol complete.");
             HOHEventObj.UpdateLogMsg("PROTOCOL: DONE!");
         }
     }

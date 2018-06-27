@@ -38,7 +38,11 @@ namespace HOH_Library
         {
             get { return Name; }
         }
+
+        private SFListener sf;
+        private MRNetwork NW;
         private HOHEvent HOHEventObj = new HOHEvent();
+        private delegate void EventSubscribed(HOHEvent e);
 
         public Exercise()
         {
@@ -50,10 +54,12 @@ namespace HOH_Library
             this.TargetState = null;
             this.Repetitions = 1;
             this.PostState = null;
+            HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
         }
 
         public void Execute(MRNetwork NW)
         {
+            this.NW = NW;
             for (int i = 0; i < this.Repetitions; i++)
             {
                 HOHEventObj.UpdateLogMsg("EXERCISE: START!");
@@ -68,12 +74,12 @@ namespace HOH_Library
                 if (this.TargetState != null)
                 {
                     HOHEventObj.UpdateLogMsg("Target State: " + this.TargetState.Name);
-
+                    HOHEventObj.UpdateUsrMsg(this.UserMsg);
                     SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
                     Thread SFThread = new Thread(() => sf.Execute(NW));
                     SFThread.Start();
 
-                    this.TargetState.execute(NW);
+                    //this.TargetState.execute(NW);
                     Thread.Sleep(this.ExerciseTime * 1000);
                     sf.InterruptListener(NW);
                 }
@@ -84,6 +90,14 @@ namespace HOH_Library
                     this.PostState.execute(NW);
                 }
                 HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
+            }
+        }
+
+        private void OnHOHEventUpdate(object sender, HOHEvent e)
+        {
+            if (e.ProtocolState == "interrupt")
+            {
+                sf?.InterruptListener(NW);
             }
         }
     }

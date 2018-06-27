@@ -22,10 +22,10 @@ namespace HOH_Library
         private HOHEvent HOHEventObj;
 
 
-        public SFListener(State TargetState, int command, int time, object obj)
+        public SFListener(State targetState, int command, int time, object obj)
         {
             this.WaitTime = time;
-            this.TargetState = TargetState;
+            this.TargetState = targetState;
             this.SFCode = command;
             this.HomeThread = obj;
             HOHEventObj = new HOHEvent();
@@ -33,17 +33,16 @@ namespace HOH_Library
 
         public void Execute(MRNetwork NW)
         {
-
             ExecuteStatus = true;
-            //System.Threading.Timer TheTimer = new System.Threading.Timer(this.Tick, null, 0, 1000);
+            System.Threading.Timer theTimer = new System.Threading.Timer(this.Tick, null, 0, 1000);
+            this.TimerCounter = this.WaitTime;
             Debug.WriteLine("SFLISTENER : START!");
 
-
+            HOHEventObj.UpdateLogMsg("SFListener: START");
             while (ExecuteStatus)
             {
-                HOHEventObj.UpdateLogMsg("SFListener: START");
-                LastCMDReceived = AsyncServer.LastCMDReceived;
-                commandProcessed = AsyncServer.commandProcessed;
+                //LastCMDReceived = AsyncServer.LastCMDReceived;
+                //commandProcessed = AsyncServer.commandProcessed;
 
                 //Código a executar quando os testes estiverem concluídos.
                 //if (LastCMDReceived == SFCode && LastCMDReceived != previousCMDReceived && commandProcessed == false)
@@ -54,26 +53,30 @@ namespace HOH_Library
                 //}
 
                //teste
-                    Debug.WriteLine("SFLISTENER : executing");
-                    if (this.TargetState != null) this.TargetState.execute(NW);
-                HOHEventObj.UpdateLogMsg("SFListener: END");
-                commandProcessed = true;
-                    ExecuteStatus = false;
+                //    Debug.WriteLine("SFLISTENER : executing");
+                if (this.TargetState != null && !commandProcessed)
+                { 
+                        this.TargetState.execute(NW);
+                        commandProcessed = true;
+                }
+                //    ExecuteStatus = false;
                 Thread.Sleep(20);
-                break;
-                
+                //  break;
+                commandProcessed = true;
             }
 
             previousCMDReceived = LastCMDReceived;
             commandProcessed = true;
-           // Monitor.Pulse(HomeThread);          //experiencia
+            theTimer.Dispose();
+            // Monitor.Pulse(HomeThread);          //experiencia
             Debug.WriteLine("SFLISTENER : END!");
+            HOHEventObj.UpdateLogMsg("SFListener: END");
         }
 
         // The timer ticked.
         public void Tick(object info)
         {
-            this.TimerCounter++;
+            HOHEventObj.UpdateExerciseTimer(this.TimerCounter--);
         }
 
         public void InterruptListener(MRNetwork NW) {

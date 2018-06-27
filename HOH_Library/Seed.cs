@@ -43,7 +43,7 @@ namespace HOH_Library
             {
                 Name = "Fully Close",
                 PreState = condFullyOpen,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "22",
                 UserMsg = "Close your hand!",
                 TargetState = condFullyClose,
@@ -55,7 +55,7 @@ namespace HOH_Library
             {
                 Name = "Fully Open",
                 PreState = condFullyClose,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "21",
                 UserMsg = "Open your hand!",
                 TargetState = condFullyOpen,
@@ -67,7 +67,7 @@ namespace HOH_Library
             {
                 Name = "Open Rest",
                 PreState = condFullyOpen,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "20",
                 UserMsg = "Relax with your hand closed",
                 TargetState = condNone,
@@ -79,7 +79,7 @@ namespace HOH_Library
             {
                 Name = "Close Rest",
                 PreState = condFullyClose,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "20",
                 UserMsg = "Relax with your hand closed",
                 TargetState = condNone,
@@ -91,7 +91,7 @@ namespace HOH_Library
             {
                 Name = "Rest",
                 PreState = condNone,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "20",
                 UserMsg = "Just relax!",
                 TargetState = condNone,
@@ -128,6 +128,7 @@ namespace HOH_Library
             clinic.Protocols.Add(protoc1);
             clinic.Protocols.Add(protoc2);
 
+            Clinic.Rewards.AddRange(new List<string>{ "Well done!", "Nice effort!", "Good try!" });
         }
     }
 

@@ -14,6 +14,7 @@ namespace HOH_Library
 
         public List<State> State { get; set; }
         public List<Exercise> Exercises { get; set; }
+        public static List<string> Rewards { get; set; }
   
 
 
@@ -22,7 +23,8 @@ namespace HOH_Library
             Protocols = new List<Protocol>();
             State = new List<State>();
             Exercises = new List<Exercise>();
-         }
+            Rewards = new List<string>();
+        }
 
         public Clinic ShallowCopy()
         {

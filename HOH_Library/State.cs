@@ -41,7 +41,7 @@ namespace HOH_Library
         }
 
         public void execute(MRNetwork NW) {
-            HOHEventObj.UpdateUsrMsg("usermsg: " + this.UserMsg);
+            //HOHEventObj.UpdateUsrMsg(this.UserMsg);
             NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg, null);  
         }
     }
