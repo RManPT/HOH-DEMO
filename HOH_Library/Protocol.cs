@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 
 namespace HOH_Library
@@ -15,24 +16,39 @@ namespace HOH_Library
         /// <summary>
         /// List of exercices and its repetitions that composes the protocol
         /// </summary>
-        public IList<ProtocolExercise> Exercises { get; set; }
+        public IList<Exercise> Exercises { get; set; }
+        private HOHEvent HOHEventObj = new HOHEvent();
 
 
         public Protocol()
         {
-            this.Name = "New protocol";
+            Name = "New protocol";
+            
+        }
+        public Protocol(string name)
+        {
+            Name = name;
         }
 
         public void Execute(MRNetwork NW)
         {
-            Debug.WriteLine("PROTOCOL: START!");
-            foreach (ProtocolExercise ex in Exercises)
+            HOHEventObj.UpdateLogMsg("PROTOCOL: START!");
+            HOHEventObj.UpdateProtocolState("running");
+            foreach (Exercise ex in Exercises)
             {
-               ex.Execute(NW);
-                //forçar espera por fim de execução para passar ao proximo item.
-                
+ //               if (!ExecuteStatus) break;
+                Random rnd = new Random();
+
+                HOHEventObj.UpdateUsrMsg("Prepare to " + ex.TargetState.UserMsg.ToLower() + "...");
+                HOHEventObj.UpdateExerciseName(ex.TargetState.Name);
+                Thread.Sleep(5000);
+                ex.Execute(NW);
+                HOHEventObj.UpdateUsrMsg(Clinic.Rewards[rnd.Next(Clinic.Rewards.Count)]);
+                Thread.Sleep(5000);
             }
-            Debug.WriteLine("PROTOCOL: DONE!");
+            HOHEventObj.UpdateProtocolState("stopped");
+            HOHEventObj.UpdateUsrMsg("Well done! Protocol complete.");
+            HOHEventObj.UpdateLogMsg("PROTOCOL: DONE!");
         }
     }
 }

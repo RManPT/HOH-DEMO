@@ -12,23 +12,28 @@ namespace HOH_Library
 
         public List<Protocol> Protocols { get; set; }
 
-        public List<State> Conditions { get; set; }
+        public List<State> State { get; set; }
         public List<Exercise> Exercises { get; set; }
-        public List<ProtocolExercise> ProtocolExercises { get; set; }
-
+        public static List<string> Rewards { get; set; }
+  
 
 
         public Clinic()
         {
             Protocols = new List<Protocol>();
-            Conditions = new List<State>();
+            State = new List<State>();
             Exercises = new List<Exercise>();
-            ProtocolExercises = new List<ProtocolExercise>();
-         }
+            Rewards = new List<string>();
+        }
 
         public Clinic ShallowCopy()
         {
             return (Clinic)this.MemberwiseClone();
+        }
+
+        public override string ToString()
+        {
+            return "Falta implementar";
         }
     }
 }

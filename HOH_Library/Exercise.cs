@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-
+using System.Threading;
 
 namespace HOH_Library
 {
@@ -14,7 +14,7 @@ namespace HOH_Library
         /// </summary>
         public State PreState { get; set; }
         /// <summary>
-        /// Time allowed for each exercise. Discounts pre and post conditions times
+        /// Time allowed for each exercise. Discounts pre and post State times
         /// </summary>
         public int ExerciseTime { get; set; }
         /// <summary>
@@ -29,10 +29,20 @@ namespace HOH_Library
         /// Code to send to HOH, represents one wanted action
         /// </summary>
         public State TargetState { get; set; }
+        public int Repetitions { get; set; }
         /// <summary>
         /// Sets HOH to a position (optional)
         /// </summary>
         public State PostState { get; set; }
+        public string GetExerciseName
+        {
+            get { return Name; }
+        }
+
+        private SFListener sf;
+        private MRNetwork NW;
+        private HOHEvent HOHEventObj = new HOHEvent();
+ 
 
         public Exercise()
         {
@@ -42,27 +52,79 @@ namespace HOH_Library
             this.UserMsg = "";
             this.SFCode = "";
             this.TargetState = null;
+            this.Repetitions = 1;
             this.PostState = null;
+           
+        }
+
+        public Exercise(string name)
+        {
+            this.Name = name;
+            this.PreState = null;
+            this.ExerciseTime = 0;
+            this.UserMsg = "";
+            this.SFCode = "";
+            this.TargetState = null;
+            this.Repetitions = 1;
+            this.PostState = null;
+   
+        }
+
+        public Exercise(Exercise ex)
+        {
+            this.Name = ex.GetExerciseName;
+            this.PreState = ex.PreState;
+            this.ExerciseTime = ex.ExerciseTime;
+            this.UserMsg = ex.UserMsg;
+            this.SFCode = ex.SFCode;
+            this.TargetState = ex.TargetState;
+            this.Repetitions = ex.Repetitions;
+            this.PostState = ex.PostState;
+  
         }
 
         public void Execute(MRNetwork NW)
         {
-            Debug.WriteLine("   EXERCISE: START!");
-            Debug.WriteLine("       Executing exercise: " + this.Name);
-            Debug.WriteLine("           Setting Prestate: " + this.PreState.Name);
-            this.PreState.execute(NW);
-            Debug.WriteLine("              " + this.PreState.UserMsg);
+            this.NW = NW;
+            for (int i = 0; i < this.Repetitions; i++)
+            {
+                HOHEventObj.UpdateLogMsg("EXERCISE: START!");
+                HOHEventObj.UpdateLogMsg("Executing exercise: " + this.Name);
 
-            Debug.WriteLine("        Target State: " + this.TargetState.Name);
-            //start timer and launch server listener for simulink callback, if code received is correct execute TargetState
-            //if timer ends send incentive msg to usr and move on
-            this.TargetState.execute(NW);    
-            Debug.WriteLine("            > " + this.UserMsg);
-            Debug.WriteLine("            TS> " + this.TargetState.UserMsg);
+                if (this.PreState != null)
+                { 
+                    HOHEventObj.UpdateLogMsg("Setting Prestate: " + this.PreState.Name);
+                    this.PreState.execute(NW);
+                }
 
-            Debug.WriteLine("         Setting PostState: " + this.PostState.Name);
-            this.TargetState.execute(NW);
-            Debug.WriteLine("   EXERCISE: DONE!");
+                if (this.TargetState != null)
+                {
+                    HOHEventObj.UpdateLogMsg("Target State: " + this.TargetState.Name);
+                    HOHEventObj.UpdateUsrMsg(this.UserMsg);
+                    SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
+                    Thread SFThread = new Thread(() => sf.Execute(NW));
+                    SFThread.Start();
+
+                    //this.TargetState.execute(NW);
+                    Thread.Sleep(this.ExerciseTime * 1000);
+                    sf.InterruptListener(NW);
+                }
+
+                if (this.PostState != null)
+                {
+                    HOHEventObj.UpdateLogMsg("Setting PostState: " + this.PostState.Name);
+                    this.PostState.execute(NW);
+                }
+                HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
+            }
+        }
+
+        private void OnHOHEventUpdate(object sender, HOHEvent e)
+        {
+            if (e.ProtocolState == "interrupt")
+            {
+                sf?.InterruptListener(NW);
+            }
         }
     }
 }
