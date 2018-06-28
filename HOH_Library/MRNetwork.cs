@@ -206,25 +206,34 @@ namespace HOH_Library
 
         private void InputDetectedEvent(object sender, LANCBEvenArgs e)
         {
-            Debug.WriteLine(e.MsgString);
+            //Debug.Write("["+e.MsgString+"]");
 
-                if (!e.MsgString.Contains("\n"))
-                    msgRcvHOH += e.MsgString;
+            foreach (char ch in e.MsgString)
+            {
+
+                if (ch != '\n')
+                    msgRcvHOH += ch;
                 else
                 {
-                    //msgRcvHOH = msgRcvHOH.Replace("\r", String.Empty);
-                    //msgRcvHOH = msgRcvHOH.Replace("\n", String.Empty);
-                    Debug.WriteLine("RAW - " + msgRcvHOH);
-                    if (!String.IsNullOrWhiteSpace(msgRcvHOH))
+                    // msgRcvHOH.Replace(Environment.NewLine, "x");
+                    msgRcvHOH = msgRcvHOH.Trim();
+                    if (msgRcvHOH.Length!=0)
                     { 
-                        Debug.WriteLine("enqueue > " + msgRcvHOH);
-                        msgs.Enqueue(msgRcvHOH);
                         SetStatusMsg(msgRcvHOH);
+                        Debug.WriteLine("ENQUEUE " + msgRcvHOH);
+                        msgs.Enqueue(msgRcvHOH);
+                        msgs.TryPeek(out string result);
+
+
+                        //Debug.WriteLine("QU : " + msgs.ToString());
+                        //PrintsMsg();
+
                         //msgs.TryPeek(out string result);
                         //Debug.WriteLine("QUEUE - " + msgs.Count + " -> " + result );
-                        msgRcvHOH = String.Empty;
+                        msgRcvHOH = "";
                     }
                 }
+            }
         }
 
 
@@ -237,25 +246,20 @@ namespace HOH_Library
         {
             ExecuteStatus = true;
             Send(command);
-            
+
             while (ExecuteStatus)
             {
-                if(msgs!=null)
-                if (!msgs.IsEmpty)
-                {
-                    if (msgs.TryDequeue(out string result))
+                if (msgs != null)
+                    if (!msgs.IsEmpty)
                     {
-                        Debug.WriteLine(result + " - " + exitCondition);
-                        Debug.WriteLine("EXECUTE DISTANCE: " + Utils.Levenshtein(result.ToLower(), exitCondition.ToLower()));
-                    
-                        if (result.Contains(exitCondition))
-                        {
-                            ExecuteStatus = false;
-                            SetStatusMsg("Operation concluded");
-                            break;
-                        }
+                        if (msgs.TryDequeue(out string result))
+                            if (result.Contains(exitCondition))
+                            {
+                                ExecuteStatus = false;
+                                SetStatusMsg("Operation concluded");
+                                break;
+                            }
                     }
-                }
                 Thread.Sleep(50);
             }
             if (next != null)
@@ -290,6 +294,18 @@ namespace HOH_Library
             }
         }
 
+        public void PrintsMsg()
+        {
+         
+          
+                    List<string> l = new List<string>(msgs);
+                    foreach(string s in l)
+                    {
+                        Debug.WriteLine("PRINT : " + s);
+                    }
+   
+        }
+
         public void PrintsStatusMsg()
         {
             while(true)
@@ -321,8 +337,8 @@ namespace HOH_Library
                 {
                     if (msgs.TryDequeue(out string result))
                     { 
-                        Debug.WriteLine(result + " - untested");
-                        Debug.WriteLine("EXECUTE DISTANCE: " + Utils.Levenshtein(result.ToLower(), "hand, untested"));
+                        //Debug.WriteLine(result + " - untested");
+                        //Debug.WriteLine("EXECUTE DISTANCE: " + Utils.Levenshtein(result.ToLower(), "hand, untested"));
 
                         if (result.Contains("un")) 
                         {
