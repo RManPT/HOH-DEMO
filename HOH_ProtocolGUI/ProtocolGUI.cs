@@ -59,6 +59,7 @@ namespace HOH_ProtocolGUI
                 btnRestart.Enabled = (e.ProtocolState.ToLower() == "stopped");
                 lblExerciseTime.Visible = (e.ProtocolState.ToLower() == "running");
             }
+            Thread.Yield();
         }
 
         private void ProtocolGUI_FormClosing(object sender, FormClosingEventArgs e)

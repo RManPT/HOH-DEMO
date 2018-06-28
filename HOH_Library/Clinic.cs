@@ -30,5 +30,10 @@ namespace HOH_Library
         {
             return (Clinic)this.MemberwiseClone();
         }
+
+        public override string ToString()
+        {
+            return "Falta implementar";
+        }
     }
 }

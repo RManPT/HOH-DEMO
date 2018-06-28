@@ -22,8 +22,12 @@ namespace HOH_Library
 
         public Protocol()
         {
-            this.Name = "New protocol";
+            Name = "New protocol";
             
+        }
+        public Protocol(string name)
+        {
+            Name = name;
         }
 
         public void Execute(MRNetwork NW)
@@ -35,7 +39,7 @@ namespace HOH_Library
  //               if (!ExecuteStatus) break;
                 Random rnd = new Random();
 
-                HOHEventObj.UpdateUsrMsg("Prepare for " + ex.TargetState.UserMsg.ToLower() + "...");
+                HOHEventObj.UpdateUsrMsg("Prepare to " + ex.TargetState.UserMsg.ToLower() + "...");
                 HOHEventObj.UpdateExerciseName(ex.TargetState.Name);
                 Thread.Sleep(5000);
                 ex.Execute(NW);

@@ -66,7 +66,8 @@ namespace HOH_DEMO
 
             lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
             lstProtocolsExercises.DisplayMember = "GetExerciseName";
-           // Debug.WriteLine(protocolDetailsBinding.ToString());
+            
+            // Debug.WriteLine(protocolDetailsBinding.ToString());
 
             listRepetitions.DataSource = protocolExerciseBindingSource;
             listRepetitions.DisplayMember = "Repetitions";

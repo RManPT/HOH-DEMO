@@ -206,19 +206,25 @@ namespace HOH_Library
 
         private void InputDetectedEvent(object sender, LANCBEvenArgs e)
         {
-            Debug.Write(e.MsgString);
-            
-            if (!e.MsgString.Contains("\n"))
-                msgRcvHOH += e.MsgString;
-            else
-            {
-                msgRcvHOH.Replace(Environment.NewLine, "x");
-                SetStatusMsg(msgRcvHOH);
-                msgs.Enqueue(msgRcvHOH);
-                //msgs.TryPeek(out string result);
-                //Debug.WriteLine("QUEUE - " + msgs.Count + " -> " + result );
-                msgRcvHOH = "";
-            }           
+            Debug.WriteLine(e.MsgString);
+
+                if (!e.MsgString.Contains("\n"))
+                    msgRcvHOH += e.MsgString;
+                else
+                {
+                    //msgRcvHOH = msgRcvHOH.Replace("\r", String.Empty);
+                    //msgRcvHOH = msgRcvHOH.Replace("\n", String.Empty);
+                    Debug.WriteLine("RAW - " + msgRcvHOH);
+                    if (!String.IsNullOrWhiteSpace(msgRcvHOH))
+                    { 
+                        Debug.WriteLine("enqueue > " + msgRcvHOH);
+                        msgs.Enqueue(msgRcvHOH);
+                        SetStatusMsg(msgRcvHOH);
+                        //msgs.TryPeek(out string result);
+                        //Debug.WriteLine("QUEUE - " + msgs.Count + " -> " + result );
+                        msgRcvHOH = String.Empty;
+                    }
+                }
         }
 
 
@@ -237,12 +243,17 @@ namespace HOH_Library
                 if(msgs!=null)
                 if (!msgs.IsEmpty)
                 {
-                    if(msgs.TryDequeue(out string result))
-                    if (result.Contains(exitCondition))
+                    if (msgs.TryDequeue(out string result))
                     {
-                        ExecuteStatus = false;
-                        SetStatusMsg("Operation concluded");
-                        break;
+                        Debug.WriteLine(result + " - " + exitCondition);
+                        Debug.WriteLine("EXECUTE DISTANCE: " + Utils.Levenshtein(result.ToLower(), exitCondition.ToLower()));
+                    
+                        if (result.Contains(exitCondition))
+                        {
+                            ExecuteStatus = false;
+                            SetStatusMsg("Operation concluded");
+                            break;
+                        }
                     }
                 }
                 Thread.Sleep(50);
@@ -309,27 +320,26 @@ namespace HOH_Library
                 if (!msgs.IsEmpty)
                 {
                     if (msgs.TryDequeue(out string result))
-                    {
-                        if (result.Contains("untested"))
+                    { 
+                        Debug.WriteLine(result + " - untested");
+                        Debug.WriteLine("EXECUTE DISTANCE: " + Utils.Levenshtein(result.ToLower(), "hand, untested"));
+
+                        if (result.Contains("un")) 
                         {
                             Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
                             exec.Start();
                             Debug.WriteLine("ISTESTED: not tested");
                             break;
                         }
-
-                        if (result.Contains("tested"))
+                        else
                         {
                             Debug.WriteLine("ISTESTED: already tested");
                             break;
-                        }
+                        }       
                     }
-
-                    Thread.Sleep(50);
                 }
+                Thread.Sleep(50);
             }
         }
-
-
     }   
 }

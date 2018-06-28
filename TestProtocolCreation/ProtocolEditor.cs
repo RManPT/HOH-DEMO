@@ -22,7 +22,7 @@ namespace HOH_ProtocolEditor
         BindingSource exercisesDetailsBinding = new BindingSource();
         BindingSource protocolsBinding = new BindingSource();
         BindingSource protocolsDetailsBinding = new BindingSource();
-
+        BindingSource protocolExerciseBindingSource;
 
 
         public ProtocolEditor(Clinic clinic)
@@ -44,12 +44,14 @@ namespace HOH_ProtocolEditor
         #region Custom
         private void SetupStatePanel()
         {
-            statesBinding.DataSource = clinic.State;
+            BindingList<State> bl = new BindingList<State>(clinic.State);
+           
+            statesBinding.DataSource = bl;
             statesDetailsBinding.DataSource = statesBinding;
-
 
             lstStates.DataSource = statesDetailsBinding;
             lstStates.DisplayMember = "Name";
+          
 
             txtConditionDetails1.DataBindings.Add("Text", statesDetailsBinding, "Name");
             txtConditionDetails2.DataBindings.Add("Text", statesDetailsBinding, "HOHCode");
@@ -99,6 +101,18 @@ namespace HOH_ProtocolEditor
 
             lstProtocols.DataSource = protocolsDetailsBinding;
             lstProtocols.DisplayMember = "Name";
+
+            protocolExerciseBindingSource = new BindingSource(protocolsDetailsBinding, "Exercises");
+
+            lstProtocolExercises.DataSource = protocolExerciseBindingSource;
+            lstProtocolExercises.DisplayMember = "GetExerciseName";
+
+            exercisesBinding.DataSource = clinic.Exercises;
+            exercisesDetailsBinding.DataSource = exercisesBinding;
+
+            lstAvailableExercises.DataSource = exercisesDetailsBinding;
+            lstAvailableExercises.DisplayMember = "Name";
+
         }
         #endregion
 
@@ -184,6 +198,101 @@ namespace HOH_ProtocolEditor
         {
            //  lblDump3.Text = comboExerciseState3.GetItemText(comboExerciseState3.SelectedItem);
             Debug.WriteLine("Changed combo3");
+        }
+
+        private void btnExerciseAdd_Click(object sender, EventArgs e)
+        {
+            clinic.Exercises.Add(new Exercise("New exercise " + (clinic.Exercises.Count + 1)));
+            exercisesBinding.ResetBindings(false);
+            lstExercises.SelectedIndex = lstExercises.Items.Count - 1;
+        }
+
+        private void btnExerciseRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clinic.Exercises.RemoveAt(lstExercises.SelectedIndex);
+            }
+            catch { }
+            exercisesBinding.ResetBindings(false);
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+            clinic.State.Add(new State((State)lstStates.SelectedItem));
+            statesBinding.ResetBindings(false);
+
+            lstStates.SelectedIndex = lstStates.Items.Count - 1;
+            ((State)lstStates.SelectedItem).Name += " - copy";
+            statesBinding.ResetBindings(false);
+        }
+
+        private void lstStates_BindingContextChanged(object sender, EventArgs e)
+        {
+            statesBinding.ResetBindings(false);
+        }
+
+        private void lstStates_BindingContextChanged_1(object sender, EventArgs e)
+        {
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+            clinic.Exercises.Add(new Exercise((Exercise)lstExercises.SelectedItem));
+            exercisesBinding.ResetBindings(false);
+
+            lstExercises.SelectedIndex = lstExercises.Items.Count - 1;
+            ((Exercise)lstExercises.SelectedItem).Name += " - copy";
+            exercisesBinding.ResetBindings(false);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            clinic.Protocols.Add(new Protocol("New protocol " + (clinic.Protocols.Count + 1)));
+            protocolsBinding.ResetBindings(false);
+            lstProtocols.SelectedIndex = lstProtocols.Items.Count - 1;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clinic.Protocols.RemoveAt(lstProtocols.SelectedIndex);
+            }
+            catch { }
+            protocolsBinding.ResetBindings(false);
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ((Protocol)lstProtocols.SelectedItem).Exercises.Add((Exercise)lstAvailableExercises.SelectedItem);
+            protocolsBinding.ResetBindings(false);
+            lstProtocolExercises.SelectedIndex = lstProtocolExercises.Items.Count - 1;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clinic.Protocols.ElementAt(lstProtocols.SelectedIndex).Exercises.RemoveAt(lstProtocolExercises.SelectedIndex);
+            }
+            catch { }
+            protocolsBinding.ResetBindings(false);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine(clinic.ToString());
+        }
+
+        private void btnProtocolExercisesUP_Click(object sender, EventArgs e)
+        {
+            
         }
     }
     #endregion

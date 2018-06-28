@@ -23,6 +23,7 @@ namespace HOH_Library
         /// </summary>
         public string CallbackMsg { get; set; }
         private HOHEvent HOHEventObj = new HOHEvent();
+       
 
         public State()
         {
@@ -39,10 +40,20 @@ namespace HOH_Library
             this.UserMsg = "";
             this.CallbackMsg = "";
         }
-
-        public void execute(MRNetwork NW) {
-            //HOHEventObj.UpdateUsrMsg(this.UserMsg);
-            NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg, null);  
+        public State(State state)
+        {
+            this.Name = state.Name;
+            this.HOHCode = state.HOHCode;
+            this.UserMsg = state.UserMsg;
+            this.CallbackMsg = state.CallbackMsg;
         }
+
+        public void execute(MRNetwork NW)
+        {
+            //HOHEventObj.UpdateUsrMsg(this.UserMsg);
+            NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg, null);
+        }
+
+        // Create the OnPropertyChanged method to raise the event
     }
 }

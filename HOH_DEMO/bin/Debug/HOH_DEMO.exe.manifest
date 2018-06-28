@@ -4,7 +4,7 @@
   <description asmv2:iconFile="hoh_logo_mwo_4.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="HOH_DEMO" version="0.0.6752.24819" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="HOH_DEMO" version="0.0.6753.22108" language="neutral" processorArchitecture="msil" />
     <commandLine file="HOH_DEMO.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -44,25 +44,25 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_DEMO.exe" size="380888">
-      <assemblyIdentity name="HOH_DEMO" version="0.0.6752.24819" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="HOH_DEMO" version="0.0.6753.22108" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>AJw4KnGszXcicq+L4KzRox16mWfbASsdZcz3gpDwTrI=</dsig:DigestValue>
+        <dsig:DigestValue>NoPTCELe6OmVMnEb6VmBtf8mhW0D5myb7SpYUEF7NC8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_Library.dll" size="27136">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_Library.dll" size="28160">
       <assemblyIdentity name="HOH_Library" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ol2NGSXxtVIBX7qrWl67X+DeKIhRZeAJFBqZJybpwok=</dsig:DigestValue>
+        <dsig:DigestValue>DzQJsGW9XOaAQGKq4Ztj+zeP6D8aBfCtNmTVkzbuMAc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,19 +74,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NXzRE1i5WTZiGZFdGyWmf+J5V6rtTlQAoxtDDvCUS/w=</dsig:DigestValue>
+        <dsig:DigestValue>rSG0Yum1hSSo9uoT9yKpUtVFw7UvnvPg+a/gNf2iO98=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProtocolEditor.exe" size="166400">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProtocolEditor.exe" size="201728">
       <assemblyIdentity name="ProtocolEditor" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>4oK7O1SSTrPz63YCrbIAMpDxSCGq8zj8/bpX8c60I6o=</dsig:DigestValue>
+        <dsig:DigestValue>JvGAUQ7dzoRA4dwvZcxrX5QkrU9Cd6WGaemHgQIdp7Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

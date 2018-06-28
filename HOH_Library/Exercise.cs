@@ -42,7 +42,7 @@ namespace HOH_Library
         private SFListener sf;
         private MRNetwork NW;
         private HOHEvent HOHEventObj = new HOHEvent();
-        private delegate void EventSubscribed(HOHEvent e);
+ 
 
         public Exercise()
         {
@@ -54,7 +54,33 @@ namespace HOH_Library
             this.TargetState = null;
             this.Repetitions = 1;
             this.PostState = null;
-            HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
+           
+        }
+
+        public Exercise(string name)
+        {
+            this.Name = name;
+            this.PreState = null;
+            this.ExerciseTime = 0;
+            this.UserMsg = "";
+            this.SFCode = "";
+            this.TargetState = null;
+            this.Repetitions = 1;
+            this.PostState = null;
+   
+        }
+
+        public Exercise(Exercise ex)
+        {
+            this.Name = ex.GetExerciseName;
+            this.PreState = ex.PreState;
+            this.ExerciseTime = ex.ExerciseTime;
+            this.UserMsg = ex.UserMsg;
+            this.SFCode = ex.SFCode;
+            this.TargetState = ex.TargetState;
+            this.Repetitions = ex.Repetitions;
+            this.PostState = ex.PostState;
+  
         }
 
         public void Execute(MRNetwork NW)
