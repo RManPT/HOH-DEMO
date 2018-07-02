@@ -16,19 +16,26 @@ namespace HOH_ProtocolEditor
     {
 
         private Clinic clinic;
-        BindingSource statesBinding = new BindingSource();
-        BindingSource statesDetailsBinding = new BindingSource();
-        BindingSource exercisesBinding = new BindingSource();
-        BindingSource exercisesDetailsBinding = new BindingSource();
+        private BindingList<State> blStates;
+        private BindingList<Exercise> blExercises;
+        //BindingSource statesBinding = new BindingSource();
+        //BindingSource statesDetailsBinding = new BindingSource();
+        //BindingSource exercisesBinding = new BindingSource();
+        //BindingSource exercisesDetailsBinding = new BindingSource();
         BindingSource protocolsBinding = new BindingSource();
         BindingSource protocolsDetailsBinding = new BindingSource();
         BindingSource protocolExerciseBindingSource;
-
+        int StatePanelLstStates_Selected = 0;
 
         public ProtocolEditor(Clinic clinic)
         {
+
+
             InitializeComponent();
             this.clinic = clinic;
+            this.blStates = new BindingList<State>(clinic.State);
+            this.blExercises = new BindingList<Exercise>(clinic.Exercises);
+
 
             ///State
             SetupStatePanel();
@@ -44,53 +51,59 @@ namespace HOH_ProtocolEditor
         #region Custom
         private void SetupStatePanel()
         {
-            BindingList<State> bl = new BindingList<State>(clinic.State);
-           
-            statesBinding.DataSource = bl;
-            statesDetailsBinding.DataSource = statesBinding;
 
-            lstStates.DataSource = statesDetailsBinding;
+            //statesBinding.DataSource = blState;
+            //statesDetailsBinding.DataSource = statesBinding;
+
+            //lstStates.DataSource = statesDetailsBinding;
+            //lstStates.DisplayMember = "Name";
+            
+            //txtConditionDetails1.DataBindings.Add("Text", blState, "Name");
+            //txtConditionDetails2.DataBindings.Add("Text", statesDetailsBinding, "HOHCode");
+            //txtConditionDetails3.DataBindings.Add("Text", statesDetailsBinding, "UserMsg");
+            //txtConditionDetails4.DataBindings.Add("Text", statesDetailsBinding, "CallbackMsg");
+
+            lstStates.DataSource = blStates;
             lstStates.DisplayMember = "Name";
-          
 
-            txtConditionDetails1.DataBindings.Add("Text", statesDetailsBinding, "Name");
-            txtConditionDetails2.DataBindings.Add("Text", statesDetailsBinding, "HOHCode");
-            txtConditionDetails3.DataBindings.Add("Text", statesDetailsBinding, "UserMsg");
-            txtConditionDetails4.DataBindings.Add("Text", statesDetailsBinding, "CallbackMsg");
+            txtConditionDetails1.Text = ((State)lstStates.SelectedItem).Name;
+            txtConditionDetails2.Text = ((State)lstStates.SelectedItem).HOHCode;
+            txtConditionDetails3.Text = ((State)lstStates.SelectedItem).UserMsg;
+            txtConditionDetails4.Text = ((State)lstStates.SelectedItem).CallbackMsg;
         }
 
         private void SetupExercisesPanel()
         {
-            exercisesBinding.DataSource = clinic.Exercises;
-            exercisesDetailsBinding.DataSource = exercisesBinding;
+            //exercisesBinding.DataSource = clinic.Exercises;
+            //exercisesDetailsBinding.DataSource = exercisesBinding;
 
-            lstExercises.DataSource = exercisesDetailsBinding;
-            lstExercises.DisplayMember = "Name";
-
-
-            txtExerciceDetails1.DataBindings.Add("Text", exercisesDetailsBinding, "Name");
-            txtExerciceDetails2.DataBindings.Add("Text", exercisesDetailsBinding, "SFCode");
-            txtExerciceDetails3.DataBindings.Add("Text", exercisesDetailsBinding, "UserMsg");
-            txtExerciceDetails4.DataBindings.Add("Text", exercisesDetailsBinding, "ExerciseTime");
-            txtExerciceDetails5.DataBindings.Add("Text", exercisesDetailsBinding, "Repetitions");
-
-            comboExerciseState1.BindingContext = new BindingContext();
-            comboExerciseState1.DataSource = statesBinding;
-            comboExerciseState1.DisplayMember = "Name";
+            //lstExercises.DataSource = exercisesDetailsBinding;
+            //lstExercises.DisplayMember = "Name";
 
 
-            comboExerciseState2.BindingContext = new BindingContext();
-            comboExerciseState2.DataSource = statesBinding;
-            comboExerciseState2.DisplayMember = "Name";
+            //txtExerciceDetails1.DataBindings.Add("Text", exercisesDetailsBinding, "Name");
+            //txtExerciceDetails2.DataBindings.Add("Text", exercisesDetailsBinding, "SFCode");
+            //txtExerciceDetails3.DataBindings.Add("Text", exercisesDetailsBinding, "UserMsg");
+            //txtExerciceDetails4.DataBindings.Add("Text", exercisesDetailsBinding, "ExerciseTime");
+            //txtExerciceDetails5.DataBindings.Add("Text", exercisesDetailsBinding, "Repetitions");
 
-            comboExerciseState3.BindingContext = new BindingContext();
-            comboExerciseState3.DataSource = statesBinding;
-            comboExerciseState3.DisplayMember = "Name";
+            //comboExerciseState1.BindingContext = new BindingContext();
+            //comboExerciseState1.DataSource = statesBinding;
+            //comboExerciseState1.DisplayMember = "Name";
 
-            lblDump1.DataBindings.Add("Text", exercisesDetailsBinding, "PreState.Name");
-            lblDump2.DataBindings.Add("Text", exercisesDetailsBinding, "TargetState.Name");
-            lblDump3.DataBindings.Add("Text", exercisesDetailsBinding, "PostState.Name");
-            //calls events context changed and selectedIndexChange
+
+            //comboExerciseState2.BindingContext = new BindingContext();
+            //comboExerciseState2.DataSource = statesBinding;
+            //comboExerciseState2.DisplayMember = "Name";
+
+            //comboExerciseState3.BindingContext = new BindingContext();
+            //comboExerciseState3.DataSource = statesBinding;
+            //comboExerciseState3.DisplayMember = "Name";
+
+            //lblDump1.DataBindings.Add("Text", exercisesDetailsBinding, "PreState.Name");
+            //lblDump2.DataBindings.Add("Text", exercisesDetailsBinding, "TargetState.Name");
+            //lblDump3.DataBindings.Add("Text", exercisesDetailsBinding, "PostState.Name");
+            ////calls events context changed and selectedIndexChange
         }
 
 
@@ -107,11 +120,11 @@ namespace HOH_ProtocolEditor
             lstProtocolExercises.DataSource = protocolExerciseBindingSource;
             lstProtocolExercises.DisplayMember = "GetExerciseName";
 
-            exercisesBinding.DataSource = clinic.Exercises;
-            exercisesDetailsBinding.DataSource = exercisesBinding;
+            //exercisesBinding.DataSource = clinic.Exercises;
+            //exercisesDetailsBinding.DataSource = exercisesBinding;
 
-            lstAvailableExercises.DataSource = exercisesDetailsBinding;
-            lstAvailableExercises.DisplayMember = "Name";
+            //lstAvailableExercises.DataSource = exercisesDetailsBinding;
+            //lstAvailableExercises.DisplayMember = "Name";
 
         }
         #endregion
@@ -167,19 +180,58 @@ namespace HOH_ProtocolEditor
 
         private void btnStateAdd_Click(object sender, EventArgs e)
         {
-            clinic.State.Add(new State("New state " + (clinic.State.Count + 1)));
-            statesBinding.ResetBindings(false);
+            if (blStates.Count == 0)
+            {
+                txtConditionDetails1.Enabled = true;
+                txtConditionDetails2.Enabled = true;
+                txtConditionDetails3.Enabled = true;
+                txtConditionDetails4.Enabled = true;
+            }
+
+
+            blStates.Add(new State("New state " + (clinic.State.Count + 1)));
+            lstStates.SelectedIndexChanged -= lstStates_SelectedIndexChanged;
+            blStates.ResetBindings();
+            //lstStates.DataSource = null;
+            //lstStates.DataSource = blState;
+            //lstStates.DisplayMember = "Name";
+            lstStates.SelectedIndexChanged += lstStates_SelectedIndexChanged;
             lstStates.SelectedIndex = lstStates.Items.Count - 1;
+            lstStates_SelectedIndexChanged(sender, e);
         }
 
         private void btnStateRemove_Click(object sender, EventArgs e)
         {
+            txtConditionDetails1.TextChanged -= txtConditionDetails1_TextChanged;
+            txtConditionDetails2.TextChanged -= txtConditionDetails2_TextChanged;
+            txtConditionDetails3.TextChanged -= txtConditionDetails3_TextChanged;
+            txtConditionDetails4.TextChanged -= txtConditionDetails4_TextChanged;
+
             try
             {
-                clinic.State.RemoveAt(lstStates.SelectedIndex);
+                
+                blStates.RemoveAt(lstStates.SelectedIndex);
             }
             catch { }
-            statesBinding.ResetBindings(false);
+            blStates.ResetBindings();
+            if (blStates.Count == 0)
+            {
+ 
+                txtConditionDetails1.Text = "";
+                txtConditionDetails2.Text = "";
+                txtConditionDetails3.Text = "";
+                txtConditionDetails4.Text = "";
+
+
+                txtConditionDetails1.Enabled = false; 
+                txtConditionDetails2.Enabled = false; 
+                txtConditionDetails3.Enabled = false; 
+                txtConditionDetails4.Enabled = false; 
+            }
+            txtConditionDetails1.TextChanged += txtConditionDetails1_TextChanged;
+            txtConditionDetails2.TextChanged += txtConditionDetails2_TextChanged;
+            txtConditionDetails3.TextChanged += txtConditionDetails3_TextChanged;
+            txtConditionDetails4.TextChanged += txtConditionDetails4_TextChanged;
         }
 
         private void comboExerciseState1_Leave(object sender, EventArgs e)
@@ -203,7 +255,7 @@ namespace HOH_ProtocolEditor
         private void btnExerciseAdd_Click(object sender, EventArgs e)
         {
             clinic.Exercises.Add(new Exercise("New exercise " + (clinic.Exercises.Count + 1)));
-            exercisesBinding.ResetBindings(false);
+            //exercisesBinding.ResetBindings(false);
             lstExercises.SelectedIndex = lstExercises.Items.Count - 1;
         }
 
@@ -214,22 +266,26 @@ namespace HOH_ProtocolEditor
                 clinic.Exercises.RemoveAt(lstExercises.SelectedIndex);
             }
             catch { }
-            exercisesBinding.ResetBindings(false);
+            //exercisesBinding.ResetBindings(false);
         }
 
         private void label13_Click(object sender, EventArgs e)
         {
-            clinic.State.Add(new State((State)lstStates.SelectedItem));
-            statesBinding.ResetBindings(false);
+            if (lstStates.SelectedItem != null)
+            { 
+                blStates.Add(new State((State)lstStates.SelectedItem));
+                //statesBinding.ResetBindings(false);
 
-            lstStates.SelectedIndex = lstStates.Items.Count - 1;
-            ((State)lstStates.SelectedItem).Name += " - copy";
-            statesBinding.ResetBindings(false);
+                lstStates.SelectedIndex = lstStates.Items.Count - 1;
+                ((State)lstStates.SelectedItem).Name += " - copy";
+                //statesBinding.ResetBindings(false);
+                blStates.ResetBindings();
+            }
         }
 
         private void lstStates_BindingContextChanged(object sender, EventArgs e)
         {
-            statesBinding.ResetBindings(false);
+            //statesBinding.ResetBindings(false);
         }
 
         private void lstStates_BindingContextChanged_1(object sender, EventArgs e)
@@ -239,11 +295,11 @@ namespace HOH_ProtocolEditor
         private void label14_Click(object sender, EventArgs e)
         {
             clinic.Exercises.Add(new Exercise((Exercise)lstExercises.SelectedItem));
-            exercisesBinding.ResetBindings(false);
+            //exercisesBinding.ResetBindings(false);
 
             lstExercises.SelectedIndex = lstExercises.Items.Count - 1;
             ((Exercise)lstExercises.SelectedItem).Name += " - copy";
-            exercisesBinding.ResetBindings(false);
+            //exercisesBinding.ResetBindings(false);
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -293,6 +349,78 @@ namespace HOH_ProtocolEditor
         private void btnProtocolExercisesUP_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void lstStates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstStates.Items.Count !=0)
+            { 
+                if (btnStatesApply.Enabled)
+                {
+                    var result = MessageBox.Show
+                            ("If not applied previous changes will be lost!", "Want to apply?", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                        btnStatesApply_Click(sender, e);
+                }
+           
+
+                btnStatesApply.Enabled = false;
+                if (blStates.Count >0)
+                { 
+                    txtConditionDetails1.Text = ((State)lstStates.SelectedItem).Name;
+                    txtConditionDetails2.Text = ((State)lstStates.SelectedItem).HOHCode;
+                    txtConditionDetails3.Text = ((State)lstStates.SelectedItem).UserMsg;
+                    txtConditionDetails4.Text = ((State)lstStates.SelectedItem).CallbackMsg;
+                }
+                StatePanelLstStates_Selected = lstStates.SelectedIndex;
+           }
+        }
+
+        private void btnStatesApply_Click(object sender, EventArgs e)
+        {
+            State s = (State)lstStates.Items[StatePanelLstStates_Selected];
+            
+            s.Name = txtConditionDetails1.Text;
+            s.HOHCode = txtConditionDetails2.Text;
+            s.UserMsg = txtConditionDetails3.Text;
+            s.CallbackMsg = txtConditionDetails4.Text;
+            blStates.ResetBindings();
+
+            //lstStates.DataSource = null;
+            //lstStates.DataSource = blState;
+            //lstStates.DisplayMember = "Name";
+
+            btnStatesApply.Enabled = false;
+
+        }
+
+        private void txtConditionDetails1_TextChanged(object sender, EventArgs e)
+        {
+                if (!btnStatesApply.Enabled)
+                    btnStatesApply.Enabled = txtConditionDetails1.Text != ((State)lstStates.SelectedItem).Name;
+        }
+
+        private void txtConditionDetails2_TextChanged(object sender, EventArgs e)
+        {
+            if (!btnStatesApply.Enabled)
+                btnStatesApply.Enabled = txtConditionDetails2.Text != ((State)lstStates.SelectedItem).HOHCode;
+        }
+
+        private void txtConditionDetails3_TextChanged(object sender, EventArgs e)
+        {
+            if (!btnStatesApply.Enabled)
+                btnStatesApply.Enabled = txtConditionDetails3.Text != ((State)lstStates.SelectedItem).UserMsg;
+        }
+
+        private void txtConditionDetails4_TextChanged(object sender, EventArgs e)
+        {
+            if (!btnStatesApply.Enabled)
+                btnStatesApply.Enabled = txtConditionDetails4.Text != ((State)lstStates.SelectedItem).CallbackMsg;
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
         }
     }
     #endregion
