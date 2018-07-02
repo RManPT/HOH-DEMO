@@ -47,6 +47,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lstStates = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnExercisesApply = new System.Windows.Forms.Button();
             this.lblDump3 = new System.Windows.Forms.Label();
             this.lblDump2 = new System.Windows.Forms.Label();
             this.lblDump1 = new System.Windows.Forms.Label();
@@ -60,15 +61,16 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtExerciceDetails3 = new System.Windows.Forms.TextBox();
+            this.txtExerciseDetails3 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtExerciceDetails2 = new System.Windows.Forms.TextBox();
+            this.txtExerciseDetails2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtExerciceDetails1 = new System.Windows.Forms.TextBox();
+            this.txtExerciseDetails1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lstExercises = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button7 = new System.Windows.Forms.Button();
             this.btnProtocolExercisesDown = new System.Windows.Forms.Button();
             this.btnProtocolExercisesUP = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -104,8 +106,6 @@
             this.button6 = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.lstProtocols = new System.Windows.Forms.ListBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -120,6 +120,7 @@
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // tabPage1
             // 
@@ -234,7 +235,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.btnExercisesApply);
             this.tabPage2.Controls.Add(this.lblDump3);
             this.tabPage2.Controls.Add(this.lblDump2);
             this.tabPage2.Controls.Add(this.lblDump1);
@@ -248,17 +249,24 @@
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Controls.Add(this.txtExerciceDetails3);
+            this.tabPage2.Controls.Add(this.txtExerciseDetails3);
             this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.txtExerciceDetails2);
+            this.tabPage2.Controls.Add(this.txtExerciseDetails2);
             this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.txtExerciceDetails1);
+            this.tabPage2.Controls.Add(this.txtExerciseDetails1);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.lstExercises);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnExercisesApply
+            // 
+            resources.ApplyResources(this.btnExercisesApply, "btnExercisesApply");
+            this.btnExercisesApply.Name = "btnExercisesApply";
+            this.btnExercisesApply.UseVisualStyleBackColor = true;
+            this.btnExercisesApply.Click += new System.EventHandler(this.btnExercisesApply_Click);
             // 
             // lblDump3
             // 
@@ -280,6 +288,7 @@
             this.comboExerciseState1.FormattingEnabled = true;
             resources.ApplyResources(this.comboExerciseState1, "comboExerciseState1");
             this.comboExerciseState1.Name = "comboExerciseState1";
+            this.comboExerciseState1.SelectedIndexChanged += new System.EventHandler(this.comboExerciseState1_SelectedIndexChanged);
             this.comboExerciseState1.Leave += new System.EventHandler(this.comboExerciseState1_Leave);
             // 
             // label14
@@ -308,6 +317,7 @@
             this.comboExerciseState3.FormattingEnabled = true;
             resources.ApplyResources(this.comboExerciseState3, "comboExerciseState3");
             this.comboExerciseState3.Name = "comboExerciseState3";
+            this.comboExerciseState3.SelectedIndexChanged += new System.EventHandler(this.comboExerciseState3_SelectedIndexChanged);
             this.comboExerciseState3.Leave += new System.EventHandler(this.comboExerciseState3_Leave);
             // 
             // comboExerciseState2
@@ -315,6 +325,7 @@
             this.comboExerciseState2.FormattingEnabled = true;
             resources.ApplyResources(this.comboExerciseState2, "comboExerciseState2");
             this.comboExerciseState2.Name = "comboExerciseState2";
+            this.comboExerciseState2.SelectedIndexChanged += new System.EventHandler(this.comboExerciseState2_SelectedIndexChanged);
             this.comboExerciseState2.Leave += new System.EventHandler(this.comboExerciseState2_Leave);
             // 
             // label11
@@ -337,30 +348,33 @@
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
             // 
-            // txtExerciceDetails3
+            // txtExerciseDetails3
             // 
-            resources.ApplyResources(this.txtExerciceDetails3, "txtExerciceDetails3");
-            this.txtExerciceDetails3.Name = "txtExerciceDetails3";
+            resources.ApplyResources(this.txtExerciseDetails3, "txtExerciseDetails3");
+            this.txtExerciseDetails3.Name = "txtExerciseDetails3";
+            this.txtExerciseDetails3.TextChanged += new System.EventHandler(this.txtExerciseDetails3_TextChanged);
             // 
             // label5
             // 
             resources.ApplyResources(this.label5, "label5");
             this.label5.Name = "label5";
             // 
-            // txtExerciceDetails2
+            // txtExerciseDetails2
             // 
-            resources.ApplyResources(this.txtExerciceDetails2, "txtExerciceDetails2");
-            this.txtExerciceDetails2.Name = "txtExerciceDetails2";
+            resources.ApplyResources(this.txtExerciseDetails2, "txtExerciseDetails2");
+            this.txtExerciseDetails2.Name = "txtExerciseDetails2";
+            this.txtExerciseDetails2.TextChanged += new System.EventHandler(this.txtExerciseDetails2_TextChanged);
             // 
             // label6
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
             // 
-            // txtExerciceDetails1
+            // txtExerciseDetails1
             // 
-            resources.ApplyResources(this.txtExerciceDetails1, "txtExerciceDetails1");
-            this.txtExerciceDetails1.Name = "txtExerciceDetails1";
+            resources.ApplyResources(this.txtExerciseDetails1, "txtExerciseDetails1");
+            this.txtExerciseDetails1.Name = "txtExerciseDetails1";
+            this.txtExerciseDetails1.TextChanged += new System.EventHandler(this.txtExerciseDetails1_TextChanged);
             // 
             // label7
             // 
@@ -422,6 +436,12 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
+            // 
+            // button7
+            // 
+            resources.ApplyResources(this.button7, "button7");
+            this.button7.Name = "button7";
+            this.button7.UseVisualStyleBackColor = true;
             // 
             // btnProtocolExercisesDown
             // 
@@ -620,18 +640,6 @@
             resources.ApplyResources(this.lstProtocols, "lstProtocols");
             this.lstProtocols.Name = "lstProtocols";
             // 
-            // button4
-            // 
-            resources.ApplyResources(this.button4, "button4");
-            this.button4.Name = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            resources.ApplyResources(this.button7, "button7");
-            this.button7.Name = "button7";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
             // ProtocolEditor
             // 
             resources.ApplyResources(this, "$this");
@@ -666,11 +674,11 @@
         private System.Windows.Forms.ListBox lstStates;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtExerciceDetails3;
+        private System.Windows.Forms.TextBox txtExerciseDetails3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtExerciceDetails2;
+        private System.Windows.Forms.TextBox txtExerciseDetails2;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtExerciceDetails1;
+        private System.Windows.Forms.TextBox txtExerciseDetails1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ListBox lstExercises;
@@ -726,7 +734,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnProtocolExercisesDown;
         private System.Windows.Forms.Button btnProtocolExercisesUP;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnExercisesApply;
         private System.Windows.Forms.Button button7;
     }
 }

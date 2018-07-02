@@ -67,7 +67,6 @@ namespace HOH_Library
             this.TargetState = null;
             this.Repetitions = 1;
             this.PostState = null;
-   
         }
 
         public Exercise(Exercise ex)
