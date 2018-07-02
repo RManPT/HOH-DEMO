@@ -13,17 +13,21 @@ namespace HOH_Library
         public int ExerciseTimer { get; set; }
         public string ExerciseName { get; set; }
         public string ProtocolState { get; set; }
+        public int Repetitions { get; set; }
 
         public static event EventHandler<HOHEvent> LogUpdated;
         public static event EventHandler<HOHEvent> UsrMsgUpdated;
         public static event EventHandler<HOHEvent> ExerciseTimerUpdated;
         public static event EventHandler<HOHEvent> ExerciseNameUpdated;
         public static event EventHandler<HOHEvent> ProtocolStateUpdated;
+        public static event EventHandler<HOHEvent> RepetitionsUpdated;
 
         public HOHEvent()
         {
 
         }
+
+        #region Invokes
 
         protected virtual void OnLogUpdated(HOHEvent e)
         {
@@ -48,6 +52,15 @@ namespace HOH_Library
             ProtocolStateUpdated?.Invoke(this, e);
         }
 
+        protected virtual void OnRepetitionsUpdated(HOHEvent e)
+        {
+           RepetitionsUpdated?.Invoke(this, e);
+        }
+
+        #endregion
+
+
+        #region modifiers
 
         public void UpdateLogMsg(string strInformation)
         {
@@ -71,5 +84,12 @@ namespace HOH_Library
         {
             OnProtocolStateUpdated(new HOHEvent() { ProtocolState = state });
         }
+
+        public void UpdateRepetitions(int rep)
+        {
+            OnRepetitionsUpdated(new HOHEvent() { Repetitions = rep });
+        }
+        #endregion
+
     }
 }

@@ -45,7 +45,7 @@ namespace HOH_DEMO
             InitializeComponent();
             NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000
             NW.SetLogBox(textBoxLog);
-            tabControl.SelectTab(1);
+            tabControl.SelectTab(0);
             actionTimer.Start();
             comboTreatment.SelectedIndex = 0;
             //ServerSL = new Thread(() => AsyncServer.StartListening(10101));

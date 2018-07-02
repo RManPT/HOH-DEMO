@@ -121,7 +121,7 @@ namespace HOH_Library
                 Name = "Protocol 2",
                 Exercises = new List<Exercise>
                 {
-                    new Exercise()
+                    new Exercise("New exercise 1")
                 }
             };
 
