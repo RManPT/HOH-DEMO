@@ -48,9 +48,6 @@
             this.lstStates = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnExercisesApply = new System.Windows.Forms.Button();
-            this.lblDump3 = new System.Windows.Forms.Label();
-            this.lblDump2 = new System.Windows.Forms.Label();
-            this.lblDump1 = new System.Windows.Forms.Label();
             this.comboExerciseState1 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.btnExerciseRemove = new System.Windows.Forms.Button();
@@ -76,15 +73,12 @@
             this.lblAvailableexe = new System.Windows.Forms.Label();
             this.lstAvailableExercises = new System.Windows.Forms.ListBox();
             this.label30 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnProtocolExercisesRemove = new System.Windows.Forms.Button();
+            this.btnProtocolExercisesAdd = new System.Windows.Forms.Button();
             this.label29 = new System.Windows.Forms.Label();
             this.lstProtocolExercises = new System.Windows.Forms.ListBox();
             this.label17 = new System.Windows.Forms.Label();
             this.txtProtocolExerciseDetails5 = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.comboProtocolExerciseState1 = new System.Windows.Forms.ComboBox();
             this.comboProtocolExerciseState3 = new System.Windows.Forms.ComboBox();
             this.comboProtocolExerciseState2 = new System.Windows.Forms.ComboBox();
@@ -101,8 +95,8 @@
             this.txtProtocolExerciseDetails1 = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnProtocolDelete = new System.Windows.Forms.Button();
+            this.btnAddProtocol = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.lstProtocols = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
@@ -235,9 +229,6 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.btnExercisesApply);
-            this.tabPage2.Controls.Add(this.lblDump3);
-            this.tabPage2.Controls.Add(this.lblDump2);
-            this.tabPage2.Controls.Add(this.lblDump1);
             this.tabPage2.Controls.Add(this.comboExerciseState1);
             this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.btnExerciseRemove);
@@ -266,21 +257,6 @@
             this.btnExercisesApply.Name = "btnExercisesApply";
             this.btnExercisesApply.UseVisualStyleBackColor = true;
             this.btnExercisesApply.Click += new System.EventHandler(this.btnExercisesApply_Click);
-            // 
-            // lblDump3
-            // 
-            resources.ApplyResources(this.lblDump3, "lblDump3");
-            this.lblDump3.Name = "lblDump3";
-            // 
-            // lblDump2
-            // 
-            resources.ApplyResources(this.lblDump2, "lblDump2");
-            this.lblDump2.Name = "lblDump2";
-            // 
-            // lblDump1
-            // 
-            resources.ApplyResources(this.lblDump1, "lblDump1");
-            this.lblDump1.Name = "lblDump1";
             // 
             // comboExerciseState1
             // 
@@ -401,15 +377,12 @@
             this.tabPage3.Controls.Add(this.lblAvailableexe);
             this.tabPage3.Controls.Add(this.lstAvailableExercises);
             this.tabPage3.Controls.Add(this.label30);
-            this.tabPage3.Controls.Add(this.button1);
-            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Controls.Add(this.btnProtocolExercisesRemove);
+            this.tabPage3.Controls.Add(this.btnProtocolExercisesAdd);
             this.tabPage3.Controls.Add(this.label29);
             this.tabPage3.Controls.Add(this.lstProtocolExercises);
             this.tabPage3.Controls.Add(this.label17);
             this.tabPage3.Controls.Add(this.txtProtocolExerciseDetails5);
-            this.tabPage3.Controls.Add(this.label18);
-            this.tabPage3.Controls.Add(this.label19);
-            this.tabPage3.Controls.Add(this.label20);
             this.tabPage3.Controls.Add(this.comboProtocolExerciseState1);
             this.tabPage3.Controls.Add(this.comboProtocolExerciseState3);
             this.tabPage3.Controls.Add(this.comboProtocolExerciseState2);
@@ -426,8 +399,8 @@
             this.tabPage3.Controls.Add(this.txtProtocolExerciseDetails1);
             this.tabPage3.Controls.Add(this.label28);
             this.tabPage3.Controls.Add(this.label15);
-            this.tabPage3.Controls.Add(this.button5);
-            this.tabPage3.Controls.Add(this.button6);
+            this.tabPage3.Controls.Add(this.btnProtocolDelete);
+            this.tabPage3.Controls.Add(this.btnAddProtocol);
             this.tabPage3.Controls.Add(this.label12);
             this.tabPage3.Controls.Add(this.lstProtocols);
             resources.ApplyResources(this.tabPage3, "tabPage3");
@@ -473,19 +446,19 @@
             this.label30.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label30.Name = "label30";
             // 
-            // button1
+            // btnProtocolExercisesRemove
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            resources.ApplyResources(this.btnProtocolExercisesRemove, "btnProtocolExercisesRemove");
+            this.btnProtocolExercisesRemove.Name = "btnProtocolExercisesRemove";
+            this.btnProtocolExercisesRemove.UseVisualStyleBackColor = true;
+            this.btnProtocolExercisesRemove.Click += new System.EventHandler(this.btnProtocolExercisesRemove_Click);
             // 
-            // button2
+            // btnProtocolExercisesAdd
             // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            resources.ApplyResources(this.btnProtocolExercisesAdd, "btnProtocolExercisesAdd");
+            this.btnProtocolExercisesAdd.Name = "btnProtocolExercisesAdd";
+            this.btnProtocolExercisesAdd.UseVisualStyleBackColor = true;
+            this.btnProtocolExercisesAdd.Click += new System.EventHandler(this.btnProtocolExercisesAdd_Click);
             // 
             // label29
             // 
@@ -508,21 +481,7 @@
             // 
             resources.ApplyResources(this.txtProtocolExerciseDetails5, "txtProtocolExerciseDetails5");
             this.txtProtocolExerciseDetails5.Name = "txtProtocolExerciseDetails5";
-            // 
-            // label18
-            // 
-            resources.ApplyResources(this.label18, "label18");
-            this.label18.Name = "label18";
-            // 
-            // label19
-            // 
-            resources.ApplyResources(this.label19, "label19");
-            this.label19.Name = "label19";
-            // 
-            // label20
-            // 
-            resources.ApplyResources(this.label20, "label20");
-            this.label20.Name = "label20";
+            this.txtProtocolExerciseDetails5.TextChanged += new System.EventHandler(this.txtProtocolExerciseDetails5_TextChanged);
             // 
             // comboProtocolExerciseState1
             // 
@@ -566,6 +525,7 @@
             // 
             resources.ApplyResources(this.txtProtocolExerciseDetails4, "txtProtocolExerciseDetails4");
             this.txtProtocolExerciseDetails4.Name = "txtProtocolExerciseDetails4";
+            this.txtProtocolExerciseDetails4.TextChanged += new System.EventHandler(this.txtProtocolExerciseDetails4_TextChanged);
             // 
             // label25
             // 
@@ -608,19 +568,19 @@
             this.label15.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label15.Name = "label15";
             // 
-            // button5
+            // btnProtocolDelete
             // 
-            resources.ApplyResources(this.button5, "button5");
-            this.button5.Name = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            resources.ApplyResources(this.btnProtocolDelete, "btnProtocolDelete");
+            this.btnProtocolDelete.Name = "btnProtocolDelete";
+            this.btnProtocolDelete.UseVisualStyleBackColor = true;
+            this.btnProtocolDelete.Click += new System.EventHandler(this.btnProtocolDelete_Click);
             // 
-            // button6
+            // btnAddProtocol
             // 
-            resources.ApplyResources(this.button6, "button6");
-            this.button6.Name = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            resources.ApplyResources(this.btnAddProtocol, "btnAddProtocol");
+            this.btnAddProtocol.Name = "btnAddProtocol";
+            this.btnAddProtocol.UseVisualStyleBackColor = true;
+            this.btnAddProtocol.Click += new System.EventHandler(this.btnAddProtocol_Click);
             // 
             // label12
             // 
@@ -691,20 +651,14 @@
         private System.Windows.Forms.Button btnExerciseRemove;
         private System.Windows.Forms.Button btnExerciseAdd;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnProtocolDelete;
+        private System.Windows.Forms.Button btnAddProtocol;
         private System.Windows.Forms.ComboBox comboExerciseState1;
         private System.Windows.Forms.Button btnStatesApply;
-        private System.Windows.Forms.Label lblDump1;
-        private System.Windows.Forms.Label lblDump3;
-        private System.Windows.Forms.Label lblDump2;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.ListBox lstProtocolExercises;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox txtProtocolExerciseDetails5;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ComboBox comboProtocolExerciseState1;
         private System.Windows.Forms.ComboBox comboProtocolExerciseState3;
         private System.Windows.Forms.ComboBox comboProtocolExerciseState2;
@@ -721,8 +675,8 @@
         private System.Windows.Forms.TextBox txtProtocolExerciseDetails1;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnProtocolExercisesRemove;
+        private System.Windows.Forms.Button btnProtocolExercisesAdd;
         private System.Windows.Forms.Label lblAvailableexe;
         private System.Windows.Forms.ListBox lstAvailableExercises;
         private System.Windows.Forms.Button btnProtocolExercisesDown;

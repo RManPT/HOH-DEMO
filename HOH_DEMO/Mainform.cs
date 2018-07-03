@@ -7,6 +7,7 @@ using System.Diagnostics;
 using HOH_Library;
 using HOH_ProtocolEditor;
 using HOH_ProtocolGUI;
+using System.IO;
 
 namespace HOH_DEMO
 {
@@ -41,7 +42,10 @@ namespace HOH_DEMO
 
         public Mainform()
         {
-            Seed.SetupData(clinic);
+            //Seed.SetupData(clinic);
+            LoadProtocols();
+
+
             InitializeComponent();
             NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000
             NW.SetLogBox(textBoxLog);
@@ -58,7 +62,7 @@ namespace HOH_DEMO
             //test connection with matlab
             protocolsBinding.DataSource = clinic.Protocols;
             protocolDetailsBinding.DataSource = protocolsBinding;
-         
+
             lstProtocols.DataSource = protocolDetailsBinding;
             lstProtocols.DisplayMember = "Name";
 
@@ -66,12 +70,12 @@ namespace HOH_DEMO
 
             lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
             lstProtocolsExercises.DisplayMember = "GetExerciseName";
-            
+
             // Debug.WriteLine(protocolDetailsBinding.ToString());
 
             listRepetitions.DataSource = protocolExerciseBindingSource;
             listRepetitions.DisplayMember = "Repetitions";
-           // _utils = new Utils();
+            // _utils = new Utils();
         }
 
         //public Utils Utils
@@ -82,15 +86,15 @@ namespace HOH_DEMO
         private void OnHOHEventUpdate(object sender, HOHEvent e)
         {
             Delegate d = new EventSubscribed(updateGUI);
-            this.Invoke(d,e);
+            this.Invoke(d, e);
         }
 
         private void updateGUI(HOHEvent e)
         {
-            if (e.LogMsg!=null) txtProtocolsLog.AppendText(e.LogMsg.ToString() + Environment.NewLine);
-            if (e.UserMsg!= null) txtProtocolsLog.AppendText(e.UserMsg.ToString() + Environment.NewLine);
+            if (e.LogMsg != null) txtProtocolsLog.AppendText(e.LogMsg.ToString() + Environment.NewLine);
+            if (e.UserMsg != null) txtProtocolsLog.AppendText(e.UserMsg.ToString() + Environment.NewLine);
         }
-        
+
 
 
         /***********************************************************************************************************/
@@ -106,107 +110,109 @@ namespace HOH_DEMO
         }
 
         //Lança para a consola devolvidas pelos eventos
-   /*     private void InputDetectedEvent(object sender, LANCBEvenArgs e)
+        /*     private void InputDetectedEvent(object sender, LANCBEvenArgs e)
+             {
+                 Invoke(new EventHandler(delegate { txtServerLog.AppendText(NW.msgs.ToString());  } ));
+        /*         {
+                     //informação chega de forma assincrona
+                     this.textBoxLog.AppendText(e.MsgString);
+
+                     if (!e.MsgString.Contains("\n")) msgRcvHOH += e.MsgString;
+                     else
+                     {
+                         msgRcvHOH += e.MsgString;
+                         //verifica se a mão foi testada e inicia o hand brace testing
+                         if (msgRcvHOH.Contains("untested")) {
+                             txtServerLog.AppendText("\r\nForcing Hand testing");
+                             buttontest_Click(sender, e);
+                             msgRcvHOH = "";
+                         }
+     */
+
+        /*//detecta qual o movimento CPM a partir da msg
+                            if (runCPMWhole)
+                            {
+                                if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
+                                {
+                                    txtCPMLog.AppendText("\r\nHOH -> CLOSING HAND");
+                                    sendAll(((char)12).ToString());
+                                }
+                                if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
+                                {
+                                    txtCPMLog.AppendText("\r\nHOH -> OPENING HAND");
+                                    sendAll(((char)11).ToString());
+                                    CPMCounter++;
+                                }
+                                if (msgRcvHOH.Contains("Exit"))
+                                {
+                                    txtCPMLog.AppendText("\r\nHOH -> STOPPED");
+                                    sendAll(((char)10).ToString());
+                                }
+                                //   }
+                                //txtCPMLog.AppendText("->" + msgRcvHOH);
+                                msgRcvHOH = "";
+                            }
+                            */
+        //processar mensagens retornadas pela HOH em caso de modo CTM
+        /*               if (runCTM)
+                         {
+
+                             if (runCTMClose)
+                             { 
+                                 if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
+                                 {
+                                     txtCTMLog.AppendText("\r\nHOH -> CLOSING HAND");
+                                     //sendAll(((char)12).ToString());
+
+                                 }
+                                 if (msgRcvHOH.Contains("Exit hand closing"))
+                                 {
+                                     txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
+                                     //sendAll(((char)11).ToString());
+                                     //FORCAR ABERTURA DE MAO AUTOMATICO
+                                     CPMCounter++;
+                                     buttonfullyopen_Click(sender, e);
+                                     previousCMDReceived = 0;
+                                 }
+                                 //txtCTMLog.AppendText("->" + msgRcvHOH);
+                                 msgRcvHOH = "";
+                             }
+
+                             if (runCTMOpen)
+                             {
+                                 if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
+                                 {
+                                     txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
+                                     //sendAll(((char)12).ToString());
+
+                                 }
+                                 if (msgRcvHOH.Contains("Exit hand closing"))
+                                 {
+                                     txtCTMLog.AppendText("\r\nHOH -> ClOSING HAND");
+                                     //sendAll(((char)11).ToString());
+                                     //FORCAR FECHO DE MAO AUTOMATICO
+                                     CPMCounter++;
+                                     buttonfullyclose_Click(sender, e);
+                                     previousCMDReceived = 0;
+                                 }
+                                 //txtCTMLog.AppendText("->" + msgRcvHOH);
+                                 msgRcvHOH = "";
+                             }
+                         }
+
+                     }     
+                 }));
+             }*/
+
+        private void ProcessCommand()
         {
-            Invoke(new EventHandler(delegate { txtServerLog.AppendText(NW.msgs.ToString());  } ));
-   /*         {
-                //informação chega de forma assincrona
-                this.textBoxLog.AppendText(e.MsgString);
-
-                if (!e.MsgString.Contains("\n")) msgRcvHOH += e.MsgString;
-                else
-                {
-                    msgRcvHOH += e.MsgString;
-                    //verifica se a mão foi testada e inicia o hand brace testing
-                    if (msgRcvHOH.Contains("untested")) {
-                        txtServerLog.AppendText("\r\nForcing Hand testing");
-                        buttontest_Click(sender, e);
-                        msgRcvHOH = "";
-                    }
-*/
-
-/*//detecta qual o movimento CPM a partir da msg
-                    if (runCPMWhole)
-                    {
-                        if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
-                        {
-                            txtCPMLog.AppendText("\r\nHOH -> CLOSING HAND");
-                            sendAll(((char)12).ToString());
-                        }
-                        if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
-                        {
-                            txtCPMLog.AppendText("\r\nHOH -> OPENING HAND");
-                            sendAll(((char)11).ToString());
-                            CPMCounter++;
-                        }
-                        if (msgRcvHOH.Contains("Exit"))
-                        {
-                            txtCPMLog.AppendText("\r\nHOH -> STOPPED");
-                            sendAll(((char)10).ToString());
-                        }
-                        //   }
-                        //txtCPMLog.AppendText("->" + msgRcvHOH);
-                        msgRcvHOH = "";
-                    }
-                    */
-                    //processar mensagens retornadas pela HOH em caso de modo CTM
-   /*               if (runCTM)
-                    {
-
-                        if (runCTMClose)
-                        { 
-                            if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
-                            {
-                                txtCTMLog.AppendText("\r\nHOH -> CLOSING HAND");
-                                //sendAll(((char)12).ToString());
-
-                            }
-                            if (msgRcvHOH.Contains("Exit hand closing"))
-                            {
-                                txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
-                                //sendAll(((char)11).ToString());
-                                //FORCAR ABERTURA DE MAO AUTOMATICO
-                                CPMCounter++;
-                                buttonfullyopen_Click(sender, e);
-                                previousCMDReceived = 0;
-                            }
-                            //txtCTMLog.AppendText("->" + msgRcvHOH);
-                            msgRcvHOH = "";
-                        }
-
-                        if (runCTMOpen)
-                        {
-                            if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
-                            {
-                                txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
-                                //sendAll(((char)12).ToString());
-
-                            }
-                            if (msgRcvHOH.Contains("Exit hand closing"))
-                            {
-                                txtCTMLog.AppendText("\r\nHOH -> ClOSING HAND");
-                                //sendAll(((char)11).ToString());
-                                //FORCAR FECHO DE MAO AUTOMATICO
-                                CPMCounter++;
-                                buttonfullyclose_Click(sender, e);
-                                previousCMDReceived = 0;
-                            }
-                            //txtCTMLog.AppendText("->" + msgRcvHOH);
-                            msgRcvHOH = "";
-                        }
-                    }
-                    
-                }     
-            }));
-        }*/
-
-        private void ProcessCommand() {
             //takecare of lastReceivedCommand;
             commandProcessed = true;
         }
 
 
-        public bool PrintEndOfMove(string msg) {
+        public bool PrintEndOfMove(string msg)
+        {
             Debug.WriteLine(msg);
             return true;
         }
@@ -339,6 +345,7 @@ namespace HOH_DEMO
         #region common controls
         private void Mainform_Load(object sender, EventArgs e)
         {
+
             btnServerStart_Click(sender, e);
             CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
             lblCPMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
@@ -350,7 +357,7 @@ namespace HOH_DEMO
 
         private void Mainform_FormClosed(object sender, FormClosedEventArgs e)
         {
-          
+
         }
 
 
@@ -403,11 +410,12 @@ namespace HOH_DEMO
         /// <summary>
         /// Reset sync timer
         /// </summary>
-        private void timerSyncReset() {
+        private void timerSyncReset()
+        {
             ExerciceResetTimer.Stop();
             //timer_sync.Enabled = false;
             //timer_sync.Enabled = true;
-            timeSync=0;
+            timeSync = 0;
         }
 
         private void actionTimer_Tick(object sender, EventArgs e)
@@ -431,7 +439,7 @@ namespace HOH_DEMO
                 }
             previousCMDReceived = LastCMDReceived;
             commandProcessed = true;
-            
+
             lblServerClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
             lblCPMClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
         }
@@ -445,8 +453,8 @@ namespace HOH_DEMO
             ExerciceResetTimer.Stop();
             //resets HOH
             if (runCTMClose)
-            { 
-                
+            {
+
                 //sendAll(((char)11).ToString());
                 //FORCAR ABERTURA DE MAO AUTOMATICO
                 if (cbxCTMAutoMove.Checked)
@@ -494,13 +502,13 @@ namespace HOH_DEMO
 
 
 
-       
-            #endregion
+
+        #endregion
 
 
-            #region server tab
+        #region server tab
 
-            private void btnServerSend_Click(object sender, EventArgs e)
+        private void btnServerSend_Click(object sender, EventArgs e)
         {
             AsyncServer.Send(AsyncServer.currentClient, txtServerSend.Text);
         }
@@ -707,7 +715,7 @@ namespace HOH_DEMO
             if (rbCTMTimer.Checked)
             {
                 if (!btnCTMStart.Enabled) btnCTMStart.Enabled = true;
-//                if (!btnCTMOpenHand.Enabled) btnCTMOpenHand.Enabled = false;
+                //                if (!btnCTMOpenHand.Enabled) btnCTMOpenHand.Enabled = false;
                 rbCTMCounter.Checked = false;
                 gbCTMTimer.BackColor = Color.FromArgb(10, 0, 255, 0);
                 gbCTMCounter.BackColor = Color.Transparent;
@@ -722,7 +730,7 @@ namespace HOH_DEMO
             if (rbCTMCounter.Checked)
             {
                 if (!btnCTMStart.Enabled) btnCTMStart.Enabled = true;
-  //              if (!btnCTMOpenHand.Enabled) btnCTMOpenHand.Enabled = true;
+                //              if (!btnCTMOpenHand.Enabled) btnCTMOpenHand.Enabled = true;
                 rbCTMTimer.Checked = false;
                 gbCTMCounter.BackColor = Color.FromArgb(10, 0, 255, 0);
                 gbCTMTimer.BackColor = Color.Transparent;
@@ -835,7 +843,7 @@ namespace HOH_DEMO
         {
 
             if (connectedHOH)
-            {  
+            {
                 //resets hand
                 buttonfullyopen_Click(sender, e);
                 //disconnects hand socket
@@ -843,7 +851,7 @@ namespace HOH_DEMO
                 NW.Disconnect();
             }
 
-            
+
             //stops sfunction server
             btnServerStop_Click(sender, e);
             HOHEvent.LogUpdated -= OnHOHEventUpdate;
@@ -853,12 +861,12 @@ namespace HOH_DEMO
 
         private void protocolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        ProtocolEditor f1 = new ProtocolEditor(clinic);
+            ProtocolEditor f1 = new ProtocolEditor(clinic);
             f1.ShowDialog();
             Debug.WriteLine("form");
             //f1.Close();
@@ -867,7 +875,7 @@ namespace HOH_DEMO
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            textBox1.AppendText(clinic.State[0].Name);
+            textBox1.AppendText(clinic.States[0].Name);
         }
 
         private void lstProtocols_SelectedIndexChanged(object sender, EventArgs e)
@@ -889,7 +897,7 @@ namespace HOH_DEMO
 
         private void btnProtocolStart_Click(object sender, EventArgs e)
         {
-            
+
 
             Protocol pt = ((Protocol)lstProtocols.SelectedItem);
             ProtocolGUI protocolGUI = new ProtocolGUI(pt, NW);
@@ -897,7 +905,7 @@ namespace HOH_DEMO
 
             Thread ProtoRun = new Thread(() => pt.Execute(NW));
             ProtoRun.Start();
-            
+
             //new Thread(new ThreadStart(((Protocol)lstProtocols.SelectedItem).Execute)).Start(); 
         }
 
@@ -918,8 +926,43 @@ namespace HOH_DEMO
             txtServerLog.ScrollToCaret();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine(clinic.ToJSON());
+        }
+
+        private void saveProtocolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText(@"clinic.json", clinic.ToJSON());
+            MessageBox.Show("Protocols Saved!");
+        }
+
+        private void loadProtocolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadProtocols();
+        }
+
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void LoadProtocols()
+        {
+            string msg = String.Empty;
+            string str = String.Empty;
+            str = File.ReadAllText(@"clinic.json");
+            if (str == String.Empty)
+            {
+                Seed.SetupData(clinic);
+                msg = "Protocols seeded";
+            }
+            else
+            {
+                clinic.FromJSON(str);
+                msg = "Protocols loaded";
+            }
+            MessageBox.Show(msg, "Loading...");
         }
     }
 }

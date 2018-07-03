@@ -4,7 +4,7 @@
   <description asmv2:iconFile="hoh_logo_mwo_4.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="HOH_DEMO" version="0.0.6757.39879" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="HOH_DEMO" version="0.0.6758.24055" language="neutral" processorArchitecture="msil" />
     <commandLine file="HOH_DEMO.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,26 +43,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_DEMO.exe" size="380888">
-      <assemblyIdentity name="HOH_DEMO" version="0.0.6757.39879" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_DEMO.exe" size="384984">
+      <assemblyIdentity name="HOH_DEMO" version="0.0.6758.24055" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>O64HIy3N5eu9jfwQgjQEGovVZrVEc6zMde0E6hBTDYg=</dsig:DigestValue>
+        <dsig:DigestValue>BwEvXNHIddHwB12IPJKal1LZaRxwrfqjsiVyWnCjVzc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_Library.dll" size="28672">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HOH_Library.dll" size="29184">
       <assemblyIdentity name="HOH_Library" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rxwQZMnrMKXmbLBiVJeFJBuJJPWTrNSt1G0sw+0BsBE=</dsig:DigestValue>
+        <dsig:DigestValue>N25efUGN5IF9Av7USbGUVmH4LLc0o6tYWYJgYUV6S9c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -74,19 +74,31 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>u32rnr1ddzsxH3JM35u0WG+I/jSYQmNGIAVDELOlwuA=</dsig:DigestValue>
+        <dsig:DigestValue>dVVmlF/nBJxotXnX8oTwy0liQ+YgjWkVMhjriE6Iy+s=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProtocolEditor.exe" size="212480">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="662528">
+      <assemblyIdentity name="Newtonsoft.Json" version="11.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>9Yw3T/yq5ONtdA2Q+/f+cNCrtzKM2a86CntwgD6ZS6Q=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProtocolEditor.exe" size="214016">
       <assemblyIdentity name="ProtocolEditor" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>NmcrI9ewdUMlJ+seiEIlYellARzXXfa348gVY4PcNnE=</dsig:DigestValue>
+        <dsig:DigestValue>sgCwtVYHR0vr1Hdijpn5PedI3EHvoz57EhPyx64rgNU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -102,13 +114,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="HOH_DEMO.exe.config" size="161">
+  <file name="HOH_DEMO.exe.config" size="538">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>yuBCKAQrdnPjbuE9bRQew6d7GMs5P2Wv0h0r3zOVAtA=</dsig:DigestValue>
+      <dsig:DigestValue>nXVDOGkrHOPRgfeaWXJT/KFWnbdqE+Z8dA4tvZFI5JA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="hoh_logo_mwo_4.ico" size="99942">

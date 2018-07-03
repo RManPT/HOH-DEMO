@@ -7,14 +7,14 @@
     <framework targetVersion="4.7" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="HOH_DEMO.exe.manifest" size="6605">
+    <dependentAssembly dependencyType="install" codebase="HOH_DEMO.exe.manifest" size="7289">
       <assemblyIdentity name="HOH_DEMO.exe" version="1.0.0.13" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+lY+JgEsqrzCS5C8Wl2iMPSr0JhMbhjRV9bGTTI6Sa0=</dsig:DigestValue>
+        <dsig:DigestValue>VXUpPyLImoPbYIGd2xy7Yn2o/QZ3EXss35wb9cryspg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

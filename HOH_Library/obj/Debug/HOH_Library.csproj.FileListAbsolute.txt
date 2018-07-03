@@ -4,3 +4,6 @@ C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_Library\obj\Debug\HOH_Library.dll
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_Library\obj\Debug\HOH_Library.pdb
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_Library\obj\Debug\HOH_Library.csprojResolveAssemblyReference.cache
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_Library\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_Library\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_Library\obj\Debug\HOH_Library.csproj.CopyComplete

@@ -34,9 +34,9 @@ namespace HOH_Library
                 CallbackMsg = ""
             };
 
-            clinic.State.Add(condNone);
-            clinic.State.Add(condFullyOpen);
-            clinic.State.Add(condFullyClose);
+            clinic.States.Add(condNone);
+            clinic.States.Add(condFullyOpen);
+            clinic.States.Add(condFullyClose);
             
 
             Exercise exerFullyClose = new Exercise
