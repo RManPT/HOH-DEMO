@@ -47,7 +47,6 @@
             this.txtProtocolsLog = new System.Windows.Forms.TextBox();
             this.btnProtocolStart = new System.Windows.Forms.Button();
             this.listRepetitions = new System.Windows.Forms.ListBox();
-            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lstProtocolsExercises = new System.Windows.Forms.ListBox();
             this.label15 = new System.Windows.Forms.Label();
             this.lstProtocols = new System.Windows.Forms.ListBox();
@@ -162,11 +161,21 @@
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cPMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hOHToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serverSFunctionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabOptions = new System.Windows.Forms.TabPage();
+            this.chkHOHOnline = new System.Windows.Forms.CheckBox();
+            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabProtocol.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).BeginInit();
             this.tabCPM.SuspendLayout();
             this.gbCounter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericCPMUpDownCounter)).BeginInit();
@@ -203,12 +212,15 @@
             this.gboxServerLog.SuspendLayout();
             this.gboxServerControls.SuspendLayout();
             this.gboxServerInitialization.SuspendLayout();
+            this.tabOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
             this.protocolsToolStripMenuItem,
             this.helpToolStripMenuItem});
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
@@ -274,9 +286,12 @@
             this.tabControl.Controls.Add(this.tabEMGCal);
             this.tabControl.Controls.Add(this.tabDEMO);
             this.tabControl.Controls.Add(this.tabServer);
+            this.tabControl.Controls.Add(this.tabOptions);
+            this.tabControl.HotTrack = true;
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
+            this.tabControl.DragOver += new System.Windows.Forms.DragEventHandler(this.tabControl_DragOver);
             // 
             // tabProtocol
             // 
@@ -333,10 +348,6 @@
             this.listRepetitions.FormattingEnabled = true;
             resources.ApplyResources(this.listRepetitions, "listRepetitions");
             this.listRepetitions.Name = "listRepetitions";
-            // 
-            // protocolBindingSource
-            // 
-            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
             // 
             // lstProtocolsExercises
             // 
@@ -1216,6 +1227,94 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Checked = true;
+            this.viewToolStripMenuItem.CheckOnClick = true;
+            this.viewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.cPMToolStripMenuItem,
+            this.cTMToolStripMenuItem,
+            this.calibrationToolStripMenuItem,
+            this.hOHToolsToolStripMenuItem,
+            this.serverSFunctionToolStripMenuItem,
+            this.optionsToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            resources.ApplyResources(this.viewToolStripMenuItem, "viewToolStripMenuItem");
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Checked = true;
+            this.toolStripMenuItem1.CheckOnClick = true;
+            this.toolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // cPMToolStripMenuItem
+            // 
+            this.cPMToolStripMenuItem.CheckOnClick = true;
+            this.cPMToolStripMenuItem.Name = "cPMToolStripMenuItem";
+            resources.ApplyResources(this.cPMToolStripMenuItem, "cPMToolStripMenuItem");
+            this.cPMToolStripMenuItem.Click += new System.EventHandler(this.cPMToolStripMenuItem_Click);
+            // 
+            // cTMToolStripMenuItem
+            // 
+            this.cTMToolStripMenuItem.CheckOnClick = true;
+            this.cTMToolStripMenuItem.Name = "cTMToolStripMenuItem";
+            resources.ApplyResources(this.cTMToolStripMenuItem, "cTMToolStripMenuItem");
+            // 
+            // calibrationToolStripMenuItem
+            // 
+            this.calibrationToolStripMenuItem.CheckOnClick = true;
+            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
+            resources.ApplyResources(this.calibrationToolStripMenuItem, "calibrationToolStripMenuItem");
+            // 
+            // hOHToolsToolStripMenuItem
+            // 
+            this.hOHToolsToolStripMenuItem.Checked = true;
+            this.hOHToolsToolStripMenuItem.CheckOnClick = true;
+            this.hOHToolsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hOHToolsToolStripMenuItem.Name = "hOHToolsToolStripMenuItem";
+            resources.ApplyResources(this.hOHToolsToolStripMenuItem, "hOHToolsToolStripMenuItem");
+            // 
+            // serverSFunctionToolStripMenuItem
+            // 
+            this.serverSFunctionToolStripMenuItem.Checked = true;
+            this.serverSFunctionToolStripMenuItem.CheckOnClick = true;
+            this.serverSFunctionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.serverSFunctionToolStripMenuItem.Name = "serverSFunctionToolStripMenuItem";
+            resources.ApplyResources(this.serverSFunctionToolStripMenuItem, "serverSFunctionToolStripMenuItem");
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Checked = true;
+            this.optionsToolStripMenuItem.CheckOnClick = true;
+            this.optionsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
+            // 
+            // tabOptions
+            // 
+            this.tabOptions.Controls.Add(this.chkHOHOnline);
+            resources.ApplyResources(this.tabOptions, "tabOptions");
+            this.tabOptions.Name = "tabOptions";
+            this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // chkHOHOnline
+            // 
+            resources.ApplyResources(this.chkHOHOnline, "chkHOHOnline");
+            this.chkHOHOnline.Checked = true;
+            this.chkHOHOnline.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkHOHOnline.Name = "chkHOHOnline";
+            this.chkHOHOnline.UseVisualStyleBackColor = true;
+            this.chkHOHOnline.CheckedChanged += new System.EventHandler(this.chkHOHOnline_CheckedChanged);
+            // 
+            // protocolBindingSource
+            // 
+            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
+            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -1236,7 +1335,6 @@
             this.tabProtocol.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).EndInit();
             this.tabCPM.ResumeLayout(false);
             this.gbCounter.ResumeLayout(false);
             this.gbCounter.PerformLayout();
@@ -1288,6 +1386,9 @@
             this.gboxServerControls.PerformLayout();
             this.gboxServerInitialization.ResumeLayout(false);
             this.gboxServerInitialization.PerformLayout();
+            this.tabOptions.ResumeLayout(false);
+            this.tabOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1427,5 +1528,15 @@
         private System.Windows.Forms.ToolStripMenuItem saveProtocolsToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem cPMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cTMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hOHToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem serverSFunctionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabOptions;
+        private System.Windows.Forms.CheckBox chkHOHOnline;
     }
 }

@@ -35,6 +35,9 @@ namespace HOH_DEMO
         private delegate void EventSubscribed(HOHEvent e);
         // private delegate void EventSubscribed();
         private HOHEvent HOHEventObj = new HOHEvent();
+        private TabControl.TabPageCollection tabs;
+        
+       
 
 
         BindingSource protocolsBinding = new BindingSource();
@@ -49,6 +52,10 @@ namespace HOH_DEMO
             InitializeComponent();
             LoadProtocols();
             Text += " - " + clinic.Name;
+
+
+
+
             NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000
             NW.SetLogBox(textBoxLog);
             tabControl.SelectTab(0);
@@ -378,6 +385,15 @@ namespace HOH_DEMO
             lblCTMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
             lblCTMCounter.Text = numericCTMUpDownCounter.Value.ToString();
             trackCTMThreshold.Value = trackCTMBaseline.Value + 5;
+
+
+            //tabs = tabControl.TabPages;
+         
+            //for (int i = 0; i < viewToolStripMenuItem.DropDownItems.Count; i++)
+            //{
+            //    if (!((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[i]).Checked) ((TabPage)tabControl.TabPages[i])
+            ////    if (((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[i]).Checked) tabControl.TabPages.Add(tabs[i]);
+            //}
         }
 
         private void Mainform_FormClosed(object sender, FormClosedEventArgs e)
@@ -985,6 +1001,37 @@ namespace HOH_DEMO
         }
 
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cPMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+           //// ((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked = !((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked;
+           // if (!((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked) tabControl.TabPages.Remove(tabs[0]);
+           // else tabControl.TabPages.Add(tabs[0]);
+           // //tabControl.TabPages[tabControl.TabPages.Count].
+        }
+
+        private void tabControl_DragOver(object sender, DragEventArgs e)
+        {
+            Point pos = tabControl.PointToClient(Control.MousePosition);
+            for (int ix = 0; ix < tabControl.TabCount; ++ix)
+            {
+                if (tabControl.GetTabRect(ix).Contains(pos))
+                {
+                    tabControl.SelectedIndex = ix;
+                    break;
+                }
+            }
+        }
+
+        private void chkHOHOnline_CheckedChanged(object sender, EventArgs e)
         {
 
         }

@@ -27,6 +27,7 @@ namespace HOH_Library
         public delegate bool StateReached(string msg);
         private static object Key = new object();
         public bool ExecuteStatus { get; set; }
+        public bool isConnected = false;
 
 
         //Conection class
@@ -100,14 +101,17 @@ namespace HOH_Library
                     new Thread(new ThreadStart(IsTested)).Start();
                     new Thread(new ThreadStart(PrintsStatusMsg)).Start();
                     SetStatusMsg("Connection Successful");
+                    isConnected = true;
                     return true;
                 }
                 else
                 {
                     client.Close();
                     client = null;
-                    //throw new ApplicationException("Failed to connect server.");
+                //throw new ApplicationException("Failed to connect server.");
+                    isConnected = false;
                     return false;
+
                 }
             //}
             //catch (Exception e)
@@ -129,7 +133,7 @@ namespace HOH_Library
                 client = null;
                 InputChanged -= InputDetectedEvent;
                 SetStatusMsg("Disconnection successfull");
-               
+                isConnected = false;
                 return true;
             }
             catch (Exception e)

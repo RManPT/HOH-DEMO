@@ -20,6 +20,7 @@ namespace HOH_Library
         private object HomeThread;
         private bool ExecuteStatus { get; set; }
         private HOHEvent HOHEventObj;
+        
 
 
         public SFListener(State targetState, int command, int time, object obj)
@@ -41,28 +42,28 @@ namespace HOH_Library
             HOHEventObj.UpdateLogMsg("SFListener: START");
             while (ExecuteStatus)
             {
-                //LastCMDReceived = AsyncServer.LastCMDReceived;
-                //commandProcessed = AsyncServer.commandProcessed;
+                if (AsyncServer.IsConnected())
+                {
+                    LastCMDReceived = AsyncServer.LastCMDReceived;
+                    commandProcessed = AsyncServer.commandProcessed;
 
-                //Código a executar quando os testes estiverem concluídos.
-                //if (LastCMDReceived == SFCode && LastCMDReceived != previousCMDReceived && commandProcessed == false)
-                //{ //se sinal detectado indica o movimento desejado actua em conformidade
-                //    this.TargetState.execute(NW);
-                //    //txtCTMLog.AppendText("\r\nWell done, closing hand!");
-                //    //commandProcessed = true;    //certifica que não há comandos processados multiplas 
-                //}
-
-               //teste
-                //    Debug.WriteLine("SFLISTENER : executing");
-                if (this.TargetState != null && !commandProcessed)
-                { 
+                    //Código a executar quando os testes estiverem concluídos.
+                    if (LastCMDReceived == SFCode && LastCMDReceived != previousCMDReceived && commandProcessed == false)
+                    { //se sinal detectado indica o movimento desejado actua em conformidade
                         this.TargetState.execute(NW);
-                        commandProcessed = true;
+                        commandProcessed = true;    //certifica que não há comandos processados multiplas 
+                        previousCMDReceived = LastCMDReceived;
+                    }
                 }
-                //    ExecuteStatus = false;
+                else
+                { 
+                    if (this.TargetState != null && !commandProcessed)
+                    { 
+                            this.TargetState.execute(NW);
+                            commandProcessed = true;
+                    }
+                }
                 Thread.Sleep(20);
-                //  break;
-                commandProcessed = true;
             }
 
             previousCMDReceived = LastCMDReceived;

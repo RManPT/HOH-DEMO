@@ -3,8 +3,6 @@ C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.application
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.exe
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.pdb
-C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.exe.CodeAnalysisLog.xml
-C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_DEMO.exe.lastcodeanalysissucceeded
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_Library.dll
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\HOH_ProtocolGUI.exe
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\HOH_DEMO\bin\Debug\Newtonsoft.Json.dll

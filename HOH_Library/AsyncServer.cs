@@ -27,6 +27,7 @@ namespace HOH_Library
         public static Socket listener;
         public static int LastCMDReceived;
         public static bool commandProcessed;
+        
 
         public AsyncServer()
         {
@@ -318,10 +319,10 @@ namespace HOH_Library
                 Debug.WriteLine(e);
             }
         }
-        //public static int Main(String[] args)
-        //{
-        //    StartListening();
-        //    return 0;
-        //}
+
+        public static bool IsConnected()
+        {
+            return MySocketList.Count>=2;
+        }
     }
 }
