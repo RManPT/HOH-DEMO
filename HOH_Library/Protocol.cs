@@ -23,11 +23,13 @@ namespace HOH_Library
         public Protocol()
         {
             Name = "New protocol";
+            Exercises = new List<Exercise>();
             
         }
         public Protocol(string name)
         {
             Name = name;
+            Exercises = new List<Exercise>();
         }
 
         public void Execute(MRNetwork NW)

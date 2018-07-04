@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 
 namespace HOH_Library
 {
+    [Serializable]
     public class Exercise {
 
         public string Name { get; set; }
@@ -42,7 +45,7 @@ namespace HOH_Library
         private SFListener sf;
         private MRNetwork NW;
         private HOHEvent HOHEventObj = new HOHEvent();
- 
+
 
         public Exercise()
         {
@@ -54,7 +57,7 @@ namespace HOH_Library
             this.TargetState = null;
             this.Repetitions = 1;
             this.PostState = null;
-           
+
         }
 
         public Exercise(string name)
@@ -79,8 +82,23 @@ namespace HOH_Library
             this.TargetState = ex.TargetState;
             this.Repetitions = ex.Repetitions;
             this.PostState = ex.PostState;
-  
+
         }
+
+
+        // Deep clone
+        public static T DeepClone<T>(T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
+
+                return (T)formatter.Deserialize(ms);
+            }
+        }
+
 
         public void Execute(MRNetwork NW)
         {

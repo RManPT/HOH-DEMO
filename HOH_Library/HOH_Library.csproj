@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncServer.cs" />
-    <Compile Include="Clinic.cs" />
+    <Compile Include="Properties\Clinic.cs" />
     <Compile Include="HOHEvent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Seed.cs" />

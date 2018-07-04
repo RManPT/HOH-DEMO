@@ -32,7 +32,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btnStatesApply = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
+            this.lblStatesDuplicate = new System.Windows.Forms.Label();
             this.btnStateRemove = new System.Windows.Forms.Button();
             this.btnStateAdd = new System.Windows.Forms.Button();
             this.details4 = new System.Windows.Forms.Label();
@@ -49,7 +49,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnExercisesApply = new System.Windows.Forms.Button();
             this.comboExerciseState1 = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lblExercisesDuplicate = new System.Windows.Forms.Label();
             this.btnExerciseRemove = new System.Windows.Forms.Button();
             this.btnExerciseAdd = new System.Windows.Forms.Button();
             this.comboExerciseState3 = new System.Windows.Forms.ComboBox();
@@ -118,7 +118,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.btnStatesApply);
-            this.tabPage1.Controls.Add(this.label13);
+            this.tabPage1.Controls.Add(this.lblStatesDuplicate);
             this.tabPage1.Controls.Add(this.btnStateRemove);
             this.tabPage1.Controls.Add(this.btnStateAdd);
             this.tabPage1.Controls.Add(this.details4);
@@ -143,12 +143,12 @@
             this.btnStatesApply.UseVisualStyleBackColor = true;
             this.btnStatesApply.Click += new System.EventHandler(this.btnStatesApply_Click);
             // 
-            // label13
+            // lblStatesDuplicate
             // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label13.Name = "label13";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
+            resources.ApplyResources(this.lblStatesDuplicate, "lblStatesDuplicate");
+            this.lblStatesDuplicate.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblStatesDuplicate.Name = "lblStatesDuplicate";
+            this.lblStatesDuplicate.Click += new System.EventHandler(this.lblStatesDuplicate_Click);
             // 
             // btnStateRemove
             // 
@@ -230,7 +230,7 @@
             // 
             this.tabPage2.Controls.Add(this.btnExercisesApply);
             this.tabPage2.Controls.Add(this.comboExerciseState1);
-            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.lblExercisesDuplicate);
             this.tabPage2.Controls.Add(this.btnExerciseRemove);
             this.tabPage2.Controls.Add(this.btnExerciseAdd);
             this.tabPage2.Controls.Add(this.comboExerciseState3);
@@ -266,12 +266,12 @@
             this.comboExerciseState1.SelectedIndexChanged += new System.EventHandler(this.comboExerciseState1_SelectedIndexChanged);
             this.comboExerciseState1.Leave += new System.EventHandler(this.comboExerciseState1_Leave);
             // 
-            // label14
+            // lblExercisesDuplicate
             // 
-            resources.ApplyResources(this.label14, "label14");
-            this.label14.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label14.Name = "label14";
-            this.label14.Click += new System.EventHandler(this.label14_Click);
+            resources.ApplyResources(this.lblExercisesDuplicate, "lblExercisesDuplicate");
+            this.lblExercisesDuplicate.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.lblExercisesDuplicate.Name = "lblExercisesDuplicate";
+            this.lblExercisesDuplicate.Click += new System.EventHandler(this.lblExercisesDuplicate_Click);
             // 
             // btnExerciseRemove
             // 
@@ -438,7 +438,6 @@
             this.lstAvailableExercises.FormattingEnabled = true;
             resources.ApplyResources(this.lstAvailableExercises, "lstAvailableExercises");
             this.lstAvailableExercises.Name = "lstAvailableExercises";
-            this.lstAvailableExercises.SelectedIndexChanged += new System.EventHandler(this.lstAvailableExercises_SelectedIndexChanged);
             // 
             // label30
             // 
@@ -600,6 +599,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tabControl1);
             this.Name = "ProtocolEditor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProtocolEditor_FormClosing);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -645,9 +645,9 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ListBox lstProtocols;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label lblStatesDuplicate;
         private System.Windows.Forms.Button btnStateRemove;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblExercisesDuplicate;
         private System.Windows.Forms.Button btnExerciseRemove;
         private System.Windows.Forms.Button btnExerciseAdd;
         private System.Windows.Forms.Label label15;

@@ -27,6 +27,14 @@ namespace HOH_Library
             Rewards = new List<string>();
         }
 
+        public Clinic(Clinic c)
+        {
+            Protocols = new List<Protocol>(c.Protocols);
+            States = new List<State>(c.States);
+            Exercises = new List<Exercise>(c.Exercises);
+            Rewards = new List<string>(Clinic.Rewards);
+        }
+
         public Clinic ShallowCopy()
         {
             return (Clinic)this.MemberwiseClone();
@@ -34,12 +42,12 @@ namespace HOH_Library
 
         public override string ToString()
         {
-            return "Falta implementar";
+            return ToJSON();
         }
 
         public string ToJSON()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         public void FromJSON(string json)
@@ -51,7 +59,5 @@ namespace HOH_Library
             this.States = c.States;
             Rewards = Clinic.Rewards;
         }
-
-      
     }
 }

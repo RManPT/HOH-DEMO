@@ -127,7 +127,7 @@ namespace HOH_Library
 
             clinic.Protocols.Add(protoc1);
             clinic.Protocols.Add(protoc2);
-
+            clinic.Name = "HOH Clinic";
             Clinic.Rewards.AddRange(new List<string>{ "Well done!", "Nice effort!", "Good try!" });
         }
     }

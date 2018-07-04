@@ -33,20 +33,22 @@ namespace HOH_DEMO
         public static bool commandProcessed = true;
         private static Clinic clinic = new Clinic();
         private delegate void EventSubscribed(HOHEvent e);
+        // private delegate void EventSubscribed();
+        private HOHEvent HOHEventObj = new HOHEvent();
 
 
         BindingSource protocolsBinding = new BindingSource();
         BindingSource protocolDetailsBinding = new BindingSource();
         BindingSource protocolExerciseBindingSource;
-        private readonly Utils _utils;
+      
 
         public Mainform()
         {
             //Seed.SetupData(clinic);
-            LoadProtocols();
-
-
+          
             InitializeComponent();
+            LoadProtocols();
+            Text += " - " + clinic.Name;
             NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000
             NW.SetLogBox(textBoxLog);
             tabControl.SelectTab(0);
@@ -57,24 +59,11 @@ namespace HOH_DEMO
 
             HOHEvent.LogUpdated += OnHOHEventUpdate;
             HOHEvent.UsrMsgUpdated += OnHOHEventUpdate;
+            HOHEvent.ClinicUpdated += OnClinicEventUpdate;
 
             //NW = new MRNetwork("0.0.0.0", 30000);
             //test connection with matlab
-            protocolsBinding.DataSource = clinic.Protocols;
-            protocolDetailsBinding.DataSource = protocolsBinding;
-
-            lstProtocols.DataSource = protocolDetailsBinding;
-            lstProtocols.DisplayMember = "Name";
-
-            protocolExerciseBindingSource = new BindingSource(protocolDetailsBinding, "Exercises");
-
-            lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
-            lstProtocolsExercises.DisplayMember = "GetExerciseName";
-
-            // Debug.WriteLine(protocolDetailsBinding.ToString());
-
-            listRepetitions.DataSource = protocolExerciseBindingSource;
-            listRepetitions.DisplayMember = "Repetitions";
+            GetProtocols();
             // _utils = new Utils();
         }
 
@@ -89,10 +78,46 @@ namespace HOH_DEMO
             this.Invoke(d, e);
         }
 
+        private void OnClinicEventUpdate(object sender, HOHEvent e)
+        {
+            clinic = e.Clinic;
+            UpdateProtocols();
+        }
+
         private void updateGUI(HOHEvent e)
         {
             if (e.LogMsg != null) txtProtocolsLog.AppendText(e.LogMsg.ToString() + Environment.NewLine);
             if (e.UserMsg != null) txtProtocolsLog.AppendText(e.UserMsg.ToString() + Environment.NewLine);
+        }
+
+        private void GetProtocols()
+        {
+            protocolsBinding.DataSource = null;
+            protocolsBinding.DataSource = clinic.Protocols;
+            protocolDetailsBinding.DataSource = protocolsBinding;
+
+            lstProtocols.DataSource = null;
+            lstProtocols.DataSource = protocolDetailsBinding;
+            lstProtocols.DisplayMember = "Name";
+
+            protocolExerciseBindingSource = new BindingSource(protocolDetailsBinding, "Exercises");
+
+            lstProtocolsExercises.DataSource = null;
+            lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
+            lstProtocolsExercises.DisplayMember = "GetExerciseName";
+
+            // Debug.WriteLine(protocolDetailsBinding.ToString());
+
+            listRepetitions.DataSource = null;
+            listRepetitions.DataSource = protocolExerciseBindingSource;
+            listRepetitions.DisplayMember = "Repetitions";
+        }
+
+        private void UpdateProtocols()
+        {
+            protocolsBinding.ResetBindings(true);
+            protocolDetailsBinding.ResetBindings(true);
+            protocolExerciseBindingSource.ResetBindings(true);
         }
 
 
@@ -933,13 +958,30 @@ namespace HOH_DEMO
 
         private void saveProtocolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            File.WriteAllText(@"clinic.json", clinic.ToJSON());
-            MessageBox.Show("Protocols Saved!");
+            saveFileDialog1.Filter = "JSON (*.json) | *.json";
+            openFileDialog1.DefaultExt = "json";
+            openFileDialog1.AddExtension = true;
+            saveFileDialog1.FileName = "HOHclinic";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            { 
+                File.WriteAllText(saveFileDialog1.FileName, clinic.ToJSON());
+            //MessageBox.Show("Protocols Saved!");
+            }
         }
 
         private void loadProtocolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadProtocols();
+            //LoadProtocols();
+            openFileDialog1.Filter = "JSON (*.json) | *.json";
+            openFileDialog1.FileName = "HOHclinic";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string str = String.Empty;
+                str = File.ReadAllText(openFileDialog1.FileName);
+                clinic.FromJSON(str);
+                clinic = new Clinic(clinic);
+            }
+            HOHEventObj.UpdateClinic(clinic);
         }
 
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
@@ -951,16 +993,24 @@ namespace HOH_DEMO
         {
             string msg = String.Empty;
             string str = String.Empty;
-            str = File.ReadAllText(@"clinic.json");
-            if (str == String.Empty)
+            try
+            {
+                str = File.ReadAllText(@"clinic.json");
+                if (str == String.Empty)
+                {
+                    Seed.SetupData(clinic);
+                    msg = "Protocols seeded";
+                }
+                else
+                {
+                    clinic.FromJSON(str);
+                    msg = "Protocols loaded";
+                }
+            }
+            catch
             {
                 Seed.SetupData(clinic);
                 msg = "Protocols seeded";
-            }
-            else
-            {
-                clinic.FromJSON(str);
-                msg = "Protocols loaded";
             }
             MessageBox.Show(msg, "Loading...");
         }

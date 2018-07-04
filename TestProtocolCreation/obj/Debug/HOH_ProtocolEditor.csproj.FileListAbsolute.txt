@@ -4,7 +4,9 @@ C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\bin\Debug\ProtocolEditor.exe
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\bin\Debug\ProtocolEditor.pdb
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\bin\Debug\HOH_Library.dll
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\bin\Debug\HOH_Library.pdb
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\HOH_ProtocolEditor.csprojResolveAssemblyReference.cache
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\HOH_ProtocolEditor.Properties.Resources.resources
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\HOH_ProtocolEditor.ProtocolEditor.resources
@@ -15,5 +17,3 @@ C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\HOH_ProtocolEditor.csproj.CopyComplete
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\ProtocolEditor.exe
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\ProtocolEditor.pdb
-C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\bin\Debug\Newtonsoft.Json.dll
-C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\bin\Debug\Newtonsoft.Json.xml

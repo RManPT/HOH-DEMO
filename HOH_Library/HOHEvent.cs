@@ -14,6 +14,8 @@ namespace HOH_Library
         public string ExerciseName { get; set; }
         public string ProtocolState { get; set; }
         public int Repetitions { get; set; }
+        public Clinic Clinic { get; set; }
+
 
         public static event EventHandler<HOHEvent> LogUpdated;
         public static event EventHandler<HOHEvent> UsrMsgUpdated;
@@ -21,6 +23,8 @@ namespace HOH_Library
         public static event EventHandler<HOHEvent> ExerciseNameUpdated;
         public static event EventHandler<HOHEvent> ProtocolStateUpdated;
         public static event EventHandler<HOHEvent> RepetitionsUpdated;
+
+        public static event EventHandler<HOHEvent> ClinicUpdated;
 
         public HOHEvent()
         {
@@ -57,6 +61,11 @@ namespace HOH_Library
            RepetitionsUpdated?.Invoke(this, e);
         }
 
+        protected virtual void OnClinicUpdated(HOHEvent e)
+        {
+            ClinicUpdated?.Invoke(this, e);
+        }
+
         #endregion
 
 
@@ -88,6 +97,12 @@ namespace HOH_Library
         public void UpdateRepetitions(int rep)
         {
             OnRepetitionsUpdated(new HOHEvent() { Repetitions = rep });
+        }
+
+        public void UpdateClinic(Clinic c)
+        {
+            OnClinicUpdated(new HOHEvent() { Clinic = c } );
+            //OnRepetitionsUpdated(new HOHEvent() { Repetitions = rep }); 
         }
         #endregion
 

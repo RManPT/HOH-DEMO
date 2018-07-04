@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadProtocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveProtocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.protocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,11 +41,13 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabProtocol = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.button4 = new System.Windows.Forms.Button();
             this.txtProtocolsLog = new System.Windows.Forms.TextBox();
             this.btnProtocolStart = new System.Windows.Forms.Button();
             this.listRepetitions = new System.Windows.Forms.ListBox();
+            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lstProtocolsExercises = new System.Windows.Forms.ListBox();
             this.label15 = new System.Windows.Forms.Label();
             this.lstProtocols = new System.Windows.Forms.ListBox();
@@ -156,14 +160,13 @@
             this.TreatmentTimer = new System.Windows.Forms.Timer(this.components);
             this.ExerciceResetTimer = new System.Windows.Forms.Timer(this.components);
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
-            this.button5 = new System.Windows.Forms.Button();
-            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.saveProtocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadProtocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabProtocol.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).BeginInit();
             this.tabCPM.SuspendLayout();
             this.gbCounter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericCPMUpDownCounter)).BeginInit();
@@ -200,7 +203,6 @@
             this.gboxServerLog.SuspendLayout();
             this.gboxServerControls.SuspendLayout();
             this.gboxServerInitialization.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -220,6 +222,18 @@
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
+            // 
+            // loadProtocolsToolStripMenuItem
+            // 
+            this.loadProtocolsToolStripMenuItem.Name = "loadProtocolsToolStripMenuItem";
+            resources.ApplyResources(this.loadProtocolsToolStripMenuItem, "loadProtocolsToolStripMenuItem");
+            this.loadProtocolsToolStripMenuItem.Click += new System.EventHandler(this.loadProtocolsToolStripMenuItem_Click);
+            // 
+            // saveProtocolsToolStripMenuItem
+            // 
+            this.saveProtocolsToolStripMenuItem.Name = "saveProtocolsToolStripMenuItem";
+            resources.ApplyResources(this.saveProtocolsToolStripMenuItem, "saveProtocolsToolStripMenuItem");
+            this.saveProtocolsToolStripMenuItem.Click += new System.EventHandler(this.saveProtocolsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -278,6 +292,13 @@
             this.tabProtocol.UseVisualStyleBackColor = true;
             this.tabProtocol.Click += new System.EventHandler(this.tabProtocol_Click);
             // 
+            // button5
+            // 
+            resources.ApplyResources(this.button5, "button5");
+            this.button5.Name = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // groupBox6
             // 
             resources.ApplyResources(this.groupBox6, "groupBox6");
@@ -312,6 +333,10 @@
             this.listRepetitions.FormattingEnabled = true;
             resources.ApplyResources(this.listRepetitions, "listRepetitions");
             this.listRepetitions.Name = "listRepetitions";
+            // 
+            // protocolBindingSource
+            // 
+            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
             // 
             // lstProtocolsExercises
             // 
@@ -1187,28 +1212,9 @@
             this.actionTimer.Interval = 250;
             this.actionTimer.Tick += new System.EventHandler(this.actionTimer_Tick);
             // 
-            // button5
+            // openFileDialog1
             // 
-            resources.ApplyResources(this.button5, "button5");
-            this.button5.Name = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // protocolBindingSource
-            // 
-            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
-            // 
-            // saveProtocolsToolStripMenuItem
-            // 
-            this.saveProtocolsToolStripMenuItem.Name = "saveProtocolsToolStripMenuItem";
-            resources.ApplyResources(this.saveProtocolsToolStripMenuItem, "saveProtocolsToolStripMenuItem");
-            this.saveProtocolsToolStripMenuItem.Click += new System.EventHandler(this.saveProtocolsToolStripMenuItem_Click);
-            // 
-            // loadProtocolsToolStripMenuItem
-            // 
-            this.loadProtocolsToolStripMenuItem.Name = "loadProtocolsToolStripMenuItem";
-            resources.ApplyResources(this.loadProtocolsToolStripMenuItem, "loadProtocolsToolStripMenuItem");
-            this.loadProtocolsToolStripMenuItem.Click += new System.EventHandler(this.loadProtocolsToolStripMenuItem_Click);
+            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // Mainform
             // 
@@ -1230,6 +1236,7 @@
             this.tabProtocol.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).EndInit();
             this.tabCPM.ResumeLayout(false);
             this.gbCounter.ResumeLayout(false);
             this.gbCounter.PerformLayout();
@@ -1281,7 +1288,6 @@
             this.gboxServerControls.PerformLayout();
             this.gboxServerInitialization.ResumeLayout(false);
             this.gboxServerInitialization.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1419,5 +1425,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ToolStripMenuItem loadProtocolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveProtocolsToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
