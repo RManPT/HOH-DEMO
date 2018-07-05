@@ -52,7 +52,11 @@ namespace HOH_Library
 
         public void FromJSON(string json)
         {
-            Clinic c = JsonConvert.DeserializeObject<Clinic>(json);
+            Clinic c = (Clinic)JsonConvert.DeserializeObject<Clinic>(json);
+
+            //js
+            //dynamic receivedObject = JObject.Parse(json);
+
             this.Name = c.Name;
             this.Exercises = c.Exercises;
             this.Protocols = c.Protocols;

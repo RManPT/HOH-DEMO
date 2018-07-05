@@ -35,6 +35,14 @@
             this.loadProtocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveProtocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cPMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hOHToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serverSFunctionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.protocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -156,21 +164,13 @@
             this.btnServerStart = new System.Windows.Forms.Button();
             this.txtServerPort = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabOptions = new System.Windows.Forms.TabPage();
+            this.chkHOHOnline = new System.Windows.Forms.CheckBox();
             this.TreatmentTimer = new System.Windows.Forms.Timer(this.components);
             this.ExerciceResetTimer = new System.Windows.Forms.Timer(this.components);
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cPMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hOHToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serverSFunctionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabOptions = new System.Windows.Forms.TabPage();
-            this.chkHOHOnline = new System.Windows.Forms.CheckBox();
             this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -252,6 +252,74 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Checked = true;
+            this.viewToolStripMenuItem.CheckOnClick = true;
+            this.viewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.cPMToolStripMenuItem,
+            this.cTMToolStripMenuItem,
+            this.calibrationToolStripMenuItem,
+            this.hOHToolsToolStripMenuItem,
+            this.serverSFunctionToolStripMenuItem,
+            this.optionsToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            resources.ApplyResources(this.viewToolStripMenuItem, "viewToolStripMenuItem");
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Checked = true;
+            this.toolStripMenuItem1.CheckOnClick = true;
+            this.toolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // cPMToolStripMenuItem
+            // 
+            this.cPMToolStripMenuItem.CheckOnClick = true;
+            this.cPMToolStripMenuItem.Name = "cPMToolStripMenuItem";
+            resources.ApplyResources(this.cPMToolStripMenuItem, "cPMToolStripMenuItem");
+            this.cPMToolStripMenuItem.Click += new System.EventHandler(this.cPMToolStripMenuItem_Click);
+            // 
+            // cTMToolStripMenuItem
+            // 
+            this.cTMToolStripMenuItem.CheckOnClick = true;
+            this.cTMToolStripMenuItem.Name = "cTMToolStripMenuItem";
+            resources.ApplyResources(this.cTMToolStripMenuItem, "cTMToolStripMenuItem");
+            // 
+            // calibrationToolStripMenuItem
+            // 
+            this.calibrationToolStripMenuItem.CheckOnClick = true;
+            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
+            resources.ApplyResources(this.calibrationToolStripMenuItem, "calibrationToolStripMenuItem");
+            // 
+            // hOHToolsToolStripMenuItem
+            // 
+            this.hOHToolsToolStripMenuItem.Checked = true;
+            this.hOHToolsToolStripMenuItem.CheckOnClick = true;
+            this.hOHToolsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.hOHToolsToolStripMenuItem.Name = "hOHToolsToolStripMenuItem";
+            resources.ApplyResources(this.hOHToolsToolStripMenuItem, "hOHToolsToolStripMenuItem");
+            // 
+            // serverSFunctionToolStripMenuItem
+            // 
+            this.serverSFunctionToolStripMenuItem.Checked = true;
+            this.serverSFunctionToolStripMenuItem.CheckOnClick = true;
+            this.serverSFunctionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.serverSFunctionToolStripMenuItem.Name = "serverSFunctionToolStripMenuItem";
+            resources.ApplyResources(this.serverSFunctionToolStripMenuItem, "serverSFunctionToolStripMenuItem");
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.Checked = true;
+            this.optionsToolStripMenuItem.CheckOnClick = true;
+            this.optionsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
+            // 
             // protocolsToolStripMenuItem
             // 
             this.protocolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -281,12 +349,12 @@
             // tabControl
             // 
             this.tabControl.Controls.Add(this.tabProtocol);
+            this.tabControl.Controls.Add(this.tabServer);
+            this.tabControl.Controls.Add(this.tabDEMO);
+            this.tabControl.Controls.Add(this.tabOptions);
             this.tabControl.Controls.Add(this.tabCPM);
             this.tabControl.Controls.Add(this.tabCTM);
             this.tabControl.Controls.Add(this.tabEMGCal);
-            this.tabControl.Controls.Add(this.tabDEMO);
-            this.tabControl.Controls.Add(this.tabServer);
-            this.tabControl.Controls.Add(this.tabOptions);
             this.tabControl.HotTrack = true;
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Name = "tabControl";
@@ -1208,6 +1276,22 @@
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // tabOptions
+            // 
+            this.tabOptions.Controls.Add(this.chkHOHOnline);
+            resources.ApplyResources(this.tabOptions, "tabOptions");
+            this.tabOptions.Name = "tabOptions";
+            this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // chkHOHOnline
+            // 
+            resources.ApplyResources(this.chkHOHOnline, "chkHOHOnline");
+            this.chkHOHOnline.Checked = true;
+            this.chkHOHOnline.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkHOHOnline.Name = "chkHOHOnline";
+            this.chkHOHOnline.UseVisualStyleBackColor = true;
+            this.chkHOHOnline.CheckedChanged += new System.EventHandler(this.chkHOHOnline_CheckedChanged);
+            // 
             // TreatmentTimer
             // 
             this.TreatmentTimer.Interval = 1000;
@@ -1226,90 +1310,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.Checked = true;
-            this.viewToolStripMenuItem.CheckOnClick = true;
-            this.viewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.cPMToolStripMenuItem,
-            this.cTMToolStripMenuItem,
-            this.calibrationToolStripMenuItem,
-            this.hOHToolsToolStripMenuItem,
-            this.serverSFunctionToolStripMenuItem,
-            this.optionsToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            resources.ApplyResources(this.viewToolStripMenuItem, "viewToolStripMenuItem");
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Checked = true;
-            this.toolStripMenuItem1.CheckOnClick = true;
-            this.toolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // cPMToolStripMenuItem
-            // 
-            this.cPMToolStripMenuItem.CheckOnClick = true;
-            this.cPMToolStripMenuItem.Name = "cPMToolStripMenuItem";
-            resources.ApplyResources(this.cPMToolStripMenuItem, "cPMToolStripMenuItem");
-            this.cPMToolStripMenuItem.Click += new System.EventHandler(this.cPMToolStripMenuItem_Click);
-            // 
-            // cTMToolStripMenuItem
-            // 
-            this.cTMToolStripMenuItem.CheckOnClick = true;
-            this.cTMToolStripMenuItem.Name = "cTMToolStripMenuItem";
-            resources.ApplyResources(this.cTMToolStripMenuItem, "cTMToolStripMenuItem");
-            // 
-            // calibrationToolStripMenuItem
-            // 
-            this.calibrationToolStripMenuItem.CheckOnClick = true;
-            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
-            resources.ApplyResources(this.calibrationToolStripMenuItem, "calibrationToolStripMenuItem");
-            // 
-            // hOHToolsToolStripMenuItem
-            // 
-            this.hOHToolsToolStripMenuItem.Checked = true;
-            this.hOHToolsToolStripMenuItem.CheckOnClick = true;
-            this.hOHToolsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hOHToolsToolStripMenuItem.Name = "hOHToolsToolStripMenuItem";
-            resources.ApplyResources(this.hOHToolsToolStripMenuItem, "hOHToolsToolStripMenuItem");
-            // 
-            // serverSFunctionToolStripMenuItem
-            // 
-            this.serverSFunctionToolStripMenuItem.Checked = true;
-            this.serverSFunctionToolStripMenuItem.CheckOnClick = true;
-            this.serverSFunctionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.serverSFunctionToolStripMenuItem.Name = "serverSFunctionToolStripMenuItem";
-            resources.ApplyResources(this.serverSFunctionToolStripMenuItem, "serverSFunctionToolStripMenuItem");
-            // 
-            // optionsToolStripMenuItem
-            // 
-            this.optionsToolStripMenuItem.Checked = true;
-            this.optionsToolStripMenuItem.CheckOnClick = true;
-            this.optionsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
-            // 
-            // tabOptions
-            // 
-            this.tabOptions.Controls.Add(this.chkHOHOnline);
-            resources.ApplyResources(this.tabOptions, "tabOptions");
-            this.tabOptions.Name = "tabOptions";
-            this.tabOptions.UseVisualStyleBackColor = true;
-            // 
-            // chkHOHOnline
-            // 
-            resources.ApplyResources(this.chkHOHOnline, "chkHOHOnline");
-            this.chkHOHOnline.Checked = true;
-            this.chkHOHOnline.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHOHOnline.Name = "chkHOHOnline";
-            this.chkHOHOnline.UseVisualStyleBackColor = true;
-            this.chkHOHOnline.CheckedChanged += new System.EventHandler(this.chkHOHOnline_CheckedChanged);
             // 
             // protocolBindingSource
             // 

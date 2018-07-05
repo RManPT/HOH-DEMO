@@ -8,6 +8,7 @@ using HOH_Library;
 using HOH_ProtocolEditor;
 using HOH_ProtocolGUI;
 using System.IO;
+using System.ComponentModel;
 
 namespace HOH_DEMO
 {
@@ -43,7 +44,8 @@ namespace HOH_DEMO
         BindingSource protocolsBinding = new BindingSource();
         BindingSource protocolDetailsBinding = new BindingSource();
         BindingSource protocolExerciseBindingSource;
-      
+
+        BindingList<Protocol> blProtocols = new BindingList<Protocol>(clinic.Protocols);
 
         public Mainform()
         {
@@ -87,6 +89,8 @@ namespace HOH_DEMO
 
         private void OnClinicEventUpdate(object sender, HOHEvent e)
         {
+            //clinic = null;
+            // clinic = new Clinic(e.Clinic);
             clinic = e.Clinic;
             UpdateProtocols();
         }
@@ -99,7 +103,7 @@ namespace HOH_DEMO
 
         private void GetProtocols()
         {
-            protocolsBinding.DataSource = null;
+            //protocolsBinding.DataSource = null;
             protocolsBinding.DataSource = clinic.Protocols;
             protocolDetailsBinding.DataSource = protocolsBinding;
 
@@ -118,13 +122,62 @@ namespace HOH_DEMO
             listRepetitions.DataSource = null;
             listRepetitions.DataSource = protocolExerciseBindingSource;
             listRepetitions.DisplayMember = "Repetitions";
+
+            //lstProtocols.DataSource = blProtocols;
+            //lstProtocols.DisplayMember = "Name";
+
+            //lstProtocolsExercises.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            //lstProtocolsExercises.DisplayMember = "GetExerciseName";
+
+            //listRepetitions.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            //listRepetitions.DisplayMember = "Repetitions";
         }
 
         private void UpdateProtocols()
         {
+
+            //protocolDetailsBinding.DataSource = null;
+            //protocolsBinding.DataSource = null;
+
             protocolsBinding.ResetBindings(true);
             protocolDetailsBinding.ResetBindings(true);
-            protocolExerciseBindingSource.ResetBindings(true);
+            protocolsBinding.DataSource = clinic.Protocols;
+            protocolDetailsBinding.DataSource = protocolsBinding;
+
+            //protocolsBinding.ResetBindings(true);
+            //protocolDetailsBinding.ResetBindings(false);
+            //protocolExerciseBindingSource.ResetBindings(false);
+
+            //lstProtocols.DataSource = null;
+            //lstProtocols.DataSource = protocolDetailsBinding;
+            //lstProtocols.DisplayMember = "Name";
+
+
+
+            //lstProtocolsExercises.DataSource = null;
+            //lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
+            //lstProtocolsExercises.DisplayMember = "GetExerciseName";
+
+            //listRepetitions.DataSource = null;
+            //listRepetitions.DataSource = protocolExerciseBindingSource;
+            //listRepetitions.DisplayMember = "Repetitions";
+
+            //blProtocols.ResetBindings();
+
+            //lstProtocols.DataSource = null;
+            //lstProtocols.DataSource = blProtocols;
+            //lstProtocols.DisplayMember = "Name";
+            lstProtocols.Refresh();
+            lstProtocols.SelectedIndex = 0;
+
+            //lstProtocolsExercises.DataSource = null;
+            //lstProtocolsExercises.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            //lstProtocolsExercises.DisplayMember = "GetExerciseName";
+            lstProtocolsExercises.Refresh();
+            //listRepetitions.DataSource = null;
+            //listRepetitions.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            //listRepetitions.DisplayMember = "Repetitions";
+            listRepetitions.Refresh();
         }
 
 
@@ -921,7 +974,13 @@ namespace HOH_DEMO
 
         private void lstProtocols_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lstProtocolsExercises.DataSource = null;
+            lstProtocolsExercises.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            lstProtocolsExercises.DisplayMember = "GetExerciseName";
 
+            listRepetitions.DataSource = null;
+            listRepetitions.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            listRepetitions.DisplayMember = "Repetitions";
         }
 
         private void tabProtocol_Click(object sender, EventArgs e)
@@ -931,7 +990,7 @@ namespace HOH_DEMO
 
         private void lstProtocolsExercises_Format(object sender, ListControlConvertEventArgs e)
         {
-            string str1 = ((Exercise)e.ListItem).Name;
+            string str1 = ((Exercise)e.ListItem).Name; 
             string str2 = ((Exercise)e.ListItem).Repetitions.ToString();
             e.Value = "(x" + str2 + ") " + str1;
         }
@@ -995,9 +1054,10 @@ namespace HOH_DEMO
                 string str = String.Empty;
                 str = File.ReadAllText(openFileDialog1.FileName);
                 clinic.FromJSON(str);
-                clinic = new Clinic(clinic);
+               // clinic = new Clinic(clinic);
             }
-            HOHEventObj.UpdateClinic(clinic);
+            //HOHEventObj.UpdateClinic(clinic);
+            UpdateProtocols();
         }
 
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)

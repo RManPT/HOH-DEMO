@@ -12,6 +12,7 @@ C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\HOH_ProtocolEditor.ProtocolEditor.resources
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\HOH_ProtocolEditor.csproj.GenerateResource.cache
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\HOH_ProtocolEditor.csproj.CoreCompileInputs.cache
+C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\ProtocolEditor.TrustInfo.xml
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\ProtocolEditor.exe.manifest
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\ProtocolEditor.application
 C:\Users\Rui Rodrigues\Documents\_IPT\ENG.INFORMATICA\3 ANO\S2 - PROJECTO FINAL\DEVELOP\HOH_DEMO\TestProtocolCreation\obj\Debug\HOH_ProtocolEditor.csproj.CopyComplete
