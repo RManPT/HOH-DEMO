@@ -240,7 +240,7 @@ namespace HOH_ProtocolEditor
                 
                 blStates.RemoveAt(lstStates.SelectedIndex);
             }
-            catch { }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
             blStates.ResetBindings();
             if (blStates.Count == 0)
             {
@@ -308,7 +308,7 @@ namespace HOH_ProtocolEditor
             {
                 blExercises.RemoveAt(lstExercises.SelectedIndex);
             }
-            catch { }
+            catch(Exception ex) { Debug.WriteLine(ex.Message); }
             blExercises.ResetBindings();
             if (blExercises.Count == 0)
             {
@@ -378,7 +378,7 @@ namespace HOH_ProtocolEditor
             {
                 clinic.Protocols.RemoveAt(lstProtocols.SelectedIndex);
             }
-            catch { }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
            // protocolsBinding.ResetBindings(false);
         }
 
@@ -398,10 +398,10 @@ namespace HOH_ProtocolEditor
         {
             try
             {
-                clinic.Protocols.ElementAt(lstProtocols.SelectedIndex).Exercises.RemoveAt(lstProtocolExercises.SelectedIndex);
+                clinic.Protocols[lstProtocols.SelectedIndex].Exercises.RemoveAt(lstProtocolExercises.SelectedIndex);
             }
-            catch { }
-           // protocolsBinding.ResetBindings(false);
+            catch(Exception ex) { Debug.WriteLine(ex.Message); }
+            // protocolsBinding.ResetBindings(false);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -571,7 +571,9 @@ namespace HOH_ProtocolEditor
                     txtExerciseDetails3.Text = ((Exercise)lstExercises.SelectedItem).UserMsg;
 
                     if (((Exercise)lstExercises.SelectedItem).PreState != null)
+                    {
                         comboExerciseState1.Text = ((Exercise)lstExercises.SelectedItem).PreState.Name;
+                    }
                     else
                     {
                         comboExerciseState1.SelectedIndex = 0;
@@ -580,7 +582,9 @@ namespace HOH_ProtocolEditor
 
 
                     if (((Exercise)lstExercises.SelectedItem).TargetState != null)
+                    {
                         comboExerciseState2.Text = ((Exercise)lstExercises.SelectedItem).TargetState.Name;
+                    }
                     else
                     {
                         comboExerciseState2.SelectedIndex = 0;
@@ -588,7 +592,9 @@ namespace HOH_ProtocolEditor
                     }
 
                     if (((Exercise)lstExercises.SelectedItem).PostState != null)
+                    {
                         comboExerciseState3.Text = ((Exercise)lstExercises.SelectedItem).PostState.Name;
+                    }
                     else
                     {
                         comboExerciseState3.SelectedIndex = 0;
@@ -686,15 +692,18 @@ namespace HOH_ProtocolEditor
                 btnProtocolsApply.Enabled = false;
                 if (blProtocols.Count > 0)
                 {
-                        lstProtocolExercises.DataSource = null;
-                        lstProtocolExercises.DataSource = (((Protocol)lstProtocols.SelectedItem).Exercises);
-                        lstProtocolExercises.DisplayMember = "Name";
-                        if ((((Protocol)lstProtocols.SelectedItem).Exercises) != null)
-                        {
-                            if (lstProtocolExercises.Items.Count > 0) lstProtocolExercises.SelectedIndex = lstProtocolExercises.Items.Count - 1;
-                            lstProtocolExercises_SelectedIndexChanged(sender, e);
-                        }
-                        else Debug.WriteLine("This protocol has no exercises");
+                    lstProtocolExercises.DataSource = null;
+                    lstProtocolExercises.DataSource = (((Protocol)lstProtocols.SelectedItem).Exercises);
+                    lstProtocolExercises.DisplayMember = "Name";
+                    if ((((Protocol)lstProtocols.SelectedItem).Exercises) != null)
+                    {
+                        if (lstProtocolExercises.Items.Count > 0) lstProtocolExercises.SelectedIndex = lstProtocolExercises.Items.Count - 1;
+                        lstProtocolExercises_SelectedIndexChanged(sender, e);
+                    }
+                    else
+                    {
+                        Debug.WriteLine("This protocol has no exercises");
+                    }
                 }
                 ProtocolPanelLstProtocols_Selected = lstProtocols.SelectedIndex;
             }
@@ -716,7 +725,9 @@ namespace HOH_ProtocolEditor
                     txtProtocolExerciseDetails5.Text = ((Exercise)lstProtocolExercises.SelectedItem).Repetitions.ToString();
 
                     if (((Exercise)lstProtocolExercises.SelectedItem).PreState != null)
+                    {
                         comboProtocolExerciseState1.Text = ((Exercise)lstProtocolExercises.SelectedItem).PreState.Name;
+                    }
                     else
                     {
                         comboProtocolExerciseState1.SelectedIndex = 0;
@@ -725,7 +736,9 @@ namespace HOH_ProtocolEditor
 
 
                     if (((Exercise)lstProtocolExercises.SelectedItem).TargetState != null)
+                    {
                         comboProtocolExerciseState2.Text = ((Exercise)lstProtocolExercises.SelectedItem).TargetState.Name;
+                    }
                     else
                     {
                         comboProtocolExerciseState2.SelectedIndex = 0;
@@ -733,7 +746,9 @@ namespace HOH_ProtocolEditor
                     }
 
                     if (((Exercise)lstProtocolExercises.SelectedItem).PostState != null)
+                    {
                         comboProtocolExerciseState3.Text = ((Exercise)lstProtocolExercises.SelectedItem).PostState.Name;
+                    }
                     else
                     {
                         comboProtocolExerciseState3.SelectedIndex = 0;
@@ -832,7 +847,7 @@ namespace HOH_ProtocolEditor
             {
                 blProtocols.RemoveAt(lstProtocols.SelectedIndex);
             }
-            catch { }
+            catch(Exception ex) { Debug.WriteLine(ex.Message); }
             blProtocols.ResetBindings();
             
             if (blProtocols.Count == 0)
@@ -900,7 +915,7 @@ namespace HOH_ProtocolEditor
             {
                 blProtocols[lstProtocols.SelectedIndex].Exercises.RemoveAt(lstProtocolExercises.SelectedIndex);
             }
-            catch { }
+            catch(Exception ex) { Debug.WriteLine(ex.Message); }
             blProtocols.ResetBindings();
 
             //lstProtocolExercises.DataSource = null;

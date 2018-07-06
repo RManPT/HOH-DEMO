@@ -26,7 +26,6 @@ namespace HOH_DEMO
         private bool runCTM = false;
         private bool runCTMClose = false;
         private bool connectedHOH = false;
-        private bool calibratedHOH = false;
         private string msgRcvHOH;
         private int msgToSendSF = 0;
         public static int LastCMDReceived;
@@ -37,6 +36,7 @@ namespace HOH_DEMO
         // private delegate void EventSubscribed();
         private HOHEvent HOHEventObj = new HOHEvent();
         private TabControl.TabPageCollection tabs;
+        private string defaultFileName;
         
        
 
@@ -52,6 +52,8 @@ namespace HOH_DEMO
             //Seed.SetupData(clinic);
           
             InitializeComponent();
+            defaultFileName = Properties.Settings.Default.defaultJsonFile;
+            Debug.WriteLine("FileName : " + defaultFileName);
             LoadProtocols();
             Text += " - " + clinic.Name;
 
@@ -97,8 +99,8 @@ namespace HOH_DEMO
 
         private void updateGUI(HOHEvent e)
         {
-            if (e.LogMsg != null) txtProtocolsLog.AppendText(e.LogMsg.ToString() + Environment.NewLine);
-            if (e.UserMsg != null) txtProtocolsLog.AppendText(e.UserMsg.ToString() + Environment.NewLine);
+            if (e.LogMsg != null) txtProtocolsLog.AppendText(e.LogMsg + Environment.NewLine);
+            if (e.UserMsg != null) txtProtocolsLog.AppendText(e.UserMsg + Environment.NewLine);
         }
 
         private void GetProtocols()
@@ -429,8 +431,7 @@ namespace HOH_DEMO
 
         #region common controls
         private void Mainform_Load(object sender, EventArgs e)
-        {
-
+        {            
             btnServerStart_Click(sender, e);
             CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
             lblCPMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
@@ -438,10 +439,16 @@ namespace HOH_DEMO
             lblCTMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
             lblCTMCounter.Text = numericCTMUpDownCounter.Value.ToString();
             trackCTMThreshold.Value = trackCTMBaseline.Value + 5;
+            buttonConnect_Click(sender, e);
+            if (!connectedHOH) tabControl.SelectedTab = tabDEMO;
 
+
+            tabControl.TabPages.Remove(tabCPM);            
+            tabControl.TabPages.Remove(tabCTM);
+            
 
             //tabs = tabControl.TabPages;
-         
+
             //for (int i = 0; i < viewToolStripMenuItem.DropDownItems.Count; i++)
             //{
             //    if (!((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[i]).Checked) ((TabPage)tabControl.TabPages[i])
@@ -451,7 +458,7 @@ namespace HOH_DEMO
 
         private void Mainform_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            Debug.WriteLine("All clear!");
         }
 
 
@@ -517,20 +524,25 @@ namespace HOH_DEMO
             LastCMDReceived = AsyncServer.LastCMDReceived;
             commandProcessed = AsyncServer.commandProcessed;
             if (runCTMClose)
-                if (LastCMDReceived == 22 && LastCMDReceived != previousCMDReceived && commandProcessed == false)
+            {
+                if (LastCMDReceived == 22 && LastCMDReceived != previousCMDReceived && !commandProcessed)
                 { //se sinal detectado indica o movimento desejado actua em conformidade
                     buttonfullyclose_Click(sender, e); //envia comando de CTM Close 
                     txtCTMLog.AppendText("\r\nWell done, closing hand!");
                     //commandProcessed = true;    //certifica que não há comandos processados multiplas 
                 }
+            }
 
             if (runCTMOpen)
-                if (LastCMDReceived == 21 && LastCMDReceived != previousCMDReceived && commandProcessed == false)
+            {
+                if (LastCMDReceived == 21 && LastCMDReceived != previousCMDReceived && !commandProcessed)
                 { //se sinal detectado indica o movimento desejado actua em conformidade
                     buttonfullyopen_Click(sender, e); //envia comando de CTM Close 
                     txtCTMLog.AppendText("\r\nWell done, opening hand!");
                     //commandProcessed = true;    //certifica que não há comandos processados multiplas 
                 }
+            }
+
             previousCMDReceived = LastCMDReceived;
             commandProcessed = true;
 
@@ -950,6 +962,20 @@ namespace HOH_DEMO
             btnServerStop_Click(sender, e);
             HOHEvent.LogUpdated -= OnHOHEventUpdate;
             HOHEvent.UsrMsgUpdated -= OnHOHEventUpdate;
+            HOHEvent.ClinicUpdated -= OnClinicEventUpdate;
+
+            try
+            {
+                File.WriteAllText(defaultFileName, clinic.ToJSON());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Couldn't write file : + " + openFileDialog1.FileName);
+                Debug.WriteLine(ex.Message);
+            }
+            Properties.Settings.Default.defaultJsonFile = defaultFileName;
+            Properties.Settings.Default.Save();
+            Debug.WriteLine("Saving file name : " + defaultFileName);
 
         }
 
@@ -1028,19 +1054,29 @@ namespace HOH_DEMO
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(clinic.ToJSON());
+            txtProtocolsLog.Text = clinic.ToJSON();
+            //Debug.WriteLine(clinic.ToJSON());
         }
 
         private void saveProtocolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.Filter = "JSON (*.json) | *.json";
-            openFileDialog1.DefaultExt = "json";
-            openFileDialog1.AddExtension = true;
-            saveFileDialog1.FileName = "HOHclinic";
+            saveFileDialog1.DefaultExt = "json";
+            saveFileDialog1.AddExtension = true;
+            saveFileDialog1.FileName = defaultFileName;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            { 
-                File.WriteAllText(saveFileDialog1.FileName, clinic.ToJSON());
-            //MessageBox.Show("Protocols Saved!");
+            {
+                try
+                {
+                    File.WriteAllText(saveFileDialog1.FileName, clinic.ToJSON());
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Couldn't write file : + " + openFileDialog1.FileName);
+                    Debug.WriteLine(ex.Message);
+                }
+                defaultFileName = saveFileDialog1.FileName;
+                //MessageBox.Show("Protocols Saved!");
             }
         }
 
@@ -1048,13 +1084,22 @@ namespace HOH_DEMO
         {
             //LoadProtocols();
             openFileDialog1.Filter = "JSON (*.json) | *.json";
-            openFileDialog1.FileName = "HOHclinic";
+            openFileDialog1.FileName = defaultFileName;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string str = String.Empty;
-                str = File.ReadAllText(openFileDialog1.FileName);
+                try
+                {
+                    str = File.ReadAllText(openFileDialog1.FileName);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Couldn't read file : + " + openFileDialog1.FileName);
+                    Debug.WriteLine(ex.Message);
+                }
                 clinic.FromJSON(str);
-               // clinic = new Clinic(clinic);
+                // clinic = new Clinic(clinic);
+                defaultFileName = openFileDialog1.FileName;
             }
             //HOHEventObj.UpdateClinic(clinic);
             UpdateProtocols();
@@ -1072,11 +1117,14 @@ namespace HOH_DEMO
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-           //// ((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked = !((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked;
-           // if (!((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked) tabControl.TabPages.Remove(tabs[0]);
-           // else tabControl.TabPages.Add(tabs[0]);
-           // //tabControl.TabPages[tabControl.TabPages.Count].
+            //// ((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked = !((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked;
+            // if (!((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked) tabControl.TabPages.Remove(tabs[0]);
+            // else tabControl.TabPages.Add(tabs[0]);
+            // //tabControl.TabPages[tabControl.TabPages.Count].
+            //if (chkMenuProtocols.Checked) tabControl.TabPages.Remove(tabProtocol);
+            //else tabControl.TabPages.Add(tabProtocol);
         }
+
 
         private void tabControl_DragOver(object sender, DragEventArgs e)
         {
@@ -1102,8 +1150,18 @@ namespace HOH_DEMO
             string str = String.Empty;
             try
             {
-                str = File.ReadAllText(@"clinic.json");
-                if (str == String.Empty)
+                Debug.WriteLine("Opening file " + defaultFileName);
+                try
+                {
+                    str = File.ReadAllText(defaultFileName);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Invalid default file name : " + defaultFileName);
+                    Debug.WriteLine(ex.Message);
+                }
+              
+                if (str?.Length == 0)
                 {
                     Seed.SetupData(clinic);
                     msg = "Protocols seeded";
@@ -1119,7 +1177,7 @@ namespace HOH_DEMO
                 Seed.SetupData(clinic);
                 msg = "Protocols seeded";
             }
-            MessageBox.Show(msg, "Loading...");
+          //  MessageBox.Show(msg, "Loading...");
         }
     }
 }

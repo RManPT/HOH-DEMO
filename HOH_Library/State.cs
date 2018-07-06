@@ -51,7 +51,7 @@ namespace HOH_Library
         public void execute(MRNetwork NW)
         {
             //HOHEventObj.UpdateUsrMsg(this.UserMsg);
-            NW.ExecuteAndWait(HOHCode.ToString(), CallbackMsg, null);
+            NW.ExecuteAndWait(HOHCode, CallbackMsg, null);
         }
 
         // Create the OnPropertyChanged method to raise the event

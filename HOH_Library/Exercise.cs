@@ -44,7 +44,7 @@ namespace HOH_Library
 
         private SFListener sf;
         private MRNetwork NW;
-        private HOHEvent HOHEventObj = new HOHEvent();
+        private readonly HOHEvent HOHEventObj = new HOHEvent();
 
 
         public Exercise()
@@ -118,7 +118,7 @@ namespace HOH_Library
                 {
                     HOHEventObj.UpdateLogMsg("Target State: " + this.TargetState.Name);
                     HOHEventObj.UpdateUsrMsg(this.UserMsg);
-                    SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
+                    sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
                     Thread SFThread = new Thread(() => sf.Execute(NW));
                     SFThread.Start();
 
@@ -132,6 +132,8 @@ namespace HOH_Library
                     HOHEventObj.UpdateLogMsg("Setting PostState: " + this.PostState.Name);
                     this.PostState.execute(NW);
                 }
+
+              
                 HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
             }
         }

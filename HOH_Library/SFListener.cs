@@ -19,7 +19,7 @@ namespace HOH_Library
         private int TimerCounter;
         private object HomeThread;
         private bool ExecuteStatus { get; set; }
-        private HOHEvent HOHEventObj;
+        private readonly HOHEvent HOHEventObj;
         
 
 
@@ -35,6 +35,7 @@ namespace HOH_Library
         public void Execute(MRNetwork NW)
         {
             ExecuteStatus = true;
+            bool firstRun = true;
             System.Threading.Timer theTimer = new System.Threading.Timer(this.Tick, null, 0, 1000);
             this.TimerCounter = this.WaitTime;
             Debug.WriteLine("SFLISTENER : START!");
@@ -48,11 +49,24 @@ namespace HOH_Library
                     commandProcessed = AsyncServer.commandProcessed;
 
                     //Código a executar quando os testes estiverem concluídos.
-                    if (LastCMDReceived == SFCode && LastCMDReceived != previousCMDReceived && commandProcessed == false)
+                    if (LastCMDReceived == SFCode && LastCMDReceived != previousCMDReceived && !commandProcessed)
                     { //se sinal detectado indica o movimento desejado actua em conformidade
-                        this.TargetState.execute(NW);
+                        if (firstRun)
+                        {
+                            this.TargetState.execute(NW);
+                            firstRun = false;
+                        }
+                        else
+                        {
+                            NW.Send("r");
+                        }
+
                         commandProcessed = true;    //certifica que não há comandos processados multiplas 
                         previousCMDReceived = LastCMDReceived;
+                    }
+                    else
+                    {
+                        NW.Send("p");
                     }
                 }
                 else

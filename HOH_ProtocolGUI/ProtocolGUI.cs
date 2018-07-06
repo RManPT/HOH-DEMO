@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HOH_Library;
 
@@ -50,14 +42,22 @@ namespace HOH_ProtocolGUI
 
         private void updateGUI(HOHEvent e)
         {
-           if (e.ExerciseName != null) lblExerciseName.Text = (e.ExerciseName.ToString() + Environment.NewLine);
-           if (e.UserMsg != null) lblExerciseMsg.Text = (e.UserMsg.ToString() + Environment.NewLine);
+           if (e.ExerciseName != null)
+            {
+                lblExerciseName.Text = (e.ExerciseName + Environment.NewLine);
+            }
+
+            if (e.UserMsg != null)
+            {
+                lblExerciseMsg.Text = (e.UserMsg + Environment.NewLine);
+            }
+
             lblExerciseTime.Text = Utils.TimeToStr(e.ExerciseTimer);
 
             if (e.ProtocolState != null)
             {
-                btnRestart.Enabled = (e.ProtocolState.ToLower() == "stopped");
-                lblExerciseTime.Visible = (e.ProtocolState.ToLower() == "running");
+                btnRestart.Enabled = (string.Equals(e.ProtocolState, "stopped", StringComparison.OrdinalIgnoreCase));
+                lblExerciseTime.Visible = (string.Equals(e.ProtocolState, "running", StringComparison.OrdinalIgnoreCase));
             }
             Thread.Yield();
         }

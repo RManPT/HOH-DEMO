@@ -36,13 +36,13 @@
             this.saveProtocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.cPMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cTMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hOHToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serverSFunctionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuProtocols = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuCPM = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuCTM = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuCalibration = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.protocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +58,54 @@
             this.lstProtocolsExercises = new System.Windows.Forms.ListBox();
             this.label15 = new System.Windows.Forms.Label();
             this.lstProtocols = new System.Windows.Forms.ListBox();
+            this.tabServer = new System.Windows.Forms.TabPage();
+            this.gboxServerLog = new System.Windows.Forms.GroupBox();
+            this.lblServerClientsConnected = new System.Windows.Forms.Label();
+            this.btnServerLogClear = new System.Windows.Forms.Button();
+            this.txtServerLog = new System.Windows.Forms.TextBox();
+            this.gboxServerControls = new System.Windows.Forms.GroupBox();
+            this.btnServerSetContinuous = new System.Windows.Forms.Button();
+            this.btnServerSetPassive = new System.Windows.Forms.Button();
+            this.btnServerCtrlClear = new System.Windows.Forms.Button();
+            this.btnServerSend = new System.Windows.Forms.Button();
+            this.txtServerSend = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.gboxServerInitialization = new System.Windows.Forms.GroupBox();
+            this.btnServerStop = new System.Windows.Forms.Button();
+            this.btnServerStart = new System.Windows.Forms.Button();
+            this.txtServerPort = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabDEMO = new System.Windows.Forms.TabPage();
+            this.groupBoxExtra = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.buttonSetAuto = new System.Windows.Forms.Button();
+            this.buttonSet = new System.Windows.Forms.Button();
+            this.trackBarPositionAuto = new System.Windows.Forms.TrackBar();
+            this.label6 = new System.Windows.Forms.Label();
+            this.trackBarPosition = new System.Windows.Forms.TrackBar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.groupBoxCmd = new System.Windows.Forms.GroupBox();
+            this.textBoxcmd = new System.Windows.Forms.TextBox();
+            this.buttonExit = new System.Windows.Forms.Button();
+            this.buttonResume = new System.Windows.Forms.Button();
+            this.buttonPause = new System.Windows.Forms.Button();
+            this.buttonSend = new System.Windows.Forms.Button();
+            this.groupBoxLog = new System.Windows.Forms.GroupBox();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.textBoxLog = new System.Windows.Forms.TextBox();
+            this.groupBoxFunctions = new System.Windows.Forms.GroupBox();
+            this.buttonCPM = new System.Windows.Forms.Button();
+            this.buttonfitting = new System.Windows.Forms.Button();
+            this.buttonfullyopen = new System.Windows.Forms.Button();
+            this.buttonfullyclose = new System.Windows.Forms.Button();
+            this.groupBoxInitialization = new System.Windows.Forms.GroupBox();
+            this.buttonConnect = new System.Windows.Forms.Button();
+            this.buttontest = new System.Windows.Forms.Button();
+            this.tabOptions = new System.Windows.Forms.TabPage();
+            this.chkHOHOnline = new System.Windows.Forms.CheckBox();
             this.tabCPM = new System.Windows.Forms.TabPage();
             this.gbCounter = new System.Windows.Forms.GroupBox();
             this.rbCPMCounter = new System.Windows.Forms.RadioButton();
@@ -118,64 +166,28 @@
             this.label13 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.tabDEMO = new System.Windows.Forms.TabPage();
-            this.groupBoxExtra = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.buttonSetAuto = new System.Windows.Forms.Button();
-            this.buttonSet = new System.Windows.Forms.Button();
-            this.trackBarPositionAuto = new System.Windows.Forms.TrackBar();
-            this.label6 = new System.Windows.Forms.Label();
-            this.trackBarPosition = new System.Windows.Forms.TrackBar();
-            this.label4 = new System.Windows.Forms.Label();
-            this.groupBoxCmd = new System.Windows.Forms.GroupBox();
-            this.textBoxcmd = new System.Windows.Forms.TextBox();
-            this.buttonExit = new System.Windows.Forms.Button();
-            this.buttonResume = new System.Windows.Forms.Button();
-            this.buttonPause = new System.Windows.Forms.Button();
-            this.buttonSend = new System.Windows.Forms.Button();
-            this.groupBoxLog = new System.Windows.Forms.GroupBox();
-            this.buttonClear = new System.Windows.Forms.Button();
-            this.textBoxLog = new System.Windows.Forms.TextBox();
-            this.groupBoxFunctions = new System.Windows.Forms.GroupBox();
-            this.buttonCPM = new System.Windows.Forms.Button();
-            this.buttonfitting = new System.Windows.Forms.Button();
-            this.buttonfullyopen = new System.Windows.Forms.Button();
-            this.buttonfullyclose = new System.Windows.Forms.Button();
-            this.groupBoxInitialization = new System.Windows.Forms.GroupBox();
-            this.buttonConnect = new System.Windows.Forms.Button();
-            this.buttontest = new System.Windows.Forms.Button();
-            this.tabServer = new System.Windows.Forms.TabPage();
-            this.gboxServerLog = new System.Windows.Forms.GroupBox();
-            this.lblServerClientsConnected = new System.Windows.Forms.Label();
-            this.btnServerLogClear = new System.Windows.Forms.Button();
-            this.txtServerLog = new System.Windows.Forms.TextBox();
-            this.gboxServerControls = new System.Windows.Forms.GroupBox();
-            this.btnServerSetContinuous = new System.Windows.Forms.Button();
-            this.btnServerSetPassive = new System.Windows.Forms.Button();
-            this.btnServerCtrlClear = new System.Windows.Forms.Button();
-            this.btnServerSend = new System.Windows.Forms.Button();
-            this.txtServerSend = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.gboxServerInitialization = new System.Windows.Forms.GroupBox();
-            this.btnServerStop = new System.Windows.Forms.Button();
-            this.btnServerStart = new System.Windows.Forms.Button();
-            this.txtServerPort = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabOptions = new System.Windows.Forms.TabPage();
-            this.chkHOHOnline = new System.Windows.Forms.CheckBox();
             this.TreatmentTimer = new System.Windows.Forms.Timer(this.components);
             this.ExerciceResetTimer = new System.Windows.Forms.Timer(this.components);
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.protocolBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabProtocol.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            this.tabServer.SuspendLayout();
+            this.gboxServerLog.SuspendLayout();
+            this.gboxServerControls.SuspendLayout();
+            this.gboxServerInitialization.SuspendLayout();
+            this.tabDEMO.SuspendLayout();
+            this.groupBoxExtra.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPositionAuto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPosition)).BeginInit();
+            this.groupBoxCmd.SuspendLayout();
+            this.groupBoxLog.SuspendLayout();
+            this.groupBoxFunctions.SuspendLayout();
+            this.groupBoxInitialization.SuspendLayout();
+            this.tabOptions.SuspendLayout();
             this.tabCPM.SuspendLayout();
             this.gbCounter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericCPMUpDownCounter)).BeginInit();
@@ -200,20 +212,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdExtensor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.tabDEMO.SuspendLayout();
-            this.groupBoxExtra.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarPositionAuto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarPosition)).BeginInit();
-            this.groupBoxCmd.SuspendLayout();
-            this.groupBoxLog.SuspendLayout();
-            this.groupBoxFunctions.SuspendLayout();
-            this.groupBoxInitialization.SuspendLayout();
-            this.tabServer.SuspendLayout();
-            this.gboxServerLog.SuspendLayout();
-            this.gboxServerControls.SuspendLayout();
-            this.gboxServerInitialization.SuspendLayout();
-            this.tabOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -258,67 +256,63 @@
             this.viewToolStripMenuItem.CheckOnClick = true;
             this.viewToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.cPMToolStripMenuItem,
-            this.cTMToolStripMenuItem,
-            this.calibrationToolStripMenuItem,
-            this.hOHToolsToolStripMenuItem,
-            this.serverSFunctionToolStripMenuItem,
-            this.optionsToolStripMenuItem});
+            this.chkMenuProtocols,
+            this.chkMenuServer,
+            this.chkMenuTools,
+            this.chkMenuOptions,
+            this.chkMenuCPM,
+            this.chkMenuCTM,
+            this.chkMenuCalibration});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             resources.ApplyResources(this.viewToolStripMenuItem, "viewToolStripMenuItem");
             // 
-            // toolStripMenuItem1
+            // chkMenuProtocols
             // 
-            this.toolStripMenuItem1.Checked = true;
-            this.toolStripMenuItem1.CheckOnClick = true;
-            this.toolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.chkMenuProtocols.Checked = true;
+            this.chkMenuProtocols.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMenuProtocols.Name = "chkMenuProtocols";
+            resources.ApplyResources(this.chkMenuProtocols, "chkMenuProtocols");
+            this.chkMenuProtocols.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
-            // cPMToolStripMenuItem
+            // chkMenuCPM
             // 
-            this.cPMToolStripMenuItem.CheckOnClick = true;
-            this.cPMToolStripMenuItem.Name = "cPMToolStripMenuItem";
-            resources.ApplyResources(this.cPMToolStripMenuItem, "cPMToolStripMenuItem");
-            this.cPMToolStripMenuItem.Click += new System.EventHandler(this.cPMToolStripMenuItem_Click);
+            this.chkMenuCPM.CheckOnClick = true;
+            this.chkMenuCPM.Name = "chkMenuCPM";
+            resources.ApplyResources(this.chkMenuCPM, "chkMenuCPM");
+            this.chkMenuCPM.Click += new System.EventHandler(this.cPMToolStripMenuItem_Click);
             // 
-            // cTMToolStripMenuItem
+            // chkMenuCTM
             // 
-            this.cTMToolStripMenuItem.CheckOnClick = true;
-            this.cTMToolStripMenuItem.Name = "cTMToolStripMenuItem";
-            resources.ApplyResources(this.cTMToolStripMenuItem, "cTMToolStripMenuItem");
+            this.chkMenuCTM.CheckOnClick = true;
+            this.chkMenuCTM.Name = "chkMenuCTM";
+            resources.ApplyResources(this.chkMenuCTM, "chkMenuCTM");
             // 
-            // calibrationToolStripMenuItem
+            // chkMenuCalibration
             // 
-            this.calibrationToolStripMenuItem.CheckOnClick = true;
-            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
-            resources.ApplyResources(this.calibrationToolStripMenuItem, "calibrationToolStripMenuItem");
+            this.chkMenuCalibration.CheckOnClick = true;
+            this.chkMenuCalibration.Name = "chkMenuCalibration";
+            resources.ApplyResources(this.chkMenuCalibration, "chkMenuCalibration");
             // 
-            // hOHToolsToolStripMenuItem
+            // chkMenuTools
             // 
-            this.hOHToolsToolStripMenuItem.Checked = true;
-            this.hOHToolsToolStripMenuItem.CheckOnClick = true;
-            this.hOHToolsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.hOHToolsToolStripMenuItem.Name = "hOHToolsToolStripMenuItem";
-            resources.ApplyResources(this.hOHToolsToolStripMenuItem, "hOHToolsToolStripMenuItem");
+            this.chkMenuTools.Checked = true;
+            this.chkMenuTools.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMenuTools.Name = "chkMenuTools";
+            resources.ApplyResources(this.chkMenuTools, "chkMenuTools");
             // 
-            // serverSFunctionToolStripMenuItem
+            // chkMenuServer
             // 
-            this.serverSFunctionToolStripMenuItem.Checked = true;
-            this.serverSFunctionToolStripMenuItem.CheckOnClick = true;
-            this.serverSFunctionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.serverSFunctionToolStripMenuItem.Name = "serverSFunctionToolStripMenuItem";
-            resources.ApplyResources(this.serverSFunctionToolStripMenuItem, "serverSFunctionToolStripMenuItem");
+            this.chkMenuServer.Checked = true;
+            this.chkMenuServer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMenuServer.Name = "chkMenuServer";
+            resources.ApplyResources(this.chkMenuServer, "chkMenuServer");
             // 
-            // optionsToolStripMenuItem
+            // chkMenuOptions
             // 
-            this.optionsToolStripMenuItem.Checked = true;
-            this.optionsToolStripMenuItem.CheckOnClick = true;
-            this.optionsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            resources.ApplyResources(this.optionsToolStripMenuItem, "optionsToolStripMenuItem");
+            this.chkMenuOptions.Checked = true;
+            this.chkMenuOptions.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMenuOptions.Name = "chkMenuOptions";
+            resources.ApplyResources(this.chkMenuOptions, "chkMenuOptions");
             // 
             // protocolsToolStripMenuItem
             // 
@@ -363,7 +357,6 @@
             // 
             // tabProtocol
             // 
-            this.tabProtocol.Controls.Add(this.button5);
             this.tabProtocol.Controls.Add(this.groupBox6);
             this.tabProtocol.Controls.Add(this.btnProtocolStart);
             this.tabProtocol.Controls.Add(this.listRepetitions);
@@ -385,6 +378,7 @@
             // groupBox6
             // 
             resources.ApplyResources(this.groupBox6, "groupBox6");
+            this.groupBox6.Controls.Add(this.button5);
             this.groupBox6.Controls.Add(this.button4);
             this.groupBox6.Controls.Add(this.txtProtocolsLog);
             this.groupBox6.Name = "groupBox6";
@@ -412,14 +406,12 @@
             // 
             // listRepetitions
             // 
-            this.listRepetitions.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.protocolBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.listRepetitions.FormattingEnabled = true;
             resources.ApplyResources(this.listRepetitions, "listRepetitions");
             this.listRepetitions.Name = "listRepetitions";
             // 
             // lstProtocolsExercises
             // 
-            this.lstProtocolsExercises.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.protocolBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.lstProtocolsExercises.FormattingEnabled = true;
             resources.ApplyResources(this.lstProtocolsExercises, "lstProtocolsExercises");
             this.lstProtocolsExercises.Name = "lstProtocolsExercises";
@@ -432,11 +424,367 @@
             // 
             // lstProtocols
             // 
-            this.lstProtocols.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.protocolBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.lstProtocols.FormattingEnabled = true;
             resources.ApplyResources(this.lstProtocols, "lstProtocols");
             this.lstProtocols.Name = "lstProtocols";
             this.lstProtocols.SelectedIndexChanged += new System.EventHandler(this.lstProtocols_SelectedIndexChanged);
+            // 
+            // tabServer
+            // 
+            this.tabServer.BackColor = System.Drawing.SystemColors.Window;
+            this.tabServer.Controls.Add(this.gboxServerLog);
+            this.tabServer.Controls.Add(this.gboxServerControls);
+            this.tabServer.Controls.Add(this.gboxServerInitialization);
+            resources.ApplyResources(this.tabServer, "tabServer");
+            this.tabServer.Name = "tabServer";
+            // 
+            // gboxServerLog
+            // 
+            resources.ApplyResources(this.gboxServerLog, "gboxServerLog");
+            this.gboxServerLog.Controls.Add(this.lblServerClientsConnected);
+            this.gboxServerLog.Controls.Add(this.btnServerLogClear);
+            this.gboxServerLog.Controls.Add(this.txtServerLog);
+            this.gboxServerLog.Name = "gboxServerLog";
+            this.gboxServerLog.TabStop = false;
+            // 
+            // lblServerClientsConnected
+            // 
+            resources.ApplyResources(this.lblServerClientsConnected, "lblServerClientsConnected");
+            this.lblServerClientsConnected.Name = "lblServerClientsConnected";
+            // 
+            // btnServerLogClear
+            // 
+            resources.ApplyResources(this.btnServerLogClear, "btnServerLogClear");
+            this.btnServerLogClear.Name = "btnServerLogClear";
+            this.btnServerLogClear.UseVisualStyleBackColor = true;
+            this.btnServerLogClear.Click += new System.EventHandler(this.btnServerLogClear_Click);
+            // 
+            // txtServerLog
+            // 
+            resources.ApplyResources(this.txtServerLog, "txtServerLog");
+            this.txtServerLog.Name = "txtServerLog";
+            this.txtServerLog.TextChanged += new System.EventHandler(this.txtServerLog_TextChanged);
+            // 
+            // gboxServerControls
+            // 
+            this.gboxServerControls.Controls.Add(this.btnServerSetContinuous);
+            this.gboxServerControls.Controls.Add(this.btnServerSetPassive);
+            this.gboxServerControls.Controls.Add(this.btnServerCtrlClear);
+            this.gboxServerControls.Controls.Add(this.btnServerSend);
+            this.gboxServerControls.Controls.Add(this.txtServerSend);
+            this.gboxServerControls.Controls.Add(this.label2);
+            resources.ApplyResources(this.gboxServerControls, "gboxServerControls");
+            this.gboxServerControls.Name = "gboxServerControls";
+            this.gboxServerControls.TabStop = false;
+            // 
+            // btnServerSetContinuous
+            // 
+            resources.ApplyResources(this.btnServerSetContinuous, "btnServerSetContinuous");
+            this.btnServerSetContinuous.Name = "btnServerSetContinuous";
+            this.btnServerSetContinuous.UseVisualStyleBackColor = true;
+            this.btnServerSetContinuous.Click += new System.EventHandler(this.btnServerSetContinuous_Click);
+            // 
+            // btnServerSetPassive
+            // 
+            resources.ApplyResources(this.btnServerSetPassive, "btnServerSetPassive");
+            this.btnServerSetPassive.Name = "btnServerSetPassive";
+            this.btnServerSetPassive.UseVisualStyleBackColor = true;
+            this.btnServerSetPassive.Click += new System.EventHandler(this.btnServerSetPasssive_Click);
+            // 
+            // btnServerCtrlClear
+            // 
+            resources.ApplyResources(this.btnServerCtrlClear, "btnServerCtrlClear");
+            this.btnServerCtrlClear.Name = "btnServerCtrlClear";
+            this.btnServerCtrlClear.UseVisualStyleBackColor = true;
+            this.btnServerCtrlClear.Click += new System.EventHandler(this.btnServerCtrlClear_Click);
+            // 
+            // btnServerSend
+            // 
+            resources.ApplyResources(this.btnServerSend, "btnServerSend");
+            this.btnServerSend.Name = "btnServerSend";
+            this.btnServerSend.UseVisualStyleBackColor = true;
+            this.btnServerSend.Click += new System.EventHandler(this.btnServerSend_Click);
+            // 
+            // txtServerSend
+            // 
+            resources.ApplyResources(this.txtServerSend, "txtServerSend");
+            this.txtServerSend.Name = "txtServerSend";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // gboxServerInitialization
+            // 
+            this.gboxServerInitialization.Controls.Add(this.btnServerStop);
+            this.gboxServerInitialization.Controls.Add(this.btnServerStart);
+            this.gboxServerInitialization.Controls.Add(this.txtServerPort);
+            this.gboxServerInitialization.Controls.Add(this.label1);
+            resources.ApplyResources(this.gboxServerInitialization, "gboxServerInitialization");
+            this.gboxServerInitialization.Name = "gboxServerInitialization";
+            this.gboxServerInitialization.TabStop = false;
+            // 
+            // btnServerStop
+            // 
+            resources.ApplyResources(this.btnServerStop, "btnServerStop");
+            this.btnServerStop.Name = "btnServerStop";
+            this.btnServerStop.UseVisualStyleBackColor = true;
+            this.btnServerStop.Click += new System.EventHandler(this.btnServerStop_Click);
+            // 
+            // btnServerStart
+            // 
+            resources.ApplyResources(this.btnServerStart, "btnServerStart");
+            this.btnServerStart.Name = "btnServerStart";
+            this.btnServerStart.UseVisualStyleBackColor = true;
+            this.btnServerStart.Click += new System.EventHandler(this.btnServerStart_Click);
+            // 
+            // txtServerPort
+            // 
+            resources.ApplyResources(this.txtServerPort, "txtServerPort");
+            this.txtServerPort.Name = "txtServerPort";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // tabDEMO
+            // 
+            this.tabDEMO.Controls.Add(this.groupBoxExtra);
+            this.tabDEMO.Controls.Add(this.groupBoxCmd);
+            this.tabDEMO.Controls.Add(this.groupBoxLog);
+            this.tabDEMO.Controls.Add(this.groupBoxFunctions);
+            this.tabDEMO.Controls.Add(this.groupBoxInitialization);
+            resources.ApplyResources(this.tabDEMO, "tabDEMO");
+            this.tabDEMO.Name = "tabDEMO";
+            this.tabDEMO.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxExtra
+            // 
+            this.groupBoxExtra.Controls.Add(this.label8);
+            this.groupBoxExtra.Controls.Add(this.label5);
+            this.groupBoxExtra.Controls.Add(this.label7);
+            this.groupBoxExtra.Controls.Add(this.label3);
+            this.groupBoxExtra.Controls.Add(this.buttonSetAuto);
+            this.groupBoxExtra.Controls.Add(this.buttonSet);
+            this.groupBoxExtra.Controls.Add(this.trackBarPositionAuto);
+            this.groupBoxExtra.Controls.Add(this.label6);
+            this.groupBoxExtra.Controls.Add(this.trackBarPosition);
+            this.groupBoxExtra.Controls.Add(this.label4);
+            resources.ApplyResources(this.groupBoxExtra, "groupBoxExtra");
+            this.groupBoxExtra.Name = "groupBoxExtra";
+            this.groupBoxExtra.TabStop = false;
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // buttonSetAuto
+            // 
+            this.buttonSetAuto.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonSetAuto, "buttonSetAuto");
+            this.buttonSetAuto.Name = "buttonSetAuto";
+            this.buttonSetAuto.UseVisualStyleBackColor = false;
+            this.buttonSetAuto.Click += new System.EventHandler(this.buttonSetAuto_Click);
+            // 
+            // buttonSet
+            // 
+            this.buttonSet.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonSet, "buttonSet");
+            this.buttonSet.Name = "buttonSet";
+            this.buttonSet.UseVisualStyleBackColor = false;
+            this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
+            // 
+            // trackBarPositionAuto
+            // 
+            resources.ApplyResources(this.trackBarPositionAuto, "trackBarPositionAuto");
+            this.trackBarPositionAuto.Maximum = 100;
+            this.trackBarPositionAuto.Name = "trackBarPositionAuto";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // trackBarPosition
+            // 
+            resources.ApplyResources(this.trackBarPosition, "trackBarPosition");
+            this.trackBarPosition.Maximum = 100;
+            this.trackBarPosition.Name = "trackBarPosition";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // groupBoxCmd
+            // 
+            this.groupBoxCmd.Controls.Add(this.textBoxcmd);
+            this.groupBoxCmd.Controls.Add(this.buttonExit);
+            this.groupBoxCmd.Controls.Add(this.buttonResume);
+            this.groupBoxCmd.Controls.Add(this.buttonPause);
+            this.groupBoxCmd.Controls.Add(this.buttonSend);
+            resources.ApplyResources(this.groupBoxCmd, "groupBoxCmd");
+            this.groupBoxCmd.Name = "groupBoxCmd";
+            this.groupBoxCmd.TabStop = false;
+            // 
+            // textBoxcmd
+            // 
+            resources.ApplyResources(this.textBoxcmd, "textBoxcmd");
+            this.textBoxcmd.Name = "textBoxcmd";
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonExit, "buttonExit");
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.UseVisualStyleBackColor = false;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            // 
+            // buttonResume
+            // 
+            this.buttonResume.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonResume, "buttonResume");
+            this.buttonResume.Name = "buttonResume";
+            this.buttonResume.UseVisualStyleBackColor = false;
+            this.buttonResume.Click += new System.EventHandler(this.buttonResume_Click);
+            // 
+            // buttonPause
+            // 
+            this.buttonPause.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonPause, "buttonPause");
+            this.buttonPause.Name = "buttonPause";
+            this.buttonPause.UseVisualStyleBackColor = false;
+            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
+            // 
+            // buttonSend
+            // 
+            this.buttonSend.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonSend, "buttonSend");
+            this.buttonSend.Name = "buttonSend";
+            this.buttonSend.UseVisualStyleBackColor = false;
+            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
+            // 
+            // groupBoxLog
+            // 
+            this.groupBoxLog.Controls.Add(this.buttonClear);
+            this.groupBoxLog.Controls.Add(this.textBoxLog);
+            resources.ApplyResources(this.groupBoxLog, "groupBoxLog");
+            this.groupBoxLog.Name = "groupBoxLog";
+            this.groupBoxLog.TabStop = false;
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonClear, "buttonClear");
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.UseVisualStyleBackColor = false;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
+            // textBoxLog
+            // 
+            resources.ApplyResources(this.textBoxLog, "textBoxLog");
+            this.textBoxLog.Name = "textBoxLog";
+            this.textBoxLog.TextChanged += new System.EventHandler(this.textBoxLog_TextChanged);
+            // 
+            // groupBoxFunctions
+            // 
+            this.groupBoxFunctions.Controls.Add(this.buttonCPM);
+            this.groupBoxFunctions.Controls.Add(this.buttonfitting);
+            this.groupBoxFunctions.Controls.Add(this.buttonfullyopen);
+            this.groupBoxFunctions.Controls.Add(this.buttonfullyclose);
+            resources.ApplyResources(this.groupBoxFunctions, "groupBoxFunctions");
+            this.groupBoxFunctions.Name = "groupBoxFunctions";
+            this.groupBoxFunctions.TabStop = false;
+            // 
+            // buttonCPM
+            // 
+            this.buttonCPM.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonCPM, "buttonCPM");
+            this.buttonCPM.Name = "buttonCPM";
+            this.buttonCPM.UseVisualStyleBackColor = false;
+            this.buttonCPM.Click += new System.EventHandler(this.buttonCPM_Click);
+            // 
+            // buttonfitting
+            // 
+            this.buttonfitting.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonfitting, "buttonfitting");
+            this.buttonfitting.Name = "buttonfitting";
+            this.buttonfitting.UseVisualStyleBackColor = false;
+            this.buttonfitting.Click += new System.EventHandler(this.buttonfitting_Click);
+            // 
+            // buttonfullyopen
+            // 
+            this.buttonfullyopen.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonfullyopen, "buttonfullyopen");
+            this.buttonfullyopen.Name = "buttonfullyopen";
+            this.buttonfullyopen.UseVisualStyleBackColor = false;
+            this.buttonfullyopen.Click += new System.EventHandler(this.buttonfullyopen_Click);
+            // 
+            // buttonfullyclose
+            // 
+            this.buttonfullyclose.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonfullyclose, "buttonfullyclose");
+            this.buttonfullyclose.Name = "buttonfullyclose";
+            this.buttonfullyclose.UseVisualStyleBackColor = false;
+            this.buttonfullyclose.Click += new System.EventHandler(this.buttonfullyclose_Click);
+            // 
+            // groupBoxInitialization
+            // 
+            this.groupBoxInitialization.Controls.Add(this.buttonConnect);
+            this.groupBoxInitialization.Controls.Add(this.buttontest);
+            resources.ApplyResources(this.groupBoxInitialization, "groupBoxInitialization");
+            this.groupBoxInitialization.Name = "groupBoxInitialization";
+            this.groupBoxInitialization.TabStop = false;
+            // 
+            // buttonConnect
+            // 
+            this.buttonConnect.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttonConnect, "buttonConnect");
+            this.buttonConnect.Name = "buttonConnect";
+            this.buttonConnect.UseVisualStyleBackColor = false;
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
+            // 
+            // buttontest
+            // 
+            this.buttontest.BackColor = System.Drawing.Color.Yellow;
+            resources.ApplyResources(this.buttontest, "buttontest");
+            this.buttontest.Name = "buttontest";
+            this.buttontest.UseVisualStyleBackColor = false;
+            this.buttontest.Click += new System.EventHandler(this.buttontest_Click);
+            // 
+            // tabOptions
+            // 
+            this.tabOptions.Controls.Add(this.chkHOHOnline);
+            resources.ApplyResources(this.tabOptions, "tabOptions");
+            this.tabOptions.Name = "tabOptions";
+            this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // chkHOHOnline
+            // 
+            resources.ApplyResources(this.chkHOHOnline, "chkHOHOnline");
+            this.chkHOHOnline.Checked = true;
+            this.chkHOHOnline.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkHOHOnline.Name = "chkHOHOnline";
+            this.chkHOHOnline.UseVisualStyleBackColor = true;
+            this.chkHOHOnline.CheckedChanged += new System.EventHandler(this.chkHOHOnline_CheckedChanged);
             // 
             // tabCPM
             // 
@@ -935,363 +1283,6 @@
             resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
             // 
-            // tabDEMO
-            // 
-            this.tabDEMO.Controls.Add(this.groupBoxExtra);
-            this.tabDEMO.Controls.Add(this.groupBoxCmd);
-            this.tabDEMO.Controls.Add(this.groupBoxLog);
-            this.tabDEMO.Controls.Add(this.groupBoxFunctions);
-            this.tabDEMO.Controls.Add(this.groupBoxInitialization);
-            resources.ApplyResources(this.tabDEMO, "tabDEMO");
-            this.tabDEMO.Name = "tabDEMO";
-            this.tabDEMO.UseVisualStyleBackColor = true;
-            // 
-            // groupBoxExtra
-            // 
-            this.groupBoxExtra.Controls.Add(this.label8);
-            this.groupBoxExtra.Controls.Add(this.label5);
-            this.groupBoxExtra.Controls.Add(this.label7);
-            this.groupBoxExtra.Controls.Add(this.label3);
-            this.groupBoxExtra.Controls.Add(this.buttonSetAuto);
-            this.groupBoxExtra.Controls.Add(this.buttonSet);
-            this.groupBoxExtra.Controls.Add(this.trackBarPositionAuto);
-            this.groupBoxExtra.Controls.Add(this.label6);
-            this.groupBoxExtra.Controls.Add(this.trackBarPosition);
-            this.groupBoxExtra.Controls.Add(this.label4);
-            resources.ApplyResources(this.groupBoxExtra, "groupBoxExtra");
-            this.groupBoxExtra.Name = "groupBoxExtra";
-            this.groupBoxExtra.TabStop = false;
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // buttonSetAuto
-            // 
-            this.buttonSetAuto.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonSetAuto, "buttonSetAuto");
-            this.buttonSetAuto.Name = "buttonSetAuto";
-            this.buttonSetAuto.UseVisualStyleBackColor = false;
-            this.buttonSetAuto.Click += new System.EventHandler(this.buttonSetAuto_Click);
-            // 
-            // buttonSet
-            // 
-            this.buttonSet.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonSet, "buttonSet");
-            this.buttonSet.Name = "buttonSet";
-            this.buttonSet.UseVisualStyleBackColor = false;
-            this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
-            // 
-            // trackBarPositionAuto
-            // 
-            resources.ApplyResources(this.trackBarPositionAuto, "trackBarPositionAuto");
-            this.trackBarPositionAuto.Maximum = 100;
-            this.trackBarPositionAuto.Name = "trackBarPositionAuto";
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // trackBarPosition
-            // 
-            resources.ApplyResources(this.trackBarPosition, "trackBarPosition");
-            this.trackBarPosition.Maximum = 100;
-            this.trackBarPosition.Name = "trackBarPosition";
-            // 
-            // label4
-            // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
-            // 
-            // groupBoxCmd
-            // 
-            this.groupBoxCmd.Controls.Add(this.textBoxcmd);
-            this.groupBoxCmd.Controls.Add(this.buttonExit);
-            this.groupBoxCmd.Controls.Add(this.buttonResume);
-            this.groupBoxCmd.Controls.Add(this.buttonPause);
-            this.groupBoxCmd.Controls.Add(this.buttonSend);
-            resources.ApplyResources(this.groupBoxCmd, "groupBoxCmd");
-            this.groupBoxCmd.Name = "groupBoxCmd";
-            this.groupBoxCmd.TabStop = false;
-            // 
-            // textBoxcmd
-            // 
-            resources.ApplyResources(this.textBoxcmd, "textBoxcmd");
-            this.textBoxcmd.Name = "textBoxcmd";
-            // 
-            // buttonExit
-            // 
-            this.buttonExit.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonExit, "buttonExit");
-            this.buttonExit.Name = "buttonExit";
-            this.buttonExit.UseVisualStyleBackColor = false;
-            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
-            // 
-            // buttonResume
-            // 
-            this.buttonResume.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonResume, "buttonResume");
-            this.buttonResume.Name = "buttonResume";
-            this.buttonResume.UseVisualStyleBackColor = false;
-            this.buttonResume.Click += new System.EventHandler(this.buttonResume_Click);
-            // 
-            // buttonPause
-            // 
-            this.buttonPause.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonPause, "buttonPause");
-            this.buttonPause.Name = "buttonPause";
-            this.buttonPause.UseVisualStyleBackColor = false;
-            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
-            // 
-            // buttonSend
-            // 
-            this.buttonSend.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonSend, "buttonSend");
-            this.buttonSend.Name = "buttonSend";
-            this.buttonSend.UseVisualStyleBackColor = false;
-            this.buttonSend.Click += new System.EventHandler(this.buttonSend_Click);
-            // 
-            // groupBoxLog
-            // 
-            this.groupBoxLog.Controls.Add(this.buttonClear);
-            this.groupBoxLog.Controls.Add(this.textBoxLog);
-            resources.ApplyResources(this.groupBoxLog, "groupBoxLog");
-            this.groupBoxLog.Name = "groupBoxLog";
-            this.groupBoxLog.TabStop = false;
-            // 
-            // buttonClear
-            // 
-            this.buttonClear.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonClear, "buttonClear");
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.UseVisualStyleBackColor = false;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-            // 
-            // textBoxLog
-            // 
-            resources.ApplyResources(this.textBoxLog, "textBoxLog");
-            this.textBoxLog.Name = "textBoxLog";
-            this.textBoxLog.TextChanged += new System.EventHandler(this.textBoxLog_TextChanged);
-            // 
-            // groupBoxFunctions
-            // 
-            this.groupBoxFunctions.Controls.Add(this.buttonCPM);
-            this.groupBoxFunctions.Controls.Add(this.buttonfitting);
-            this.groupBoxFunctions.Controls.Add(this.buttonfullyopen);
-            this.groupBoxFunctions.Controls.Add(this.buttonfullyclose);
-            resources.ApplyResources(this.groupBoxFunctions, "groupBoxFunctions");
-            this.groupBoxFunctions.Name = "groupBoxFunctions";
-            this.groupBoxFunctions.TabStop = false;
-            // 
-            // buttonCPM
-            // 
-            this.buttonCPM.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonCPM, "buttonCPM");
-            this.buttonCPM.Name = "buttonCPM";
-            this.buttonCPM.UseVisualStyleBackColor = false;
-            this.buttonCPM.Click += new System.EventHandler(this.buttonCPM_Click);
-            // 
-            // buttonfitting
-            // 
-            this.buttonfitting.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonfitting, "buttonfitting");
-            this.buttonfitting.Name = "buttonfitting";
-            this.buttonfitting.UseVisualStyleBackColor = false;
-            this.buttonfitting.Click += new System.EventHandler(this.buttonfitting_Click);
-            // 
-            // buttonfullyopen
-            // 
-            this.buttonfullyopen.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonfullyopen, "buttonfullyopen");
-            this.buttonfullyopen.Name = "buttonfullyopen";
-            this.buttonfullyopen.UseVisualStyleBackColor = false;
-            this.buttonfullyopen.Click += new System.EventHandler(this.buttonfullyopen_Click);
-            // 
-            // buttonfullyclose
-            // 
-            this.buttonfullyclose.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonfullyclose, "buttonfullyclose");
-            this.buttonfullyclose.Name = "buttonfullyclose";
-            this.buttonfullyclose.UseVisualStyleBackColor = false;
-            this.buttonfullyclose.Click += new System.EventHandler(this.buttonfullyclose_Click);
-            // 
-            // groupBoxInitialization
-            // 
-            this.groupBoxInitialization.Controls.Add(this.buttonConnect);
-            this.groupBoxInitialization.Controls.Add(this.buttontest);
-            resources.ApplyResources(this.groupBoxInitialization, "groupBoxInitialization");
-            this.groupBoxInitialization.Name = "groupBoxInitialization";
-            this.groupBoxInitialization.TabStop = false;
-            // 
-            // buttonConnect
-            // 
-            this.buttonConnect.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttonConnect, "buttonConnect");
-            this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.UseVisualStyleBackColor = false;
-            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
-            // 
-            // buttontest
-            // 
-            this.buttontest.BackColor = System.Drawing.Color.Yellow;
-            resources.ApplyResources(this.buttontest, "buttontest");
-            this.buttontest.Name = "buttontest";
-            this.buttontest.UseVisualStyleBackColor = false;
-            this.buttontest.Click += new System.EventHandler(this.buttontest_Click);
-            // 
-            // tabServer
-            // 
-            this.tabServer.BackColor = System.Drawing.SystemColors.Window;
-            this.tabServer.Controls.Add(this.gboxServerLog);
-            this.tabServer.Controls.Add(this.gboxServerControls);
-            this.tabServer.Controls.Add(this.gboxServerInitialization);
-            resources.ApplyResources(this.tabServer, "tabServer");
-            this.tabServer.Name = "tabServer";
-            // 
-            // gboxServerLog
-            // 
-            resources.ApplyResources(this.gboxServerLog, "gboxServerLog");
-            this.gboxServerLog.Controls.Add(this.lblServerClientsConnected);
-            this.gboxServerLog.Controls.Add(this.btnServerLogClear);
-            this.gboxServerLog.Controls.Add(this.txtServerLog);
-            this.gboxServerLog.Name = "gboxServerLog";
-            this.gboxServerLog.TabStop = false;
-            // 
-            // lblServerClientsConnected
-            // 
-            resources.ApplyResources(this.lblServerClientsConnected, "lblServerClientsConnected");
-            this.lblServerClientsConnected.Name = "lblServerClientsConnected";
-            // 
-            // btnServerLogClear
-            // 
-            resources.ApplyResources(this.btnServerLogClear, "btnServerLogClear");
-            this.btnServerLogClear.Name = "btnServerLogClear";
-            this.btnServerLogClear.UseVisualStyleBackColor = true;
-            this.btnServerLogClear.Click += new System.EventHandler(this.btnServerLogClear_Click);
-            // 
-            // txtServerLog
-            // 
-            resources.ApplyResources(this.txtServerLog, "txtServerLog");
-            this.txtServerLog.Name = "txtServerLog";
-            this.txtServerLog.TextChanged += new System.EventHandler(this.txtServerLog_TextChanged);
-            // 
-            // gboxServerControls
-            // 
-            this.gboxServerControls.Controls.Add(this.btnServerSetContinuous);
-            this.gboxServerControls.Controls.Add(this.btnServerSetPassive);
-            this.gboxServerControls.Controls.Add(this.btnServerCtrlClear);
-            this.gboxServerControls.Controls.Add(this.btnServerSend);
-            this.gboxServerControls.Controls.Add(this.txtServerSend);
-            this.gboxServerControls.Controls.Add(this.label2);
-            resources.ApplyResources(this.gboxServerControls, "gboxServerControls");
-            this.gboxServerControls.Name = "gboxServerControls";
-            this.gboxServerControls.TabStop = false;
-            // 
-            // btnServerSetContinuous
-            // 
-            resources.ApplyResources(this.btnServerSetContinuous, "btnServerSetContinuous");
-            this.btnServerSetContinuous.Name = "btnServerSetContinuous";
-            this.btnServerSetContinuous.UseVisualStyleBackColor = true;
-            this.btnServerSetContinuous.Click += new System.EventHandler(this.btnServerSetContinuous_Click);
-            // 
-            // btnServerSetPassive
-            // 
-            resources.ApplyResources(this.btnServerSetPassive, "btnServerSetPassive");
-            this.btnServerSetPassive.Name = "btnServerSetPassive";
-            this.btnServerSetPassive.UseVisualStyleBackColor = true;
-            this.btnServerSetPassive.Click += new System.EventHandler(this.btnServerSetPasssive_Click);
-            // 
-            // btnServerCtrlClear
-            // 
-            resources.ApplyResources(this.btnServerCtrlClear, "btnServerCtrlClear");
-            this.btnServerCtrlClear.Name = "btnServerCtrlClear";
-            this.btnServerCtrlClear.UseVisualStyleBackColor = true;
-            this.btnServerCtrlClear.Click += new System.EventHandler(this.btnServerCtrlClear_Click);
-            // 
-            // btnServerSend
-            // 
-            resources.ApplyResources(this.btnServerSend, "btnServerSend");
-            this.btnServerSend.Name = "btnServerSend";
-            this.btnServerSend.UseVisualStyleBackColor = true;
-            this.btnServerSend.Click += new System.EventHandler(this.btnServerSend_Click);
-            // 
-            // txtServerSend
-            // 
-            resources.ApplyResources(this.txtServerSend, "txtServerSend");
-            this.txtServerSend.Name = "txtServerSend";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // gboxServerInitialization
-            // 
-            this.gboxServerInitialization.Controls.Add(this.btnServerStop);
-            this.gboxServerInitialization.Controls.Add(this.btnServerStart);
-            this.gboxServerInitialization.Controls.Add(this.txtServerPort);
-            this.gboxServerInitialization.Controls.Add(this.label1);
-            resources.ApplyResources(this.gboxServerInitialization, "gboxServerInitialization");
-            this.gboxServerInitialization.Name = "gboxServerInitialization";
-            this.gboxServerInitialization.TabStop = false;
-            // 
-            // btnServerStop
-            // 
-            resources.ApplyResources(this.btnServerStop, "btnServerStop");
-            this.btnServerStop.Name = "btnServerStop";
-            this.btnServerStop.UseVisualStyleBackColor = true;
-            this.btnServerStop.Click += new System.EventHandler(this.btnServerStop_Click);
-            // 
-            // btnServerStart
-            // 
-            resources.ApplyResources(this.btnServerStart, "btnServerStart");
-            this.btnServerStart.Name = "btnServerStart";
-            this.btnServerStart.UseVisualStyleBackColor = true;
-            this.btnServerStart.Click += new System.EventHandler(this.btnServerStart_Click);
-            // 
-            // txtServerPort
-            // 
-            resources.ApplyResources(this.txtServerPort, "txtServerPort");
-            this.txtServerPort.Name = "txtServerPort";
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // tabOptions
-            // 
-            this.tabOptions.Controls.Add(this.chkHOHOnline);
-            resources.ApplyResources(this.tabOptions, "tabOptions");
-            this.tabOptions.Name = "tabOptions";
-            this.tabOptions.UseVisualStyleBackColor = true;
-            // 
-            // chkHOHOnline
-            // 
-            resources.ApplyResources(this.chkHOHOnline, "chkHOHOnline");
-            this.chkHOHOnline.Checked = true;
-            this.chkHOHOnline.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkHOHOnline.Name = "chkHOHOnline";
-            this.chkHOHOnline.UseVisualStyleBackColor = true;
-            this.chkHOHOnline.CheckedChanged += new System.EventHandler(this.chkHOHOnline_CheckedChanged);
-            // 
             // TreatmentTimer
             // 
             this.TreatmentTimer.Interval = 1000;
@@ -1310,10 +1301,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // protocolBindingSource
-            // 
-            this.protocolBindingSource.DataSource = typeof(HOH_Library.Protocol);
             // 
             // Mainform
             // 
@@ -1335,6 +1322,26 @@
             this.tabProtocol.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.tabServer.ResumeLayout(false);
+            this.gboxServerLog.ResumeLayout(false);
+            this.gboxServerLog.PerformLayout();
+            this.gboxServerControls.ResumeLayout(false);
+            this.gboxServerControls.PerformLayout();
+            this.gboxServerInitialization.ResumeLayout(false);
+            this.gboxServerInitialization.PerformLayout();
+            this.tabDEMO.ResumeLayout(false);
+            this.groupBoxExtra.ResumeLayout(false);
+            this.groupBoxExtra.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPositionAuto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarPosition)).EndInit();
+            this.groupBoxCmd.ResumeLayout(false);
+            this.groupBoxCmd.PerformLayout();
+            this.groupBoxLog.ResumeLayout(false);
+            this.groupBoxLog.PerformLayout();
+            this.groupBoxFunctions.ResumeLayout(false);
+            this.groupBoxInitialization.ResumeLayout(false);
+            this.tabOptions.ResumeLayout(false);
+            this.tabOptions.PerformLayout();
             this.tabCPM.ResumeLayout(false);
             this.gbCounter.ResumeLayout(false);
             this.gbCounter.PerformLayout();
@@ -1368,27 +1375,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabDEMO.ResumeLayout(false);
-            this.groupBoxExtra.ResumeLayout(false);
-            this.groupBoxExtra.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarPositionAuto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarPosition)).EndInit();
-            this.groupBoxCmd.ResumeLayout(false);
-            this.groupBoxCmd.PerformLayout();
-            this.groupBoxLog.ResumeLayout(false);
-            this.groupBoxLog.PerformLayout();
-            this.groupBoxFunctions.ResumeLayout(false);
-            this.groupBoxInitialization.ResumeLayout(false);
-            this.tabServer.ResumeLayout(false);
-            this.gboxServerLog.ResumeLayout(false);
-            this.gboxServerLog.PerformLayout();
-            this.gboxServerControls.ResumeLayout(false);
-            this.gboxServerControls.PerformLayout();
-            this.gboxServerInitialization.ResumeLayout(false);
-            this.gboxServerInitialization.PerformLayout();
-            this.tabOptions.ResumeLayout(false);
-            this.tabOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.protocolBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1516,7 +1502,6 @@
         private System.Windows.Forms.TabPage tabProtocol;
         private System.Windows.Forms.ListBox lstProtocols;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.BindingSource protocolBindingSource;
         private System.Windows.Forms.ListBox lstProtocolsExercises;
         private System.Windows.Forms.ListBox listRepetitions;
         private System.Windows.Forms.Button btnProtocolStart;
@@ -1529,13 +1514,13 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem cPMToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cTMToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hOHToolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem serverSFunctionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chkMenuProtocols;
+        private System.Windows.Forms.ToolStripMenuItem chkMenuCPM;
+        private System.Windows.Forms.ToolStripMenuItem chkMenuCTM;
+        private System.Windows.Forms.ToolStripMenuItem chkMenuCalibration;
+        private System.Windows.Forms.ToolStripMenuItem chkMenuTools;
+        private System.Windows.Forms.ToolStripMenuItem chkMenuServer;
+        private System.Windows.Forms.ToolStripMenuItem chkMenuOptions;
         private System.Windows.Forms.TabPage tabOptions;
         private System.Windows.Forms.CheckBox chkHOHOnline;
     }
