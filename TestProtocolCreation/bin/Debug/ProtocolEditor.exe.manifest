@@ -49,7 +49,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vKB7njIx07lFaeiynNxklxPMYbSTseCy8ltJDKEu8cU=</dsig:DigestValue>
+        <dsig:DigestValue>5Oi1A+fAXOBn3wH5X3u+uTkfMkBYNDraFhXw07sYcxo=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProtocolEditor.exe" size="210432">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProtocolEditor.exe" size="223232">
       <assemblyIdentity name="ProtocolEditor" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>HkjPStTgberWdqrWrCISIKT4kQlrurjLWYymNo6paTk=</dsig:DigestValue>
+        <dsig:DigestValue>KQc3iEoX8Gks8cA2KBz9iUJJboPZL3xI7t1MJOfRoyc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

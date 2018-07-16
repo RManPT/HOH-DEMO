@@ -47,7 +47,7 @@ namespace HOH_Library
  //               if (!ExecuteStatus) break;
                 Random rnd = new Random();
 
-                HOHEventObj.UpdateUsrMsg("Prepare to " + ex.TargetState.UserMsg.ToLower() + "...");
+                HOHEventObj.UpdateUsrMsg("\r\nPrepare for " + ex.TargetState.UserMsg.ToLower() + "...");
                 HOHEventObj.UpdateExerciseName(ex.TargetState.Name);
                 Thread.Sleep(5000);
                 ex.Execute(NW);

@@ -342,6 +342,7 @@ namespace HOH_DEMO
                     Debug.WriteLine("HOH Connected");
                     connectedHOH = true;
                     textBoxLog.Text = "";
+                    btnProtocolStart.Enabled = true;
 
                     /*TxtBoxUpdater = new MRNetworkTxtBoxUpdater(NW, textBoxLog);
                     LogUpdater = new Thread(() => TxtBoxUpdater.Run());
@@ -350,12 +351,22 @@ namespace HOH_DEMO
                     NW.Send("00");
                     //NW.ExecuteAndWait("00", "untested");
                     Debug.WriteLine("status" + NW.GetStatusMsg());
+
                 }
                 else
                 {
                     //NW.InputChanged -= InputDetectedEvent;
-                    MessageBox.Show("Connect fail");
-                    connectedHOH = false;
+                    // MessageBox.Show("Connect fail");
+
+                    var result = MessageBox.Show
+                           ("Failed to find the device at " + deviceIP + ":" + devicePORT, "Connection fail!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation);
+                    if (result == DialogResult.Retry)
+                        buttonConnect_Click(sender, e);
+                    else
+                    {
+                        connectedHOH = false;
+                        btnProtocolStart.Enabled = false;
+                    }
                 }
             }
             else
@@ -368,6 +379,7 @@ namespace HOH_DEMO
                     //necessário para impedir duplicação de recebimentos na callback
                     //NW.InputChanged -= InputDetectedEvent;
                     connectedHOH = false;
+                    btnProtocolStart.Enabled = false;
                     //TxtBoxUpdater.Stop();
                 }
             }
