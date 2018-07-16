@@ -37,20 +37,20 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chkMenuProtocols = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkMenuOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.chkMenuCPM = new System.Windows.Forms.ToolStripMenuItem();
             this.chkMenuCTM = new System.Windows.Forms.ToolStripMenuItem();
             this.chkMenuCalibration = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkMenuTools = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkMenuServer = new System.Windows.Forms.ToolStripMenuItem();
-            this.chkMenuOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.protocolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabProtocol = new System.Windows.Forms.TabPage();
-            this.button5 = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.txtProtocolsLog = new System.Windows.Forms.TextBox();
             this.btnProtocolStart = new System.Windows.Forms.Button();
@@ -171,6 +171,21 @@
             this.actionTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusBar1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtOptionsProtocolSeedFile = new System.Windows.Forms.TextBox();
+            this.txtOptionsDeviceIP = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtOptionsDevicePort = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.button6 = new System.Windows.Forms.Button();
+            this.btnOptionsApply = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabProtocol.SuspendLayout();
@@ -212,6 +227,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdExtensor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -274,6 +292,27 @@
             resources.ApplyResources(this.chkMenuProtocols, "chkMenuProtocols");
             this.chkMenuProtocols.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // chkMenuServer
+            // 
+            this.chkMenuServer.Checked = true;
+            this.chkMenuServer.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMenuServer.Name = "chkMenuServer";
+            resources.ApplyResources(this.chkMenuServer, "chkMenuServer");
+            // 
+            // chkMenuTools
+            // 
+            this.chkMenuTools.Checked = true;
+            this.chkMenuTools.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMenuTools.Name = "chkMenuTools";
+            resources.ApplyResources(this.chkMenuTools, "chkMenuTools");
+            // 
+            // chkMenuOptions
+            // 
+            this.chkMenuOptions.Checked = true;
+            this.chkMenuOptions.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMenuOptions.Name = "chkMenuOptions";
+            resources.ApplyResources(this.chkMenuOptions, "chkMenuOptions");
+            // 
             // chkMenuCPM
             // 
             this.chkMenuCPM.CheckOnClick = true;
@@ -292,27 +331,6 @@
             this.chkMenuCalibration.CheckOnClick = true;
             this.chkMenuCalibration.Name = "chkMenuCalibration";
             resources.ApplyResources(this.chkMenuCalibration, "chkMenuCalibration");
-            // 
-            // chkMenuTools
-            // 
-            this.chkMenuTools.Checked = true;
-            this.chkMenuTools.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMenuTools.Name = "chkMenuTools";
-            resources.ApplyResources(this.chkMenuTools, "chkMenuTools");
-            // 
-            // chkMenuServer
-            // 
-            this.chkMenuServer.Checked = true;
-            this.chkMenuServer.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMenuServer.Name = "chkMenuServer";
-            resources.ApplyResources(this.chkMenuServer, "chkMenuServer");
-            // 
-            // chkMenuOptions
-            // 
-            this.chkMenuOptions.Checked = true;
-            this.chkMenuOptions.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMenuOptions.Name = "chkMenuOptions";
-            resources.ApplyResources(this.chkMenuOptions, "chkMenuOptions");
             // 
             // protocolsToolStripMenuItem
             // 
@@ -368,13 +386,6 @@
             this.tabProtocol.UseVisualStyleBackColor = true;
             this.tabProtocol.Click += new System.EventHandler(this.tabProtocol_Click);
             // 
-            // button5
-            // 
-            resources.ApplyResources(this.button5, "button5");
-            this.button5.Name = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
             // groupBox6
             // 
             resources.ApplyResources(this.groupBox6, "groupBox6");
@@ -383,6 +394,13 @@
             this.groupBox6.Controls.Add(this.txtProtocolsLog);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.TabStop = false;
+            // 
+            // button5
+            // 
+            resources.ApplyResources(this.button5, "button5");
+            this.button5.Name = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -401,6 +419,7 @@
             // 
             resources.ApplyResources(this.btnProtocolStart, "btnProtocolStart");
             this.btnProtocolStart.Name = "btnProtocolStart";
+            this.toolTip1.SetToolTip(this.btnProtocolStart, resources.GetString("btnProtocolStart.ToolTip"));
             this.btnProtocolStart.UseVisualStyleBackColor = true;
             this.btnProtocolStart.Click += new System.EventHandler(this.btnProtocolStart_Click);
             // 
@@ -772,6 +791,9 @@
             // 
             // tabOptions
             // 
+            this.tabOptions.Controls.Add(this.btnOptionsApply);
+            this.tabOptions.Controls.Add(this.groupBox8);
+            this.tabOptions.Controls.Add(this.groupBox7);
             this.tabOptions.Controls.Add(this.chkHOHOnline);
             resources.ApplyResources(this.tabOptions, "tabOptions");
             this.tabOptions.Name = "tabOptions";
@@ -1301,11 +1323,108 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusBar1});
+            resources.ApplyResources(this.statusStrip1, "statusStrip1");
+            this.statusStrip1.Name = "statusStrip1";
+            // 
+            // statusBar1
+            // 
+            this.statusBar1.Name = "statusBar1";
+            resources.ApplyResources(this.statusBar1, "statusBar1");
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.checkBox1);
+            this.groupBox7.Controls.Add(this.txtOptionsDevicePort);
+            this.groupBox7.Controls.Add(this.label22);
+            this.groupBox7.Controls.Add(this.txtOptionsDeviceIP);
+            this.groupBox7.Controls.Add(this.label21);
+            resources.ApplyResources(this.groupBox7, "groupBox7");
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.TabStop = false;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.button6);
+            this.groupBox8.Controls.Add(this.txtOptionsProtocolSeedFile);
+            this.groupBox8.Controls.Add(this.label16);
+            resources.ApplyResources(this.groupBox8, "groupBox8");
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.TabStop = false;
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // txtOptionsProtocolSeedFile
+            // 
+            resources.ApplyResources(this.txtOptionsProtocolSeedFile, "txtOptionsProtocolSeedFile");
+            this.txtOptionsProtocolSeedFile.Name = "txtOptionsProtocolSeedFile";
+            // 
+            // txtOptionsDeviceIP
+            // 
+            resources.ApplyResources(this.txtOptionsDeviceIP, "txtOptionsDeviceIP");
+            this.txtOptionsDeviceIP.Name = "txtOptionsDeviceIP";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.Name = "label21";
+            // 
+            // txtOptionsDevicePort
+            // 
+            resources.ApplyResources(this.txtOptionsDevicePort, "txtOptionsDevicePort");
+            this.txtOptionsDevicePort.Name = "txtOptionsDevicePort";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.Name = "label22";
+            // 
+            // checkBox1
+            // 
+            resources.ApplyResources(this.checkBox1, "checkBox1");
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "IconOpenFile.png");
+            // 
+            // button6
+            // 
+            resources.ApplyResources(this.button6, "button6");
+            this.button6.Name = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // btnOptionsApply
+            // 
+            resources.ApplyResources(this.btnOptionsApply, "btnOptionsApply");
+            this.btnOptionsApply.Name = "btnOptionsApply";
+            this.btnOptionsApply.UseVisualStyleBackColor = true;
+            this.btnOptionsApply.Click += new System.EventHandler(this.btnOptionsApply_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -1375,6 +1494,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1523,5 +1648,20 @@
         private System.Windows.Forms.ToolStripMenuItem chkMenuOptions;
         private System.Windows.Forms.TabPage tabOptions;
         private System.Windows.Forms.CheckBox chkHOHOnline;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel statusBar1;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox txtOptionsProtocolSeedFile;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox txtOptionsDevicePort;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox txtOptionsDeviceIP;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button btnOptionsApply;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

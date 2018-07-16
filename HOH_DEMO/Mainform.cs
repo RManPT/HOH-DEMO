@@ -37,7 +37,9 @@ namespace HOH_DEMO
         private HOHEvent HOHEventObj = new HOHEvent();
         private TabControl.TabPageCollection tabs;
         private string defaultFileName;
-        
+        private string deviceIP;
+        private string devicePORT;
+        private string serverPORT;
        
 
 
@@ -52,15 +54,13 @@ namespace HOH_DEMO
             //Seed.SetupData(clinic);
           
             InitializeComponent();
-            defaultFileName = Properties.Settings.Default.defaultJsonFile;
-            Debug.WriteLine("FileName : " + defaultFileName);
+            LoadProperties();
             LoadProtocols();
             Text += " - " + clinic.Name;
 
 
 
-
-            NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000
+            NW = new MRNetwork(deviceIP, Int32.Parse(devicePORT)); //("169.254.1.1", 2000
             NW.SetLogBox(textBoxLog);
             tabControl.SelectTab(0);
             actionTimer.Start();
@@ -72,16 +72,33 @@ namespace HOH_DEMO
             HOHEvent.UsrMsgUpdated += OnHOHEventUpdate;
             HOHEvent.ClinicUpdated += OnClinicEventUpdate;
 
-            //NW = new MRNetwork("0.0.0.0", 30000);
-            //test connection with matlab
             GetProtocols();
-            // _utils = new Utils();
+
         }
 
-        //public Utils Utils
-        //{
-        //    get { return _utils; }
-        //}
+        private void LoadProperties()
+        {
+            deviceIP = Properties.Settings.Default.deviceIP;
+            devicePORT = Properties.Settings.Default.devicePORT;
+            serverPORT = Properties.Settings.Default.serverPORT;
+            defaultFileName = Properties.Settings.Default.defaultJsonFile;
+
+
+            if (deviceIP == String.Empty) deviceIP = txtOptionsDeviceIP.Text;
+            else txtOptionsDeviceIP.Text = deviceIP;
+
+            if (devicePORT == String.Empty) devicePORT = txtOptionsDevicePort.Text;
+            else txtOptionsDevicePort.Text = devicePORT;
+
+            if (serverPORT == String.Empty) serverPORT = txtServerPort.Text;
+            else txtServerPort.Text = serverPORT;
+
+            if (defaultFileName == String.Empty) defaultFileName = txtOptionsProtocolSeedFile.Text;
+            if (defaultFileName == txtOptionsProtocolSeedFile.Text)
+                statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName) + " (read only)";
+            else
+                statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName);
+        }
 
         private void OnHOHEventUpdate(object sender, HOHEvent e)
         {
@@ -445,15 +462,8 @@ namespace HOH_DEMO
 
             tabControl.TabPages.Remove(tabCPM);            
             tabControl.TabPages.Remove(tabCTM);
-            
 
-            //tabs = tabControl.TabPages;
-
-            //for (int i = 0; i < viewToolStripMenuItem.DropDownItems.Count; i++)
-            //{
-            //    if (!((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[i]).Checked) ((TabPage)tabControl.TabPages[i])
-            ////    if (((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[i]).Checked) tabControl.TabPages.Add(tabs[i]);
-            //}
+          
         }
 
         private void Mainform_FormClosed(object sender, FormClosedEventArgs e)
@@ -621,7 +631,8 @@ namespace HOH_DEMO
 
         private void btnServerStart_Click(object sender, EventArgs e)
         {
-            ServerSL = new Thread(() => AsyncServer.StartListening(Int32.Parse(txtServerPort.Text)));
+            serverPORT = txtServerPort.Text;
+            ServerSL = new Thread(() => AsyncServer.StartListening(Int32.Parse(serverPORT)));
             AsyncServer.SetLogBox(txtServerLog);
             ServerSL.Start();
             btnServerStop.Enabled = true;
@@ -960,22 +971,31 @@ namespace HOH_DEMO
 
             //stops sfunction server
             btnServerStop_Click(sender, e);
+            //clears events
             HOHEvent.LogUpdated -= OnHOHEventUpdate;
             HOHEvent.UsrMsgUpdated -= OnHOHEventUpdate;
             HOHEvent.ClinicUpdated -= OnClinicEventUpdate;
 
             try
             {
-                File.WriteAllText(defaultFileName, clinic.ToJSON());
+                if (defaultFileName == txtOptionsProtocolSeedFile.Text)
+                    saveProtocolsToolStripMenuItem_Click(sender, e);
+                else File.WriteAllText(defaultFileName, clinic.ToJSON());
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Couldn't write file : + " + openFileDialog1.FileName);
                 Debug.WriteLine(ex.Message);
             }
+
+
             Properties.Settings.Default.defaultJsonFile = defaultFileName;
+            Properties.Settings.Default.deviceIP = deviceIP;
+            Properties.Settings.Default.devicePORT = devicePORT;
+            Properties.Settings.Default.serverPORT = serverPORT;
+
             Properties.Settings.Default.Save();
-            Debug.WriteLine("Saving file name : " + defaultFileName);
+           
 
         }
 
@@ -1076,6 +1096,7 @@ namespace HOH_DEMO
                     Debug.WriteLine(ex.Message);
                 }
                 defaultFileName = saveFileDialog1.FileName;
+                statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName);
                 //MessageBox.Show("Protocols Saved!");
             }
         }
@@ -1100,6 +1121,7 @@ namespace HOH_DEMO
                 clinic.FromJSON(str);
                 // clinic = new Clinic(clinic);
                 defaultFileName = openFileDialog1.FileName;
+                statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName);
             }
             //HOHEventObj.UpdateClinic(clinic);
             UpdateProtocols();
@@ -1144,8 +1166,35 @@ namespace HOH_DEMO
 
         }
 
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnOptionsApply_Click(object sender, EventArgs e)
+        {
+            deviceIP = txtOptionsDeviceIP.Text;
+            devicePORT = txtOptionsDevicePort.Text;
+            defaultFileName = txtOptionsProtocolSeedFile.Text;
+
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
         private void LoadProtocols()
         {
+
+            Debug.WriteLine("FileName : " + defaultFileName);
+            
+
             string msg = String.Empty;
             string str = String.Empty;
             try
@@ -1153,6 +1202,7 @@ namespace HOH_DEMO
                 Debug.WriteLine("Opening file " + defaultFileName);
                 try
                 {
+
                     str = File.ReadAllText(defaultFileName);
                 }
                 catch (Exception ex)
@@ -1163,7 +1213,8 @@ namespace HOH_DEMO
               
                 if (str?.Length == 0)
                 {
-                    Seed.SetupData(clinic);
+                    loadProtocolsToolStripMenuItem_Click(null, EventArgs.Empty);
+                    //Seed.SetupData(clinic);
                     msg = "Protocols seeded";
                 }
                 else
@@ -1177,7 +1228,7 @@ namespace HOH_DEMO
                 Seed.SetupData(clinic);
                 msg = "Protocols seeded";
             }
-          //  MessageBox.Show(msg, "Loading...");
+            Debug.WriteLine(msg);
         }
     }
 }

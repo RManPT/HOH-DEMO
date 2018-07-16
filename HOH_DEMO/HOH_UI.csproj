@@ -63,7 +63,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>hoh_logo_mwo_4.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\hoh_logo_mwo_4.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
@@ -150,7 +150,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="hoh_logo_mwo_4.ico" />
+    <Content Include="Resources\hoh_logo_mwo_4.ico" />
+    <None Include="Resources\IconOpenFile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -34,5 +34,41 @@ namespace HOH_DEMO.Properties {
                 this["defaultJsonFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string deviceIP {
+            get {
+                return ((string)(this["deviceIP"]));
+            }
+            set {
+                this["deviceIP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string devicePORT {
+            get {
+                return ((string)(this["devicePORT"]));
+            }
+            set {
+                this["devicePORT"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string serverPORT {
+            get {
+                return ((string)(this["serverPORT"]));
+            }
+            set {
+                this["serverPORT"] = value;
+            }
+        }
     }
 }
