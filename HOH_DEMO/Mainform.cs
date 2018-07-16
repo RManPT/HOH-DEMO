@@ -365,7 +365,7 @@ namespace HOH_DEMO
                     else
                     {
                         connectedHOH = false;
-                        btnProtocolStart.Enabled = false;
+                        //btnProtocolStart.Enabled = false;
                     }
                 }
             }

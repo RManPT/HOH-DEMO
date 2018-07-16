@@ -105,6 +105,17 @@
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttontest = new System.Windows.Forms.Button();
             this.tabOptions = new System.Windows.Forms.TabPage();
+            this.btnOptionsApply = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.txtOptionsProtocolSeedFile = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.txtOptionsDevicePort = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtOptionsDeviceIP = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.chkHOHOnline = new System.Windows.Forms.CheckBox();
             this.tabCPM = new System.Windows.Forms.TabPage();
             this.gbCounter = new System.Windows.Forms.GroupBox();
@@ -173,18 +184,7 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.statusBar1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtOptionsProtocolSeedFile = new System.Windows.Forms.TextBox();
-            this.txtOptionsDeviceIP = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtOptionsDevicePort = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.button6 = new System.Windows.Forms.Button();
-            this.btnOptionsApply = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -203,6 +203,8 @@
             this.groupBoxFunctions.SuspendLayout();
             this.groupBoxInitialization.SuspendLayout();
             this.tabOptions.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.tabCPM.SuspendLayout();
             this.gbCounter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericCPMUpDownCounter)).BeginInit();
@@ -228,8 +230,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -799,6 +799,78 @@
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.UseVisualStyleBackColor = true;
             // 
+            // btnOptionsApply
+            // 
+            resources.ApplyResources(this.btnOptionsApply, "btnOptionsApply");
+            this.btnOptionsApply.Name = "btnOptionsApply";
+            this.btnOptionsApply.UseVisualStyleBackColor = true;
+            this.btnOptionsApply.Click += new System.EventHandler(this.btnOptionsApply_Click);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.button6);
+            this.groupBox8.Controls.Add(this.txtOptionsProtocolSeedFile);
+            this.groupBox8.Controls.Add(this.label16);
+            resources.ApplyResources(this.groupBox8, "groupBox8");
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.TabStop = false;
+            // 
+            // button6
+            // 
+            resources.ApplyResources(this.button6, "button6");
+            this.button6.Name = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // txtOptionsProtocolSeedFile
+            // 
+            resources.ApplyResources(this.txtOptionsProtocolSeedFile, "txtOptionsProtocolSeedFile");
+            this.txtOptionsProtocolSeedFile.Name = "txtOptionsProtocolSeedFile";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.checkBox1);
+            this.groupBox7.Controls.Add(this.txtOptionsDevicePort);
+            this.groupBox7.Controls.Add(this.label22);
+            this.groupBox7.Controls.Add(this.txtOptionsDeviceIP);
+            this.groupBox7.Controls.Add(this.label21);
+            resources.ApplyResources(this.groupBox7, "groupBox7");
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.TabStop = false;
+            // 
+            // checkBox1
+            // 
+            resources.ApplyResources(this.checkBox1, "checkBox1");
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // txtOptionsDevicePort
+            // 
+            resources.ApplyResources(this.txtOptionsDevicePort, "txtOptionsDevicePort");
+            this.txtOptionsDevicePort.Name = "txtOptionsDevicePort";
+            // 
+            // label22
+            // 
+            resources.ApplyResources(this.label22, "label22");
+            this.label22.Name = "label22";
+            // 
+            // txtOptionsDeviceIP
+            // 
+            resources.ApplyResources(this.txtOptionsDeviceIP, "txtOptionsDeviceIP");
+            this.txtOptionsDeviceIP.Name = "txtOptionsDeviceIP";
+            // 
+            // label21
+            // 
+            resources.ApplyResources(this.label21, "label21");
+            this.label21.Name = "label21";
+            // 
             // chkHOHOnline
             // 
             resources.ApplyResources(this.chkHOHOnline, "chkHOHOnline");
@@ -1337,83 +1409,11 @@
             this.statusBar1.Name = "statusBar1";
             resources.ApplyResources(this.statusBar1, "statusBar1");
             // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.checkBox1);
-            this.groupBox7.Controls.Add(this.txtOptionsDevicePort);
-            this.groupBox7.Controls.Add(this.label22);
-            this.groupBox7.Controls.Add(this.txtOptionsDeviceIP);
-            this.groupBox7.Controls.Add(this.label21);
-            resources.ApplyResources(this.groupBox7, "groupBox7");
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.TabStop = false;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.button6);
-            this.groupBox8.Controls.Add(this.txtOptionsProtocolSeedFile);
-            this.groupBox8.Controls.Add(this.label16);
-            resources.ApplyResources(this.groupBox8, "groupBox8");
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.TabStop = false;
-            // 
-            // label16
-            // 
-            resources.ApplyResources(this.label16, "label16");
-            this.label16.Name = "label16";
-            // 
-            // txtOptionsProtocolSeedFile
-            // 
-            resources.ApplyResources(this.txtOptionsProtocolSeedFile, "txtOptionsProtocolSeedFile");
-            this.txtOptionsProtocolSeedFile.Name = "txtOptionsProtocolSeedFile";
-            // 
-            // txtOptionsDeviceIP
-            // 
-            resources.ApplyResources(this.txtOptionsDeviceIP, "txtOptionsDeviceIP");
-            this.txtOptionsDeviceIP.Name = "txtOptionsDeviceIP";
-            // 
-            // label21
-            // 
-            resources.ApplyResources(this.label21, "label21");
-            this.label21.Name = "label21";
-            // 
-            // txtOptionsDevicePort
-            // 
-            resources.ApplyResources(this.txtOptionsDevicePort, "txtOptionsDevicePort");
-            this.txtOptionsDevicePort.Name = "txtOptionsDevicePort";
-            // 
-            // label22
-            // 
-            resources.ApplyResources(this.label22, "label22");
-            this.label22.Name = "label22";
-            // 
-            // checkBox1
-            // 
-            resources.ApplyResources(this.checkBox1, "checkBox1");
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "IconOpenFile.png");
-            // 
-            // button6
-            // 
-            resources.ApplyResources(this.button6, "button6");
-            this.button6.Name = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // btnOptionsApply
-            // 
-            resources.ApplyResources(this.btnOptionsApply, "btnOptionsApply");
-            this.btnOptionsApply.Name = "btnOptionsApply";
-            this.btnOptionsApply.UseVisualStyleBackColor = true;
-            this.btnOptionsApply.Click += new System.EventHandler(this.btnOptionsApply_Click);
             // 
             // toolTip1
             // 
@@ -1461,6 +1461,10 @@
             this.groupBoxInitialization.ResumeLayout(false);
             this.tabOptions.ResumeLayout(false);
             this.tabOptions.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.tabCPM.ResumeLayout(false);
             this.gbCounter.ResumeLayout(false);
             this.gbCounter.PerformLayout();
@@ -1496,10 +1500,6 @@
             this.groupBox1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
