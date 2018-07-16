@@ -68,6 +68,9 @@ namespace HOH_ProtocolGUI
             HOHEvent.UsrMsgUpdated -= OnHOHEventUpdate;
             HOHEvent.ExerciseTimerUpdated -= OnHOHEventUpdate;
             HOHEvent.ExerciseNameUpdated -= OnHOHEventUpdate;
+            HOHEvent.ProtocolStateUpdated -= OnHOHEventUpdate;
+            HOHEventObj.UpdateProtocolState("interrupt");
+
         }
 
         private void lblExerciseTime_Click(object sender, EventArgs e)
@@ -79,12 +82,14 @@ namespace HOH_ProtocolGUI
         {
             Thread ProtoRun = new Thread(() => protocol.Execute(NW));
             ProtoRun.Start();
+            btnStop.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             HOHEventObj.UpdateProtocolState("interrupt");
             btnStop.Enabled = false;
+           // btnRestart.Enabled = true;
         }
     }
 }
