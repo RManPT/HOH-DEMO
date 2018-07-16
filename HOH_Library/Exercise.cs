@@ -44,6 +44,8 @@ namespace HOH_Library
 
         private SFListener sf;
         private MRNetwork NW;
+        public bool ExecuteStatus = true;
+
         private readonly HOHEvent HOHEventObj = new HOHEvent();
 
 
@@ -102,19 +104,21 @@ namespace HOH_Library
 
         public void Execute(MRNetwork NW)
         {
+            HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
+
             this.NW = NW;
             for (int i = 0; i < this.Repetitions; i++)
             {
                 HOHEventObj.UpdateLogMsg("EXERCISE: START!");
                 HOHEventObj.UpdateLogMsg("Executing exercise: " + this.Name);
 
-                if (this.PreState != null)
+                if (this.PreState != null && ExecuteStatus)
                 { 
                     HOHEventObj.UpdateLogMsg("Setting Prestate: " + this.PreState.Name);
                     this.PreState.execute(NW);
                 }
 
-                if (this.TargetState != null)
+                if (this.TargetState != null && ExecuteStatus)
                 {
                     HOHEventObj.UpdateLogMsg("Target State: " + this.TargetState.Name);
                     HOHEventObj.UpdateUsrMsg(this.UserMsg);
@@ -127,7 +131,7 @@ namespace HOH_Library
                     sf.InterruptListener(NW);
                 }
 
-                if (this.PostState != null)
+                if (this.PostState != null && ExecuteStatus)
                 {
                     HOHEventObj.UpdateLogMsg("Setting PostState: " + this.PostState.Name);
                     this.PostState.execute(NW);
@@ -136,6 +140,7 @@ namespace HOH_Library
               
                 HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
             }
+            HOHEvent.ProtocolStateUpdated -= OnHOHEventUpdate;
         }
 
         private void OnHOHEventUpdate(object sender, HOHEvent e)
@@ -143,6 +148,12 @@ namespace HOH_Library
             if (e.ProtocolState == "interrupt")
             {
                 sf?.InterruptListener(NW);
+                ExecuteStatus = false;
+                NW.ExecuteStatus = false;
+            }
+            else {
+                ExecuteStatus = true;
+                NW.ExecuteStatus = true;
             }
         }
     }
