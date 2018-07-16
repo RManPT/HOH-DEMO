@@ -1427,6 +1427,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
