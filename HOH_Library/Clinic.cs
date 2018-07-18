@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace HOH_Library
 {
@@ -12,23 +13,55 @@ namespace HOH_Library
 
         public List<Protocol> Protocols { get; set; }
 
-        public List<State> Conditions { get; set; }
+        public List<State> States { get; set; }
         public List<Exercise> Exercises { get; set; }
-        public List<ProtocolExercise> ProtocolExercises { get; set; }
-
+        public List<string> Rewards { get; set; }
+  
 
 
         public Clinic()
         {
             Protocols = new List<Protocol>();
-            Conditions = new List<State>();
+            States = new List<State>();
             Exercises = new List<Exercise>();
-            ProtocolExercises = new List<ProtocolExercise>();
-         }
+            Rewards = new List<string>();
+        }
+
+        public Clinic(Clinic c)
+        {
+            Protocols = new List<Protocol>(c.Protocols);
+            States = new List<State>(c.States);
+            Exercises = new List<Exercise>(c.Exercises);
+            Rewards = new List<string>(c.Rewards);
+        }
 
         public Clinic ShallowCopy()
         {
             return (Clinic)this.MemberwiseClone();
+        }
+
+        public override string ToString()
+        {
+            return ToJSON();
+        }
+
+        public string ToJSON()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        public void FromJSON(string json)
+        {
+            Clinic c = (Clinic)JsonConvert.DeserializeObject<Clinic>(json);
+
+            //js
+            //dynamic receivedObject = JObject.Parse(json);
+
+            this.Name = c.Name;
+            this.Exercises = c.Exercises;
+            this.Protocols = c.Protocols;
+            this.States = c.States;
+            Rewards = c.Rewards;
         }
     }
 }

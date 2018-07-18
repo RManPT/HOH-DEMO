@@ -27,6 +27,7 @@ namespace HOH_Library
         public delegate bool StateReached(string msg);
         private static object Key = new object();
         public bool ExecuteStatus { get; set; }
+        public bool isConnected = false;
 
 
         //Conection class
@@ -78,30 +79,47 @@ namespace HOH_Library
 
         public bool Connect()
         {
-            try
-            {
+            //try
+            //{
                 StateObject state = new StateObject();
                 if (client == null) client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 if (client.Connected == true) { statusMsg = "Already connected"; return true; }
-                client.Connect(ip, port);
-                state.workSocket = client;
-                Receive(client);
-                while (!msgs.IsEmpty)
-                    msgs.TryDequeue(out string result);
-                while (!logMsgs.IsEmpty)
-                    logMsgs.TryDequeue(out string result);
-                InputChanged += InputDetectedEvent;
-                new Thread(new ThreadStart(IsTested)).Start();
-                new Thread(new ThreadStart(PrintsStatusMsg)).Start();
-                SetStatusMsg("Connection Successful");
-                return true;
-            }
-            catch (Exception e)
-            {
-                Disconnect();
-                Debug.WriteLine("HOH Network Connection Exception, " + e.Message);
-                return false;
-            }
+
+                IAsyncResult resultconn = client.BeginConnect(ip, port, null, null);
+                bool success = resultconn.AsyncWaitHandle.WaitOne(2000, true);
+
+                //client.Connect(ip, port);
+                if (client.Connected)
+                {
+                    state.workSocket = client;
+                    Receive(client);
+                    while (!msgs.IsEmpty)
+                        msgs.TryDequeue(out string result);
+                    while (!logMsgs.IsEmpty)
+                        logMsgs.TryDequeue(out string result);
+                    InputChanged += InputDetectedEvent;
+                    new Thread(new ThreadStart(IsTested)).Start();
+                    new Thread(new ThreadStart(PrintsStatusMsg)).Start();
+                    SetStatusMsg("Connection Successful");
+                    isConnected = true;
+                    return true;
+                }
+                else
+                {
+                    client.Close();
+                    client = null;
+                //throw new ApplicationException("Failed to connect server.");
+                    isConnected = false;
+                    return false;
+
+                }
+            //}
+            //catch (Exception e)
+            //{
+            //    Disconnect();
+            //    Debug.WriteLine("HOH Network Connection Exception, " + e.Message);
+            //    return false;
+            //}
         }
 
 
@@ -109,17 +127,18 @@ namespace HOH_Library
         {
             try
             {
-                client.Shutdown(SocketShutdown.Both);
-                client.Disconnect(false);
+                //client.Shutdown(SocketShutdown.Both);
+                //client.Disconnect(false);
                 client.Close();
                 client = null;
                 InputChanged -= InputDetectedEvent;
                 SetStatusMsg("Disconnection successfull");
-               
+                isConnected = false;
                 return true;
             }
             catch (Exception e)
-            {
+            { 
+                Debug.WriteLine("HOH Network Connection Exception, " + e.Message);
                 return false;
             }
         }
@@ -191,19 +210,34 @@ namespace HOH_Library
 
         private void InputDetectedEvent(object sender, LANCBEvenArgs e)
         {
-            Debug.Write(e.MsgString);
-            
-            if (!e.MsgString.Contains("\n"))
-                msgRcvHOH += e.MsgString;
-            else
+            //Debug.Write("["+e.MsgString+"]");
+
+            foreach (char ch in e.MsgString)
             {
-                msgRcvHOH.Replace(Environment.NewLine, "x");
-                SetStatusMsg(msgRcvHOH);
-                msgs.Enqueue(msgRcvHOH);
-                //msgs.TryPeek(out string result);
-                //Debug.WriteLine("QUEUE - " + msgs.Count + " -> " + result );
-                msgRcvHOH = "";
-            }           
+
+                if (ch != '\n')
+                    msgRcvHOH += ch;
+                else
+                {
+                    // msgRcvHOH.Replace(Environment.NewLine, "x");
+                    msgRcvHOH = msgRcvHOH.Trim();
+                    if (msgRcvHOH.Length!=0)
+                    { 
+                        SetStatusMsg(msgRcvHOH);
+                        Debug.WriteLine("ENQUEUE " + msgRcvHOH);
+                        msgs.Enqueue(msgRcvHOH);
+                        msgs.TryPeek(out string result);
+
+
+                        //Debug.WriteLine("QU : " + msgs.ToString());
+                        //PrintsMsg();
+
+                        //msgs.TryPeek(out string result);
+                        //Debug.WriteLine("QUEUE - " + msgs.Count + " -> " + result );
+                        msgRcvHOH = "";
+                    }
+                }
+            }
         }
 
 
@@ -216,20 +250,20 @@ namespace HOH_Library
         {
             ExecuteStatus = true;
             Send(command);
-            
+
             while (ExecuteStatus)
             {
-                if(msgs!=null)
-                if (!msgs.IsEmpty)
-                {
-                    if(msgs.TryDequeue(out string result))
-                    if (result.Contains(exitCondition))
+                if (msgs != null)
+                    if (!msgs.IsEmpty)
                     {
-                        ExecuteStatus = false;
-                        SetStatusMsg("Operation concluded");
-                        break;
+                        if (msgs.TryDequeue(out string result))
+                            if (result.Contains(exitCondition))
+                            {
+                                ExecuteStatus = false;
+                                SetStatusMsg("Operation concluded");
+                                break;
+                            }
                     }
-                }
                 Thread.Sleep(50);
             }
             if (next != null)
@@ -264,6 +298,18 @@ namespace HOH_Library
             }
         }
 
+        public void PrintsMsg()
+        {
+         
+          
+                    List<string> l = new List<string>(msgs);
+                    foreach(string s in l)
+                    {
+                        Debug.WriteLine("PRINT : " + s);
+                    }
+   
+        }
+
         public void PrintsStatusMsg()
         {
             while(true)
@@ -292,25 +338,28 @@ namespace HOH_Library
             {
                 if (msgs!=null)
                 if (!msgs.IsEmpty)
-                { 
-                    msgs.TryDequeue(out string result);
-                    if (result.Contains("untested"))
-                    {
-                        Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
-                        exec.Start();
-                        Debug.WriteLine("ISTESTED: not tested");
-                        break;
-                    }
-                    if (result.Contains("tested"))
-                    {
-                        Debug.WriteLine("ISTESTED: already tested");
-                        break;
+                {
+                    if (msgs.TryDequeue(out string result))
+                    { 
+                        //Debug.WriteLine(result + " - untested");
+                        //Debug.WriteLine("EXECUTE DISTANCE: " + Utils.Levenshtein(result.ToLower(), "hand, untested"));
+
+                        if (result.Contains("un")) 
+                        {
+                            Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
+                            exec.Start();
+                            Debug.WriteLine("ISTESTED: not tested");
+                            break;
+                        }
+                        else
+                        {
+                            Debug.WriteLine("ISTESTED: already tested");
+                            break;
+                        }       
                     }
                 }
                 Thread.Sleep(50);
             }
         }
-
-
     }   
 }

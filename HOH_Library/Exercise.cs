@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 
 namespace HOH_Library
 {
+    [Serializable]
     public class Exercise {
 
         public string Name { get; set; }
@@ -14,7 +17,7 @@ namespace HOH_Library
         /// </summary>
         public State PreState { get; set; }
         /// <summary>
-        /// Time allowed for each exercise. Discounts pre and post conditions times
+        /// Time allowed for each exercise. Discounts pre and post State times
         /// </summary>
         public int ExerciseTime { get; set; }
         /// <summary>
@@ -29,10 +32,22 @@ namespace HOH_Library
         /// Code to send to HOH, represents one wanted action
         /// </summary>
         public State TargetState { get; set; }
+        public int Repetitions { get; set; }
         /// <summary>
         /// Sets HOH to a position (optional)
         /// </summary>
         public State PostState { get; set; }
+        public string GetExerciseName
+        {
+            get { return Name; }
+        }
+
+        private SFListener sf;
+        private MRNetwork NW;
+        public bool ExecuteStatus = true;
+
+        private readonly HOHEvent HOHEventObj = new HOHEvent();
+
 
         public Exercise()
         {
@@ -42,42 +57,104 @@ namespace HOH_Library
             this.UserMsg = "";
             this.SFCode = "";
             this.TargetState = null;
+            this.Repetitions = 1;
+            this.PostState = null;
+
+        }
+
+        public Exercise(string name)
+        {
+            this.Name = name;
+            this.PreState = null;
+            this.ExerciseTime = 0;
+            this.UserMsg = "";
+            this.SFCode = "";
+            this.TargetState = null;
+            this.Repetitions = 1;
             this.PostState = null;
         }
 
+        public Exercise(Exercise ex)
+        {
+            this.Name = ex.GetExerciseName;
+            this.PreState = ex.PreState;
+            this.ExerciseTime = ex.ExerciseTime;
+            this.UserMsg = ex.UserMsg;
+            this.SFCode = ex.SFCode;
+            this.TargetState = ex.TargetState;
+            this.Repetitions = ex.Repetitions;
+            this.PostState = ex.PostState;
+
+        }
+
+
+        // Deep clone
+        public static T DeepClone<T>(T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
+
+                return (T)formatter.Deserialize(ms);
+            }
+        }
+
+
         public void Execute(MRNetwork NW)
         {
-            //lock ()
-            //{
-                Debug.WriteLine("   EXERCISE: START!");
-                Debug.WriteLine("       Executing exercise: " + this.Name);
-                Debug.WriteLine("           Setting Prestate: " + this.PreState.Name);
-                if (this.PreState!=null) this.PreState.execute(NW);
-                Debug.WriteLine("              " + this.PreState.UserMsg);
+            HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
 
-                Debug.WriteLine("        Target State: " + this.TargetState.Name);
-            //start timer and launch server listener for simulink callback, if code received is correct execute TargetState
-            //if timer ends send incentive msg to usr and move on
+            this.NW = NW;
+            for (int i = 0; i < this.Repetitions; i++)
+            {
+                HOHEventObj.UpdateLogMsg("EXERCISE: START!");
+                HOHEventObj.UpdateLogMsg("Executing exercise: " + this.Name);
 
+                if (this.PreState != null && ExecuteStatus)
+                { 
+                    HOHEventObj.UpdateLogMsg("Setting Prestate: " + this.PreState.Name);
+                    this.PreState.execute(NW);
+                }
 
-            SFListener sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
-            Thread SFThread = new Thread(() => sf.Execute(NW));
-            SFThread.Start();
+                if (this.TargetState != null && ExecuteStatus)
+                {
+                    HOHEventObj.UpdateLogMsg("Target State: " + this.TargetState.Name);
+                    HOHEventObj.UpdateUsrMsg(this.UserMsg);
+                    sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
+                    Thread SFThread = new Thread(() => sf.Execute(NW));
+                    SFThread.Start();
 
-            //Parar thread ate SFThread terminar 
-            // Monitor.Wait(this);  //testar com this.TargetState
-            if (this.TargetState != null) this.TargetState.execute(NW);
-                Thread.Sleep(this.ExerciseTime * 1000);
-            sf.InterruptListener(NW);
+                    //this.TargetState.execute(NW);
+                    Thread.Sleep(this.ExerciseTime * 1000);
+                    sf.InterruptListener(NW);
+                }
 
-                
-                Debug.WriteLine("            > " + this.UserMsg);
-                Debug.WriteLine("            TS> " + this.TargetState.UserMsg);
+                if (this.PostState != null && ExecuteStatus)
+                {
+                    HOHEventObj.UpdateLogMsg("Setting PostState: " + this.PostState.Name);
+                    this.PostState.execute(NW);
+                }
 
-                Debug.WriteLine("         Setting PostState: " + this.PostState.Name);
-                if (this.PostState != null) this.PostState.execute(NW);
-                Debug.WriteLine("   EXERCISE: DONE!");
-         //   }
+              
+                HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
+            }
+            HOHEvent.ProtocolStateUpdated -= OnHOHEventUpdate;
+        }
+
+        private void OnHOHEventUpdate(object sender, HOHEvent e)
+        {
+            if (e.ProtocolState == "interrupt")
+            {
+                sf?.InterruptListener(NW);
+                ExecuteStatus = false;
+                NW.ExecuteStatus = false;
+            }
+            else {
+                ExecuteStatus = true;
+                NW.ExecuteStatus = true;
+            }
         }
     }
 }

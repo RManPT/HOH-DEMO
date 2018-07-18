@@ -6,7 +6,9 @@ using System.Net.Sockets;
 using System.Diagnostics;
 using HOH_Library;
 using HOH_ProtocolEditor;
-//using HOH_ProtocolEditor;
+using HOH_ProtocolGUI;
+using System.IO;
+using System.ComponentModel;
 
 namespace HOH_DEMO
 {
@@ -24,88 +26,178 @@ namespace HOH_DEMO
         private bool runCTM = false;
         private bool runCTMClose = false;
         private bool connectedHOH = false;
-        private bool calibratedHOH = false;
         private string msgRcvHOH;
         private int msgToSendSF = 0;
         public static int LastCMDReceived;
         private int previousCMDReceived;
         public static bool commandProcessed = true;
         private static Clinic clinic = new Clinic();
-        
+        private delegate void EventSubscribed(HOHEvent e);
+        // private delegate void EventSubscribed();
+        private HOHEvent HOHEventObj = new HOHEvent();
+        private TabControl.TabPageCollection tabs;
+        private string defaultFileName;
+        private string deviceIP;
+        private string devicePORT;
+        private string serverPORT;
+       
 
 
         BindingSource protocolsBinding = new BindingSource();
         BindingSource protocolDetailsBinding = new BindingSource();
         BindingSource protocolExerciseBindingSource;
 
+        BindingList<Protocol> blProtocols = new BindingList<Protocol>(clinic.Protocols);
+
         public Mainform()
         {
-            Seed.SetupData(clinic);
+            //Seed.SetupData(clinic);
+          
             InitializeComponent();
-            NW = new MRNetwork("169.254.1.1", 2000); //("169.254.1.1", 2000
+            LoadProperties();
+            LoadProtocols();
+            Text += " - " + clinic.Name;
+
+
+
+            NW = new MRNetwork(deviceIP, Int32.Parse(devicePORT)); //("169.254.1.1", 2000
             NW.SetLogBox(textBoxLog);
-            tabControl.SelectTab(1);
+            tabControl.SelectTab(0);
             actionTimer.Start();
             comboTreatment.SelectedIndex = 0;
             //ServerSL = new Thread(() => AsyncServer.StartListening(10101));
             //ServerSL.Start();
 
-           
+            HOHEvent.LogUpdated += OnHOHEventUpdate;
+            HOHEvent.UsrMsgUpdated += OnHOHEventUpdate;
+            HOHEvent.ClinicUpdated += OnClinicEventUpdate;
 
-            //NW = new MRNetwork("0.0.0.0", 30000);
-            //test connection with matlab
+            GetProtocols();
 
-  
+        }
 
+        private void LoadProperties()
+        {
+            deviceIP = Properties.Settings.Default.deviceIP;
+            devicePORT = Properties.Settings.Default.devicePORT;
+            serverPORT = Properties.Settings.Default.serverPORT;
+            defaultFileName = Properties.Settings.Default.defaultJsonFile;
+
+
+            if (deviceIP == String.Empty) deviceIP = txtOptionsDeviceIP.Text;
+            else txtOptionsDeviceIP.Text = deviceIP;
+
+            if (devicePORT == String.Empty) devicePORT = txtOptionsDevicePort.Text;
+            else txtOptionsDevicePort.Text = devicePORT;
+
+            if (serverPORT == String.Empty) serverPORT = txtServerPort.Text;
+            else txtServerPort.Text = serverPORT;
+
+            if (defaultFileName == String.Empty) defaultFileName = txtOptionsProtocolSeedFile.Text;
+            if (defaultFileName == txtOptionsProtocolSeedFile.Text)
+                statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName) + " (read only)";
+            else
+                statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName);
+        }
+
+        private void OnHOHEventUpdate(object sender, HOHEvent e)
+        {
+            Delegate d = new EventSubscribed(updateGUI);
+            this.Invoke(d, e);
+        }
+
+        private void OnClinicEventUpdate(object sender, HOHEvent e)
+        {
+            //clinic = null;
+            // clinic = new Clinic(e.Clinic);
+            clinic = e.Clinic;
+            UpdateProtocols();
+        }
+
+        private void updateGUI(HOHEvent e)
+        {
+            if (e.LogMsg != null) txtProtocolsLog.AppendText(e.LogMsg + Environment.NewLine);
+            if (e.UserMsg != null) txtProtocolsLog.AppendText(e.UserMsg + Environment.NewLine);
+        }
+
+        private void GetProtocols()
+        {
+            //protocolsBinding.DataSource = null;
             protocolsBinding.DataSource = clinic.Protocols;
             protocolDetailsBinding.DataSource = protocolsBinding;
 
-         
+            lstProtocols.DataSource = null;
             lstProtocols.DataSource = protocolDetailsBinding;
             lstProtocols.DisplayMember = "Name";
 
             protocolExerciseBindingSource = new BindingSource(protocolDetailsBinding, "Exercises");
 
+            lstProtocolsExercises.DataSource = null;
             lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
             lstProtocolsExercises.DisplayMember = "GetExerciseName";
-           // Debug.WriteLine(protocolDetailsBinding.ToString());
 
+            // Debug.WriteLine(protocolDetailsBinding.ToString());
+
+            listRepetitions.DataSource = null;
             listRepetitions.DataSource = protocolExerciseBindingSource;
             listRepetitions.DisplayMember = "Repetitions";
 
+            //lstProtocols.DataSource = blProtocols;
+            //lstProtocols.DisplayMember = "Name";
 
-            // lblRepetitions.DataBindings.Add("Text", protocolDetailsBinding, "Repetitions");
+            //lstProtocolsExercises.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            //lstProtocolsExercises.DisplayMember = "GetExerciseName";
 
-            /*
-            lstConditions.DataSource = conditionsDetailsBinding;
-            lstConditions.DisplayMember = "Name";
-
-            txtConditionDetails1.DataBindings.Add("Text", conditionsDetailsBinding, "Name");
-            txtConditionDetails2.DataBindings.Add("Text", conditionsDetailsBinding, "HOHCode");
-            txtConditionDetails3.DataBindings.Add("Text", conditionsDetailsBinding, "UserMsg");
-            txtConditionDetails4.DataBindings.Add("Text", conditionsDetailsBinding, "CallbackMsg");
-
-            lstExercises.DataSource = exercisesDetailsBinding;
-            lstExercises.DisplayMember = "Name";
-
-
-            txtExerciceDetails1.DataBindings.Add("Text", exercisesDetailsBinding, "Name");
-            txtExerciceDetails2.DataBindings.Add("Text", exercisesDetailsBinding, "SFCode");
-            txtExerciceDetails3.DataBindings.Add("Text", exercisesDetailsBinding, "UserMsg");
-            txtExerciceDetails4.DataBindings.Add("Text", exercisesDetailsBinding, "ExerciseTime");
-
-            comboExercise1.DataSource = conditionsBinding;
-            //comboExercise1.DataBindings.Add("Name", exercisesDetailsBinding, "PreState");
-            comboExercise1.DisplayMember = "Name";
-            */
-
-
-
+            //listRepetitions.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            //listRepetitions.DisplayMember = "Repetitions";
         }
 
-        
+        private void UpdateProtocols()
+        {
+
+            //protocolDetailsBinding.DataSource = null;
+            //protocolsBinding.DataSource = null;
+
+            protocolsBinding.ResetBindings(true);
+            protocolDetailsBinding.ResetBindings(true);
+            protocolsBinding.DataSource = clinic.Protocols;
+            protocolDetailsBinding.DataSource = protocolsBinding;
+
+            //protocolsBinding.ResetBindings(true);
+            //protocolDetailsBinding.ResetBindings(false);
+            //protocolExerciseBindingSource.ResetBindings(false);
+
+            //lstProtocols.DataSource = null;
+            //lstProtocols.DataSource = protocolDetailsBinding;
+            //lstProtocols.DisplayMember = "Name";
 
 
+
+            //lstProtocolsExercises.DataSource = null;
+            //lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
+            //lstProtocolsExercises.DisplayMember = "GetExerciseName";
+
+            //listRepetitions.DataSource = null;
+            //listRepetitions.DataSource = protocolExerciseBindingSource;
+            //listRepetitions.DisplayMember = "Repetitions";
+
+            //blProtocols.ResetBindings();
+
+            //lstProtocols.DataSource = null;
+            //lstProtocols.DataSource = blProtocols;
+            //lstProtocols.DisplayMember = "Name";
+            lstProtocols.Refresh();
+            lstProtocols.SelectedIndex = 0;
+
+            //lstProtocolsExercises.DataSource = null;
+            //lstProtocolsExercises.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            //lstProtocolsExercises.DisplayMember = "GetExerciseName";
+            lstProtocolsExercises.Refresh();
+            //listRepetitions.DataSource = null;
+            //listRepetitions.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            //listRepetitions.DisplayMember = "Repetitions";
+            listRepetitions.Refresh();
+        }
 
 
 
@@ -122,133 +214,109 @@ namespace HOH_DEMO
         }
 
         //Lança para a consola devolvidas pelos eventos
-   /*     private void InputDetectedEvent(object sender, LANCBEvenArgs e)
-        {
-            Invoke(new EventHandler(delegate { txtServerLog.AppendText(NW.msgs.ToString());  } ));
-   /*         {
-                //informação chega de forma assincrona
-                this.textBoxLog.AppendText(e.MsgString);
+        /*     private void InputDetectedEvent(object sender, LANCBEvenArgs e)
+             {
+                 Invoke(new EventHandler(delegate { txtServerLog.AppendText(NW.msgs.ToString());  } ));
+        /*         {
+                     //informação chega de forma assincrona
+                     this.textBoxLog.AppendText(e.MsgString);
 
-                if (!e.MsgString.Contains("\n")) msgRcvHOH += e.MsgString;
-                else
-                {
-                    msgRcvHOH += e.MsgString;
-                    //verifica se a mão foi testada e inicia o hand brace testing
-                    if (msgRcvHOH.Contains("untested")) {
-                        txtServerLog.AppendText("\r\nForcing Hand testing");
-                        buttontest_Click(sender, e);
-                        msgRcvHOH = "";
-                    }
-*/
+                     if (!e.MsgString.Contains("\n")) msgRcvHOH += e.MsgString;
+                     else
+                     {
+                         msgRcvHOH += e.MsgString;
+                         //verifica se a mão foi testada e inicia o hand brace testing
+                         if (msgRcvHOH.Contains("untested")) {
+                             txtServerLog.AppendText("\r\nForcing Hand testing");
+                             buttontest_Click(sender, e);
+                             msgRcvHOH = "";
+                         }
+     */
 
-/*//detecta qual o movimento CPM a partir da msg
-                    if (runCPMWhole)
-                    {
-                        if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
-                        {
-                            txtCPMLog.AppendText("\r\nHOH -> CLOSING HAND");
-                            sendAll(((char)12).ToString());
-                        }
-                        if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
-                        {
-                            txtCPMLog.AppendText("\r\nHOH -> OPENING HAND");
-                            sendAll(((char)11).ToString());
-                            CPMCounter++;
-                        }
-                        if (msgRcvHOH.Contains("Exit"))
-                        {
-                            txtCPMLog.AppendText("\r\nHOH -> STOPPED");
-                            sendAll(((char)10).ToString());
-                        }
-                        //   }
-                        //txtCPMLog.AppendText("->" + msgRcvHOH);
-                        msgRcvHOH = "";
-                    }
-                    */
-                    //processar mensagens retornadas pela HOH em caso de modo CTM
-   /*               if (runCTM)
-                    {
-
-                        if (runCTMClose)
-                        { 
-                            if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
+        /*//detecta qual o movimento CPM a partir da msg
+                            if (runCPMWhole)
                             {
-                                txtCTMLog.AppendText("\r\nHOH -> CLOSING HAND");
-                                //sendAll(((char)12).ToString());
+                                if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
+                                {
+                                    txtCPMLog.AppendText("\r\nHOH -> CLOSING HAND");
+                                    sendAll(((char)12).ToString());
+                                }
+                                if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
+                                {
+                                    txtCPMLog.AppendText("\r\nHOH -> OPENING HAND");
+                                    sendAll(((char)11).ToString());
+                                    CPMCounter++;
+                                }
+                                if (msgRcvHOH.Contains("Exit"))
+                                {
+                                    txtCPMLog.AppendText("\r\nHOH -> STOPPED");
+                                    sendAll(((char)10).ToString());
+                                }
+                                //   }
+                                //txtCPMLog.AppendText("->" + msgRcvHOH);
+                                msgRcvHOH = "";
+                            }
+                            */
+        //processar mensagens retornadas pela HOH em caso de modo CTM
+        /*               if (runCTM)
+                         {
 
-                            }
-                            if (msgRcvHOH.Contains("Exit hand closing"))
-                            {
-                                txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
-                                //sendAll(((char)11).ToString());
-                                //FORCAR ABERTURA DE MAO AUTOMATICO
-                                CPMCounter++;
-                                buttonfullyopen_Click(sender, e);
-                                previousCMDReceived = 0;
-                            }
-                            //txtCTMLog.AppendText("->" + msgRcvHOH);
-                            msgRcvHOH = "";
-                        }
+                             if (runCTMClose)
+                             { 
+                                 if (msgRcvHOH.Contains("003%") && msgRcvHOH.Contains("Closing"))
+                                 {
+                                     txtCTMLog.AppendText("\r\nHOH -> CLOSING HAND");
+                                     //sendAll(((char)12).ToString());
 
-                        if (runCTMOpen)
-                        {
-                            if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
-                            {
-                                txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
-                                //sendAll(((char)12).ToString());
+                                 }
+                                 if (msgRcvHOH.Contains("Exit hand closing"))
+                                 {
+                                     txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
+                                     //sendAll(((char)11).ToString());
+                                     //FORCAR ABERTURA DE MAO AUTOMATICO
+                                     CPMCounter++;
+                                     buttonfullyopen_Click(sender, e);
+                                     previousCMDReceived = 0;
+                                 }
+                                 //txtCTMLog.AppendText("->" + msgRcvHOH);
+                                 msgRcvHOH = "";
+                             }
 
-                            }
-                            if (msgRcvHOH.Contains("Exit hand closing"))
-                            {
-                                txtCTMLog.AppendText("\r\nHOH -> ClOSING HAND");
-                                //sendAll(((char)11).ToString());
-                                //FORCAR FECHO DE MAO AUTOMATICO
-                                CPMCounter++;
-                                buttonfullyclose_Click(sender, e);
-                                previousCMDReceived = 0;
-                            }
-                            //txtCTMLog.AppendText("->" + msgRcvHOH);
-                            msgRcvHOH = "";
-                        }
-                    }
-                    
-                }     
-            }));
-        }*/
- 
-        private string timeToStr(int counter)
+                             if (runCTMOpen)
+                             {
+                                 if (msgRcvHOH.Contains("094%") && msgRcvHOH.Contains("Opening"))
+                                 {
+                                     txtCTMLog.AppendText("\r\nHOH -> OPENING HAND");
+                                     //sendAll(((char)12).ToString());
+
+                                 }
+                                 if (msgRcvHOH.Contains("Exit hand closing"))
+                                 {
+                                     txtCTMLog.AppendText("\r\nHOH -> ClOSING HAND");
+                                     //sendAll(((char)11).ToString());
+                                     //FORCAR FECHO DE MAO AUTOMATICO
+                                     CPMCounter++;
+                                     buttonfullyclose_Click(sender, e);
+                                     previousCMDReceived = 0;
+                                 }
+                                 //txtCTMLog.AppendText("->" + msgRcvHOH);
+                                 msgRcvHOH = "";
+                             }
+                         }
+
+                     }     
+                 }));
+             }*/
+
+        private void ProcessCommand()
         {
-            int min, seg;
-            min = counter / 60;
-            if (min != 0) seg = counter % (min * 60); else seg = counter;
-            string minstr, segstr;
-            if (min < 10) minstr = "0" + min.ToString(); else minstr = min.ToString();
-            if (seg < 10) segstr = "0" + seg.ToString(); else segstr = seg.ToString();
-
-            return minstr + ":" + segstr;
-        }
-
-        private string timeToStr(int min, int seg)
-        {
-            string minstr, segstr;
-            if (min < 10) minstr = "0" + min.ToString(); else minstr = min.ToString();
-            if (seg < 10) segstr = "0" + seg.ToString(); else segstr = seg.ToString();
-
-            return minstr + ":" + segstr;
-        }
-
-        private int timeToCounter(int min, int seg)
-        {
-            return min * 60 + seg;
-        }
-
-        private void ProcessCommand() {
             //takecare of lastReceivedCommand;
             commandProcessed = true;
         }
 
 
-        public bool PrintEndOfMove(string msg) {
+        public bool PrintEndOfMove(string msg)
+        {
             Debug.WriteLine(msg);
             return true;
         }
@@ -274,6 +342,7 @@ namespace HOH_DEMO
                     Debug.WriteLine("HOH Connected");
                     connectedHOH = true;
                     textBoxLog.Text = "";
+                    btnProtocolStart.Enabled = true;
 
                     /*TxtBoxUpdater = new MRNetworkTxtBoxUpdater(NW, textBoxLog);
                     LogUpdater = new Thread(() => TxtBoxUpdater.Run());
@@ -282,11 +351,22 @@ namespace HOH_DEMO
                     NW.Send("00");
                     //NW.ExecuteAndWait("00", "untested");
                     Debug.WriteLine("status" + NW.GetStatusMsg());
+
                 }
                 else
                 {
                     //NW.InputChanged -= InputDetectedEvent;
-                    MessageBox.Show("Connect fail");
+                    // MessageBox.Show("Connect fail");
+
+                    var result = MessageBox.Show
+                           ("Failed to find the device at " + deviceIP + ":" + devicePORT, "Connection fail!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation);
+                    if (result == DialogResult.Retry)
+                        buttonConnect_Click(sender, e);
+                    else
+                    {
+                        connectedHOH = false;
+                        //btnProtocolStart.Enabled = false;
+                    }
                 }
             }
             else
@@ -299,6 +379,7 @@ namespace HOH_DEMO
                     //necessário para impedir duplicação de recebimentos na callback
                     //NW.InputChanged -= InputDetectedEvent;
                     connectedHOH = false;
+                    btnProtocolStart.Enabled = false;
                     //TxtBoxUpdater.Stop();
                 }
             }
@@ -379,19 +460,27 @@ namespace HOH_DEMO
 
         #region common controls
         private void Mainform_Load(object sender, EventArgs e)
-        {
+        {            
             btnServerStart_Click(sender, e);
-            CPMTimeCounter = timeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
-            lblCPMTimer.Text = timeToStr(CPMTimeCounter);
+            CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
+            lblCPMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
             lblCPMCounter.Text = numericCPMUpDownCounter.Value.ToString();
-            lblCTMTimer.Text = timeToStr(CPMTimeCounter);
+            lblCTMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
             lblCTMCounter.Text = numericCTMUpDownCounter.Value.ToString();
             trackCTMThreshold.Value = trackCTMBaseline.Value + 5;
+            buttonConnect_Click(sender, e);
+            if (!connectedHOH) tabControl.SelectedTab = tabDEMO;
+
+
+            tabControl.TabPages.Remove(tabCPM);            
+            tabControl.TabPages.Remove(tabCTM);
+
+          
         }
 
         private void Mainform_FormClosed(object sender, FormClosedEventArgs e)
         {
-          
+            Debug.WriteLine("All clear!");
         }
 
 
@@ -415,7 +504,7 @@ namespace HOH_DEMO
                     //decrementar contador de movimentos concluidos
                 }
             }
-            lblCPMTimer.Text = timeToStr(CPMTimeCounter);
+            lblCPMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
             lblCPMCounter.Text = CPMCounter.ToString();
 
             if (runCTM)
@@ -437,18 +526,19 @@ namespace HOH_DEMO
                     //decrementar contador de movimentos concluidos
                 }
             }
-            lblCTMTimer.Text = timeToStr(CPMTimeCounter);
+            lblCTMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
             lblCTMCounter.Text = CPMCounter.ToString();
         }
 
         /// <summary>
         /// Reset sync timer
         /// </summary>
-        private void timerSyncReset() {
+        private void timerSyncReset()
+        {
             ExerciceResetTimer.Stop();
             //timer_sync.Enabled = false;
             //timer_sync.Enabled = true;
-            timeSync=0;
+            timeSync = 0;
         }
 
         private void actionTimer_Tick(object sender, EventArgs e)
@@ -456,23 +546,28 @@ namespace HOH_DEMO
             LastCMDReceived = AsyncServer.LastCMDReceived;
             commandProcessed = AsyncServer.commandProcessed;
             if (runCTMClose)
-                if (LastCMDReceived == 22 && LastCMDReceived != previousCMDReceived && commandProcessed == false)
+            {
+                if (LastCMDReceived == 22 && LastCMDReceived != previousCMDReceived && !commandProcessed)
                 { //se sinal detectado indica o movimento desejado actua em conformidade
                     buttonfullyclose_Click(sender, e); //envia comando de CTM Close 
                     txtCTMLog.AppendText("\r\nWell done, closing hand!");
                     //commandProcessed = true;    //certifica que não há comandos processados multiplas 
                 }
+            }
 
             if (runCTMOpen)
-                if (LastCMDReceived == 21 && LastCMDReceived != previousCMDReceived && commandProcessed == false)
+            {
+                if (LastCMDReceived == 21 && LastCMDReceived != previousCMDReceived && !commandProcessed)
                 { //se sinal detectado indica o movimento desejado actua em conformidade
                     buttonfullyopen_Click(sender, e); //envia comando de CTM Close 
                     txtCTMLog.AppendText("\r\nWell done, opening hand!");
                     //commandProcessed = true;    //certifica que não há comandos processados multiplas 
                 }
+            }
+
             previousCMDReceived = LastCMDReceived;
             commandProcessed = true;
-            
+
             lblServerClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
             lblCPMClientsConnected.Text = "Clients connected: " + AsyncServer.MySocketList.Count.ToString();
         }
@@ -486,8 +581,8 @@ namespace HOH_DEMO
             ExerciceResetTimer.Stop();
             //resets HOH
             if (runCTMClose)
-            { 
-                
+            {
+
                 //sendAll(((char)11).ToString());
                 //FORCAR ABERTURA DE MAO AUTOMATICO
                 if (cbxCTMAutoMove.Checked)
@@ -535,20 +630,21 @@ namespace HOH_DEMO
 
 
 
-       
-            #endregion
+
+        #endregion
 
 
-            #region server tab
+        #region server tab
 
-            private void btnServerSend_Click(object sender, EventArgs e)
+        private void btnServerSend_Click(object sender, EventArgs e)
         {
             AsyncServer.Send(AsyncServer.currentClient, txtServerSend.Text);
         }
 
         private void btnServerStart_Click(object sender, EventArgs e)
         {
-            ServerSL = new Thread(() => AsyncServer.StartListening(Int32.Parse(txtServerPort.Text)));
+            serverPORT = txtServerPort.Text;
+            ServerSL = new Thread(() => AsyncServer.StartListening(Int32.Parse(serverPORT)));
             AsyncServer.SetLogBox(txtServerLog);
             ServerSL.Start();
             btnServerStop.Enabled = true;
@@ -672,14 +768,14 @@ namespace HOH_DEMO
 
         private void numericCPMUpDownMinutes_ValueChanged(object sender, EventArgs e)
         {
-            CPMTimeCounter = timeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
-            lblCTMTimer.Text = timeToStr(CPMTimeCounter);
+            CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
+            lblCTMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
         }
 
         private void numericCPMUpDownSeconds_ValueChanged(object sender, EventArgs e)
         {
-            CPMTimeCounter = timeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
-            lblCPMTimer.Text = timeToStr(CPMTimeCounter);
+            CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
+            lblCPMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
         }
 
         private void numericCPMUpDownCounter_ValueChanged(object sender, EventArgs e)
@@ -697,8 +793,8 @@ namespace HOH_DEMO
                 gbTimer.BackColor = Color.FromArgb(10, 0, 255, 0);
                 gbCounter.BackColor = Color.Transparent;
                 lblCPMCounter.Text = "0";
-                CPMTimeCounter = timeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
-                lblCPMTimer.Text = timeToStr(CPMTimeCounter);
+                CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCPMUpDownMinutes.Value), Convert.ToInt32(numericCPMUpDownSeconds.Value));
+                lblCPMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
             }
         }
 
@@ -723,14 +819,14 @@ namespace HOH_DEMO
         #region CTM tab
         private void numericCTMUpDownMinutes_ValueChanged(object sender, EventArgs e)
         {
-            CPMTimeCounter = timeToCounter(Convert.ToInt32(numericCTMUpDownMinutes.Value), Convert.ToInt32(numericCTMUpDownSeconds.Value));
-            lblCTMTimer.Text = timeToStr(CPMTimeCounter);
+            CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCTMUpDownMinutes.Value), Convert.ToInt32(numericCTMUpDownSeconds.Value));
+            lblCTMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
         }
 
         private void numericCTMUpDownSeconds_ValueChanged(object sender, EventArgs e)
         {
-            CPMTimeCounter = timeToCounter(Convert.ToInt32(numericCTMUpDownMinutes.Value), Convert.ToInt32(numericCTMUpDownSeconds.Value));
-            lblCTMTimer.Text = timeToStr(CPMTimeCounter);
+            CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCTMUpDownMinutes.Value), Convert.ToInt32(numericCTMUpDownSeconds.Value));
+            lblCTMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
         }
 
         private void numericCTMUpDownCounter_ValueChanged(object sender, EventArgs e)
@@ -748,13 +844,13 @@ namespace HOH_DEMO
             if (rbCTMTimer.Checked)
             {
                 if (!btnCTMStart.Enabled) btnCTMStart.Enabled = true;
-//                if (!btnCTMOpenHand.Enabled) btnCTMOpenHand.Enabled = false;
+                //                if (!btnCTMOpenHand.Enabled) btnCTMOpenHand.Enabled = false;
                 rbCTMCounter.Checked = false;
                 gbCTMTimer.BackColor = Color.FromArgb(10, 0, 255, 0);
                 gbCTMCounter.BackColor = Color.Transparent;
                 lblCTMCounter.Text = "0";
-                CPMTimeCounter = timeToCounter(Convert.ToInt32(numericCTMUpDownMinutes.Value), Convert.ToInt32(numericCTMUpDownSeconds.Value));
-                lblCTMTimer.Text = timeToStr(CPMTimeCounter);
+                CPMTimeCounter = Utils.TimeToCounter(Convert.ToInt32(numericCTMUpDownMinutes.Value), Convert.ToInt32(numericCTMUpDownSeconds.Value));
+                lblCTMTimer.Text = Utils.TimeToStr(CPMTimeCounter);
             }
         }
 
@@ -763,7 +859,7 @@ namespace HOH_DEMO
             if (rbCTMCounter.Checked)
             {
                 if (!btnCTMStart.Enabled) btnCTMStart.Enabled = true;
-  //              if (!btnCTMOpenHand.Enabled) btnCTMOpenHand.Enabled = true;
+                //              if (!btnCTMOpenHand.Enabled) btnCTMOpenHand.Enabled = true;
                 rbCTMTimer.Checked = false;
                 gbCTMCounter.BackColor = Color.FromArgb(10, 0, 255, 0);
                 gbCTMTimer.BackColor = Color.Transparent;
@@ -876,24 +972,53 @@ namespace HOH_DEMO
         {
 
             if (connectedHOH)
-            {  
+            {
                 //resets hand
                 buttonfullyopen_Click(sender, e);
                 //disconnects hand socket
                 buttonConnect_Click(sender, e);
+                NW.Disconnect();
             }
+
+
             //stops sfunction server
             btnServerStop_Click(sender, e);
+            //clears events
+            HOHEvent.LogUpdated -= OnHOHEventUpdate;
+            HOHEvent.UsrMsgUpdated -= OnHOHEventUpdate;
+            HOHEvent.ClinicUpdated -= OnClinicEventUpdate;
+
+            try
+            {
+                if (defaultFileName == txtOptionsProtocolSeedFile.Text)
+                    saveProtocolsToolStripMenuItem_Click(sender, e);
+                else File.WriteAllText(defaultFileName, clinic.ToJSON());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Couldn't write file : + " + openFileDialog1.FileName);
+                Debug.WriteLine(ex.Message);
+            }
+
+
+            Properties.Settings.Default.defaultJsonFile = defaultFileName;
+            Properties.Settings.Default.deviceIP = deviceIP;
+            Properties.Settings.Default.devicePORT = devicePORT;
+            Properties.Settings.Default.serverPORT = serverPORT;
+
+            Properties.Settings.Default.Save();
+           
+
         }
 
         private void protocolsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        ProtocolEditor f1 = new ProtocolEditor(clinic);
+            ProtocolEditor f1 = new ProtocolEditor(clinic);
             f1.ShowDialog();
             Debug.WriteLine("form");
             //f1.Close();
@@ -902,12 +1027,18 @@ namespace HOH_DEMO
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
-            textBox1.AppendText(clinic.Conditions[0].Name);
+            textBox1.AppendText(clinic.States[0].Name);
         }
 
         private void lstProtocols_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lstProtocolsExercises.DataSource = null;
+            lstProtocolsExercises.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            lstProtocolsExercises.DisplayMember = "GetExerciseName";
 
+            listRepetitions.DataSource = null;
+            listRepetitions.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
+            listRepetitions.DisplayMember = "Repetitions";
         }
 
         private void tabProtocol_Click(object sender, EventArgs e)
@@ -917,23 +1048,199 @@ namespace HOH_DEMO
 
         private void lstProtocolsExercises_Format(object sender, ListControlConvertEventArgs e)
         {
-            string str1 = ((ProtocolExercise)e.ListItem).Exercise.Name;
-            string str2 = ((ProtocolExercise)e.ListItem).Repetitions.ToString();
+            string str1 = ((Exercise)e.ListItem).Name; 
+            string str2 = ((Exercise)e.ListItem).Repetitions.ToString();
             e.Value = "(x" + str2 + ") " + str1;
         }
 
         private void btnProtocolStart_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(lstProtocols.SelectedIndex);
+
+
             Protocol pt = ((Protocol)lstProtocols.SelectedItem);
+            ProtocolGUI protocolGUI = new ProtocolGUI(pt, NW);
+            protocolGUI.Show();
+
             Thread ProtoRun = new Thread(() => pt.Execute(NW));
             ProtoRun.Start();
 
             //new Thread(new ThreadStart(((Protocol)lstProtocols.SelectedItem).Execute)).Start(); 
         }
 
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            txtServerLog.SelectionStart = txtServerLog.TextLength;
+            txtServerLog.ScrollToCaret();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            txtProtocolsLog.Text = "";
+        }
+
+        private void txtProtocolsLog_TextChanged(object sender, EventArgs e)
+        {
+            txtServerLog.SelectionStart = txtServerLog.TextLength;
+            txtServerLog.ScrollToCaret();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            txtProtocolsLog.Text = clinic.ToJSON();
+            //Debug.WriteLine(clinic.ToJSON());
+        }
+
+        private void saveProtocolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "JSON (*.json) | *.json";
+            saveFileDialog1.DefaultExt = "json";
+            saveFileDialog1.AddExtension = true;
+            saveFileDialog1.FileName = defaultFileName;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllText(saveFileDialog1.FileName, clinic.ToJSON());
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Couldn't write file : + " + openFileDialog1.FileName);
+                    Debug.WriteLine(ex.Message);
+                }
+                defaultFileName = saveFileDialog1.FileName;
+                statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName);
+                //MessageBox.Show("Protocols Saved!");
+            }
+        }
+
+        private void loadProtocolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //LoadProtocols();
+            openFileDialog1.Filter = "JSON (*.json) | *.json";
+            openFileDialog1.FileName = defaultFileName;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string str = String.Empty;
+                try
+                {
+                    str = File.ReadAllText(openFileDialog1.FileName);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Couldn't read file : + " + openFileDialog1.FileName);
+                    Debug.WriteLine(ex.Message);
+                }
+                clinic.FromJSON(str);
+                // clinic = new Clinic(clinic);
+                defaultFileName = openFileDialog1.FileName;
+                statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName);
+            }
+            //HOHEventObj.UpdateClinic(clinic);
+            UpdateProtocols();
+        }
+
         private void lblCALThresholdFlexor_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void cPMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //// ((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked = !((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked;
+            // if (!((ToolStripMenuItem)viewToolStripMenuItem.DropDownItems[0]).Checked) tabControl.TabPages.Remove(tabs[0]);
+            // else tabControl.TabPages.Add(tabs[0]);
+            // //tabControl.TabPages[tabControl.TabPages.Count].
+            //if (chkMenuProtocols.Checked) tabControl.TabPages.Remove(tabProtocol);
+            //else tabControl.TabPages.Add(tabProtocol);
+        }
+
+
+        private void tabControl_DragOver(object sender, DragEventArgs e)
+        {
+            Point pos = tabControl.PointToClient(Control.MousePosition);
+            for (int ix = 0; ix < tabControl.TabCount; ++ix)
+            {
+                if (tabControl.GetTabRect(ix).Contains(pos))
+                {
+                    tabControl.SelectedIndex = ix;
+                    break;
+                }
+            }
+        }
+
+        private void chkHOHOnline_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnOptionsApply_Click(object sender, EventArgs e)
+        {
+            deviceIP = txtOptionsDeviceIP.Text;
+            devicePORT = txtOptionsDevicePort.Text;
+            defaultFileName = txtOptionsProtocolSeedFile.Text;
+
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void LoadProtocols()
+        {
+
+            Debug.WriteLine("FileName : " + defaultFileName);
+            
+
+            string msg = String.Empty;
+            string str = String.Empty;
+            try
+            {
+                Debug.WriteLine("Opening file " + defaultFileName);
+                try
+                {
+
+                    str = File.ReadAllText(defaultFileName);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Invalid default file name : " + defaultFileName);
+                    Debug.WriteLine(ex.Message);
+                }
+              
+                if (str?.Length == 0)
+                {
+                    loadProtocolsToolStripMenuItem_Click(null, EventArgs.Empty);
+                    //Seed.SetupData(clinic);
+                    msg = "Protocols seeded";
+                }
+                else
+                {
+                    clinic.FromJSON(str);
+                    msg = "Protocols loaded";
+                }
+            }
+            catch
+            {
+                Seed.SetupData(clinic);
+                msg = "Protocols seeded";
+            }
+            Debug.WriteLine(msg);
         }
     }
 }

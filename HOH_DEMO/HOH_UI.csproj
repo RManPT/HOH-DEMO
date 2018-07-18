@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>publish\test\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,8 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>13</ApplicationRevision>
+    <ApplicationRevision>21</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -64,12 +63,16 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>hoh_logo_mwo_4.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\hoh_logo_mwo_4.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Shared.Base, Version=16.1350.0.24, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -105,6 +108,7 @@
     </Compile>
     <None Include="app.config" />
     <None Include="HOH_UI_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Properties\DataSources\HOH_Library.Exercise.datasource" />
     <None Include="Properties\DataSources\HOH_Library.Protocol.datasource" />
     <None Include="Properties\DataSources\HOH_Library.ProtocolExercise.datasource" />
@@ -124,6 +128,10 @@
       <Project>{47abcd02-9cf1-4b0e-a1ca-f0c056f5fd76}</Project>
       <Name>HOH_Library</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HOH_ProtocolGUI\HOH_ProtocolGUI.csproj">
+      <Project>{3e3c7962-647e-40ed-b9fb-84dc6cd1a650}</Project>
+      <Name>HOH_ProtocolGUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TestProtocolCreation\HOH_ProtocolEditor.csproj">
       <Project>{5c8cfadd-b021-4083-9020-a27cc038f1b8}</Project>
       <Name>HOH_ProtocolEditor</Name>
@@ -142,7 +150,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="hoh_logo_mwo_4.ico" />
+    <Content Include="Resources\hoh_logo_mwo_4.ico" />
+    <None Include="Resources\IconOpenFile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

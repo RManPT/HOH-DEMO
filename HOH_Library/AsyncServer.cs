@@ -8,13 +8,8 @@ using System.Threading;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-
 namespace HOH_Library
 {
-
-
-    
-
     public class AsyncServer
     {
         // Thread signal.  
@@ -30,7 +25,7 @@ namespace HOH_Library
 
         public AsyncServer()
         {
-            
+
         }
 
         public static void StartListening(int port)
@@ -63,7 +58,7 @@ namespace HOH_Library
                 {
                     // Set the event to nonsignaled state.  
                     allDone.Reset();
-                    
+
                     // Start an asynchronous socket to listen for connections.  
                     //Debug.WriteLine("SERVER - Waiting for a connection...");
                     SetText("SERVER - Waiting for a connection...");
@@ -79,8 +74,8 @@ namespace HOH_Library
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.ToString());
-                SetText(e.ToString());
+                Debug.WriteLine(e.Message);
+                SetText(e.Message);
             }
 
             Console.WriteLine("\nPress ENTER to continue...");
@@ -111,7 +106,7 @@ namespace HOH_Library
             listener = (Socket)ar.AsyncState;
             Socket handler = listener.EndAccept(ar);
             //Debug.WriteLine(((IPEndPoint)handler.RemoteEndPoint).Address.ToString() + " connected");
-            SetText(((IPEndPoint)handler.RemoteEndPoint).Address.ToString() + " connected");
+            SetText(((IPEndPoint)handler.RemoteEndPoint).Address + " connected");
 
             // Create the state object.  
             StateObject state = new StateObject();
@@ -152,7 +147,7 @@ namespace HOH_Library
                 
 
                     //prints last received byte
-                    Debug.Write(lastMessage.ToString());
+                    Debug.Write(lastMessage);
                     //gets the processed mode in ascii
                     int command = (int)lastMessage.ToCharArray()[0];
                     SetText("Received from client : " + command.ToString());
@@ -190,7 +185,7 @@ namespace HOH_Library
             }
             catch (ObjectDisposedException e)
             {
-                Debug.WriteLine(e);
+                Debug.WriteLine(e.Message);
             }
         }
 
@@ -220,12 +215,13 @@ namespace HOH_Library
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine(e.Message);
             }
         }
 
 
         delegate void SetTextCallback(string text);
+
         private static void SetText(string text)
         {
             if (txtLog.InvokeRequired)
@@ -235,8 +231,9 @@ namespace HOH_Library
                 {
                     txtLog.Invoke(d, new object[] { text + System.Environment.NewLine });
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Debug.WriteLine(e.Message);
                 }
             }
             else
@@ -254,16 +251,17 @@ namespace HOH_Library
                 
                 return !(socket.Poll(1, SelectMode.SelectRead) && socket.Available == 0);
             }
-            catch (SocketException) { return false; }
-            catch (ObjectDisposedException) { return false; }
+            catch (SocketException ex) { Debug.WriteLine(ex.Message); return false; }
+            catch (ObjectDisposedException ex ) { Debug.WriteLine(ex.Message); return false; }
         }
 
         public static void refreshClients()
         {
             while(setrun)
-            //checks if clients are disconnected
-            for (int i = MySocketList.Count - 1; i >= 0; i--)
             {
+                //checks if clients are disconnected
+                for (int i = MySocketList.Count - 1; i >= 0; i--)
+                {
                     try
                     {
                         if (!IsConnected(MySocketList[i]))
@@ -276,11 +274,13 @@ namespace HOH_Library
                             MySocketList.RemoveAt(i);
                         }
                     }
-                    catch (ObjectDisposedException) { }
+                    catch (ObjectDisposedException ex ) { Debug.WriteLine(ex.Message); }
+                }
+                Thread.Sleep(20);
             }
 
             //server 
-            
+
             for (int i = MySocketList.Count - 1; i >= 0; i--)
             {
                 try
@@ -291,7 +291,7 @@ namespace HOH_Library
                     // MySocketList[i].Disconnect(false);
                    // MySocketList[i] = null;
                 }
-                catch (ObjectDisposedException) { }
+                catch (ObjectDisposedException ex ) { Debug.WriteLine(ex.Message); }
             }
             MySocketList.Clear();
             SetText("Server stopped. All clients disconnected.");
@@ -315,13 +315,13 @@ namespace HOH_Library
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                Debug.WriteLine(e.Message);
             }
         }
-        //public static int Main(String[] args)
-        //{
-        //    StartListening();
-        //    return 0;
-        //}
+
+        public static bool IsConnected()
+        {
+            return Convert.ToBoolean(MySocketList.Count);
+        }
     }
 }

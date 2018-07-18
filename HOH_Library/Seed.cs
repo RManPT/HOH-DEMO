@@ -34,19 +34,20 @@ namespace HOH_Library
                 CallbackMsg = ""
             };
 
-            clinic.Conditions.Add(condNone);
-            clinic.Conditions.Add(condFullyOpen);
-            clinic.Conditions.Add(condFullyClose);
+            clinic.States.Add(condNone);
+            clinic.States.Add(condFullyOpen);
+            clinic.States.Add(condFullyClose);
             
 
             Exercise exerFullyClose = new Exercise
             {
                 Name = "Fully Close",
                 PreState = condFullyOpen,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "22",
                 UserMsg = "Close your hand!",
                 TargetState = condFullyClose,
+                Repetitions = 1,
                 PostState = condNone
             };
 
@@ -54,10 +55,11 @@ namespace HOH_Library
             {
                 Name = "Fully Open",
                 PreState = condFullyClose,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "21",
                 UserMsg = "Open your hand!",
                 TargetState = condFullyOpen,
+                Repetitions = 1,
                 PostState = condNone
             };
 
@@ -65,10 +67,11 @@ namespace HOH_Library
             {
                 Name = "Open Rest",
                 PreState = condFullyOpen,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "20",
                 UserMsg = "Relax with your hand closed",
                 TargetState = condNone,
+                Repetitions = 1,
                 PostState = condNone
             };
 
@@ -76,10 +79,11 @@ namespace HOH_Library
             {
                 Name = "Close Rest",
                 PreState = condFullyClose,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "20",
                 UserMsg = "Relax with your hand closed",
                 TargetState = condNone,
+                Repetitions = 1,
                 PostState = condNone
             };
 
@@ -87,10 +91,11 @@ namespace HOH_Library
             {
                 Name = "Rest",
                 PreState = condNone,
-                ExerciseTime = 5,
+                ExerciseTime = 10,
                 SFCode = "20",
                 UserMsg = "Just relax!",
                 TargetState = condNone,
+                Repetitions = 1,
                 PostState = condNone
             };
 
@@ -100,51 +105,30 @@ namespace HOH_Library
             clinic.Exercises.Add(exerCloseRest);
             clinic.Exercises.Add(exerJustRest);
 
-            ProtocolExercise ex1 = new ProtocolExercise()
-            {
-                Exercise = exerFullyOpen,
-                Repetitions = 1
-            };
-
-            ProtocolExercise ex2 = new ProtocolExercise()
-            {
-                Exercise = exerJustRest,
-                Repetitions = 1
-            };
-
-            ProtocolExercise ex3 = new ProtocolExercise()
-            {
-                Exercise = exerFullyClose,
-                Repetitions = 1
-            };
-
-            clinic.ProtocolExercises.Add(ex1);
-            clinic.ProtocolExercises.Add(ex2);
-            clinic.ProtocolExercises.Add(ex3);
-
             Protocol protoc1 = new Protocol()
             {
                 Name = "Protocol 1",
-                Exercises = new List<ProtocolExercise>
+                Exercises = new List<Exercise>
                 {
-                    ex1,
-                    ex2,
-                    ex3
+                    exerFullyOpen,
+                    exerJustRest,
+                    exerFullyClose
                 }
             };
 
             Protocol protoc2 = new Protocol()
             {
                 Name = "Protocol 2",
-                Exercises = new List<ProtocolExercise>
+                Exercises = new List<Exercise>
                 {
-                    new ProtocolExercise(exerFullyClose, 3)
+                    new Exercise("New exercise 1")
                 }
             };
 
             clinic.Protocols.Add(protoc1);
             clinic.Protocols.Add(protoc2);
-
+            clinic.Name = "HOH Clinic";
+            clinic.Rewards.AddRange(new List<string>{ "Well done!", "Nice effort!", "Good try!" });
         }
     }
 

@@ -7,14 +7,14 @@
     <framework targetVersion="4.7" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="ProtocolEditor.exe.manifest" size="4135">
+    <dependentAssembly dependencyType="install" codebase="ProtocolEditor.exe.manifest" size="5933">
       <assemblyIdentity name="ProtocolEditor.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>q9VCkBjmW4J+H4JTEI0RVTz5oixLrVlXWg3M9/Qpgt8=</dsig:DigestValue>
+        <dsig:DigestValue>5g8mpLTZEE67SCr409uZEiU8HQ36R6bEJBDD/O5eWG4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

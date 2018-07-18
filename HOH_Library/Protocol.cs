@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 
 
 namespace HOH_Library
@@ -15,25 +16,66 @@ namespace HOH_Library
         /// <summary>
         /// List of exercices and its repetitions that composes the protocol
         /// </summary>
-        public IList<ProtocolExercise> Exercises { get; set; }
-
+        public IList<Exercise> Exercises { get; set; }
+        public List<string> Rewards;
+        private readonly HOHEvent HOHEventObj = new HOHEvent();
+        private bool ExecuteStatus = true;
 
         public Protocol()
         {
-            this.Name = "New protocol";
+            Name = "New protocol";
+            Exercises = new List<Exercise>();
+        }
+        public Protocol(string name)
+        {
+            Name = name;
+            Exercises = new List<Exercise>();
+        }
+
+        private void OnClinicEventUpdate(object sender, HOHEvent e)
+        {
+            Rewards = e.Clinic.Rewards;
         }
 
         public void Execute(MRNetwork NW)
         {
-            Debug.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-            Debug.WriteLine("PROTOCOL: START!");
-            foreach (ProtocolExercise ex in Exercises)
+            HOHEvent.ClinicUpdated += OnClinicEventUpdate;
+            HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
+
+            HOHEventObj.UpdateLogMsg("PROTOCOL: START!");
+            HOHEventObj.UpdateProtocolState("running");
+            foreach (Exercise ex in Exercises)
             {
-               ex.Execute(NW);
-                //forçar espera por fim de execução para passar ao proximo item.
-                
+               if (!ExecuteStatus) break;
+                Random rnd = new Random();
+
+                HOHEventObj.UpdateUsrMsg("\r\nPrepare for " + ex.TargetState.UserMsg.ToLower() + "...");
+                HOHEventObj.UpdateExerciseName(ex.TargetState.Name);
+                Thread.Sleep(5000);
+                if (!ExecuteStatus) break;
+                ex.Execute(NW);
+                if (!ExecuteStatus) break;
+                HOHEventObj.UpdateUsrMsg(Rewards[rnd.Next(Rewards.Count)]);
+                Thread.Sleep(5000);
             }
-            Debug.WriteLine("PROTOCOL: DONE!");
+            HOHEventObj.UpdateProtocolState("stopped");
+            HOHEventObj.UpdateUsrMsg("Well done! Protocol complete.");
+            HOHEventObj.UpdateLogMsg("PROTOCOL: DONE!");
+
+        }
+
+        private void OnHOHEventUpdate(object sender, HOHEvent e)
+        {
+            if (e.ProtocolState == "interrupt")
+                ExecuteStatus = false;
+            else
+            {
+                foreach (Exercise ex in Exercises)
+                {
+                    ex.ExecuteStatus = true;
+                    ExecuteStatus = true;
+                }
+            } 
         }
     }
 }

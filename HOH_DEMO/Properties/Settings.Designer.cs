@@ -22,5 +22,53 @@ namespace HOH_DEMO.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string defaultJsonFile {
+            get {
+                return ((string)(this["defaultJsonFile"]));
+            }
+            set {
+                this["defaultJsonFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string deviceIP {
+            get {
+                return ((string)(this["deviceIP"]));
+            }
+            set {
+                this["deviceIP"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string devicePORT {
+            get {
+                return ((string)(this["devicePORT"]));
+            }
+            set {
+                this["devicePORT"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string serverPORT {
+            get {
+                return ((string)(this["serverPORT"]));
+            }
+            set {
+                this["serverPORT"] = value;
+            }
+        }
     }
 }
