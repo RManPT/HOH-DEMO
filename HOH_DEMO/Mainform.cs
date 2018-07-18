@@ -40,8 +40,6 @@ namespace HOH_DEMO
         private string deviceIP;
         private string devicePORT;
         private string serverPORT;
-       
-
 
         BindingSource protocolsBinding = new BindingSource();
         BindingSource protocolDetailsBinding = new BindingSource();
