@@ -46,6 +46,7 @@ namespace HOH_DEMO
         BindingSource protocolExerciseBindingSource;
 
         BindingList<Protocol> blProtocols = new BindingList<Protocol>(clinic.Protocols);
+        BindingList<String> blRewards = new BindingList<string>(clinic.Rewards);
 
         public Mainform()
         {
@@ -56,7 +57,9 @@ namespace HOH_DEMO
             LoadProtocols();
             Text += " - " + clinic.Name;
 
-
+            lstOptionsGeneralRewards.DataSource = clinic.Rewards;
+            
+            //lstOptionsGeneralRewards.DisplayMember = "";
 
             NW = new MRNetwork(deviceIP, Int32.Parse(devicePORT)); //("169.254.1.1", 2000
             NW.SetLogBox(textBoxLog);
@@ -1197,6 +1200,40 @@ namespace HOH_DEMO
         private void toolTip1_Popup(object sender, PopupEventArgs e)
         {
 
+        }
+
+        private void btnStateAdd_Click(object sender, EventArgs e)
+        {
+            if (txtOptionsGeneralRewardName.Text != String.Empty)
+            {
+                clinic.Rewards.Add(txtOptionsGeneralRewardName.Text);
+                lstOptionsGeneralRewards.DataSource = null;
+                lstOptionsGeneralRewards.DataSource = clinic.Rewards;
+                btnRewardsRemove.Enabled = (lstOptionsGeneralRewards.Items.Count != 0);
+            }
+        }
+
+        private void btnStateRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                clinic.Rewards.RemoveAt(lstOptionsGeneralRewards.SelectedIndex);
+                lstOptionsGeneralRewards.DataSource = null;
+                lstOptionsGeneralRewards.DataSource = clinic.Rewards;
+                btnRewardsRemove.Enabled = (lstOptionsGeneralRewards.Items.Count != 0);
+            }
+            catch { }
+        }
+
+        private void txtOptionsGeneralRewardName_TextChanged(object sender, EventArgs e)
+        {
+            btnRewardAdd.Enabled = (txtOptionsGeneralRewardName.Text != String.Empty);
+                
+        }
+
+        private void lstOptionsGeneralRewards_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
 
         private void LoadProtocols()

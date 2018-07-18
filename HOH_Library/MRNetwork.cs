@@ -251,6 +251,7 @@ namespace HOH_Library
             ExecuteStatus = true;
             Send(command);
 
+            if (exitCondition!=String.Empty)
             while (ExecuteStatus)
             {
                 if (msgs != null)
