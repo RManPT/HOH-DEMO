@@ -105,6 +105,14 @@
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttontest = new System.Windows.Forms.Button();
             this.tabOptions = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btnRewardsRemove = new System.Windows.Forms.Button();
+            this.btnRewardAdd = new System.Windows.Forms.Button();
+            this.txtOptionsGeneralRewardName = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.lstOptionsGeneralRewards = new System.Windows.Forms.ListBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtOptionsGeneralName = new System.Windows.Forms.Label();
             this.btnOptionsApply = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
@@ -186,14 +194,6 @@
             this.statusBar1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.txtOptionsGeneralName = new System.Windows.Forms.Label();
-            this.lstOptionsGeneralRewards = new System.Windows.Forms.ListBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.txtOptionsGeneralRewardName = new System.Windows.Forms.TextBox();
-            this.btnRewardsRemove = new System.Windows.Forms.Button();
-            this.btnRewardAdd = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabProtocol.SuspendLayout();
@@ -211,6 +211,7 @@
             this.groupBoxFunctions.SuspendLayout();
             this.groupBoxInitialization.SuspendLayout();
             this.tabOptions.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.tabCPM.SuspendLayout();
@@ -238,7 +239,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarThresholdFlexor)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -808,6 +808,63 @@
             resources.ApplyResources(this.tabOptions, "tabOptions");
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.btnRewardsRemove);
+            this.groupBox9.Controls.Add(this.btnRewardAdd);
+            this.groupBox9.Controls.Add(this.txtOptionsGeneralRewardName);
+            this.groupBox9.Controls.Add(this.label23);
+            this.groupBox9.Controls.Add(this.lstOptionsGeneralRewards);
+            this.groupBox9.Controls.Add(this.textBox2);
+            this.groupBox9.Controls.Add(this.txtOptionsGeneralName);
+            resources.ApplyResources(this.groupBox9, "groupBox9");
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.TabStop = false;
+            // 
+            // btnRewardsRemove
+            // 
+            resources.ApplyResources(this.btnRewardsRemove, "btnRewardsRemove");
+            this.btnRewardsRemove.Name = "btnRewardsRemove";
+            this.toolTip1.SetToolTip(this.btnRewardsRemove, resources.GetString("btnRewardsRemove.ToolTip"));
+            this.btnRewardsRemove.UseVisualStyleBackColor = true;
+            this.btnRewardsRemove.Click += new System.EventHandler(this.btnStateRemove_Click);
+            // 
+            // btnRewardAdd
+            // 
+            resources.ApplyResources(this.btnRewardAdd, "btnRewardAdd");
+            this.btnRewardAdd.Name = "btnRewardAdd";
+            this.toolTip1.SetToolTip(this.btnRewardAdd, resources.GetString("btnRewardAdd.ToolTip"));
+            this.btnRewardAdd.UseVisualStyleBackColor = true;
+            this.btnRewardAdd.Click += new System.EventHandler(this.btnStateAdd_Click);
+            // 
+            // txtOptionsGeneralRewardName
+            // 
+            resources.ApplyResources(this.txtOptionsGeneralRewardName, "txtOptionsGeneralRewardName");
+            this.txtOptionsGeneralRewardName.Name = "txtOptionsGeneralRewardName";
+            this.txtOptionsGeneralRewardName.TextChanged += new System.EventHandler(this.txtOptionsGeneralRewardName_TextChanged);
+            // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.Name = "label23";
+            // 
+            // lstOptionsGeneralRewards
+            // 
+            this.lstOptionsGeneralRewards.FormattingEnabled = true;
+            resources.ApplyResources(this.lstOptionsGeneralRewards, "lstOptionsGeneralRewards");
+            this.lstOptionsGeneralRewards.Name = "lstOptionsGeneralRewards";
+            this.lstOptionsGeneralRewards.SelectedIndexChanged += new System.EventHandler(this.lstOptionsGeneralRewards_SelectedIndexChanged);
+            // 
+            // textBox2
+            // 
+            resources.ApplyResources(this.textBox2, "textBox2");
+            this.textBox2.Name = "textBox2";
+            // 
+            // txtOptionsGeneralName
+            // 
+            resources.ApplyResources(this.txtOptionsGeneralName, "txtOptionsGeneralName");
+            this.txtOptionsGeneralName.Name = "txtOptionsGeneralName";
             // 
             // btnOptionsApply
             // 
@@ -1428,63 +1485,6 @@
             this.toolTip1.IsBalloon = true;
             this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.btnRewardsRemove);
-            this.groupBox9.Controls.Add(this.btnRewardAdd);
-            this.groupBox9.Controls.Add(this.txtOptionsGeneralRewardName);
-            this.groupBox9.Controls.Add(this.label23);
-            this.groupBox9.Controls.Add(this.lstOptionsGeneralRewards);
-            this.groupBox9.Controls.Add(this.textBox2);
-            this.groupBox9.Controls.Add(this.txtOptionsGeneralName);
-            resources.ApplyResources(this.groupBox9, "groupBox9");
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.TabStop = false;
-            // 
-            // textBox2
-            // 
-            resources.ApplyResources(this.textBox2, "textBox2");
-            this.textBox2.Name = "textBox2";
-            // 
-            // txtOptionsGeneralName
-            // 
-            resources.ApplyResources(this.txtOptionsGeneralName, "txtOptionsGeneralName");
-            this.txtOptionsGeneralName.Name = "txtOptionsGeneralName";
-            // 
-            // lstOptionsGeneralRewards
-            // 
-            this.lstOptionsGeneralRewards.FormattingEnabled = true;
-            resources.ApplyResources(this.lstOptionsGeneralRewards, "lstOptionsGeneralRewards");
-            this.lstOptionsGeneralRewards.Name = "lstOptionsGeneralRewards";
-            this.lstOptionsGeneralRewards.SelectedIndexChanged += new System.EventHandler(this.lstOptionsGeneralRewards_SelectedIndexChanged);
-            // 
-            // label23
-            // 
-            resources.ApplyResources(this.label23, "label23");
-            this.label23.Name = "label23";
-            // 
-            // txtOptionsGeneralRewardName
-            // 
-            resources.ApplyResources(this.txtOptionsGeneralRewardName, "txtOptionsGeneralRewardName");
-            this.txtOptionsGeneralRewardName.Name = "txtOptionsGeneralRewardName";
-            this.txtOptionsGeneralRewardName.TextChanged += new System.EventHandler(this.txtOptionsGeneralRewardName_TextChanged);
-            // 
-            // btnRewardsRemove
-            // 
-            resources.ApplyResources(this.btnRewardsRemove, "btnRewardsRemove");
-            this.btnRewardsRemove.Name = "btnRewardsRemove";
-            this.toolTip1.SetToolTip(this.btnRewardsRemove, resources.GetString("btnRewardsRemove.ToolTip"));
-            this.btnRewardsRemove.UseVisualStyleBackColor = true;
-            this.btnRewardsRemove.Click += new System.EventHandler(this.btnStateRemove_Click);
-            // 
-            // btnRewardAdd
-            // 
-            resources.ApplyResources(this.btnRewardAdd, "btnRewardAdd");
-            this.btnRewardAdd.Name = "btnRewardAdd";
-            this.toolTip1.SetToolTip(this.btnRewardAdd, resources.GetString("btnRewardAdd.ToolTip"));
-            this.btnRewardAdd.UseVisualStyleBackColor = true;
-            this.btnRewardAdd.Click += new System.EventHandler(this.btnStateAdd_Click);
-            // 
             // Mainform
             // 
             resources.ApplyResources(this, "$this");
@@ -1527,6 +1527,8 @@
             this.groupBoxInitialization.ResumeLayout(false);
             this.tabOptions.ResumeLayout(false);
             this.tabOptions.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -1566,8 +1568,6 @@
             this.groupBox1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

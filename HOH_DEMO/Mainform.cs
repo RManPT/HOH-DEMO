@@ -974,11 +974,10 @@ namespace HOH_DEMO
 
             if (connectedHOH)
             {
-                //resets hand
-                buttonfullyopen_Click(sender, e);
+
                 //disconnects hand socket
                 buttonConnect_Click(sender, e);
-                NW.Disconnect();
+               
             }
 
 
