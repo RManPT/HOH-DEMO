@@ -20,8 +20,8 @@ namespace HOH_Library
         public static bool setrun;
         public static TextBox txtLog;
         public static Socket listener;
-        public static int LastCMDReceived;
-        public static bool commandProcessed;
+        public static int LastCMDReceived { get; set; }
+        public static bool commandProcessed { get; set; }
 
         public AsyncServer()
         {

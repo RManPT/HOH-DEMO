@@ -87,9 +87,17 @@ namespace HOH_ProtocolGUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            HOHEventObj.UpdateProtocolState("interrupt");
-            btnStop.Enabled = false;
-           // btnRestart.Enabled = true;
+            if (btnStop.Text == "Stop")
+            {
+                HOHEventObj.UpdateProtocolState("interrupt");
+                //btnStop.Enabled = false;
+                // btnRestart.Enabled = true;
+                btnStop.Text = "Exit";
+            }
+            else {
+                ProtocolGUI_FormClosing(sender, null );
+                this.Close();
+            }
         }
     }
 }
