@@ -45,6 +45,7 @@ namespace HOH_Library
         private SFListener sf;
         private MRNetwork NW;
         public bool ExecuteStatus = true;
+        private bool exerciseRunning = false;
 
         private readonly HOHEvent HOHEventObj = new HOHEvent();
 
@@ -105,6 +106,7 @@ namespace HOH_Library
         public void Execute(MRNetwork NW)
         {
             HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
+            HOHEvent.ExerciseStateUpdated += OnExerciseStateUpdated;
 
             this.NW = NW;
             for (int i = 0; i < this.Repetitions; i++)
@@ -125,9 +127,11 @@ namespace HOH_Library
                     sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
                     Thread SFThread = new Thread(() => sf.Execute(NW));
                     SFThread.Start();
-
-                    //this.TargetState.execute(NW);
-                    Thread.Sleep(this.ExerciseTime * 1000);
+                    exerciseRunning = true;
+                    while (exerciseRunning)
+                    { }
+                    
+                    //Thread.Sleep(this.ExerciseTime * 1000);
                     sf.InterruptListener(NW);
                 }
 
@@ -150,11 +154,19 @@ namespace HOH_Library
                 sf?.InterruptListener(NW);
                 ExecuteStatus = false;
                 NW.ExecuteStatus = false;
+                
             }
             else {
                 ExecuteStatus = true;
                 NW.ExecuteStatus = true;
             }
+        }
+
+        private void OnExerciseStateUpdated(object sender, HOHEvent e)
+        {
+            exerciseRunning = e.ExerciseRunning;
+            //ExecuteStatus = exerciseRunning;
+             
         }
     }
 }

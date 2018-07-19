@@ -105,6 +105,14 @@
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttontest = new System.Windows.Forms.Button();
             this.tabOptions = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btnRewardsRemove = new System.Windows.Forms.Button();
+            this.btnRewardAdd = new System.Windows.Forms.Button();
+            this.txtOptionsGeneralRewardName = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.lstOptionsGeneralRewards = new System.Windows.Forms.ListBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtOptionsGeneralName = new System.Windows.Forms.Label();
             this.btnOptionsApply = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button6 = new System.Windows.Forms.Button();
@@ -203,6 +211,7 @@
             this.groupBoxFunctions.SuspendLayout();
             this.groupBoxInitialization.SuspendLayout();
             this.tabOptions.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.tabCPM.SuspendLayout();
@@ -791,6 +800,7 @@
             // 
             // tabOptions
             // 
+            this.tabOptions.Controls.Add(this.groupBox9);
             this.tabOptions.Controls.Add(this.btnOptionsApply);
             this.tabOptions.Controls.Add(this.groupBox8);
             this.tabOptions.Controls.Add(this.groupBox7);
@@ -798,6 +808,63 @@
             resources.ApplyResources(this.tabOptions, "tabOptions");
             this.tabOptions.Name = "tabOptions";
             this.tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.btnRewardsRemove);
+            this.groupBox9.Controls.Add(this.btnRewardAdd);
+            this.groupBox9.Controls.Add(this.txtOptionsGeneralRewardName);
+            this.groupBox9.Controls.Add(this.label23);
+            this.groupBox9.Controls.Add(this.lstOptionsGeneralRewards);
+            this.groupBox9.Controls.Add(this.textBox2);
+            this.groupBox9.Controls.Add(this.txtOptionsGeneralName);
+            resources.ApplyResources(this.groupBox9, "groupBox9");
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.TabStop = false;
+            // 
+            // btnRewardsRemove
+            // 
+            resources.ApplyResources(this.btnRewardsRemove, "btnRewardsRemove");
+            this.btnRewardsRemove.Name = "btnRewardsRemove";
+            this.toolTip1.SetToolTip(this.btnRewardsRemove, resources.GetString("btnRewardsRemove.ToolTip"));
+            this.btnRewardsRemove.UseVisualStyleBackColor = true;
+            this.btnRewardsRemove.Click += new System.EventHandler(this.btnStateRemove_Click);
+            // 
+            // btnRewardAdd
+            // 
+            resources.ApplyResources(this.btnRewardAdd, "btnRewardAdd");
+            this.btnRewardAdd.Name = "btnRewardAdd";
+            this.toolTip1.SetToolTip(this.btnRewardAdd, resources.GetString("btnRewardAdd.ToolTip"));
+            this.btnRewardAdd.UseVisualStyleBackColor = true;
+            this.btnRewardAdd.Click += new System.EventHandler(this.btnStateAdd_Click);
+            // 
+            // txtOptionsGeneralRewardName
+            // 
+            resources.ApplyResources(this.txtOptionsGeneralRewardName, "txtOptionsGeneralRewardName");
+            this.txtOptionsGeneralRewardName.Name = "txtOptionsGeneralRewardName";
+            this.txtOptionsGeneralRewardName.TextChanged += new System.EventHandler(this.txtOptionsGeneralRewardName_TextChanged);
+            // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.Name = "label23";
+            // 
+            // lstOptionsGeneralRewards
+            // 
+            this.lstOptionsGeneralRewards.FormattingEnabled = true;
+            resources.ApplyResources(this.lstOptionsGeneralRewards, "lstOptionsGeneralRewards");
+            this.lstOptionsGeneralRewards.Name = "lstOptionsGeneralRewards";
+            this.lstOptionsGeneralRewards.SelectedIndexChanged += new System.EventHandler(this.lstOptionsGeneralRewards_SelectedIndexChanged);
+            // 
+            // textBox2
+            // 
+            resources.ApplyResources(this.textBox2, "textBox2");
+            this.textBox2.Name = "textBox2";
+            // 
+            // txtOptionsGeneralName
+            // 
+            resources.ApplyResources(this.txtOptionsGeneralName, "txtOptionsGeneralName");
+            this.txtOptionsGeneralName.Name = "txtOptionsGeneralName";
             // 
             // btnOptionsApply
             // 
@@ -874,8 +941,6 @@
             // chkHOHOnline
             // 
             resources.ApplyResources(this.chkHOHOnline, "chkHOHOnline");
-            this.chkHOHOnline.Checked = true;
-            this.chkHOHOnline.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkHOHOnline.Name = "chkHOHOnline";
             this.chkHOHOnline.UseVisualStyleBackColor = true;
             this.chkHOHOnline.CheckedChanged += new System.EventHandler(this.chkHOHOnline_CheckedChanged);
@@ -1462,6 +1527,8 @@
             this.groupBoxInitialization.ResumeLayout(false);
             this.tabOptions.ResumeLayout(false);
             this.tabOptions.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
@@ -1664,5 +1731,13 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button btnOptionsApply;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label txtOptionsGeneralName;
+        private System.Windows.Forms.TextBox txtOptionsGeneralRewardName;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ListBox lstOptionsGeneralRewards;
+        private System.Windows.Forms.Button btnRewardsRemove;
+        private System.Windows.Forms.Button btnRewardAdd;
     }
 }

@@ -192,8 +192,8 @@ namespace HOH_Library
 
         public bool Send(string msg)
         {
-            lock (this)
-            {
+            //lock (this)
+            //{
                 try
                 {
                     byte[] tempmsg = Encoding.Default.GetBytes(msg);
@@ -205,7 +205,7 @@ namespace HOH_Library
                     Thread.Sleep(50);
                 }
                 return false;
-            }
+           // }
         }
 
         private void InputDetectedEvent(object sender, LANCBEvenArgs e)
@@ -250,10 +250,13 @@ namespace HOH_Library
         {
             ExecuteStatus = true;
             Send(command);
-
+            
+            //            Debug.WriteLine(command + "|" + exitCondition);
+            if (exitCondition!=String.Empty)
             while (ExecuteStatus)
             {
-                if (msgs != null)
+              //      Debug.WriteLine("waiting");
+                    if (msgs != null)
                     if (!msgs.IsEmpty)
                     {
                         if (msgs.TryDequeue(out string result))
