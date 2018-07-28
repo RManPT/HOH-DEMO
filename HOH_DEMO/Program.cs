@@ -12,6 +12,8 @@ namespace HOH_DEMO
         [STAThread]
         static void Main()
         {
+            //// adicionar argv para obter o ficheiro a abrir
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainform());

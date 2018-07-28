@@ -57,7 +57,7 @@ namespace HOH_Library
                 ex.Execute(NW);
 
                 if (!ExecuteStatus) break;
-                HOHEventObj.UpdateUsrMsg(Rewards[rnd.Next(Rewards.Count)]);
+          //      HOHEventObj.UpdateUsrMsg(Rewards[rnd.Next(Rewards.Count)]);
                 Thread.Sleep(5000);
             }
             HOHEventObj.UpdateProtocolState("stopped");
@@ -76,6 +76,7 @@ namespace HOH_Library
                 {
                     ex.ExecuteStatus = true;
                     ExecuteStatus = true;
+                    
                 }
             } 
         }

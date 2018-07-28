@@ -38,68 +38,95 @@ namespace HOH_Library
             ExecuteStatus = true;
             bool firstRun = true;
             System.Threading.Timer theTimer = new System.Threading.Timer(this.Tick, null, 0, 1000);
-            System.Threading.Timer theTimer2 = new System.Threading.Timer(this.Tick2, null, 0,100);
+            //System.Threading.Timer theTimer2 = new System.Threading.Timer(this.Tick2, null, 0,100);
             this.TimerCounter = this.WaitTime;
             this.ExerciseTime = this.WaitTime*1000;
             Debug.WriteLine("SFLISTENER : START!");
             AsyncServer.LastCMDReceived = 0;
             AsyncServer.commandProcessed = true;
             previousCMDReceived = 1;
+           
 
             HOHEventObj.UpdateLogMsg("SFListener: START");
-            while (ExecuteStatus && this.TimerCounter > 0)
+            while (ExecuteStatus && this.TimerCounter >= -1)
             {
-                if (AsyncServer.IsConnected())
+
+                if (firstRun || NW.ExecuteStatus)
                 {
-                    LastCMDReceived = AsyncServer.LastCMDReceived;
-                    commandProcessed = AsyncServer.commandProcessed;
-                    
-                    Debug.WriteLine("Last> " + LastCMDReceived + " | Process> " + commandProcessed);
-                    //Código a executar quando os testes estiverem concluídos.
-                    if (LastCMDReceived == SFCode && LastCMDReceived != previousCMDReceived && !commandProcessed)
-                    { //se sinal detectado indica o movimento desejado actua em conformidade
-                        if (firstRun)
-                        {
-                            Debug.WriteLine("GOT IN!");
-                            this.TargetState.execute(NW);
-                            //Thread.Sleep(20);
-                            firstRun = false;
+
+                    if (AsyncServer.IsConnected())
+                    {
+                        LastCMDReceived = AsyncServer.LastCMDReceived;
+                        commandProcessed = AsyncServer.commandProcessed;
+
+                        Debug.WriteLine("Last> " + LastCMDReceived + " | Process> " + commandProcessed + " | Firstrun> " + firstRun + " | ExecStatus " + NW.ExecuteStatus);
+                        //Código a executar quando os testes estiverem concluídos.
+
+                        if (LastCMDReceived == SFCode && LastCMDReceived != previousCMDReceived && !commandProcessed)
+                        { //se sinal detectado indica o movimento desejado actua em conformidade
+                            if (firstRun)
+                            {
+                                Debug.WriteLine("GOT IN!");
+                               // this.TargetState.execute(NW);
+
+                                Thread SFThread = new Thread(() => this.TargetState.execute(NW));
+                                SFThread.Start();
+
+                                firstRun = false;
+                            }
+                            else
+                            {
+                                //NW.ExecuteAndWait("r","AOk", null);
+                                NW.Send("r");
+                                Debug.WriteLine("Resuming (right signal)");
+                                //Necessario para dar tempo à mão para processar a excepção
+                                //Thread.Sleep(40);
+                            }
+                            // commandProcessed = true;    //certifica que não há comandos processados multiplas 
+                            AsyncServer.commandProcessed = true;
+                            previousCMDReceived = LastCMDReceived;
                         }
-                        else
+                        else if (LastCMDReceived != SFCode && !commandProcessed)
                         {
-                           NW.Send("r");
-                           
-                            //Thread.Sleep(50);
+                            //NW.ExecuteAndWait("p", "Pausing",null);
+                            NW.Send("p");
+                            //Necessario para dar tempo à mão para processar a excepção
+                            //Thread.Sleep(40);
+                            Debug.WriteLine("Holding (wrong signal)");
+                            //debug only
+                            previousCMDReceived = 0;
                         }
 
-                        commandProcessed = true;    //certifica que não há comandos processados multiplas 
-                        previousCMDReceived = LastCMDReceived;
                     }
-                    else if (!commandProcessed)
-                    {
-                        NW.Send("p");
-                        previousCMDReceived = LastCMDReceived;
-                    }
-                }
-                else
-                {  //debug mode ... no clients connected
-                    if (this.TargetState != null && !commandProcessed)
-                    { 
+                    else
+                    {  //debug mode ... no clients connected
+                        if (this.TargetState != null && !commandProcessed)
+                        {
                             this.TargetState.execute(NW);
-                            commandProcessed = true;
+                            // commandProcessed = true;
+                        }
                     }
+                    //Thread.Sleep(100); 
                 }
-                
+                else if (!firstRun)
+                {
+                    //NW.ExecuteAndWait("p", "Pausing", null);
+                    NW.Send("p");
+                    //Thread.Sleep(40);
+                    Debug.WriteLine("Holding (last 10%)");
+                }
             }
+            NW.Send("r");
+            Thread.Sleep(40);
             NW.Send("x");
             previousCMDReceived = LastCMDReceived;
             commandProcessed = true;
             theTimer.Dispose();
-            theTimer2.Dispose();
-            // Monitor.Pulse(HomeThread);          //experiencia
+
             Debug.WriteLine("SFLISTENER : END!");
             HOHEventObj.UpdateLogMsg("SFListener: END");
             HOHEventObj.UpdateExerciseState(false);
+           // HOHEventObj.UpdateExerciseTimer(0);
         }
 
         private void Tick2(object state)
@@ -114,6 +141,7 @@ namespace HOH_Library
         public void Tick(object info)
         {
             HOHEventObj.UpdateExerciseTimer(this.TimerCounter--);
+            if (this.TimerCounter < 0) HOHEventObj.UpdateExerciseState(false);
         }
 
         public void InterruptListener(MRNetwork NW) {

@@ -25,6 +25,7 @@ namespace HOH_ProtocolGUI
             HOHEvent.ExerciseTimerUpdated += OnHOHEventUpdate;
             HOHEvent.ExerciseNameUpdated += OnHOHEventUpdate;
             HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
+         
 
         }
 
@@ -70,7 +71,7 @@ namespace HOH_ProtocolGUI
             HOHEvent.ExerciseNameUpdated -= OnHOHEventUpdate;
             HOHEvent.ProtocolStateUpdated -= OnHOHEventUpdate;
             HOHEventObj.UpdateProtocolState("interrupt");
-
+            HOHEventObj.UpdateProtocolGUIStatus(false);
         }
 
         private void lblExerciseTime_Click(object sender, EventArgs e)
