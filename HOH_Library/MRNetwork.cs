@@ -223,11 +223,12 @@ namespace HOH_Library
                     msgRcvHOH = msgRcvHOH.Trim();
                     if (msgRcvHOH.Length!=0)
                     { 
+                        lock (msgs) { 
                         SetStatusMsg(msgRcvHOH);
                         Debug.WriteLine("ENQUEUE " + msgRcvHOH);
                         msgs.Enqueue(msgRcvHOH);
                         msgs.TryPeek(out string result);
-
+                        }
 
                         //Debug.WriteLine("QU : " + msgs.ToString());
                         //PrintsMsg();
@@ -250,7 +251,7 @@ namespace HOH_Library
         {
             ExecuteStatus = true;
             Send(command);
-            
+            //Thread.Sleep(100);
             //            Debug.WriteLine(command + "|" + exitCondition);
             if (exitCondition!=String.Empty)
             while (ExecuteStatus)
@@ -264,16 +265,20 @@ namespace HOH_Library
                             {
                                 ExecuteStatus = false;
                                 SetStatusMsg("Operation concluded");
-                                break;
+                                    //Send("p");
+                                   // Send("x");
+                                    break;
                             }
                     }
-                Thread.Sleep(50);
+                //Thread.Sleep(50);
             }
             if (next != null)
             {
                 bool b = next("acabei");
             }
-            // Debug.WriteLine("Ended " + b);
+           // ExecuteStatus = false;
+            Debug.WriteLine("ELVIS LEFT THE BUILDING");
+            //Console.Read();
         }
 
         public string GetStatusMsg()
@@ -347,7 +352,7 @@ namespace HOH_Library
                         //Debug.WriteLine(result + " - untested");
                         //Debug.WriteLine("EXECUTE DISTANCE: " + Utils.Levenshtein(result.ToLower(), "hand, untested"));
 
-                        if (result.Contains("un")) 
+                        if (result.Contains("untested")) 
                         {
                             Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
                             exec.Start();
@@ -356,8 +361,8 @@ namespace HOH_Library
                         }
                         else
                         {
-                            Debug.WriteLine("ISTESTED: already tested");
-                            break;
+                           // Debug.WriteLine("ISTESTED: already tested");
+                           // break;
                         }       
                     }
                 }

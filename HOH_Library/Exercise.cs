@@ -105,6 +105,10 @@ namespace HOH_Library
 
         public void Execute(MRNetwork NW)
         {
+            ExecuteStatus = true;
+            exerciseRunning = true;
+
+
             HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
             HOHEvent.ExerciseStateUpdated += OnExerciseStateUpdated;
 
@@ -130,9 +134,11 @@ namespace HOH_Library
                     exerciseRunning = true;
                     while (exerciseRunning)
                     { }
-                    
+                   // SFThread.Interrupt();
                     //Thread.Sleep(this.ExerciseTime * 1000);
                     sf.InterruptListener(NW);
+                    //SFThread.Interrupt();
+                    //sf = null;
                 }
 
                 if (this.PostState != null && ExecuteStatus)
@@ -145,6 +151,9 @@ namespace HOH_Library
                 HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
             }
             HOHEvent.ProtocolStateUpdated -= OnHOHEventUpdate;
+            HOHEvent.ExerciseStateUpdated -= OnExerciseStateUpdated;
+            HOHEventObj.UpdateExerciseState(true);
+            HOHEventObj.UpdateExerciseTimer(0);
         }
 
         private void OnHOHEventUpdate(object sender, HOHEvent e)
