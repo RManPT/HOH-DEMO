@@ -72,9 +72,24 @@ namespace HOH_DEMO
             HOHEvent.LogUpdated += OnHOHEventUpdate;
             HOHEvent.UsrMsgUpdated += OnHOHEventUpdate;
             HOHEvent.ClinicUpdated += OnClinicEventUpdate;
+           
+            HOHEvent.ProtocolGUIStatusUpdated += OnProtocolGUIStatusUpdate;
 
             GetProtocols();
 
+        }
+
+        private void OnProtocolGUIStatusUpdate(object sender, HOHEvent e)
+        {
+            Delegate d = new EventSubscribed(resetStartBtn);
+            this.Invoke(d, e);
+            
+        }
+
+        private void resetStartBtn(HOHEvent e)
+        {
+            btnProtocolStart.Enabled = !(bool)e.ProtocolGUIStatus;
+            Debug.WriteLine(e.ProtocolGUIStatus);
         }
 
         private void LoadProperties()
@@ -109,9 +124,11 @@ namespace HOH_DEMO
 
         private void OnClinicEventUpdate(object sender, HOHEvent e)
         {
-            //clinic = null;
+         
             // clinic = new Clinic(e.Clinic);
+            clinic = null;
             clinic = e.Clinic;
+            Utils.SaveToFile(defaultFileName, clinic);
             UpdateProtocols();
         }
 
@@ -119,6 +136,7 @@ namespace HOH_DEMO
         {
             if (e.LogMsg != null) txtProtocolsLog.AppendText(e.LogMsg + Environment.NewLine);
             if (e.UserMsg != null) txtProtocolsLog.AppendText(e.UserMsg + Environment.NewLine);
+          //  btnProtocolStart.Enabled = e.ProtocolGUIStatus;
         }
 
         private void GetProtocols()
@@ -156,48 +174,22 @@ namespace HOH_DEMO
         private void UpdateProtocols()
         {
 
-            //protocolDetailsBinding.DataSource = null;
-            //protocolsBinding.DataSource = null;
+  
 
             protocolsBinding.ResetBindings(true);
             protocolDetailsBinding.ResetBindings(true);
             protocolsBinding.DataSource = clinic.Protocols;
             protocolDetailsBinding.DataSource = protocolsBinding;
 
-            //protocolsBinding.ResetBindings(true);
-            //protocolDetailsBinding.ResetBindings(false);
-            //protocolExerciseBindingSource.ResetBindings(false);
 
-            //lstProtocols.DataSource = null;
-            //lstProtocols.DataSource = protocolDetailsBinding;
-            //lstProtocols.DisplayMember = "Name";
-
-
-
-            //lstProtocolsExercises.DataSource = null;
-            //lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
-            //lstProtocolsExercises.DisplayMember = "GetExerciseName";
-
-            //listRepetitions.DataSource = null;
-            //listRepetitions.DataSource = protocolExerciseBindingSource;
-            //listRepetitions.DisplayMember = "Repetitions";
-
-            //blProtocols.ResetBindings();
-
-            //lstProtocols.DataSource = null;
-            //lstProtocols.DataSource = blProtocols;
-            //lstProtocols.DisplayMember = "Name";
             lstProtocols.Refresh();
-            lstProtocols.SelectedIndex = 0;
 
-            //lstProtocolsExercises.DataSource = null;
-            //lstProtocolsExercises.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
-            //lstProtocolsExercises.DisplayMember = "GetExerciseName";
-            lstProtocolsExercises.Refresh();
-            //listRepetitions.DataSource = null;
-            //listRepetitions.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
-            //listRepetitions.DisplayMember = "Repetitions";
-            listRepetitions.Refresh();
+            if (clinic.Protocols.Count != 0)
+            {
+                lstProtocols.SelectedIndex = 0;
+                lstProtocolsExercises.Refresh();
+                listRepetitions.Refresh();
+            }
         }
 
 
@@ -372,6 +364,8 @@ namespace HOH_DEMO
             }
             else
             {
+                NW.Send("r");
+                NW.Send("x");
                 //resets hand
                 buttonfullyopen_Click(sender, e);
                 if (NW.Disconnect())
@@ -987,6 +981,7 @@ namespace HOH_DEMO
             HOHEvent.LogUpdated -= OnHOHEventUpdate;
             HOHEvent.UsrMsgUpdated -= OnHOHEventUpdate;
             HOHEvent.ClinicUpdated -= OnClinicEventUpdate;
+            HOHEvent.ProtocolStateUpdated -= OnProtocolGUIStatusUpdate;
 
             try
             {
@@ -1007,8 +1002,7 @@ namespace HOH_DEMO
             Properties.Settings.Default.serverPORT = serverPORT;
 
             Properties.Settings.Default.Save();
-           
-
+            
         }
 
         private void protocolsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1020,7 +1014,7 @@ namespace HOH_DEMO
         {
             ProtocolEditor f1 = new ProtocolEditor(clinic);
             f1.ShowDialog();
-            Debug.WriteLine("form");
+            Debug.WriteLine("form"); 
             //f1.Close();
         }
 
@@ -1055,7 +1049,7 @@ namespace HOH_DEMO
 
         private void btnProtocolStart_Click(object sender, EventArgs e)
         {
-
+            //btnProtocolStart.Enabled = false;
 
             Protocol pt = ((Protocol)lstProtocols.SelectedItem);
             ProtocolGUI protocolGUI = new ProtocolGUI(pt, NW);
@@ -1063,7 +1057,7 @@ namespace HOH_DEMO
 
             Thread ProtoRun = new Thread(() => pt.Execute(NW));
             ProtoRun.Start();
-
+             HOHEventObj.UpdateProtocolGUIStatus(true);
             //new Thread(new ThreadStart(((Protocol)lstProtocols.SelectedItem).Execute)).Start(); 
         }
 
@@ -1098,15 +1092,7 @@ namespace HOH_DEMO
             saveFileDialog1.FileName = defaultFileName;
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    File.WriteAllText(saveFileDialog1.FileName, clinic.ToJSON());
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Couldn't write file : + " + openFileDialog1.FileName);
-                    Debug.WriteLine(ex.Message);
-                }
+                Utils.SaveToFile(saveFileDialog1.FileName, clinic);
                 defaultFileName = saveFileDialog1.FileName;
                 statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName);
                 //MessageBox.Show("Protocols Saved!");
@@ -1134,6 +1120,11 @@ namespace HOH_DEMO
                 // clinic = new Clinic(clinic);
                 defaultFileName = openFileDialog1.FileName;
                 statusBar1.Text = "Using : " + Path.GetFileName(defaultFileName);
+            }
+            else
+            {
+                clinic = Seed.SetupData(clinic);
+                //msg = "Protocols seeded";
             }
             //HOHEventObj.UpdateClinic(clinic);
             UpdateProtocols();
@@ -1261,7 +1252,7 @@ namespace HOH_DEMO
                 {
                     loadProtocolsToolStripMenuItem_Click(null, EventArgs.Empty);
                     //Seed.SetupData(clinic);
-                    msg = "Protocols seeded";
+                    msg = "Protocols not seeded";
                 }
                 else
                 {
@@ -1271,7 +1262,7 @@ namespace HOH_DEMO
             }
             catch
             {
-                Seed.SetupData(clinic);
+                clinic = Seed.SetupData(clinic);
                 msg = "Protocols seeded";
             }
             Debug.WriteLine(msg);

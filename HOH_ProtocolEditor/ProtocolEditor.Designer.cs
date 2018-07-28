@@ -274,8 +274,8 @@
             // 
             // comboExerciseState1
             // 
-            this.comboExerciseState1.FormattingEnabled = true;
             resources.ApplyResources(this.comboExerciseState1, "comboExerciseState1");
+            this.comboExerciseState1.FormattingEnabled = true;
             this.comboExerciseState1.Name = "comboExerciseState1";
             this.toolTip1.SetToolTip(this.comboExerciseState1, resources.GetString("comboExerciseState1.ToolTip"));
             this.comboExerciseState1.SelectedIndexChanged += new System.EventHandler(this.comboExerciseState1_SelectedIndexChanged);
@@ -307,8 +307,8 @@
             // 
             // comboExerciseState3
             // 
-            this.comboExerciseState3.FormattingEnabled = true;
             resources.ApplyResources(this.comboExerciseState3, "comboExerciseState3");
+            this.comboExerciseState3.FormattingEnabled = true;
             this.comboExerciseState3.Name = "comboExerciseState3";
             this.toolTip1.SetToolTip(this.comboExerciseState3, resources.GetString("comboExerciseState3.ToolTip"));
             this.comboExerciseState3.SelectedIndexChanged += new System.EventHandler(this.comboExerciseState3_SelectedIndexChanged);
@@ -316,8 +316,8 @@
             // 
             // comboExerciseState2
             // 
-            this.comboExerciseState2.FormattingEnabled = true;
             resources.ApplyResources(this.comboExerciseState2, "comboExerciseState2");
+            this.comboExerciseState2.FormattingEnabled = true;
             this.comboExerciseState2.Name = "comboExerciseState2";
             this.toolTip1.SetToolTip(this.comboExerciseState2, resources.GetString("comboExerciseState2.ToolTip"));
             this.comboExerciseState2.SelectedIndexChanged += new System.EventHandler(this.comboExerciseState2_SelectedIndexChanged);
@@ -611,6 +611,7 @@
             // 
             // lstProtocolExercises
             // 
+            this.lstProtocolExercises.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstProtocolExercises.FormattingEnabled = true;
             resources.ApplyResources(this.lstProtocolExercises, "lstProtocolExercises");
             this.lstProtocolExercises.Name = "lstProtocolExercises";

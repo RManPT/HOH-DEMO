@@ -61,7 +61,7 @@ namespace HOH_Library
             this.Exercises = c.Exercises;
             this.Protocols = c.Protocols;
             this.States = c.States;
-            Rewards = c.Rewards;
+            this.Rewards = c.Rewards;
         }
     }
 }

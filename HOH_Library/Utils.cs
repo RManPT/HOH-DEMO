@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.IO;
+using System.Diagnostics;
 
 namespace HOH_Library
 {
@@ -90,5 +92,17 @@ namespace HOH_Library
             return list;
         }
 
+        public static void SaveToFile(string fileName, Clinic obj)
+        {
+            try
+            {
+                File.WriteAllText(fileName, obj.ToJSON());
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Couldn't write file : + " + fileName);
+                Debug.WriteLine(ex.Message);
+            }
+        }
     }
 }
