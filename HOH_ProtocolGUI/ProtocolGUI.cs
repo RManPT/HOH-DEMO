@@ -52,7 +52,8 @@ namespace HOH_ProtocolGUI
                 lblExerciseName.Text = (e.ExerciseName + Environment.NewLine);
             }
 
-            if (e.LaunchReward) HOHEventObj.UpdateUsrMsg(c.Rewards[rnd.Next(c.Rewards.Count)]);
+            if (e.LaunchReward) lblExerciseMsg.Text = c.Rewards[rnd.Next(c.Rewards.Count)];
+                //HOHEventObj.UpdateUsrMsg(c.Rewards[rnd.Next(c.Rewards.Count)]);
 
             if (e.UserMsg != null)
             {

@@ -45,22 +45,7 @@ namespace HOH_ProtocolEditor
             btnProtocolExercisesDown.Text = char.ConvertFromUtf32(0x2193);
             btnProtocolExercisesUP.Text = char.ConvertFromUtf32(0x2191);
 
-            this.clinic = clinic;
-            this.backup_clinic = new Clinic();
-            this.backup_clinic.FromJSON(clinic.ToJSON());
-            this.blStates = new BindingList<State>(clinic.States);
-            this.blExercises = new BindingList<Exercise>(clinic.Exercises);
-            this.blProtocols = new BindingList<Protocol>(clinic.Protocols);
-
-
-            ///States
-            SetupStatePanel();
-
-            ///exercises
-            SetupExercisesPanel();
-
-            ///protocols
-            SetupProtocolsPanel();
+            startup(clinic);
         }
 
 
@@ -239,17 +224,10 @@ namespace HOH_ProtocolEditor
                 lstProtocolExercises.DataSource = null;
                 lstProtocolExercises.DataSource = (((Protocol)lstProtocols.SelectedItem).Exercises);
                 lstProtocolExercises.DisplayMember = "Name";
+                lstProtocols.SelectedIndex = 0;
+                txtProtocolName.Enabled = true;
                 if (lstProtocolExercises.Items.Count != 0)
-                {
                     lstProtocolExercises.SelectedIndex = 0;
-
-                    //for (int i = 0; i < lstProtocolExercises.Items.Count; i++)
-                    //{
-                    //    if (!blExercises.Contains((Exercise)lstProtocolExercises.Items[i]) (ListItem)lstProtocolExercises.Items[i]
-                    //}
-                }
-
-
 
                 if ((((Protocol)lstProtocols.SelectedItem).Exercises) != null)
                 if (lstProtocolExercises.Items.Count !=0)
@@ -266,7 +244,7 @@ namespace HOH_ProtocolEditor
                     comboProtocolExerciseState2.Text = ((Exercise)lstProtocolExercises.SelectedItem).TargetState.Name;
                     comboProtocolExerciseState3.Text = ((Exercise)lstProtocolExercises.SelectedItem).PostState.Name;
 
-                    txtProtocolName.Enabled = true;
+                    
                     txtProtocolExerciseDetails4.Enabled = true;
                     txtProtocolExerciseDetails5.Enabled = true;
                 }
@@ -326,7 +304,6 @@ namespace HOH_ProtocolEditor
                     { 
                         msg += blExercises[i].Name + "\n\t";
                         exists = true;
-                      
                     }
             }
 
@@ -405,12 +382,7 @@ namespace HOH_ProtocolEditor
             
             btnExerciseRemove.Enabled = Convert.ToBoolean(blExercises.Count);
             lblExercisesDuplicate.Enabled = Convert.ToBoolean(blExercises.Count);
-            txtExerciseDetails1.Enabled = Convert.ToBoolean(blExercises.Count);
-            txtExerciseDetails2.Enabled = Convert.ToBoolean(blExercises.Count);
-            txtExerciseDetails3.Enabled = Convert.ToBoolean(blExercises.Count);
-            comboExerciseState1.Enabled = Convert.ToBoolean(blExercises.Count);
-            comboExerciseState2.Enabled = Convert.ToBoolean(blExercises.Count);
-            comboExerciseState3.Enabled = Convert.ToBoolean(blExercises.Count);
+
             tabPage3.Enabled = true;
 
             AddExercisesEvents();
@@ -420,20 +392,37 @@ namespace HOH_ProtocolEditor
         {
             RemoveExercisesEvents();
 
+            //string msg = "";
+            //bool exists = false;
+            //for (int i = lstProtocols.Items.Count - 1; i >= 0; i--)
+            //{
+            //    for (int j = 0; j < ((Protocol)lstProtocols.Items[i]).Exercises.Count; j++)
+            //    {
+            //        if ( ((Exercise)((Protocol)lstProtocols.Items[i]).Exercises[j]).Equals((Exercise)lstExercises.Items[lstExercises.SelectedIndex]) )
+            //        { 
+            //            msg += blProtocols[i].Name + "\n\t";
+            //            exists = true;
+            //            break;
+            //        }
+            //    }
+            //}
+
             string msg = "";
             bool exists = false;
-            for (int i = lstProtocols.Items.Count - 1; i >= 0; i--)
+            for (int i = blProtocols.Count - 1; i >= 0; i--)
             {
-                for (int j = 0; j < ((Protocol)lstProtocols.Items[i]).Exercises.Count; j++)
+                for (int j = 0; j < (blProtocols[i]).Exercises.Count; j++)
                 {
-                    if ( ((Exercise)((Protocol)lstProtocols.Items[i]).Exercises[j]).Equals((Exercise)lstExercises.Items[lstExercises.SelectedIndex]) )
-                    { 
+                    if (blProtocols[i].Exercises[j].Equals(blExercises[lstExercises.SelectedIndex]))
+                    {
                         msg += blProtocols[i].Name + "\n\t";
                         exists = true;
                         break;
                     }
                 }
             }
+
+
 
             if (exists)
                 MessageBox.Show("This protocols depend on this exercise, remove them first:\n\n\t" + msg, "Integrity error!", MessageBoxButtons.OK);
@@ -468,12 +457,7 @@ namespace HOH_ProtocolEditor
 
                 btnExerciseRemove.Enabled = Convert.ToBoolean(blExercises.Count);
                 lblExercisesDuplicate.Enabled = Convert.ToBoolean(blExercises.Count);
-                txtExerciseDetails1.Enabled = Convert.ToBoolean(blExercises.Count);
-                txtExerciseDetails2.Enabled = Convert.ToBoolean(blExercises.Count);
-                txtExerciseDetails3.Enabled = Convert.ToBoolean(blExercises.Count);
-                comboExerciseState1.Enabled = Convert.ToBoolean(blExercises.Count);
-                comboExerciseState2.Enabled = Convert.ToBoolean(blExercises.Count);
-                comboExerciseState3.Enabled = Convert.ToBoolean(blExercises.Count);
+    
 
             }
             AddExercisesEvents();
@@ -610,51 +594,54 @@ namespace HOH_ProtocolEditor
 
         private void btnStatesApply_Click(object sender, EventArgs e)
         {
-            State s = (State)lstStates.Items[StatePanelLstStates_Selected];
-            
-            s.Name = txtConditionDetails1.Text;
-            s.HOHCode = txtConditionDetails2.Text;
-            s.UserMsg = txtConditionDetails3.Text;
-            s.CallbackMsg = txtConditionDetails4.Text;
+            if (lstStates.Items.Count != 0)
+            {
+                State s = (State)lstStates.Items[StatePanelLstStates_Selected];
 
-            // lstStates.Items[StatePanelLstStates_Selected] = new State(s);
-           // string name = backup_clinic.States[StatePanelLstStates_Selected].Name;
+                s.Name = txtConditionDetails1.Text;
+                s.HOHCode = txtConditionDetails2.Text;
+                s.UserMsg = txtConditionDetails3.Text;
+                s.CallbackMsg = txtConditionDetails4.Text;
 
-            //for (int i = 0; i < blExercises.Count; i++)
-            //{
-            //    if (clinic.Exercises[i].PreState.Name == name)
-            //        clinic.Exercises[i].PreState = new State(s);
-            //    if (clinic.Exercises[i].TargetState.Name == name)
-            //        clinic.Exercises[i].TargetState = new State(s);
-            //    if (clinic.Exercises[i].PostState.Name == name)
-            //        clinic.Exercises[i].PostState = new State(s);
-            //}
+                // lstStates.Items[StatePanelLstStates_Selected] = new State(s);
+                // string name = backup_clinic.States[StatePanelLstStates_Selected].Name;
 
-            //foreach (var pt in clinic.Protocols)
-            //{
-            //    for (int i = 0; i < pt.Exercises.Count; i++)
-            //    {
-            //        if (pt.Exercises[i].PreState.Name == name)
-            //            pt.Exercises[i].PreState = new State(s);
-            //        if (pt.Exercises[i].TargetState.Name == name)
-            //            pt.Exercises[i].TargetState = new State(s);
-            //        if (pt.Exercises[i].PostState.Name == name)
-            //            pt.Exercises[i].PostState = new State(s);
-            //    }
-            //}
+                //for (int i = 0; i < blExercises.Count; i++)
+                //{
+                //    if (clinic.Exercises[i].PreState.Name == name)
+                //        clinic.Exercises[i].PreState = new State(s);
+                //    if (clinic.Exercises[i].TargetState.Name == name)
+                //        clinic.Exercises[i].TargetState = new State(s);
+                //    if (clinic.Exercises[i].PostState.Name == name)
+                //        clinic.Exercises[i].PostState = new State(s);
+                //}
+
+                //foreach (var pt in clinic.Protocols)
+                //{
+                //    for (int i = 0; i < pt.Exercises.Count; i++)
+                //    {
+                //        if (pt.Exercises[i].PreState.Name == name)
+                //            pt.Exercises[i].PreState = new State(s);
+                //        if (pt.Exercises[i].TargetState.Name == name)
+                //            pt.Exercises[i].TargetState = new State(s);
+                //        if (pt.Exercises[i].PostState.Name == name)
+                //            pt.Exercises[i].PostState = new State(s);
+                //    }
+                //}
 
 
-            blStates.ResetBindings();
-            //blExercises.ResetBindings();
-            //blProtocols.ResetBindings();
-            
-            SetupExercisesPanel();
-            SetupProtocolsPanel();
+                blStates.ResetBindings();
+                //blExercises.ResetBindings();
+                //blProtocols.ResetBindings();
 
-            btnStatesApply.Enabled = false;
-            btnExercisesApply.Enabled = false;
+                SetupExercisesPanel();
+                SetupProtocolsPanel();
 
-            HOHEventObj.UpdateClinic(clinic);
+                btnStatesApply.Enabled = false;
+                btnExercisesApply.Enabled = false;
+
+                HOHEventObj.UpdateClinic(clinic);
+            }
         }
 
         private void txtConditionDetails1_TextChanged(object sender, EventArgs e)
@@ -829,7 +816,7 @@ namespace HOH_ProtocolEditor
 
             btnStatesApply_Click(sender, e);
             btnExercisesApply_Click(sender, e);
-            btnProtocolsApply_Click(sender, e);// HOHEventObj.UpdateClinic(clinic);
+            btnProtocolsApply_Click(sender, e);
 
             SetupStatePanel();
             SetupExercisesPanel();
@@ -860,6 +847,14 @@ namespace HOH_ProtocolEditor
             comboExerciseState1.SelectedIndexChanged += comboExerciseState1_SelectedIndexChanged;
             comboExerciseState2.SelectedIndexChanged += comboExerciseState2_SelectedIndexChanged;
             comboExerciseState3.SelectedIndexChanged += comboExerciseState3_SelectedIndexChanged;
+
+            txtExerciseDetails1.Enabled = Convert.ToBoolean(blExercises.Count);
+            txtExerciseDetails2.Enabled = Convert.ToBoolean(blExercises.Count);
+            txtExerciseDetails3.Enabled = Convert.ToBoolean(blExercises.Count);
+            comboExerciseState1.Enabled = Convert.ToBoolean(blExercises.Count);
+            comboExerciseState2.Enabled = Convert.ToBoolean(blExercises.Count);
+            comboExerciseState3.Enabled = Convert.ToBoolean(blExercises.Count);
+            
         }
 
         private void RemoveStatesEvents()
@@ -901,6 +896,12 @@ namespace HOH_ProtocolEditor
             txtProtocolExerciseDetails4.TextChanged += txtProtocolExerciseDetails4_TextChanged;
             txtProtocolExerciseDetails5.TextChanged += txtProtocolExerciseDetails5_TextChanged;
             txtProtocolName.TextChanged += txtProtocolName_TextChanged;
+
+            txtProtocolExerciseDetails4.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
+            txtProtocolExerciseDetails5.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
+            txtProtocolName.Enabled = Convert.ToBoolean(blProtocols.Count);
+            
+
         }
 
         private void lstProtocols_SelectedIndexChanged(object sender, EventArgs e)
@@ -1104,6 +1105,8 @@ namespace HOH_ProtocolEditor
                 comboProtocolExerciseState3.ResetText();
 
                 lstProtocolExercises.DataSource = null;
+
+               
             } else
             {
                 lstProtocolExercises.DataSource = null;
@@ -1114,12 +1117,8 @@ namespace HOH_ProtocolEditor
             btnProtocolDelete.Enabled = Convert.ToBoolean(blProtocols.Count);
             btnProtocolExercisesRemove.Enabled = Convert.ToBoolean(blProtocols.Count);
             btnProtocolExercisesAdd.Enabled = Convert.ToBoolean(blProtocols.Count);
-            txtProtocolExerciseDetails4.Enabled = Convert.ToBoolean(blProtocols.Count);
-            txtProtocolExerciseDetails5.Enabled = Convert.ToBoolean(blProtocols.Count);
 
-            
 
-            
             AddProtocolsEvents();
            
         }
@@ -1180,8 +1179,7 @@ namespace HOH_ProtocolEditor
             }
 
             btnProtocolExercisesRemove.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
-            txtProtocolExerciseDetails4.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
-            txtProtocolExerciseDetails5.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
+ 
 
             lstProtocols_SelectedIndexChanged(sender, e);
             lstProtocolExercises.SelectedIndex = lstProtocolExercises.Items.Count - 1;
@@ -1288,6 +1286,40 @@ namespace HOH_ProtocolEditor
             lstProtocolExercises.SelectedIndex = index2;
 
             AddProtocolsEvents();
+        }
+
+        private void resetFromSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+            startup(Seed.SetupData(clinic));
+
+            HOHEventObj.UpdateClinic(clinic);
+        }
+
+        private void deleteAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            clinic = new Clinic();
+        }
+
+
+        private void startup(Clinic clinic)
+        {
+            this.clinic = clinic;
+            this.backup_clinic = new Clinic();
+            this.backup_clinic.FromJSON(clinic.ToJSON());
+            this.blStates = new BindingList<State>(clinic.States);
+            this.blExercises = new BindingList<Exercise>(clinic.Exercises);
+            this.blProtocols = new BindingList<Protocol>(clinic.Protocols);
+
+
+            ///States
+            SetupStatePanel();
+
+            ///exercises
+            SetupExercisesPanel();
+
+            ///protocols
+            SetupProtocolsPanel();
         }
     }
 
