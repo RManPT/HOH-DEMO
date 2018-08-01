@@ -17,7 +17,6 @@ namespace HOH_Library
         /// List of exercices and its repetitions that composes the protocol
         /// </summary>
         public IList<Exercise> Exercises { get; set; }
-        public List<string> Rewards;
         private readonly HOHEvent HOHEventObj = new HOHEvent();
         private bool ExecuteStatus = true;
 
@@ -32,14 +31,10 @@ namespace HOH_Library
             Exercises = new List<Exercise>();
         }
 
-        private void OnClinicEventUpdate(object sender, HOHEvent e)
-        {
-            Rewards = e.Clinic.Rewards;
-        }
+   
 
         public void Execute(MRNetwork NW)
-        {
-            HOHEvent.ClinicUpdated += OnClinicEventUpdate;
+        {        
             HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
 
             HOHEventObj.UpdateLogMsg("PROTOCOL: START!");
@@ -51,13 +46,17 @@ namespace HOH_Library
 
                 HOHEventObj.UpdateUsrMsg("\r\nPrepare for " + ex.TargetState.UserMsg.ToLower() + "...");
                 HOHEventObj.UpdateExerciseName(ex.TargetState.Name);
+                //adicionar opção para alterar este valor
                 Thread.Sleep(5000);
                 if (!ExecuteStatus) break;
 
                 ex.Execute(NW);
 
                 if (!ExecuteStatus) break;
-          //      HOHEventObj.UpdateUsrMsg(Rewards[rnd.Next(Rewards.Count)]);
+                //HOHEventObj.UpdateUsrMsg(Rewards[rnd.Next(Rewards.Count)]);
+                HOHEventObj.RewardLaunch(true);
+
+                //adicionar opção para alterar este valor
                 Thread.Sleep(5000);
             }
             HOHEventObj.UpdateProtocolState("stopped");
