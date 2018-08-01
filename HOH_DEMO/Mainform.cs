@@ -1052,7 +1052,7 @@ namespace HOH_DEMO
             //btnProtocolStart.Enabled = false;
 
             Protocol pt = ((Protocol)lstProtocols.SelectedItem);
-            ProtocolGUI protocolGUI = new ProtocolGUI(pt, NW);
+            ProtocolGUI protocolGUI = new ProtocolGUI(clinic, pt, NW);
             protocolGUI.Show();
 
             Thread ProtoRun = new Thread(() => pt.Execute(NW));

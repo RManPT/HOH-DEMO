@@ -23,7 +23,7 @@ namespace HOH_Library
         /// </summary>
         public string CallbackMsg { get; set; }
         private HOHEvent HOHEventObj = new HOHEvent();
-       
+
 
         public State()
         {
@@ -54,6 +54,22 @@ namespace HOH_Library
             NW.ExecuteAndWait(HOHCode, CallbackMsg, null);
         }
 
-        // Create the OnPropertyChanged method to raise the event
+        public override bool Equals(object obj)
+        {
+            var newObj = obj as State;
+
+            if (null != newObj)
+            {
+                return this.Name == newObj.Name
+                    && this.HOHCode == newObj.HOHCode
+                    && this.UserMsg == newObj.UserMsg
+                    && this.CallbackMsg == newObj.CallbackMsg;
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+            // Create the OnPropertyChanged method to raise the event
+        }
     }
 }

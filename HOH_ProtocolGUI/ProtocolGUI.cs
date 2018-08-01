@@ -12,20 +12,23 @@ namespace HOH_ProtocolGUI
 
         private Protocol protocol;
         private MRNetwork NW;
+        private Clinic c;
         private HOHEvent HOHEventObj = new HOHEvent();
 
-        public ProtocolGUI(Protocol protocol, MRNetwork NW)
+        public ProtocolGUI(Clinic c, Protocol protocol, MRNetwork NW)
         {
             InitializeComponent();
             this.protocol = protocol;
             this.NW = NW;
+            this.c = c;
             Text = protocol.Name;
             HOHEvent.LogUpdated += OnHOHEventUpdate;
             HOHEvent.UsrMsgUpdated += OnHOHEventUpdate;
             HOHEvent.ExerciseTimerUpdated += OnHOHEventUpdate;
             HOHEvent.ExerciseNameUpdated += OnHOHEventUpdate;
             HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
-         
+            HOHEvent.RewardLauncherUpdated += OnHOHEventUpdate;
+
 
         }
 
@@ -43,10 +46,13 @@ namespace HOH_ProtocolGUI
 
         private void updateGUI(HOHEvent e)
         {
-           if (e.ExerciseName != null)
+            Random rnd = new Random();
+            if (e.ExerciseName != null)
             {
                 lblExerciseName.Text = (e.ExerciseName + Environment.NewLine);
             }
+
+            if (e.LaunchReward) HOHEventObj.UpdateUsrMsg(c.Rewards[rnd.Next(c.Rewards.Count)]);
 
             if (e.UserMsg != null)
             {

@@ -17,6 +17,7 @@ namespace HOH_Library
         public Clinic Clinic { get; set; }
         public bool ExerciseRunning { get; set; }
         public bool ProtocolGUIStatus { get; set; }
+        public bool LaunchReward { get; set; }
 
 
         public static event EventHandler<HOHEvent> LogUpdated;
@@ -28,6 +29,7 @@ namespace HOH_Library
         public static event EventHandler<HOHEvent> ExerciseStateUpdated;
         public static event EventHandler<HOHEvent> ProtocolGUIStatusUpdated;
         public static event EventHandler<HOHEvent> ClinicUpdated;
+        public static event EventHandler<HOHEvent> RewardLauncherUpdated;
 
         public HOHEvent()
         {
@@ -79,6 +81,11 @@ namespace HOH_Library
             ProtocolGUIStatusUpdated?.Invoke(this, e);
         }
 
+        protected virtual void OnRewardLaunched(HOHEvent e)
+        {
+            RewardLauncherUpdated?.Invoke(this, e);
+        }
+
         #endregion
 
 
@@ -126,6 +133,11 @@ namespace HOH_Library
         public void UpdateProtocolGUIStatus(bool ex)
         {
             OnProtocolGUIStatusUpdated(new HOHEvent() { ProtocolGUIStatus = ex });
+        }
+
+        public void RewardLaunch(bool rw)
+        {
+            OnRewardLaunched(new HOHEvent() { LaunchReward = rw });
         }
         #endregion
 

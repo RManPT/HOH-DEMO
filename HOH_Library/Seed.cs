@@ -9,41 +9,53 @@ namespace HOH_Library
     public class Seed
     {
         public static Clinic SetupData(Clinic clinic)
-        { 
+        {
 
 
             clinic.Name = "HOH Clinic";
-            clinic.Rewards.AddRange(new List<string>{ "Well done!", "Nice effort!", "Good try!" });
+            clinic.Rewards.AddRange(new List<string> { "Well done!", "Nice effort!", "Good try!", "Good job!" });
+
+            List<State> States = new List<State> {
+                new State {
+                    Name = "None",
+                    HOHCode = "00",
+                    UserMsg = "Resting",
+                    CallbackMsg = ""
+                },
+                new State {
+                    Name = "FullyOpen",
+                    HOHCode = "06",
+                    UserMsg = "Opening Hand",
+                    CallbackMsg = "Exit restoring"
+                },
+                new State {
+                    Name = "FullyClose",
+                    HOHCode = "36",
+                    UserMsg = "Closing Hand",
+                    CallbackMsg = "Exit hand closing"
+                },
+                new State {
+                    Name = "Pinch",
+                    HOHCode = "08",
+                    UserMsg = "pinch mode",
+                    CallbackMsg = "Exit CPM pinch mode"
+                },
+                new State {
+                    Name = "open index",
+                    HOHCode = "802",
+                    UserMsg = "close index",
+                    CallbackMsg = "Flexion 01"
+                },
+                new State {
+                    Name = "pausable open",
+                    HOHCode = "800",
+                    UserMsg = "pausable open",
+                    CallbackMsg = "Flexion 01"
+                }
+            };
 
 
-
-              State condFullyOpen = new State
-                 {
-                     Name = "FullyOpen",
-                     HOHCode = "06",
-                     UserMsg = "Opening Hand",
-                     CallbackMsg = "Exit restoring"
-                 };
-
-                 State condFullyClose = new State
-                 {
-                     Name = "FullyClose",
-                     HOHCode = "36",
-                     UserMsg = "Closing Hand",
-                     CallbackMsg = "Exit hand closing"
-                 };
-
-                 State condNone = new State
-                 {
-                     Name = "None",
-                     HOHCode = "00",
-                     UserMsg = "Resting",
-                     CallbackMsg = ""
-                 };
-
-                 clinic.States.Add(condNone);
-                 clinic.States.Add(condFullyOpen);
-                 clinic.States.Add(condFullyClose);
+                 clinic.States = States;
 
 
               /*  Exercise exerFullyClose = new Exercise

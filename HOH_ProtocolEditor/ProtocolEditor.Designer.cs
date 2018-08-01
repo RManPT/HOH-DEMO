@@ -611,7 +611,6 @@
             // 
             // lstProtocolExercises
             // 
-            this.lstProtocolExercises.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstProtocolExercises.FormattingEnabled = true;
             resources.ApplyResources(this.lstProtocolExercises, "lstProtocolExercises");
             this.lstProtocolExercises.Name = "lstProtocolExercises";
