@@ -56,7 +56,7 @@ namespace HOH_Library
             this.PreState = null;
             this.ExerciseTime = 0;
             this.UserMsg = "";
-            this.SFCode = "";
+            this.SFCode = "1";
             this.TargetState = null;
             this.Repetitions = 1;
             this.PostState = null;
@@ -69,7 +69,7 @@ namespace HOH_Library
             this.PreState = null;
             this.ExerciseTime = 0;
             this.UserMsg = "";
-            this.SFCode = "";
+            this.SFCode = "1";
             this.TargetState = null;
             this.Repetitions = 1;
             this.PostState = null;
@@ -176,6 +176,27 @@ namespace HOH_Library
             exerciseRunning = e.ExerciseRunning;
             //ExecuteStatus = exerciseRunning;
              
+        }
+
+        public override bool Equals(object obj)
+        {
+            var newObj = obj as Exercise;
+
+            if (null != newObj)
+            {
+                return this.Name == newObj.Name
+                    && this.PreState.Equals(newObj.PreState)
+                    //&& this.ExerciseTime == newObj.ExerciseTime
+                    && this.UserMsg == newObj.UserMsg
+                    && this.SFCode == newObj.SFCode
+                    && this.TargetState.Equals(newObj.TargetState)
+                    //&& this.Repetitions == newObj.Repetitions
+                    && this.PostState.Equals(newObj.PostState);    
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
         }
     }
 }

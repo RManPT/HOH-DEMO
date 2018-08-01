@@ -1052,7 +1052,7 @@ namespace HOH_DEMO
             //btnProtocolStart.Enabled = false;
 
             Protocol pt = ((Protocol)lstProtocols.SelectedItem);
-            ProtocolGUI protocolGUI = new ProtocolGUI(pt, NW);
+            ProtocolGUI protocolGUI = new ProtocolGUI(clinic, pt, NW);
             protocolGUI.Show();
 
             Thread ProtoRun = new Thread(() => pt.Execute(NW));
@@ -1224,6 +1224,11 @@ namespace HOH_DEMO
         private void lstOptionsGeneralRewards_SelectedIndexChanged(object sender, EventArgs e)
         {
             
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void LoadProtocols()
