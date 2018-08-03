@@ -903,6 +903,7 @@ namespace HOH_ProtocolEditor
 
             btnProtocolExercisesUP.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
             btnProtocolExercisesDown.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
+            btnProtocolExercisesAdd.Enabled = Convert.ToBoolean(blProtocols.Count);
 
         }
 

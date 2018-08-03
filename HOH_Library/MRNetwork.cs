@@ -27,7 +27,9 @@ namespace HOH_Library
         public delegate bool StateReached(string msg);
         private static object Key = new object();
         public bool ExecuteStatus { get; set; }
+        public bool Waiting { get; set; }
         public bool isConnected = false;
+        private readonly HOHEvent HOHEventObj = new HOHEvent();
 
 
         //Conection class
@@ -37,6 +39,7 @@ namespace HOH_Library
             this.port = port;
             Debug.WriteLine(ip + ":" + port.ToString());
             statusMsg = "Creating HOH Socket at " + ip + ":" + port.ToString();
+           
         }
 
         public MRNetwork(int port)
@@ -98,9 +101,12 @@ namespace HOH_Library
                     while (!logMsgs.IsEmpty)
                         logMsgs.TryDequeue(out string result);
                     InputChanged += InputDetectedEvent;
+
                     new Thread(new ThreadStart(IsTested)).Start();
-                    new Thread(new ThreadStart(PrintsStatusMsg)).Start();
-                    SetStatusMsg("Connection Successful");
+
+               
+                    
+                    HOHEventObj.UpdateHOHLogMsg("Connection Successful");
                     isConnected = true;
                     return true;
                 }
@@ -132,7 +138,8 @@ namespace HOH_Library
                 client.Close();
                 client = null;
                 InputChanged -= InputDetectedEvent;
-                SetStatusMsg("Disconnection successfull");
+                HOHEventObj.UpdateHOHLogMsg("Disconnection successfull");
+              
                 isConnected = false;
                 return true;
             }
@@ -222,19 +229,14 @@ namespace HOH_Library
                     // msgRcvHOH.Replace(Environment.NewLine, "x");
                     msgRcvHOH = msgRcvHOH.Trim();
                     if (msgRcvHOH.Length!=0)
-                    { 
-                        lock (msgs) { 
-                        SetStatusMsg(msgRcvHOH);
-                        Debug.WriteLine("ENQUEUE " + msgRcvHOH);
-                        msgs.Enqueue(msgRcvHOH);
-                        msgs.TryPeek(out string result);
+                    {
+                        lock (msgs)
+                        {
+                            HOHEventObj.UpdateHOHLogMsg(msgRcvHOH);
+                            Debug.WriteLine("ENQUEUE " + msgRcvHOH);
+                            msgs.Enqueue(msgRcvHOH);
+                            Waiting = false;
                         }
-
-                        //Debug.WriteLine("QU : " + msgs.ToString());
-                        //PrintsMsg();
-
-                        //msgs.TryPeek(out string result);
-                        //Debug.WriteLine("QUEUE - " + msgs.Count + " -> " + result );
                         msgRcvHOH = "";
                     }
                 }
@@ -250,30 +252,35 @@ namespace HOH_Library
         public void ExecuteAndWait(string command, string exitCondition, StateReached next)
         {
             ExecuteStatus = true;
+            Waiting = true;
             Send(command);
-            //Thread.Sleep(100);
             Debug.WriteLine(command + "|" + exitCondition);
             if (exitCondition!=String.Empty)
             while (ExecuteStatus)
             {
-                    //Debug.WriteLine("waiting");
-                    lock (msgs)
-                    {
-                        if (msgs != null)
-                            if (!msgs.IsEmpty)
+                ////Debug.WriteLine("waiting");
+                lock (msgs)
+                {
+                    if (msgs != null)
+                        if (!msgs.IsEmpty)
+                        {
+                            if (exitCondition == "*")
                             {
-                                if (msgs.TryDequeue(out string result))
-                                    if (result.Contains(exitCondition) || exitCondition == "*")
-                                    {
-                                        ExecuteStatus = false;
-                                        SetStatusMsg("Operation concluded");
-                                        //Send("p");
-                                        // Send("x");
-                                        break;
-                                    }
+                                //while (Waiting) { }
+                                Thread.Sleep(50);
+                                break;
+                            } 
+                            if (msgs.TryDequeue(out string result))
+                            {
+                                if (result.Contains(exitCondition))
+                                {
+                                    ExecuteStatus = false;
+                                    HOHEventObj.UpdateHOHLogMsg("Operation concluded");
+                                    break;
+                                }
                             }
-                    }
-                //Thread.Sleep(50);
+                        }
+                }
             }
             if (next != null)
             {
@@ -309,43 +316,13 @@ namespace HOH_Library
             }
         }
 
-        public void PrintsMsg()
-        {
-         
-          
-                    List<string> l = new List<string>(msgs);
-                    foreach(string s in l)
-                    {
-                        Debug.WriteLine("PRINT : " + s);
-                    }
-   
-        }
-
-        public void PrintsStatusMsg()
-        {
-            while(true)
-            {
-                if (!logMsgs.IsEmpty)
-                { 
-                logMsgs.TryDequeue(out string result);
-                SetText(result);
-                }
-//                Thread.Sleep(50);
-            }
-        }
-
-        public void SetStatusMsg(string text)
-        {
-            if (statusMsg!=text)
-            {
-                logMsgs.Enqueue(text);
-                statusMsg = text;
-            } 
-        }
+     
+    
 
         public void IsTested()
         {
-            while(true)
+            bool Execute = true;
+            while(Execute)
             {
                 if (msgs!=null)
                 if (!msgs.IsEmpty)
@@ -360,12 +337,12 @@ namespace HOH_Library
                             Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
                             exec.Start();
                             Debug.WriteLine("ISTESTED: not tested");
-                            break;
+                            Execute = false;
                         }
                         else
                         {
-                           // Debug.WriteLine("ISTESTED: already tested");
-                           // break;
+                           Debug.WriteLine("ISTESTED: already tested");
+                                Execute = false;// break;
                         }       
                     }
                 }

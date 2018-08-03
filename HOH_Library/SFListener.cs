@@ -42,8 +42,6 @@ namespace HOH_Library
             this.TimerCounter = this.WaitTime;
             this.ExerciseTime = this.WaitTime*1000;
             Debug.WriteLine("SFLISTENER : START!");
-            AsyncServer.LastCMDReceived = 0;
-            AsyncServer.commandProcessed = true;
             previousCMDReceived = 1;
 
             
@@ -60,9 +58,7 @@ namespace HOH_Library
                     {
                         LastCMDReceived = AsyncServer.LastCMDReceived;
                         commandProcessed = AsyncServer.commandProcessed;
-
                         Debug.WriteLine("Last> " + LastCMDReceived + " | Process> " + commandProcessed + " | Firstrun> " + firstRun + " | ExecStatus " + NW.ExecuteStatus);
-                        //Código a executar quando os testes estiverem concluídos.
 
                         if (LastCMDReceived == SFCode && LastCMDReceived != previousCMDReceived && !commandProcessed)
                         { //se sinal detectado indica o movimento desejado actua em conformidade
@@ -77,28 +73,28 @@ namespace HOH_Library
                                 //garante que comando incial é processado pela mão (procurar solucao dinamica)
                                 Thread.Sleep(100);
                                 firstRun = false;
+                                commandProcessed = true;
+                                previousCMDReceived = LastCMDReceived;
                             }
                             else
                             {
-                                //NW.ExecuteAndWait("r","AOk", null);
-                                NW.Send("r");
-                                Debug.WriteLine("Resuming (right signal)");
+                                NW.ExecuteAndWait("r","*", null);
+                                //NW.Send("r");
                                 //Necessario para dar tempo à mão para processar a excepção
                                 //Thread.Sleep(40);
+                                commandProcessed = true;
+                                previousCMDReceived = LastCMDReceived;
+                                Debug.WriteLine("Resuming (right signal)");
                             }
-                            // commandProcessed = true;    //certifica que não há comandos processados multiplas 
-                            AsyncServer.commandProcessed = true;
-                            previousCMDReceived = LastCMDReceived;
                         }
                         else if (LastCMDReceived != SFCode && !commandProcessed)
                         {
-                            //NW.ExecuteAndWait("p", "Pausing",null);
-                            NW.Send("p");
-                            //Necessario para dar tempo à mão para processar a excepção
+                            NW.ExecuteAndWait("p", "*",null);
+                            //NW.Send("p");
                             //Thread.Sleep(40);
+                            commandProcessed = true;
+                            previousCMDReceived = LastCMDReceived;
                             Debug.WriteLine("Holding (wrong signal)");
-                            //debug only
-                            previousCMDReceived = 0;
                         }
                     }
                     else
@@ -106,24 +102,28 @@ namespace HOH_Library
                         if (this.TargetState != null && !commandProcessed)
                         {
                             this.TargetState.execute(NW);
-                            // commandProcessed = true;
                         }
                     }
-                    //Thread.Sleep(100); 
                 }
                 else if (!firstRun)
                 {
-                    //NW.ExecuteAndWait("p", "Pausing", null);
-                    NW.Send("p");
+                    //NW.Send("p");
                     //Thread.Sleep(40);
+                    NW.ExecuteAndWait("p", "*", null);
+                    commandProcessed = true;
+                    previousCMDReceived = LastCMDReceived;
                     Debug.WriteLine("Holding (last 10%)");
                 }
             }
-            NW.Send("r");
-            Thread.Sleep(40);
-            NW.Send("x");
-            previousCMDReceived = LastCMDReceived;
-            commandProcessed = true;
+            //NW.Send("r");
+            //Thread.Sleep(100);
+            NW.ExecuteAndWait("r", "*", null);
+                
+            //NW.Send("x");
+            //Thread.Sleep(100);
+            NW.ExecuteAndWait("x", "*", null);
+            //previousCMDReceived = LastCMDReceived;
+            //commandProcessed = true;
             theTimer.Dispose();
 
             Debug.WriteLine("SFLISTENER : END!");

@@ -78,8 +78,8 @@ namespace HOH_Library
                 SetText(e.Message);
             }
 
-            Console.WriteLine("\nPress ENTER to continue...");
-            Console.Read();
+           // Console.WriteLine("\nPress ENTER to continue...");
+            //Console.Read();
 
         }
 

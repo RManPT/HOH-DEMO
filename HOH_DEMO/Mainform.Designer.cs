@@ -259,6 +259,7 @@
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
+            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
             // 
             // loadProtocolsToolStripMenuItem
             // 
@@ -444,6 +445,7 @@
             this.lstProtocolsExercises.FormattingEnabled = true;
             resources.ApplyResources(this.lstProtocolsExercises, "lstProtocolsExercises");
             this.lstProtocolsExercises.Name = "lstProtocolsExercises";
+            this.lstProtocolsExercises.SelectedIndexChanged += new System.EventHandler(this.lstProtocolsExercises_SelectedIndexChanged);
             this.lstProtocolsExercises.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.lstProtocolsExercises_Format);
             // 
             // label15

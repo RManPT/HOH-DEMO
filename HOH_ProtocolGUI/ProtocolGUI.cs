@@ -28,8 +28,6 @@ namespace HOH_ProtocolGUI
             HOHEvent.ExerciseNameUpdated += OnHOHEventUpdate;
             HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
             HOHEvent.RewardLauncherUpdated += OnHOHEventUpdate;
-
-
         }
 
         public sealed override string Text
@@ -41,7 +39,7 @@ namespace HOH_ProtocolGUI
         private void OnHOHEventUpdate(object sender, HOHEvent e)
         {
             Delegate d = new EventSubscribed(updateGUI);
-            this.Invoke(d, e);
+            if (IsHandleCreated) this?.Invoke(d, e);
         }
 
         private void updateGUI(HOHEvent e)
@@ -66,6 +64,7 @@ namespace HOH_ProtocolGUI
             {
                 btnRestart.Enabled = (string.Equals(e.ProtocolState, "stopped", StringComparison.OrdinalIgnoreCase));
                 lblExerciseTime.Visible = (string.Equals(e.ProtocolState, "running", StringComparison.OrdinalIgnoreCase));
+                if (btnRestart.Enabled) btnStop.Text = "Exit";
             }
             Thread.Yield();
         }
@@ -103,7 +102,7 @@ namespace HOH_ProtocolGUI
                 btnStop.Text = "Exit";
             }
             else {
-                ProtocolGUI_FormClosing(sender, null );
+                //ProtocolGUI_FormClosing(sender, null );
                 this.Close();
             }
         }

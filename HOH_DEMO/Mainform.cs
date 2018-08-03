@@ -70,9 +70,9 @@ namespace HOH_DEMO
             //ServerSL.Start();
 
             HOHEvent.LogUpdated += OnHOHEventUpdate;
+            HOHEvent.HOHLogUpdated += OnHOHEventUpdate;
             HOHEvent.UsrMsgUpdated += OnHOHEventUpdate;
             HOHEvent.ClinicUpdated += OnClinicEventUpdate;
-           
             HOHEvent.ProtocolGUIStatusUpdated += OnProtocolGUIStatusUpdate;
 
             GetProtocols();
@@ -89,7 +89,7 @@ namespace HOH_DEMO
         private void resetStartBtn(HOHEvent e)
         {
             btnProtocolStart.Enabled = !(bool)e.ProtocolGUIStatus;
-            Debug.WriteLine(e.ProtocolGUIStatus);
+            Debug.WriteLine("PGUI Status: " + e.ProtocolGUIStatus);
         }
 
         private void LoadProperties()
@@ -136,12 +136,13 @@ namespace HOH_DEMO
         {
             if (e.LogMsg != null) txtProtocolsLog.AppendText(e.LogMsg + Environment.NewLine);
             if (e.UserMsg != null) txtProtocolsLog.AppendText(e.UserMsg + Environment.NewLine);
+            if (e.HOHLogMsg !=null) textBoxLog.AppendText(e.HOHLogMsg + Environment.NewLine);
             btnProtocolStart.Enabled = e.ProtocolGUIStatus;
         }
 
         private void GetProtocols()
         {
-            //protocolsBinding.DataSource = null;
+           // protocolsBinding.DataSource = null;
             protocolsBinding.DataSource = clinic.Protocols;
             protocolDetailsBinding.DataSource = protocolsBinding;
 
@@ -168,6 +169,10 @@ namespace HOH_DEMO
             listRepetitions.DataSource = protocolExerciseBindingSource;
             listRepetitions.DisplayMember = "Repetitions";
 
+            lstOptionsGeneralRewards.DataSource = null;
+            lstOptionsGeneralRewards.DataSource = clinic.Rewards;
+            lstOptionsGeneralRewards.Refresh();
+
             //lstProtocols.DataSource = blProtocols;
             //lstProtocols.DisplayMember = "Name";
 
@@ -188,14 +193,17 @@ namespace HOH_DEMO
             protocolsBinding.DataSource = clinic.Protocols;
             protocolDetailsBinding.DataSource = protocolsBinding;
 
+            
 
             lstProtocols.Refresh();
+            lstProtocolsExercises.Refresh();
+            listRepetitions.Refresh();
 
-            if (clinic.Protocols.Count != 0)
+            if (lstProtocols.Items.Count != 0)
             {
                 lstProtocols.SelectedIndex = 0;
-                lstProtocolsExercises.Refresh();
-                listRepetitions.Refresh();
+                lstProtocols_SelectedIndexChanged(null, null);
+                //  lstProtocols.Refresh();
             }
         }
 
@@ -347,7 +355,7 @@ namespace HOH_DEMO
                     //NW.ExecuteAndWait("00", "done");
                     NW.Send("00");
                     //NW.ExecuteAndWait("00", "untested");
-                    Debug.WriteLine("status" + NW.GetStatusMsg());
+                    Debug.WriteLine("HOH status" + NW.GetStatusMsg());
 
                 }
                 else
@@ -368,10 +376,12 @@ namespace HOH_DEMO
             }
             else
             {
-                NW.Send("r");
-                NW.Send("x");
+                //NW.ExecuteAndWait("r","*",null);
+                //NW.ExecuteAndWait("x","*", null);
+                NW.Send("r"); Thread.Sleep(100);
+                NW.Send("x"); Thread.Sleep(100);
                 //resets hand
-                buttonfullyopen_Click(sender, e);
+                NW.Send("06"); Thread.Sleep(100);
                 if (NW.Disconnect())
                 {
                     buttonConnect.Text = "Connect";
@@ -440,7 +450,7 @@ namespace HOH_DEMO
         {
             // NW.Send("06");
             //criar thread para este método
-            Thread exec = new Thread(() => NW.ExecuteAndWait("06", "Exit restoring", PrintEndOfMove));
+            Thread exec = new Thread(() => NW.ExecuteAndWait("06", "Exit restoring", null));
             exec.Start();
         }
 
@@ -479,7 +489,7 @@ namespace HOH_DEMO
 
         private void Mainform_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Debug.WriteLine("All clear!");
+            Debug.WriteLine("App exit: All clear!");
         }
 
 
@@ -975,6 +985,7 @@ namespace HOH_DEMO
 
                 //disconnects hand socket
                 buttonConnect_Click(sender, e);
+                
                
             }
 
@@ -983,6 +994,7 @@ namespace HOH_DEMO
             btnServerStop_Click(sender, e);
             //clears events
             HOHEvent.LogUpdated -= OnHOHEventUpdate;
+            HOHEvent.HOHLogUpdated -= OnHOHEventUpdate;
             HOHEvent.UsrMsgUpdated -= OnHOHEventUpdate;
             HOHEvent.ClinicUpdated -= OnClinicEventUpdate;
             HOHEvent.ProtocolStateUpdated -= OnProtocolGUIStatusUpdate;
@@ -1018,7 +1030,7 @@ namespace HOH_DEMO
         {
             ProtocolEditor f1 = new ProtocolEditor(clinic);
             f1.ShowDialog();
-            Debug.WriteLine("form"); 
+            Debug.WriteLine("menu click form open"); 
             //f1.Close();
         }
 
@@ -1039,7 +1051,6 @@ namespace HOH_DEMO
             listRepetitions.DisplayMember = "Repetitions";
 
             btnProtocolStart.Enabled = ((Protocol)lstProtocols.SelectedItem).Exercises != null && lstProtocolsExercises.Items.Count != 0 && NW.isConnected;
-            Debug.WriteLine(btnProtocolStart.Enabled);
         }
 
         private void tabProtocol_Click(object sender, EventArgs e)
@@ -1134,6 +1145,7 @@ namespace HOH_DEMO
                 //msg = "Protocols seeded";
             }
             //HOHEventObj.UpdateClinic(clinic);
+            //GetProtocols();
             UpdateProtocols();
         }
 
@@ -1238,6 +1250,16 @@ namespace HOH_DEMO
             Application.Exit();
         }
 
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lstProtocolsExercises_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void LoadProtocols()
         {
 
@@ -1277,7 +1299,7 @@ namespace HOH_DEMO
                 clinic = Seed.SetupData(clinic);
                 msg = "Protocols seeded";
             }
-            Debug.WriteLine(msg);
+            Debug.WriteLine("Load protocols: " + msg);
         }
     }
 }

@@ -18,6 +18,8 @@ namespace HOH_Library
         public bool ExerciseRunning { get; set; }
         public bool ProtocolGUIStatus { get; set; }
         public bool LaunchReward { get; set; }
+        public string HOHLogMsg { get; set; }
+
 
 
         public static event EventHandler<HOHEvent> LogUpdated;
@@ -30,6 +32,7 @@ namespace HOH_Library
         public static event EventHandler<HOHEvent> ProtocolGUIStatusUpdated;
         public static event EventHandler<HOHEvent> ClinicUpdated;
         public static event EventHandler<HOHEvent> RewardLauncherUpdated;
+        public static event EventHandler<HOHEvent> HOHLogUpdated;
 
         public HOHEvent()
         {
@@ -41,6 +44,10 @@ namespace HOH_Library
         protected virtual void OnLogUpdated(HOHEvent e)
         {
             LogUpdated?.Invoke(this, e);
+        }
+        protected virtual void OnHOHLogUpdated(HOHEvent e)
+        {
+            HOHLogUpdated?.Invoke(this, e);
         }
 
         protected virtual void OnUsrMsgUpdated(HOHEvent e)
@@ -95,7 +102,10 @@ namespace HOH_Library
         {
             OnLogUpdated(new HOHEvent() {LogMsg = strInformation});
         }
-
+        public void UpdateHOHLogMsg(string strInformation)
+        {
+            OnHOHLogUpdated(new HOHEvent() { HOHLogMsg = strInformation });
+        }
         public void UpdateUsrMsg(string strInformation)
         {
             OnUsrMsgUpdated(new HOHEvent() {UserMsg = strInformation});

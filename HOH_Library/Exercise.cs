@@ -105,9 +105,9 @@ namespace HOH_Library
 
         public void Execute(MRNetwork NW)
         {
+
             ExecuteStatus = true;
             exerciseRunning = true;
-
 
             HOHEvent.ProtocolStateUpdated += OnHOHEventUpdate;
             HOHEvent.ExerciseStateUpdated += OnExerciseStateUpdated;
@@ -115,41 +115,53 @@ namespace HOH_Library
             this.NW = NW;
             for (int i = 0; i < this.Repetitions; i++)
             {
-                HOHEventObj.UpdateLogMsg("EXERCISE: START!");
-                HOHEventObj.UpdateLogMsg("Executing exercise: " + this.Name);
-
-                if (this.PreState != null && ExecuteStatus)
-                { 
-                    HOHEventObj.UpdateLogMsg("Setting Prestate: " + this.PreState.Name);
-                    this.PreState.execute(NW);
-                }
-
-                if (this.TargetState != null && ExecuteStatus)
+                if (ExecuteStatus)
                 {
-                    HOHEventObj.UpdateLogMsg("Target State: " + this.TargetState.Name);
-                    HOHEventObj.UpdateUsrMsg(this.UserMsg);
-                    sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
-                    Thread SFThread = new Thread(() => sf.Execute(NW));
-                    SFThread.Start();
-                    exerciseRunning = true;
-                    
-                    while (exerciseRunning)
-                    { }
-                   // SFThread.Interrupt();
-                    //Thread.Sleep(this.ExerciseTime * 1000);
-                    sf.InterruptListener(NW);
-                    //SFThread.Interrupt();
-                    //sf = null;
-                }
+                    Debug.WriteLine("Exercise rep: " + i + 1);
 
-                if (this.PostState != null && ExecuteStatus)
-                {
-                    HOHEventObj.UpdateLogMsg("Setting PostState: " + this.PostState.Name);
-                    this.PostState.execute(NW);
-                }
 
-              
-                HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
+                    HOHEventObj.UpdateLogMsg("EXERCISE ("+ (i + 1) + "x): START!");
+                    HOHEventObj.UpdateLogMsg("Executing exercise: " + this.Name);
+
+                    if (this.PreState != null && ExecuteStatus)
+                    {
+                        HOHEventObj.UpdateLogMsg("Setting Prestate: " + this.PreState.Name);
+                        this.PreState.execute(NW);
+                    }
+
+                    if (this.TargetState != null && ExecuteStatus)
+                    {
+                        HOHEventObj.UpdateLogMsg("Target State: " + this.TargetState.Name);
+                        HOHEventObj.UpdateUsrMsg(this.UserMsg);
+                        sf = new SFListener(this.TargetState, Int32.Parse(this.SFCode), this.ExerciseTime, this);
+                        Thread SFThread = new Thread(() => sf.Execute(NW));
+                        SFThread.Start();
+                        exerciseRunning = true;
+
+                        while (exerciseRunning)
+                        { }
+                        // SFThread.Interrupt();
+                        //Thread.Sleep(this.ExerciseTime * 1000);
+                        sf?.InterruptListener(NW);
+                        Thread.Sleep(500);
+                        //SFThread.Interrupt();
+                       // sf = null;
+                       // SFThread = null;
+
+                    }
+
+                    Debug.WriteLine("Exercise Target State : got out!");
+
+                    if (this.PostState != null && ExecuteStatus)
+                    {
+                        HOHEventObj.UpdateLogMsg("Setting PostState: " + this.PostState.Name);
+                        this.PostState.execute(NW);
+                    }
+
+
+                    HOHEventObj.UpdateLogMsg("EXERCISE: DONE!");
+                }
+                else break;
             }
             HOHEvent.ProtocolStateUpdated -= OnHOHEventUpdate;
             HOHEvent.ExerciseStateUpdated -= OnExerciseStateUpdated;
@@ -164,7 +176,6 @@ namespace HOH_Library
                 sf?.InterruptListener(NW);
                 ExecuteStatus = false;
                 NW.ExecuteStatus = false;
-                
             }
             else {
                 ExecuteStatus = true;
