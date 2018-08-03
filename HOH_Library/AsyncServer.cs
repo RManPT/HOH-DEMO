@@ -188,7 +188,11 @@ namespace HOH_Library
                 Debug.WriteLine(e.Message);
             }
         }
-
+        public static void SendAll(string m)
+        {
+            foreach (Socket sock in MySocketList)
+                Send(sock, m);
+        }
         public static void Send(Socket handler, String data)
         { 
             // Convert the string data to byte data using ASCII encoding.  

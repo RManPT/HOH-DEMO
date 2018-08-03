@@ -92,7 +92,6 @@
             this.btnProtocolExercisesUP = new System.Windows.Forms.Button();
             this.lblAvailableexe = new System.Windows.Forms.Label();
             this.lstAvailableExercises = new System.Windows.Forms.ListBox();
-            this.label30 = new System.Windows.Forms.Label();
             this.btnProtocolExercisesRemove = new System.Windows.Forms.Button();
             this.btnProtocolExercisesAdd = new System.Windows.Forms.Button();
             this.label29 = new System.Windows.Forms.Label();
@@ -105,7 +104,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.resetFromSeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -407,7 +405,6 @@
             this.tabPage3.Controls.Add(this.btnProtocolExercisesUP);
             this.tabPage3.Controls.Add(this.lblAvailableexe);
             this.tabPage3.Controls.Add(this.lstAvailableExercises);
-            this.tabPage3.Controls.Add(this.label30);
             this.tabPage3.Controls.Add(this.btnProtocolExercisesRemove);
             this.tabPage3.Controls.Add(this.btnProtocolExercisesAdd);
             this.tabPage3.Controls.Add(this.label29);
@@ -585,13 +582,6 @@
             this.lstAvailableExercises.Name = "lstAvailableExercises";
             this.toolTip1.SetToolTip(this.lstAvailableExercises, resources.GetString("lstAvailableExercises.ToolTip"));
             // 
-            // label30
-            // 
-            resources.ApplyResources(this.label30, "label30");
-            this.label30.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label30.Name = "label30";
-            this.toolTip1.SetToolTip(this.label30, resources.GetString("label30.ToolTip"));
-            // 
             // btnProtocolExercisesRemove
             // 
             resources.ApplyResources(this.btnProtocolExercisesRemove, "btnProtocolExercisesRemove");
@@ -668,8 +658,7 @@
             // 
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.resetFromSeedToolStripMenuItem,
-            this.deleteAllToolStripMenuItem});
+            this.resetFromSeedToolStripMenuItem});
             this.menuStrip1.Name = "menuStrip1";
             // 
             // resetFromSeedToolStripMenuItem
@@ -677,13 +666,6 @@
             this.resetFromSeedToolStripMenuItem.Name = "resetFromSeedToolStripMenuItem";
             resources.ApplyResources(this.resetFromSeedToolStripMenuItem, "resetFromSeedToolStripMenuItem");
             this.resetFromSeedToolStripMenuItem.Click += new System.EventHandler(this.resetFromSeedToolStripMenuItem_Click);
-            // 
-            // deleteAllToolStripMenuItem
-            // 
-            this.deleteAllToolStripMenuItem.ForeColor = System.Drawing.Color.Red;
-            this.deleteAllToolStripMenuItem.Name = "deleteAllToolStripMenuItem";
-            resources.ApplyResources(this.deleteAllToolStripMenuItem, "deleteAllToolStripMenuItem");
-            this.deleteAllToolStripMenuItem.Click += new System.EventHandler(this.deleteAllToolStripMenuItem_Click);
             // 
             // ProtocolEditor
             // 
@@ -757,7 +739,6 @@
         private System.Windows.Forms.Button btnStatesApply;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.ListBox lstProtocolExercises;
-        private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Button btnProtocolExercisesRemove;
         private System.Windows.Forms.Button btnProtocolExercisesAdd;
         private System.Windows.Forms.Label lblAvailableexe;
@@ -788,7 +769,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem resetFromSeedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteAllToolStripMenuItem;
     }
 }
 

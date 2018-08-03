@@ -252,22 +252,25 @@ namespace HOH_Library
             ExecuteStatus = true;
             Send(command);
             //Thread.Sleep(100);
-            //            Debug.WriteLine(command + "|" + exitCondition);
+            Debug.WriteLine(command + "|" + exitCondition);
             if (exitCondition!=String.Empty)
             while (ExecuteStatus)
             {
-              //      Debug.WriteLine("waiting");
-                    if (msgs != null)
-                    if (!msgs.IsEmpty)
+                    //Debug.WriteLine("waiting");
+                    lock (msgs)
                     {
-                        if (msgs.TryDequeue(out string result))
-                            if (result.Contains(exitCondition))
+                        if (msgs != null)
+                            if (!msgs.IsEmpty)
                             {
-                                ExecuteStatus = false;
-                                SetStatusMsg("Operation concluded");
-                                    //Send("p");
-                                   // Send("x");
-                                    break;
+                                if (msgs.TryDequeue(out string result))
+                                    if (result.Contains(exitCondition) || exitCondition == "*")
+                                    {
+                                        ExecuteStatus = false;
+                                        SetStatusMsg("Operation concluded");
+                                        //Send("p");
+                                        // Send("x");
+                                        break;
+                                    }
                             }
                     }
                 //Thread.Sleep(50);
@@ -327,7 +330,7 @@ namespace HOH_Library
                 logMsgs.TryDequeue(out string result);
                 SetText(result);
                 }
-                Thread.Sleep(50);
+//                Thread.Sleep(50);
             }
         }
 

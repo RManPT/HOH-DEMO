@@ -900,7 +900,9 @@ namespace HOH_ProtocolEditor
             txtProtocolExerciseDetails4.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
             txtProtocolExerciseDetails5.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
             txtProtocolName.Enabled = Convert.ToBoolean(blProtocols.Count);
-            
+
+            btnProtocolExercisesUP.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
+            btnProtocolExercisesDown.Enabled = Convert.ToBoolean(lstProtocolExercises.Items.Count);
 
         }
 

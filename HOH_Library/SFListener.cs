@@ -45,12 +45,14 @@ namespace HOH_Library
             AsyncServer.LastCMDReceived = 0;
             AsyncServer.commandProcessed = true;
             previousCMDReceived = 1;
-           
 
+            
             HOHEventObj.UpdateLogMsg("SFListener: START");
+            AsyncServer.SendAll(((char)SFCode).ToString());
+
             while (ExecuteStatus && this.TimerCounter >= -1)
             {
-
+                
                 if (firstRun || NW.ExecuteStatus)
                 {
 
@@ -72,6 +74,8 @@ namespace HOH_Library
                                 Thread SFThread = new Thread(() => this.TargetState.execute(NW));
                                 SFThread.Start();
 
+                                //garante que comando incial é processado pela mão (procurar solucao dinamica)
+                                Thread.Sleep(100);
                                 firstRun = false;
                             }
                             else
@@ -96,7 +100,6 @@ namespace HOH_Library
                             //debug only
                             previousCMDReceived = 0;
                         }
-
                     }
                     else
                     {  //debug mode ... no clients connected

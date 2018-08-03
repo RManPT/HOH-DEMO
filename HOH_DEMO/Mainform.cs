@@ -136,7 +136,7 @@ namespace HOH_DEMO
         {
             if (e.LogMsg != null) txtProtocolsLog.AppendText(e.LogMsg + Environment.NewLine);
             if (e.UserMsg != null) txtProtocolsLog.AppendText(e.UserMsg + Environment.NewLine);
-          //  btnProtocolStart.Enabled = e.ProtocolGUIStatus;
+            btnProtocolStart.Enabled = e.ProtocolGUIStatus;
         }
 
         private void GetProtocols()
@@ -155,9 +155,16 @@ namespace HOH_DEMO
             lstProtocolsExercises.DataSource = protocolExerciseBindingSource;
             lstProtocolsExercises.DisplayMember = "GetExerciseName";
 
-            // Debug.WriteLine(protocolDetailsBinding.ToString());
+            if (lstProtocols.Items.Count != 0)
+            {
+                lstProtocols.SelectedIndex = 0;
+                lstProtocols_SelectedIndexChanged(null, null);
+              //  lstProtocols.Refresh();
+            }
 
-            listRepetitions.DataSource = null;
+                // Debug.WriteLine(protocolDetailsBinding.ToString());
+
+                listRepetitions.DataSource = null;
             listRepetitions.DataSource = protocolExerciseBindingSource;
             listRepetitions.DisplayMember = "Repetitions";
 
@@ -200,11 +207,7 @@ namespace HOH_DEMO
 
         //Custom functions
         #region Custom functions
-        private void sendAll(string m)
-        {
-            foreach (Socket sock in AsyncServer.MySocketList)
-                AsyncServer.Send(sock, m);
-        }
+ 
 
         //Lança para a consola devolvidas pelos eventos
         /*     private void InputDetectedEvent(object sender, LANCBEvenArgs e)
@@ -335,6 +338,7 @@ namespace HOH_DEMO
                     Debug.WriteLine("HOH Connected");
                     connectedHOH = true;
                     textBoxLog.Text = "";
+
                     btnProtocolStart.Enabled = true;
 
                     /*TxtBoxUpdater = new MRNetworkTxtBoxUpdater(NW, textBoxLog);
@@ -358,7 +362,7 @@ namespace HOH_DEMO
                     else
                     {
                         connectedHOH = false;
-                        //btnProtocolStart.Enabled = false;
+                        btnProtocolStart.Enabled = false;
                     }
                 }
             }
@@ -618,7 +622,7 @@ namespace HOH_DEMO
 
 
             //Sends Sync Message
-            sendAll(((char)msgToSendSF).ToString());
+            AsyncServer.SendAll(((char)msgToSendSF).ToString());
         }
 
 
@@ -668,7 +672,7 @@ namespace HOH_DEMO
         {
             if (btnServerSetPassive.Text == "Set Passive Mode")
             {
-                sendAll(((char)11).ToString());
+                AsyncServer.SendAll(((char)11).ToString());
                 //AsyncServer.Send(AsyncServer.currentClient, "1");
                 btnServerSetPassive.Text = "Stop Passive Mode";
                 txtServerLog.AppendText("PASSIVE MODE ON\r\n");
@@ -676,7 +680,7 @@ namespace HOH_DEMO
             }
             else
             {
-                sendAll(((char)10).ToString());
+                AsyncServer.SendAll(((char)10).ToString());
                 //AsyncServer.Send(AsyncServer.currentClient, "0");
                 btnServerSetPassive.Text = "Set Passive Mode";
                 txtServerLog.AppendText("PASSIVE MODE OFF\r\n");
@@ -688,7 +692,7 @@ namespace HOH_DEMO
         {
             if (btnServerSetContinuous.Text == "Set Continuous Mode")
             {
-                sendAll(((char)21).ToString());
+                AsyncServer.SendAll(((char)21).ToString());
                 //AsyncServer.Send(AsyncServer.currentClient, "2");
                 btnServerSetContinuous.Text = "Stop Continuous Mode";
                 txtServerLog.AppendText("CONTINUOS MODE ON\r\n");
@@ -696,7 +700,7 @@ namespace HOH_DEMO
             }
             else
             {
-                sendAll(((char)20).ToString());
+                AsyncServer.SendAll(((char)20).ToString());
                 //AsyncServer.Send(AsyncServer.currentClient, "0");
                 btnServerSetContinuous.Text = "Set Continuous Mode";
                 txtServerLog.AppendText("CONTINUOS MODE OFF\r\n");
@@ -1033,6 +1037,9 @@ namespace HOH_DEMO
             listRepetitions.DataSource = null;
             listRepetitions.DataSource = ((Protocol)lstProtocols.SelectedItem).Exercises;
             listRepetitions.DisplayMember = "Repetitions";
+
+            btnProtocolStart.Enabled = ((Protocol)lstProtocols.SelectedItem).Exercises != null && lstProtocolsExercises.Items.Count != 0 && NW.isConnected;
+            Debug.WriteLine(btnProtocolStart.Enabled);
         }
 
         private void tabProtocol_Click(object sender, EventArgs e)
@@ -1049,7 +1056,7 @@ namespace HOH_DEMO
 
         private void btnProtocolStart_Click(object sender, EventArgs e)
         {
-            //btnProtocolStart.Enabled = false;
+           // btnProtocolStart.Enabled = false;
 
             Protocol pt = ((Protocol)lstProtocols.SelectedItem);
             ProtocolGUI protocolGUI = new ProtocolGUI(clinic, pt, NW);

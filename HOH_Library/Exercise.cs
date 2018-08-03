@@ -132,6 +132,7 @@ namespace HOH_Library
                     Thread SFThread = new Thread(() => sf.Execute(NW));
                     SFThread.Start();
                     exerciseRunning = true;
+                    
                     while (exerciseRunning)
                     { }
                    // SFThread.Interrupt();
