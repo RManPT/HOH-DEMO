@@ -74,6 +74,7 @@ namespace HOH_DEMO
             HOHEvent.UsrMsgUpdated += OnHOHEventUpdate;
             HOHEvent.ClinicUpdated += OnClinicEventUpdate;
             HOHEvent.ProtocolGUIStatusUpdated += OnProtocolGUIStatusUpdate;
+            HOHEvent.HOHConnUpdated += OnHOHConnUpdate;
 
             GetProtocols();
 
@@ -84,6 +85,36 @@ namespace HOH_DEMO
             Delegate d = new EventSubscribed(resetStartBtn);
             this.Invoke(d, e);
             
+        }
+
+        private void OnHOHConnUpdate(object sender, HOHEvent e)
+        {
+            Delegate d = new EventSubscribed(HOHConnChanged);
+            this.Invoke(d, e);
+        }
+        public void HOHConnChanged(HOHEvent e)
+        {
+            if (e.isHOHConnected == "off")
+            {
+                var result = MessageBox.Show
+                       ("Failed to find the device at " + deviceIP + ":" + devicePORT, "Connection fail!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation);
+                if (result == DialogResult.Retry)
+                    buttonConnect_Click(null, null);
+            }
+
+            if (e.isHOHConnected == "failoff" && connectedHOH)
+            {
+                var result = MessageBox.Show
+                       ("Lost connection to the device at " + deviceIP + ":" + devicePORT, "Connection fail!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation);
+                NW.Disconnect();
+                buttonConnect.Text = "Connect";
+                connectedHOH = false;
+                btnProtocolStart.Enabled = false;
+                if (result == DialogResult.Retry)
+                {
+                    buttonConnect_Click(null, null);
+                }
+            }
         }
 
         private void resetStartBtn(HOHEvent e)
@@ -341,7 +372,6 @@ namespace HOH_DEMO
             {
                 if (NW.Connect())
                 {
-                    //NW.InputChanged += InputDetectedEvent;
                     buttonConnect.Text = "Disconnect";
                     Debug.WriteLine("HOH Connected");
                     connectedHOH = true;
@@ -356,22 +386,14 @@ namespace HOH_DEMO
                     NW.Send("00");
                     //NW.ExecuteAndWait("00", "untested");
                     Debug.WriteLine("HOH status" + NW.GetStatusMsg());
-
+                    HOHEventObj.UpdateHOHConn("on");
                 }
                 else
                 {
-                    //NW.InputChanged -= InputDetectedEvent;
-                    // MessageBox.Show("Connect fail");
-
-                    var result = MessageBox.Show
-                           ("Failed to find the device at " + deviceIP + ":" + devicePORT, "Connection fail!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation);
-                    if (result == DialogResult.Retry)
-                        buttonConnect_Click(sender, e);
-                    else
-                    {
-                        connectedHOH = false;
-                        btnProtocolStart.Enabled = false;
-                    }
+                    buttonConnect.Text = "Connect";
+                    connectedHOH = false;
+                    btnProtocolStart.Enabled = false;
+                    HOHEventObj.UpdateHOHConn("off");
                 }
             }
             else
@@ -390,10 +412,12 @@ namespace HOH_DEMO
                     connectedHOH = false;
                     btnProtocolStart.Enabled = false;
                     //TxtBoxUpdater.Stop();
+                    HOHEventObj.UpdateHOHConn("trueoff");
                 }
             }
         }
 
+     
 
         private void buttonSend_Click(object sender, EventArgs e)
         {

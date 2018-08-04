@@ -19,6 +19,7 @@ namespace HOH_Library
         public bool ProtocolGUIStatus { get; set; }
         public bool LaunchReward { get; set; }
         public string HOHLogMsg { get; set; }
+        public string isHOHConnected { get; set; }
 
 
 
@@ -33,6 +34,7 @@ namespace HOH_Library
         public static event EventHandler<HOHEvent> ClinicUpdated;
         public static event EventHandler<HOHEvent> RewardLauncherUpdated;
         public static event EventHandler<HOHEvent> HOHLogUpdated;
+        public static event EventHandler<HOHEvent> HOHConnUpdated;
 
         public HOHEvent()
         {
@@ -93,6 +95,11 @@ namespace HOH_Library
             RewardLauncherUpdated?.Invoke(this, e);
         }
 
+        protected virtual void OnHOHConnUpdated(HOHEvent e)
+        {
+            HOHConnUpdated?.Invoke(this, e);
+        }
+
         #endregion
 
 
@@ -148,6 +155,11 @@ namespace HOH_Library
         public void RewardLaunch(bool rw)
         {
             OnRewardLaunched(new HOHEvent() { LaunchReward = rw });
+        }
+
+        public void UpdateHOHConn(string rw)
+        {
+            OnHOHConnUpdated(new HOHEvent() { isHOHConnected = rw });
         }
         #endregion
 

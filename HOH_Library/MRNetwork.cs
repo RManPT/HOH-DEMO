@@ -193,7 +193,15 @@ namespace HOH_Library
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Message);
+                Debug.WriteLine("Async calback error: Hand disconnected!?");
+                if (isConnected)
+                {
+                    HOHEventObj.UpdateHOHConn("failoff");
+                   // isConnected = false;
+                }
+                // Debug.WriteLine(e.Message);
+
+
             }
         }
 
@@ -209,8 +217,13 @@ namespace HOH_Library
                 }
                 catch (Exception e)
                 {
-                    Thread.Sleep(50);
+                    Debug.WriteLine("Error sending: Hand is disconnected!?");
+                if (isConnected)
+                {
+                    HOHEventObj.UpdateHOHConn("failoff");
+                   // isConnected = false;
                 }
+            }
                 return false;
            // }
         }
@@ -262,24 +275,24 @@ namespace HOH_Library
                 lock (msgs)
                 {
                     if (msgs != null)
-                        if (!msgs.IsEmpty)
+                    if (!msgs.IsEmpty)
+                    {
+                        if (exitCondition == "*")
                         {
-                            if (exitCondition == "*")
+                            while (Waiting) { }
+                            //Thread.Sleep(50);
+                            break;
+                        } else
+                        if (msgs.TryDequeue(out string result))
+                        {
+                            if (result.IndexOf(exitCondition, StringComparison.OrdinalIgnoreCase) >= 0)
                             {
-                                //while (Waiting) { }
-                                Thread.Sleep(50);
+                                ExecuteStatus = false;
+                                HOHEventObj.UpdateHOHLogMsg("Operation concluded");
                                 break;
-                            } 
-                            if (msgs.TryDequeue(out string result))
-                            {
-                                if (result.Contains(exitCondition))
-                                {
-                                    ExecuteStatus = false;
-                                    HOHEventObj.UpdateHOHLogMsg("Operation concluded");
-                                    break;
-                                }
                             }
                         }
+                    }
                 }
             }
             if (next != null)
@@ -321,6 +334,7 @@ namespace HOH_Library
 
         public void IsTested()
         {
+          
             bool Execute = true;
             while(Execute)
             {
@@ -328,26 +342,26 @@ namespace HOH_Library
                 if (!msgs.IsEmpty)
                 {
                     if (msgs.TryDequeue(out string result))
-                    { 
+                    {
                         //Debug.WriteLine(result + " - untested");
                         //Debug.WriteLine("EXECUTE DISTANCE: " + Utils.Levenshtein(result.ToLower(), "hand, untested"));
 
-                        if (result.Contains("untested")) 
+                        if (result.IndexOf("untested", StringComparison.OrdinalIgnoreCase) >= 0)
                         {
                             Thread exec = new Thread(() => ExecuteAndWait("01", "Exit hand brace testing", null));
                             exec.Start();
                             Debug.WriteLine("ISTESTED: not tested");
                             Execute = false;
                         }
-                        else
-                        {
-                           Debug.WriteLine("ISTESTED: already tested");
-                                Execute = false;// break;
-                        }       
                     }
                 }
-                Thread.Sleep(50);
+                else
+                {
+                    Execute = false;
+                }
+                //Thread.Sleep(500);
             }
+            Debug.WriteLine("ISTESTED: is tested");
         }
     }   
 }
